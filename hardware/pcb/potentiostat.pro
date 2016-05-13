@@ -1,4 +1,4 @@
-update=Thu 12 May 2016 06:36:24 PM PDT
+update=Fri 13 May 2016 01:21:14 PM PDT
 version=1
 last_client=eeschema
 [cvpcb]
@@ -87,3 +87,4 @@ LibName30=valves
 LibName31=teensy3
 LibName32=op07
 LibName33=zxre060
+LibName34=ad8250
