@@ -317,7 +317,7 @@ AGND
 Text Label 1825 5100 1    60   ~ 0
 +15V
 Text Notes 925  6700 0    60   ~ 0
-Scale bipolar DAC (DAC_BIP) by gain N=1,2,5, or 10 to get DAC_BIP_NX. 
+Scales bipolar DAC (DAC_BIP) by gain N=1,2,5, or 10 to get DAC_BIP_NX. 
 Text Notes 925  6850 0    60   ~ 0
 Gain is selected using digital outputs DAC_GAIN_A0 AND DAC_GAIN_A1.
 $Comp
@@ -464,7 +464,7 @@ AGND
 Text Label 1900 7175 1    60   ~ 0
 +15V
 Text Notes 3450 4850 0    60   ~ 0
-Gain=1.67
+Amplifier Gain=1.67
 $Comp
 L MEA1D05XXSC U?
 U 1 1 573678C5
