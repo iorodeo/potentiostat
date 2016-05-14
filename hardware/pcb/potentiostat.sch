@@ -35,6 +35,8 @@ LIBS:zxre060
 LIBS:ad8250
 LIBS:lt1995
 LIBS:mea1d05xxsc
+LIBS:opa129
+LIBS:opa227
 LIBS:potentiostat-cache
 EELAYER 27 0
 EELAYER END
@@ -61,172 +63,102 @@ F 3 "~" H 2600 2425 60  0000 C CNN
 	1    2900 2225
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	3900 1025 4100 1025
 Text Label 4100 1025 0    60   ~ 0
 DAC_UNI
-Wire Wire Line
-	1850 3625 1650 3625
 Text Label 1650 3625 2    60   ~ 0
 AGND
 $Comp
 L ZXRE060 U?
 U 1 1 57352FD2
-P 2800 9300
-F 0 "U?" H 2800 9050 60  0000 C CNN
-F 1 "ZXRE060" H 2800 9550 60  0000 C CNN
-F 2 "~" H 2800 9300 60  0000 C CNN
-F 3 "~" H 2800 9300 60  0000 C CNN
-	1    2800 9300
+P 2700 9650
+F 0 "U?" H 2700 9400 60  0000 C CNN
+F 1 "ZXRE060" H 2700 9900 60  0000 C CNN
+F 2 "~" H 2700 9650 60  0000 C CNN
+F 3 "~" H 2700 9650 60  0000 C CNN
+	1    2700 9650
 	1    0    0    -1  
 $EndComp
 $Comp
 L C C?
 U 1 1 57352FF0
-P 2100 9550
-F 0 "C?" H 2100 9650 40  0000 L CNN
-F 1 "0.1uF" H 2106 9465 40  0000 L CNN
-F 2 "~" H 2138 9400 30  0000 C CNN
-F 3 "~" H 2100 9550 60  0000 C CNN
-	1    2100 9550
+P 2000 9900
+F 0 "C?" H 2000 10000 40  0000 L CNN
+F 1 "0.1uF" H 2006 9815 40  0000 L CNN
+F 2 "~" H 2038 9750 30  0000 C CNN
+F 3 "~" H 2000 9900 60  0000 C CNN
+	1    2000 9900
 	1    0    0    -1  
 $EndComp
 $Comp
 L R R?
 U 1 1 57352FFF
-P 2850 9850
-F 0 "R?" V 2930 9850 40  0000 C CNN
-F 1 "1k" V 2857 9851 40  0000 C CNN
-F 2 "~" V 2780 9850 30  0000 C CNN
-F 3 "~" H 2850 9850 30  0000 C CNN
-	1    2850 9850
+P 2750 10200
+F 0 "R?" V 2830 10200 40  0000 C CNN
+F 1 "1k" V 2757 10201 40  0000 C CNN
+F 2 "~" V 2680 10200 30  0000 C CNN
+F 3 "~" H 2750 10200 30  0000 C CNN
+	1    2750 10200
 	0    -1   -1   0   
 $EndComp
 $Comp
 L C C?
 U 1 1 57353049
-P 1850 9550
-F 0 "C?" H 1850 9650 40  0000 L CNN
-F 1 "1uF" H 1856 9465 40  0000 L CNN
-F 2 "~" H 1888 9400 30  0000 C CNN
-F 3 "~" H 1850 9550 60  0000 C CNN
-	1    1850 9550
+P 1750 9900
+F 0 "C?" H 1750 10000 40  0000 L CNN
+F 1 "1uF" H 1756 9815 40  0000 L CNN
+F 2 "~" H 1788 9750 30  0000 C CNN
+F 3 "~" H 1750 9900 60  0000 C CNN
+	1    1750 9900
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1850 9350 1850 9300
-Wire Wire Line
-	1850 9750 1850 10000
-Text Label 1600 9850 2    60   ~ 0
+Text Label 1500 10200 2    60   ~ 0
 3V3
-Wire Wire Line
-	3900 1325 4100 1325
 Text Label 4100 1325 0    60   ~ 0
 3V3
-Wire Wire Line
-	1600 9300 2350 9300
-Connection ~ 1850 9300
-Text Label 1600 9300 2    60   ~ 0
+Text Label 1500 9650 2    60   ~ 0
 AGND
-Wire Wire Line
-	3250 9200 3700 9200
-Wire Wire Line
-	3450 9200 3450 10000
-Wire Wire Line
-	3250 9400 3450 9400
-Connection ~ 2100 9300
-Wire Wire Line
-	2100 9750 2100 9850
-Wire Wire Line
-	1600 9850 2600 9850
-Wire Wire Line
-	2300 9400 2300 9850
-Wire Wire Line
-	2300 9400 2350 9400
-Wire Wire Line
-	2100 9350 2100 9300
-Wire Wire Line
-	2250 9300 2250 9200
-Wire Wire Line
-	2250 9200 2350 9200
-Connection ~ 2250 9300
-Connection ~ 3450 9400
-Wire Wire Line
-	3450 9850 3100 9850
-Wire Wire Line
-	3450 10000 1850 10000
-Connection ~ 3450 9850
-Connection ~ 2100 9850
-Connection ~ 2300 9850
-Connection ~ 3450 9200
-Text Label 3700 9200 0    60   ~ 0
+Text Label 3600 9550 0    60   ~ 0
 REF_0V6
-Text Notes 950  8800 0    60   ~ 0
+Text Notes 850  9150 0    60   ~ 0
 Voltage Reference, 0.6V, Tol. 0.5%. Used in when shifting DAC_UNI to DAC_BIP.
 Text Notes 725  4700 0    60   ~ 0
 Shifts and scales unipolar DAC (DAC_UNI) from [0V,1.2V] range to bipolar DAC (DAC_BIP) in [-1V,1V]  range. \n 
 $Comp
 L AD8250 U?
 U 1 1 573637D1
-P 3725 7700
-F 0 "U?" H 3725 8050 60  0000 C CNN
-F 1 "AD8250" H 3725 7300 60  0000 C CNN
-F 2 "~" H 3575 7700 60  0000 C CNN
-F 3 "~" H 3575 7700 60  0000 C CNN
-	1    3725 7700
+P 3825 7750
+F 0 "U?" H 3825 8100 60  0000 C CNN
+F 1 "AD8250" H 3825 7350 60  0000 C CNN
+F 2 "~" H 3675 7750 60  0000 C CNN
+F 3 "~" H 3675 7750 60  0000 C CNN
+	1    3825 7750
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1850 1125 1650 1125
-Wire Wire Line
-	1850 1225 1650 1225
 Text Label 1650 1125 2    60   ~ 0
 DAC_GAIN_A0
 Text Label 1650 1225 2    60   ~ 0
 DAC_GAIN_A1
-Wire Wire Line
-	3225 7800 3025 7800
-Wire Wire Line
-	3225 7900 3025 7900
-Text Label 3025 7800 2    60   ~ 0
+Text Label 3125 7850 2    60   ~ 0
 DAC_GAIN_A0
-Text Label 3025 7900 2    60   ~ 0
+Text Label 3125 7950 2    60   ~ 0
 DAC_GAIN_A1
-Wire Wire Line
-	3225 7700 3025 7700
-Wire Wire Line
-	4225 7700 4425 7700
-Text Label 3025 7700 2    60   ~ 0
+Text Label 3125 7750 2    60   ~ 0
 -12V
-Text Label 4425 7700 0    60   ~ 0
+Text Label 4525 7750 0    60   ~ 0
 +12V
-Wire Wire Line
-	3900 1225 4100 1225
 Text Label 4100 1225 0    60   ~ 0
 GND
-Wire Wire Line
-	4225 7900 4425 7900
-Text Label 4425 7900 0    60   ~ 0
+Text Label 4525 7950 0    60   ~ 0
 -12V
-Wire Wire Line
-	4225 7800 4425 7800
-Text Label 4425 7800 0    60   ~ 0
+Text Label 4525 7850 0    60   ~ 0
 DAC_BIP_NX
-Wire Wire Line
-	3225 7600 3025 7600
-Text Label 3025 7600 2    60   ~ 0
+Text Label 3125 7650 2    60   ~ 0
 GND
-Wire Wire Line
-	4225 7600 4425 7600
-Text Label 4425 7600 0    60   ~ 0
+Text Label 4525 7650 0    60   ~ 0
 AGND
-Wire Wire Line
-	3225 7500 3025 7500
-Text Label 3025 7500 2    60   ~ 0
+Text Label 3125 7550 2    60   ~ 0
 AGND
-Wire Wire Line
-	4225 7500 4425 7500
-Text Label 4425 7500 0    60   ~ 0
+Text Label 4525 7550 0    60   ~ 0
 DAC_BIP
 $Comp
 L C C?
@@ -272,6 +204,213 @@ F 3 "~" H 1250 5600 60  0000 C CNN
 	1    1250 5600
 	1    0    0    -1  
 $EndComp
+Text Label 1100 5100 1    60   ~ 0
+AGND
+Text Label 1100 6100 3    60   ~ 0
+-15V
+Text Label 1825 6100 3    60   ~ 0
+AGND
+Text Label 1825 5100 1    60   ~ 0
++15V
+Text Notes 1075 6850 0    60   ~ 0
+Scales bipolar DAC (DAC_BIP) by gain N=1,2,5, or 10 to get DAC_BIP_NX. 
+Text Notes 1075 7000 0    60   ~ 0
+Gain is selected using digital outputs DAC_GAIN_A0 AND DAC_GAIN_A1.
+$Comp
+L LT1995 U?
+U 1 1 57366B11
+P 3650 5600
+F 0 "U?" H 3650 5950 60  0000 C CNN
+F 1 "LT1995" H 3650 5250 60  0000 C CNN
+F 2 "~" H 3500 5600 60  0000 C CNN
+F 3 "~" H 3500 5600 60  0000 C CNN
+	1    3650 5600
+	1    0    0    -1  
+$EndComp
+Text Label 2800 5700 2    60   ~ 0
+-12V
+Text Label 4500 5700 0    60   ~ 0
++12V
+Text Label 2800 5800 2    60   ~ 0
+AGND
+Text Label 2800 5400 2    60   ~ 0
+DAC_UNI
+Text Label 4500 5800 0    60   ~ 0
+DAC_BIP
+Text Label 4500 5400 0    60   ~ 0
+REF_0V6
+$Comp
+L C C?
+U 1 1 57367149
+P 5700 1725
+F 0 "C?" H 5700 1825 40  0000 L CNN
+F 1 "0.1uF" H 5706 1640 40  0000 L CNN
+F 2 "~" H 5738 1575 30  0000 C CNN
+F 3 "~" H 5700 1725 60  0000 C CNN
+	1    5700 1725
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 5736714F
+P 4975 1725
+F 0 "C?" H 4975 1825 40  0000 L CNN
+F 1 "0.1uF" H 4981 1640 40  0000 L CNN
+F 2 "~" H 5013 1575 30  0000 C CNN
+F 3 "~" H 4975 1725 60  0000 C CNN
+	1    4975 1725
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP1 C?
+U 1 1 57367155
+P 6000 1725
+F 0 "C?" H 6050 1825 50  0000 L CNN
+F 1 "10uF" H 6050 1625 50  0000 L CNN
+F 2 "~" H 6000 1725 60  0000 C CNN
+F 3 "~" H 6000 1725 60  0000 C CNN
+	1    6000 1725
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP1 C?
+U 1 1 5736715B
+P 5275 1725
+F 0 "C?" H 5325 1825 50  0000 L CNN
+F 1 "10uF" H 5325 1625 50  0000 L CNN
+F 2 "~" H 5275 1725 60  0000 C CNN
+F 3 "~" H 5275 1725 60  0000 C CNN
+	1    5275 1725
+	1    0    0    -1  
+$EndComp
+Text Label 5125 1225 1    60   ~ 0
+AGND
+Text Label 5125 2225 3    60   ~ 0
+-15V
+Text Label 5850 2225 3    60   ~ 0
+AGND
+Text Label 5850 1225 1    60   ~ 0
++15V
+Text Notes 3450 4850 0    60   ~ 0
+Amplifier Gain=1.67
+$Comp
+L MEA1D05XXSC U?
+U 1 1 573678C5
+P 5700 9875
+F 0 "U?" H 5700 10325 60  0000 C CNN
+F 1 "MEA1D05XXSC" H 5700 9425 60  0000 C CNN
+F 2 "~" H 5600 9775 60  0000 C CNN
+F 3 "~" H 5600 9775 60  0000 C CNN
+	1    5700 9875
+	1    0    0    -1  
+$EndComp
+Text Label 6400 10025 0    60   ~ 0
+GND
+NoConn ~ 6100 9825
+Text Label 6400 9925 0    60   ~ 0
+-15V
+Text Label 6400 10125 0    60   ~ 0
++15V
+Text Label 1650 3725 2    60   ~ 0
+5V
+Text Label 6400 9625 0    60   ~ 0
+5V
+Text Notes 5250 9150 0    60   ~ 0
++/- 15V Supply for OPAMPs
+$Comp
+L OPA129 U?
+U 1 1 5736D1BA
+P 7650 1700
+F 0 "U?" H 7650 2000 60  0000 C CNN
+F 1 "OPA129" H 7650 1400 60  0000 C CNN
+F 2 "~" H 7550 1700 60  0000 C CNN
+F 3 "~" H 7550 1700 60  0000 C CNN
+	1    7650 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L OPA129 U?
+U 1 1 5736D1C9
+P 9050 3800
+F 0 "U?" H 9050 4100 60  0000 C CNN
+F 1 "OPA129" H 9050 3500 60  0000 C CNN
+F 2 "~" H 8950 3800 60  0000 C CNN
+F 3 "~" H 8950 3800 60  0000 C CNN
+	1    9050 3800
+	1    0    0    -1  
+$EndComp
+Text Label 6900 1750 2    60   ~ 0
+REF_ELECT
+Wire Wire Line
+	3900 1025 4100 1025
+Wire Wire Line
+	1850 3625 1650 3625
+Wire Wire Line
+	1750 9700 1750 9650
+Wire Wire Line
+	1750 10100 1750 10350
+Wire Wire Line
+	3900 1325 4100 1325
+Wire Wire Line
+	1500 9650 2250 9650
+Connection ~ 1750 9650
+Wire Wire Line
+	3150 9550 3600 9550
+Wire Wire Line
+	3350 9550 3350 10350
+Wire Wire Line
+	3150 9750 3350 9750
+Connection ~ 2000 9650
+Wire Wire Line
+	2000 10100 2000 10200
+Wire Wire Line
+	1500 10200 2500 10200
+Wire Wire Line
+	2200 9750 2200 10200
+Wire Wire Line
+	2200 9750 2250 9750
+Wire Wire Line
+	2000 9700 2000 9650
+Wire Wire Line
+	2150 9650 2150 9550
+Wire Wire Line
+	2150 9550 2250 9550
+Connection ~ 2150 9650
+Connection ~ 3350 9750
+Wire Wire Line
+	3350 10200 3000 10200
+Wire Wire Line
+	3350 10350 1750 10350
+Connection ~ 3350 10200
+Connection ~ 2000 10200
+Connection ~ 2200 10200
+Connection ~ 3350 9550
+Wire Wire Line
+	1850 1125 1650 1125
+Wire Wire Line
+	1850 1225 1650 1225
+Wire Wire Line
+	3325 7850 3125 7850
+Wire Wire Line
+	3325 7950 3125 7950
+Wire Wire Line
+	3325 7750 3125 7750
+Wire Wire Line
+	4325 7750 4525 7750
+Wire Wire Line
+	3900 1225 4100 1225
+Wire Wire Line
+	4325 7950 4525 7950
+Wire Wire Line
+	4325 7850 4525 7850
+Wire Wire Line
+	3325 7650 3125 7650
+Wire Wire Line
+	4325 7650 4525 7650
+Wire Wire Line
+	3325 7550 3125 7550
+Wire Wire Line
+	4325 7550 4525 7550
 Wire Wire Line
 	1250 5800 1250 5900
 Wire Wire Line
@@ -290,10 +429,6 @@ Wire Wire Line
 Wire Wire Line
 	1100 5300 1100 5100
 Connection ~ 1100 5300
-Text Label 1100 5100 1    60   ~ 0
-AGND
-Text Label 1100 6100 3    60   ~ 0
--15V
 Wire Wire Line
 	1675 5400 1675 5300
 Wire Wire Line
@@ -312,37 +447,12 @@ Wire Wire Line
 Wire Wire Line
 	1825 5900 1825 6100
 Connection ~ 1825 5900
-Text Label 1825 6100 3    60   ~ 0
-AGND
-Text Label 1825 5100 1    60   ~ 0
-+15V
-Text Notes 925  6700 0    60   ~ 0
-Scales bipolar DAC (DAC_BIP) by gain N=1,2,5, or 10 to get DAC_BIP_NX. 
-Text Notes 925  6850 0    60   ~ 0
-Gain is selected using digital outputs DAC_GAIN_A0 AND DAC_GAIN_A1.
-$Comp
-L LT1995 U?
-U 1 1 57366B11
-P 3650 5600
-F 0 "U?" H 3650 5950 60  0000 C CNN
-F 1 "LT1995" H 3650 5250 60  0000 C CNN
-F 2 "~" H 3500 5600 60  0000 C CNN
-F 3 "~" H 3500 5600 60  0000 C CNN
-	1    3650 5600
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2800 5700 3200 5700
 Wire Wire Line
 	4100 5700 4500 5700
-Text Label 2800 5700 2    60   ~ 0
--12V
-Text Label 4500 5700 0    60   ~ 0
-+12V
 Wire Wire Line
 	2800 5800 3200 5800
-Text Label 2800 5800 2    60   ~ 0
-AGND
 Wire Wire Line
 	3200 5500 3100 5500
 Wire Wire Line
@@ -355,8 +465,6 @@ Wire Wire Line
 Wire Wire Line
 	2800 5400 3200 5400
 Connection ~ 3000 5400
-Text Label 2800 5400 2    60   ~ 0
-DAC_UNI
 Wire Wire Line
 	4100 5600 4300 5600
 Wire Wire Line
@@ -371,137 +479,192 @@ Wire Wire Line
 	4200 5500 4200 5800
 Connection ~ 4200 5800
 Connection ~ 4300 5400
-Text Label 4500 5800 0    60   ~ 0
-DAC_BIP
-Text Label 4500 5400 0    60   ~ 0
-REF_0V6
-$Comp
-L C C?
-U 1 1 57367149
-P 1750 7675
-F 0 "C?" H 1750 7775 40  0000 L CNN
-F 1 "0.1uF" H 1756 7590 40  0000 L CNN
-F 2 "~" H 1788 7525 30  0000 C CNN
-F 3 "~" H 1750 7675 60  0000 C CNN
-	1    1750 7675
-	1    0    0    -1  
-$EndComp
-$Comp
-L C C?
-U 1 1 5736714F
-P 1025 7675
-F 0 "C?" H 1025 7775 40  0000 L CNN
-F 1 "0.1uF" H 1031 7590 40  0000 L CNN
-F 2 "~" H 1063 7525 30  0000 C CNN
-F 3 "~" H 1025 7675 60  0000 C CNN
-	1    1025 7675
-	1    0    0    -1  
-$EndComp
-$Comp
-L CP1 C?
-U 1 1 57367155
-P 2050 7675
-F 0 "C?" H 2100 7775 50  0000 L CNN
-F 1 "10uF" H 2100 7575 50  0000 L CNN
-F 2 "~" H 2050 7675 60  0000 C CNN
-F 3 "~" H 2050 7675 60  0000 C CNN
-	1    2050 7675
-	1    0    0    -1  
-$EndComp
-$Comp
-L CP1 C?
-U 1 1 5736715B
-P 1325 7675
-F 0 "C?" H 1375 7775 50  0000 L CNN
-F 1 "10uF" H 1375 7575 50  0000 L CNN
-F 2 "~" H 1325 7675 60  0000 C CNN
-F 3 "~" H 1325 7675 60  0000 C CNN
-	1    1325 7675
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	1325 7875 1325 7975
+	5275 1925 5275 2025
 Wire Wire Line
-	1325 7975 1025 7975
+	5275 2025 4975 2025
 Wire Wire Line
-	1025 7975 1025 7875
+	4975 2025 4975 1925
 Wire Wire Line
-	1175 7975 1175 8175
-Connection ~ 1175 7975
+	5125 2025 5125 2225
+Connection ~ 5125 2025
 Wire Wire Line
-	1325 7475 1325 7375
+	5275 1525 5275 1425
 Wire Wire Line
-	1325 7375 1025 7375
+	5275 1425 4975 1425
 Wire Wire Line
-	1025 7375 1025 7475
+	4975 1425 4975 1525
 Wire Wire Line
-	1175 7375 1175 7175
-Connection ~ 1175 7375
-Text Label 1175 7175 1    60   ~ 0
-AGND
-Text Label 1175 8175 3    60   ~ 0
--15V
+	5125 1425 5125 1225
+Connection ~ 5125 1425
 Wire Wire Line
-	1750 7475 1750 7375
+	5700 1525 5700 1425
 Wire Wire Line
-	1750 7375 2050 7375
+	5700 1425 6000 1425
 Wire Wire Line
-	2050 7375 2050 7475
+	6000 1425 6000 1525
 Wire Wire Line
-	1900 7375 1900 7175
-Connection ~ 1900 7375
+	5850 1425 5850 1225
+Connection ~ 5850 1425
 Wire Wire Line
-	1750 7875 1750 7975
+	5700 1925 5700 2025
 Wire Wire Line
-	1750 7975 2050 7975
+	5700 2025 6000 2025
 Wire Wire Line
-	2050 7975 2050 7875
+	6000 2025 6000 1925
 Wire Wire Line
-	1900 7975 1900 8175
-Connection ~ 1900 7975
-Text Label 1900 8175 3    60   ~ 0
-AGND
-Text Label 1900 7175 1    60   ~ 0
-+15V
-Text Notes 3450 4850 0    60   ~ 0
-Amplifier Gain=1.67
-$Comp
-L MEA1D05XXSC U?
-U 1 1 573678C5
-P 5800 9525
-F 0 "U?" H 5800 9975 60  0000 C CNN
-F 1 "MEA1D05XXSC" H 5800 9075 60  0000 C CNN
-F 2 "~" H 5700 9425 60  0000 C CNN
-F 3 "~" H 5700 9425 60  0000 C CNN
-	1    5800 9525
-	1    0    0    -1  
-$EndComp
+	5850 2025 5850 2225
+Connection ~ 5850 2025
 Wire Wire Line
-	6200 9375 6300 9375
+	6100 9725 6200 9725
 Wire Wire Line
-	6300 9375 6300 9675
+	6200 9725 6200 10025
 Wire Wire Line
-	6200 9675 6500 9675
-Connection ~ 6300 9675
-Text Label 6500 9675 0    60   ~ 0
-GND
+	6100 10025 6400 10025
+Connection ~ 6200 10025
 Wire Wire Line
-	6200 9575 6500 9575
+	6100 9925 6400 9925
 Wire Wire Line
-	6200 9775 6500 9775
-NoConn ~ 6200 9475
+	6100 10125 6400 10125
 Wire Wire Line
-	6200 9275 6500 9275
-Text Label 6500 9575 0    60   ~ 0
--15V
-Text Label 6500 9775 0    60   ~ 0
-+15V
+	6100 9625 6400 9625
 Wire Wire Line
 	1850 3725 1650 3725
-Text Label 1650 3725 2    60   ~ 0
-5V
-Text Label 6500 9275 0    60   ~ 0
-5V
-Text Notes 5350 8800 0    60   ~ 0
-+/- 15V Supply for OPAMPs
+Wire Wire Line
+	6900 1750 7200 1750
+Wire Wire Line
+	7100 1650 7200 1650
+Wire Wire Line
+	7100 1250 7100 1850
+Wire Wire Line
+	7100 1550 7200 1550
+Wire Wire Line
+	7100 1250 8200 1250
+Wire Wire Line
+	8200 1250 8200 1750
+Wire Wire Line
+	8200 1550 8100 1550
+Connection ~ 7100 1550
+Wire Wire Line
+	8100 1750 8400 1750
+Connection ~ 8200 1550
+Wire Wire Line
+	7100 1850 7200 1850
+Connection ~ 7100 1650
+Wire Wire Line
+	8100 1650 8400 1650
+Wire Wire Line
+	8100 1850 8400 1850
+Text Label 8400 1650 0    60   ~ 0
++15V
+Text Label 8400 1850 0    60   ~ 0
+-15V
+Text Notes 5600 800  0    60   ~ 0
+Uniy Gain Buffer for Reference Electrode 
+$Comp
+L C C?
+U 1 1 5736D9C6
+P 1800 7925
+F 0 "C?" H 1800 8025 40  0000 L CNN
+F 1 "0.1uF" H 1806 7840 40  0000 L CNN
+F 2 "~" H 1838 7775 30  0000 C CNN
+F 3 "~" H 1800 7925 60  0000 C CNN
+	1    1800 7925
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 5736D9CC
+P 1075 7925
+F 0 "C?" H 1075 8025 40  0000 L CNN
+F 1 "0.1uF" H 1081 7840 40  0000 L CNN
+F 2 "~" H 1113 7775 30  0000 C CNN
+F 3 "~" H 1075 7925 60  0000 C CNN
+	1    1075 7925
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP1 C?
+U 1 1 5736D9D2
+P 2100 7925
+F 0 "C?" H 2150 8025 50  0000 L CNN
+F 1 "10uF" H 2150 7825 50  0000 L CNN
+F 2 "~" H 2100 7925 60  0000 C CNN
+F 3 "~" H 2100 7925 60  0000 C CNN
+	1    2100 7925
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP1 C?
+U 1 1 5736D9D8
+P 1375 7925
+F 0 "C?" H 1425 8025 50  0000 L CNN
+F 1 "10uF" H 1425 7825 50  0000 L CNN
+F 2 "~" H 1375 7925 60  0000 C CNN
+F 3 "~" H 1375 7925 60  0000 C CNN
+	1    1375 7925
+	1    0    0    -1  
+$EndComp
+Text Label 1225 7425 1    60   ~ 0
+AGND
+Text Label 1225 8425 3    60   ~ 0
+-15V
+Text Label 1950 8425 3    60   ~ 0
+AGND
+Text Label 1950 7425 1    60   ~ 0
++15V
+Wire Wire Line
+	1375 8125 1375 8225
+Wire Wire Line
+	1375 8225 1075 8225
+Wire Wire Line
+	1075 8225 1075 8125
+Wire Wire Line
+	1225 8225 1225 8425
+Connection ~ 1225 8225
+Wire Wire Line
+	1375 7725 1375 7625
+Wire Wire Line
+	1375 7625 1075 7625
+Wire Wire Line
+	1075 7625 1075 7725
+Wire Wire Line
+	1225 7625 1225 7425
+Connection ~ 1225 7625
+Wire Wire Line
+	1800 7725 1800 7625
+Wire Wire Line
+	1800 7625 2100 7625
+Wire Wire Line
+	2100 7625 2100 7725
+Wire Wire Line
+	1950 7625 1950 7425
+Connection ~ 1950 7625
+Wire Wire Line
+	1800 8125 1800 8225
+Wire Wire Line
+	1800 8225 2100 8225
+Wire Wire Line
+	2100 8225 2100 8125
+Wire Wire Line
+	1950 8225 1950 8425
+Connection ~ 1950 8225
+Text Notes 8500 3400 0    60   ~ 0
+Transimpedance Amplifier
+Connection ~ 8200 1750
+Text Label 8400 1750 0    60   ~ 0
+REF_ELECT_BUF
+$Comp
+L OPA227 U?
+U 1 1 5736DD28
+P 9050 5200
+F 0 "U?" H 9050 5500 60  0000 C CNN
+F 1 "OPA227" H 9050 4900 60  0000 C CNN
+F 2 "~" H 9150 5200 60  0000 C CNN
+F 3 "~" H 9150 5200 60  0000 C CNN
+	1    9050 5200
+	1    0    0    -1  
+$EndComp
+Text Notes 8700 4800 0    60   ~ 0
+Control Amplifier
 $EndSCHEMATC
