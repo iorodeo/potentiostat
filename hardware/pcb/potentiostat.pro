@@ -1,4 +1,4 @@
-update=Sat 14 May 2016 12:57:33 AM PDT
+update=Sat 14 May 2016 08:53:33 PM PDT
 version=1
 last_client=eeschema
 [cvpcb]
@@ -92,3 +92,4 @@ LibName35=lt1995
 LibName36=mea1d05xxsc
 LibName37=opa129
 LibName38=opa227
+LibName39=adg44x
