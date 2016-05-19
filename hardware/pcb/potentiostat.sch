@@ -46,7 +46,7 @@ $Descr User 17000 14000
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "17 may 2016"
+Date "19 may 2016"
 Rev ""
 Comp ""
 Comment1 ""
@@ -1720,4 +1720,6 @@ Wire Wire Line
 	8500 9600 8250 9600
 Wire Wire Line
 	8500 11000 8300 11000
+Text Notes 6550 750  0    60   ~ 0
+For switch arrangement see http://www.analog.com/library/analogdialogue/archives/47-05/pgtia.html
 $EndSCHEMATC
