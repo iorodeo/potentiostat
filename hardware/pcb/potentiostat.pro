@@ -1,4 +1,4 @@
-update=Mon 16 May 2016 08:49:00 AM PDT
+update=Thu 29 Sep 2016 12:58:08 PM PDT
 version=1
 last_client=eeschema
 [cvpcb]
@@ -94,3 +94,4 @@ LibName37=opa129
 LibName38=opa227
 LibName39=adg44x
 LibName40=bas07-04
+LibName41=max6176aasa
