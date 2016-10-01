@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/wbd/work/products/potentiostat/hardware/pcb/potentiostat.sch)
-    (date "Fri 30 Sep 2016 11:23:26 AM PDT")
+    (date "Fri 30 Sep 2016 04:12:58 PM PDT")
     (tool "eeschema (2013-jul-07)-stable"))
   (components
     (comp (ref U2)
@@ -175,7 +175,7 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 5738E2D7))
     (comp (ref C20)
-      (value 56)
+      (value 56nF)
       (libsource (lib device) (part C))
       (sheetpath (names /) (tstamps /))
       (tstamp 5738E2DD))
@@ -185,7 +185,7 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 5738E2E9))
     (comp (ref C19)
-      (value 56)
+      (value 56nF)
       (libsource (lib device) (part C))
       (sheetpath (names /) (tstamps /))
       (tstamp 5738E2EF))
