@@ -47,7 +47,7 @@ $Descr User 17000 16500
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "30 sep 2016"
+Date "16 nov 2016"
 Rev ""
 Comp ""
 Comment1 ""
@@ -2555,4 +2555,6 @@ Text Label 4150 15050 2    60   ~ 0
 REF_ELECT
 Text Label 4150 15150 2    60   ~ 0
 WRK_ELECT
+Text Notes 11150 4900 0    60   ~ 0
+Use ADG441
 $EndSCHEMATC

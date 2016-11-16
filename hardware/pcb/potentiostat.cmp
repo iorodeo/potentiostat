@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-jul-07)-stable date = Fri 30 Sep 2016 05:27:18 PM PDT
+Cmp-Mod V01 Created by CvPcb (2013-jul-07)-stable date = Tue 15 Nov 2016 07:09:15 PM PST
 
 BeginCmp
 TimeStamp = /5736484C;
@@ -613,49 +613,49 @@ BeginCmp
 TimeStamp = /5736D1C9;
 Reference = U7;
 ValeurCmp = OPA129;
-IdModule  = ;
+IdModule  = 8-SOIC-0154;
 EndCmp
 
 BeginCmp
 TimeStamp = /5736D1BA;
 Reference = U8;
 ValeurCmp = OPA129;
-IdModule  = ;
+IdModule  = 8-SOIC-0154;
 EndCmp
 
 BeginCmp
 TimeStamp = /57394731;
 Reference = U9;
 ValeurCmp = ADG44X;
-IdModule  = ;
+IdModule  = 16-SOIC-0154;
 EndCmp
 
 BeginCmp
 TimeStamp = /5736DD28;
 Reference = U10;
 ValeurCmp = OPA227;
-IdModule  = ;
+IdModule  = 8-SOIC-0154;
 EndCmp
 
 BeginCmp
 TimeStamp = /57ED7D4A;
 Reference = U11;
 ValeurCmp = OP07;
-IdModule  = OP07;
+IdModule  = 8-SOIC-0154;
 EndCmp
 
 BeginCmp
 TimeStamp = /573905A7;
 Reference = U12;
 ValeurCmp = LT1995;
-IdModule  = ;
+IdModule  = 10-MSOP;
 EndCmp
 
 BeginCmp
 TimeStamp = /5739474A;
 Reference = U13;
 ValeurCmp = ADG44X;
-IdModule  = ;
+IdModule  = 16-SOIC-0154;
 EndCmp
 
 EndListe
