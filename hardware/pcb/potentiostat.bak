@@ -47,7 +47,7 @@ $Descr User 17000 16500
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "30 sep 2016"
+Date "17 nov 2016"
 Rev ""
 Comp ""
 Comment1 ""
@@ -1968,7 +1968,7 @@ Text Label 2750 12550 2    60   ~ 0
 Text Label 2750 12750 2    60   ~ 0
 GND
 Text Label 4050 12650 0    60   ~ 0
-10V_REF
+REF_10V
 $Comp
 L CONN_2 P8
 U 1 1 57ED78F7
@@ -1988,7 +1988,7 @@ Wire Wire Line
 	6050 13650 6050 13550
 Connection ~ 5850 13650
 Text Label 5600 13650 2    60   ~ 0
-REF_0V6
+REF_10V
 Text Notes 4900 13850 0    60   ~ 0
 10V ref. voltage test point
 $Comp
@@ -2163,7 +2163,7 @@ Wire Wire Line
 Wire Wire Line
 	9400 12450 9150 12450
 Text Label 9150 12850 2    60   ~ 0
-10V_REF
+REF_10V
 Text Label 9150 12450 2    60   ~ 0
 AGND
 Text Label 9150 12650 2    60   ~ 0
@@ -2496,7 +2496,7 @@ L R R14
 U 1 1 57EEB80D
 P 12600 14750
 F 0 "R14" V 12680 14750 40  0000 C CNN
-F 1 "R" V 12607 14751 40  0000 C CNN
+F 1 "4.7k" V 12607 14751 40  0000 C CNN
 F 2 "~" V 12530 14750 30  0000 C CNN
 F 3 "~" H 12600 14750 30  0000 C CNN
 	1    12600 14750
@@ -2507,7 +2507,7 @@ L R R16
 U 1 1 57EEB81C
 P 12900 14750
 F 0 "R16" V 12980 14750 40  0000 C CNN
-F 1 "R" V 12907 14751 40  0000 C CNN
+F 1 "4.7k" V 12907 14751 40  0000 C CNN
 F 2 "~" V 12830 14750 30  0000 C CNN
 F 3 "~" H 12900 14750 30  0000 C CNN
 	1    12900 14750
@@ -2555,4 +2555,8 @@ Text Label 4150 15050 2    60   ~ 0
 REF_ELECT
 Text Label 4150 15150 2    60   ~ 0
 WRK_ELECT
+Text Notes 11150 4900 0    60   ~ 0
+Use ADG441
+Entry Wire Line
+	2900 8300 3000 8400
 $EndSCHEMATC

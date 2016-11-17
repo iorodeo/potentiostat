@@ -57,7 +57,7 @@
     (pad_drill 0.6)
     (pad_to_mask_clearance 0)
     (aux_axis_origin 0 0)
-    (visible_elements FFFFFBBF)
+    (visible_elements FFFFFFBF)
     (pcbplotparams
       (layerselection 3178497)
       (usegerberextensions true)
@@ -496,7 +496,7 @@
   )
 
   (module SOT23 (layer F.Cu) (tedit 5051A6D7) (tstamp 582CF9C0)
-    (at -116.5 23.7)
+    (at 42.3 43.9)
     (tags SOT23)
     (path /573A0A9F)
     (fp_text reference D2 (at 1.99898 -0.09906 90) (layer F.SilkS)
@@ -3167,7 +3167,7 @@
   )
 
   (module 8-SOIC-0154 (layer F.Cu) (tedit 582BC004) (tstamp 582CFDCF)
-    (at -190.9 23.9)
+    (at 6.3 38.5)
     (path /5736D1C9)
     (fp_text reference U7 (at -3.8 0 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
@@ -3487,7 +3487,7 @@
   )
 
   (module 16-SOIC-0154 (layer F.Cu) (tedit 582BC52F) (tstamp 582CFE4B)
-    (at -164.7 37.4)
+    (at 108.4 186.2)
     (path /5739474A)
     (fp_text reference U13 (at -6.3627 0.0381 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
@@ -3566,7 +3566,7 @@
   )
 
   (module 16-SOIC-0154 (layer F.Cu) (tedit 582BC52F) (tstamp 582CFE64)
-    (at -165.3 10)
+    (at 90.1 186.6)
     (path /57394731)
     (fp_text reference U9 (at -6.3627 0.0381 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
@@ -3645,7 +3645,7 @@
   )
 
   (module MSOP10-0.5 (layer F.Cu) (tedit 4D78EEB1) (tstamp 582D04C1)
-    (at -131.4 23.3)
+    (at 37.5 72.4)
     (descr "MSOP10 10pins pitch 0.5mm")
     (path /573905A7)
     (attr smd)
