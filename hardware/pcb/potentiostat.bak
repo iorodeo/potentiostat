@@ -1928,7 +1928,7 @@ Wire Wire Line
 	16250 13700 16250 13600
 Connection ~ 16050 13700
 Text Label 15800 13700 2    60   ~ 0
-CTR_ELECT
+REF_ELECT_UNI
 Text Notes 14950 13850 0    60   ~ 0
 unipolar ref. electrode test point
 Wire Wire Line

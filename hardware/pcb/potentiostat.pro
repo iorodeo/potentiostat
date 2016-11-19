@@ -1,4 +1,4 @@
-update=Tue 15 Nov 2016 07:07:32 PM PST
+update=Fri 18 Nov 2016 04:10:45 PM PST
 version=1
 last_client=pcbnew
 [cvpcb]
@@ -62,10 +62,10 @@ LibName41=max6176aasa
 version=1
 LastNetListRead=
 UseCmpFile=1
-PadDrill="    0.000000"
-PadDrillOvalY="    0.000000"
-PadSizeH="    0.323850"
-PadSizeV="    1.016000"
+PadDrill="    0.600000"
+PadDrillOvalY="    0.600000"
+PadSizeH="    1.500000"
+PadSizeV="    1.500000"
 PcbTextSizeV="    1.500000"
 PcbTextSizeH="    1.500000"
 PcbTextThickness="    0.300000"
@@ -75,7 +75,7 @@ ModuleTextSizeThickness="    0.150000"
 SolderMaskClearance="    0.000000"
 SolderMaskMinWidth="    0.000000"
 DrawSegmentWidth="    0.200000"
-BoardOutlineThickness="    0.100000"
+BoardOutlineThickness="    0.254000"
 ModuleOutlineThickness="    0.150000"
 [pcbnew/libraries]
 LibDir=
@@ -103,3 +103,4 @@ LibName21=MEA1
 LibName22=8-SOIC-0154
 LibName23=16-SOIC-0154
 LibName24=10-MSOP
+LibName25=4-40
