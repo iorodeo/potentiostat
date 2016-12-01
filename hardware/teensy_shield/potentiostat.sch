@@ -47,7 +47,7 @@ $Descr User 17000 16500
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "17 nov 2016"
+Date "30 nov 2016"
 Rev ""
 Comp ""
 Comment1 ""
@@ -190,7 +190,7 @@ L CP1 C7
 U 1 1 57364852
 P 1775 5800
 F 0 "C7" H 1825 5900 50  0000 L CNN
-F 1 "4.7uf" H 1825 5700 50  0000 L CNN
+F 1 "4.7uF" H 1825 5700 50  0000 L CNN
 F 2 "~" H 1775 5800 60  0000 C CNN
 F 3 "~" H 1775 5800 60  0000 C CNN
 	1    1775 5800
