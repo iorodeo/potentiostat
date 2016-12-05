@@ -1,0 +1,135 @@
+eeschema (2013-jul-07)-stable  >> Creation date: Tue 29 Nov 2016 06:38:20 PM PST
+#Cmp ( order = Reference )
+| C1         10nF        
+| C5         10nF        
+| C30        10nF        
+
+| C19        56nF        
+| C20        56nF        
+| C21        56nF        
+| C22        56nF        
+
+| C2         0.1uF       
+| C6         0.1uF       
+| C10        0.1uF       
+| C11        0.1uF       
+| C12        0.1uF       
+| C13        0.1uF       
+| C14        0.1uF       
+| C15        0.1uF       
+| C17        0.1uF       
+| C23        0.1uF       
+| C24        0.1uF       
+| C25        0.1uF       
+| C27        0.1uF       
+| C28        0.1uF       
+| C33        0.1uF       
+| C34        0.1uF       
+| C35        0.1uF       
+
+| C9         1uF         
+
+| C3         4.7uF       
+| C7         4.7uf       
+| C32        4.7uF       
+| C38        4.7uf       
+
+| C4         10uF        
+| C8         10uF        
+| C16        10uF        
+| C18        10uF        
+| C26        10uF        
+| C29        10uF        
+| C31        10uF        
+| C36        10uF        
+| C37        10nF        
+
+| P1         CONN_2      
+| P2         CONN_2      
+| P3         CONN_2      
+
+| P4         CONN_2      
+| P5         CONN_2      
+| P6         CONN_2      
+| P7         CONN_2      
+| P8         CONN_2      
+| P9         CONN_2      
+| P10        CONN_2      
+| P11        CONN_2      
+| P12        CONN_2      
+| P17        CONN_2      
+| P18        CONN_2      
+| P19        CONN_2      
+| P20        CONN_2      
+| P21        CONN_2      
+
+| K1         CONN_3      
+
+| P13        CONN_5X2    
+| P14        CONN_5X2    
+
+| P15        CONN_2X2    
+| P16        CONN_2X2    
+
+
+| R17        100         
+| R19        100         
+
+| R4         191         
+
+| R5         600         
+
+| R1         1k          
+| R15        1k          
+| R18        1k          
+
+| R12        3k          
+| R13        3k          
+
+| R14        4.7k        
+| R16        4.7k        
+
+| R6         6k          
+
+| R2         10k         
+| R3         10k         
+
+| R9         50k         
+| R10        50k         
+| R11        50k         
+
+| R7         60k         
+
+| R8         600k        
+
+| D1         BAS07-04    
+| D2         BAS07-04    
+
+| U1         ZXRE060     
+
+| U3         MAX6176AASA+
+
+| U4         LT1995      
+| U12        LT1995      
+
+| U5         AD8250      
+
+| U6         MEA1D05XXSC 
+
+| U7         OPA129      
+| U8         OPA129      
+
+| U9         ADG44X      
+| U13        ADG44X      
+
+| U10        OPA227      
+
+| U11        OP07        
+
+
+| U2         TEENSY3.1   
+
+#End Cmp
+
+#C2 End List
+
