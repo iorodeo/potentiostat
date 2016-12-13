@@ -28,12 +28,13 @@ class DummyCell:
 # -----------------------------------------------------------------------------
 if __name__ == '__main__':
 
-    R1 = 200000.0
-    R2 = 100000.0
+    R1 = 100000.0
+    R2 = 49000.0
+    #C =  4.7e-6 
     C =  1.0e-6 
 
-    vmin = -0.2
-    vmax =  0.6
+    vmin = -2
+    vmax =  6
     period = 0.5 
     symm = 0.5
     saw_wave = waveforms.sawtooth_wave(vmin,vmax,period)
@@ -58,13 +59,13 @@ if __name__ == '__main__':
     plt.subplot(212)
     plt.plot(t,cur)
     plt.xlabel('t (sec)')
-    plt.ylabel('I')
+    plt.ylabel('I (uA)')
     plt.grid('on')
 
     plt.figure(2)
     plt.plot(v0,cur)
     plt.xlabel('V0')
-    plt.ylabel('I')
+    plt.ylabel('I (uA)')
     plt.grid('on')
 
     plt.show()
