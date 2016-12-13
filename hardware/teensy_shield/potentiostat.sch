@@ -47,7 +47,7 @@ $Descr User 17000 16500
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "30 nov 2016"
+Date "13 dec 2016"
 Rev ""
 Comp ""
 Comment1 ""
@@ -2559,4 +2559,8 @@ Text Notes 11150 4900 0    60   ~ 0
 Use ADG441
 Entry Wire Line
 	2900 8300 3000 8400
+Text Notes 2150 13300 0    120  ~ 0
+ERROR: Should be +15V not 15V
+Text Notes 9050 11250 0    120  ~ 0
+STABILITY ISSUE: Add small capacitor between OUT and IN-
 $EndSCHEMATC

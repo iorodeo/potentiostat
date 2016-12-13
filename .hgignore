@@ -1,0 +1,10 @@
+syntax: glob
+*~
+*.o
+*.swp
+*.bak
+*cache.lib
+docs/gas_and_particulate/_build
+docs/particulate_only/_build
+notes/alphasense_calibration/build
+firmware/tests/methane_test/wifi_pass_temp.h
