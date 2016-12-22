@@ -60,7 +60,7 @@ void loop()
     //Serial.print(cnt);
     //Serial.print(", value = ");
     //Serial.println(value);
-    cnt = (cnt+10) % 4096;
-    delay(1);
+    cnt = (cnt+20) % 4096;
+    //delay(1);
 
 }

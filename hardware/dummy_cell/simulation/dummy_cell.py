@@ -30,12 +30,12 @@ if __name__ == '__main__':
 
     R1 = 100000.0
     R2 = 49900.0
-    #C =  4.7e-6 
-    C =  1.0e-6 
+    C =  4.7e-6 
+    #C =  1.0e-6 
 
-    vmin = -2
-    vmax =  6
-    period = 0.5 
+    vmin = -0.6
+    vmax =  0.8 
+    period = 2.0 
     symm = 0.5
     saw_wave = waveforms.sawtooth_wave(vmin,vmax,period)
     sqr_wave = waveforms.square_wave(vmin,vmax,period,symm)
