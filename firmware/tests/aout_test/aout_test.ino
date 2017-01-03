@@ -20,6 +20,7 @@ void setup()
 
     pinMode(AD8520_GAIN_A0,OUTPUT);
     pinMode(AD8520_GAIN_A1,OUTPUT);
+
     digitalWrite(AD8520_GAIN_A0,LOW);
     digitalWrite(AD8520_GAIN_A1,LOW);
 
@@ -54,13 +55,29 @@ void setup()
 void loop()
 {
     static int cnt = 0;
-    analogWrite(DAC_UNI_PIN,cnt);
-    uint16_t value = analogRead(TIA_OUT_UNI_PIN);
-    //Serial.print("cnt = ");
-    //Serial.print(cnt);
-    //Serial.print(", value = ");
-    //Serial.println(value);
-    cnt = (cnt+20) % 4096;
-    //delay(1);
+    static bool state = true;
 
+    int val = int(0.9*(cnt - 2047)) + 2047;
+    analogWrite(DAC_UNI_PIN,val);
+    uint16_t value = analogRead(TIA_OUT_UNI_PIN);
+    //cnt = (cnt+1)%4096;
+    if (state)
+    {
+        cnt = cnt+3;
+        if (cnt >= 4095)
+        {
+            state = false;
+            cnt = 4095;
+        }
+    }
+    else
+    {
+        cnt = cnt-3;
+        if (cnt <= 0)
+        {
+            state = true;
+            cnt = 0;
+        }
+    }
+    delay(1);
 }

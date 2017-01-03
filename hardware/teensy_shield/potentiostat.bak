@@ -47,7 +47,7 @@ $Descr User 17000 16500
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "22 dec 2016"
+Date "3 jan 2017"
 Rev ""
 Comp ""
 Comment1 ""
@@ -309,7 +309,6 @@ F 3 "~" H 7400 14875 60  0000 C CNN
 $EndComp
 Text Label 8200 15125 0    60   ~ 0
 GND
-NoConn ~ 7900 14925
 Text Label 8200 15025 0    60   ~ 0
 -15V
 Text Label 8200 15225 0    60   ~ 0
