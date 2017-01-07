@@ -4,6 +4,7 @@ namespace ps
 {
     AnalogSubsystem::AnalogSubsystem() {}
 
+
     void AnalogSubsystem::initialize()
     {
         // Set mode for DAC gain seletion IO pins
@@ -23,40 +24,40 @@ namespace ps
         pinMode(TIA_SW2_IN4,OUTPUT);
 
         // Set to voltage and current range to defaults
-        setVoltageRange(DefaultVoltageRange);
-        setCurrentRange(DefaultCurrentRange);
+        setVoltGain(DefaultVoltGain);
+        setCurrGain(DefaultCurrGain);
 
         // Initialize analog input/output subsystem
-        analogWriteResolution(12);
-        analogReadResolution(16);
-        analogReadAveraging(16);
-        analogReference(INTERNAL);
+        analogWriteResolution(DefaultAnalogWriteResolution);
+        analogReadResolution(DefaultAnalogReadResolution);
+        analogReadAveraging(DefaultAnalogReadAveraging);
+        analogReference(DefaultAnalogReference);
     }
 
 
-    void AnalogSubsystem::setVoltageRange(VoltageRange value)
+    void AnalogSubsystem::setVoltGain(VoltGain value)
     {
         switch (value) 
         {
-            case VoltageRange1V:
+            case VoltGain1X:
 
                 digitalWrite(AD8250_GAIN_A0,LOW);
                 digitalWrite(AD8250_GAIN_A1,LOW);
                 break;
 
-            case VoltageRange2V:
+            case VoltGain2X:
 
                 digitalWrite(AD8250_GAIN_A0,HIGH);
                 digitalWrite(AD8250_GAIN_A1,LOW);
                 break;
 
-            case VoltageRange5V:
+            case VoltGain5X:
 
                 digitalWrite(AD8250_GAIN_A0,LOW);
                 digitalWrite(AD8250_GAIN_A1,HIGH);
                 break;
 
-            case VoltageRange10V:
+            case VoltGain10X:
 
                 digitalWrite(AD8250_GAIN_A0,HIGH);
                 digitalWrite(AD8250_GAIN_A1,HIGH);
@@ -68,11 +69,39 @@ namespace ps
         };
     }
 
-    void AnalogSubsystem::setCurrentRange(CurrentRange value)
+
+    VoltGain AnalogSubsystem::getVoltGain()
+    {
+        int value0= digitalRead(AD8250_GAIN_A0);
+        int value1 = digitalRead(AD8250_GAIN_A1);
+
+        VoltGain volt_gain;  
+
+        if ((value0 == LOW) && (value1 == LOW))
+        {
+            volt_gain = VoltGain1X;
+        }
+        else if ((value0 == HIGH) && (value1 == LOW))
+        {
+            volt_gain =  VoltGain2X;
+        }
+        else if ((value0 == HIGH) && (value1 == LOW))
+        {
+            volt_gain = VoltGain5X;
+        }
+        else
+        {
+            volt_gain = VoltGain10X;
+        }
+        return volt_gain;
+    }
+
+
+    void AnalogSubsystem::setCurrGain(CurrGain value)
     {
         switch (value)
         {
-            case CurrentRange1uA:
+            case CurrGainPathIn1:
 
                 digitalWrite(TIA_SW1_IN1,LOW);
                 digitalWrite(TIA_SW1_IN2,HIGH);
@@ -85,7 +114,7 @@ namespace ps
                 digitalWrite(TIA_SW2_IN4,HIGH);
                 break;
 
-            case CurrentRange10uA:
+            case CurrGainPathIn2:
 
                 digitalWrite(TIA_SW1_IN1,HIGH);
                 digitalWrite(TIA_SW1_IN2,LOW);
@@ -98,7 +127,7 @@ namespace ps
                 digitalWrite(TIA_SW2_IN4,HIGH);
                 break;
 
-            case CurrentRange100uA:
+            case CurrGainPathIn3:
 
                 digitalWrite(TIA_SW1_IN1,HIGH);
                 digitalWrite(TIA_SW1_IN2,HIGH);
@@ -111,7 +140,7 @@ namespace ps
                 digitalWrite(TIA_SW2_IN4,HIGH);
                 break;
 
-            case CurrentRange1000uA:
+            case CurrGainPathIn4:
 
                 digitalWrite(TIA_SW1_IN1,HIGH);
                 digitalWrite(TIA_SW1_IN2,HIGH);
@@ -128,6 +157,26 @@ namespace ps
                 break;
 
         }
+    }
+
+
+    CurrGain AnalogSubsystem::getCurrGain()
+    {
+        int value_sw1_in1 = digitalRead(TIA_SW1_IN1);
+        int value_sw1_in2 = digitalRead(TIA_SW1_IN2);
+        int value_sw1_in3 = digitalRead(TIA_SW1_IN3);
+        int value_sw1_in1 = digitalRead(TIA_SW1_IN4);
+
+        int value_sw2_in1 = digitalRead(TIA_SW2_IN1);
+        int value_sw2_in2 = digitalRead(TIA_SW2_IN2);
+        int value_sw2_in3 = digitalRead(TIA_SW2_IN3);
+        int value_sw2_in1 = digitalRead(TIA_SW2_IN4);
+
+        CurrGain = CurrGainErr;
+
+        // NOT DONE /////
+
+
     }
 
 }

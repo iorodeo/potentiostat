@@ -1,6 +1,7 @@
 #ifndef PS_ANALOG_SUBSYSTEM_H
 #define PS_ANALOG_SUBSYSTEM_H
 #include "ps_pin_map.h"
+#include "ps_gains.h"
 
 namespace ps
 {
@@ -9,36 +10,33 @@ namespace ps
     {
         public:
 
-            enum VoltageRange 
-            {
-                VoltageRange1V, 
-                VoltageRange2V,
-                VoltageRange5V,
-                VoltageRange10V
-            };
+            static const VoltGain DefaultVoltGain = VoltGain1X;
+            static const CurrGain DefaultCurrGain = CurrGainPathIn1;
 
-            enum CurrentRange
-            {
-                CurrentRange1uA,
-                CurrentRange10uA,
-                CurrentRange100uA,
-                CurrentRange1000uA
-            };
-
-            static const VoltageRange DefaultVoltageRange = VoltageRange1V;
-            static const CurrentRange DefaultCurrentRange = CurrentRange10uA;
+            static const unsigned int DefaultAnalogWriteResolution = 12;
+            static const unsigned int DefaultAnalogReadResolution = 16;
+            static const unsigned int DefaultAnalogReadAveraging = 16;
+            static const unsigned int DefaultAnalogReference = INTERNAL;
 
             AnalogSubsystem();
             void initialize();
 
-            void setVoltageRange(VoltageRange value);
-            void setCurrentRange(CurrentRange value);
-    
-        private:
+            void setVoltGain(VoltGain value);
+            VoltGain getVoltGain();
 
-    
+            void setCurrGain(CurrGain value);
+            CurrGain getCurrGain();
+
+            void setVoltDAC(uint16_t value); // Set voltage output DAC value 16-bit
+            uint16_t getVoltDAC();           // Get the DAC voltage output setting  
+
+            uint16_t readCurrAin();          // Read analog input associated with the current-to-voltage 
+                                             // converter (transimpedance amplifier).
+                                             //
+            uint16_t readRefElectAin();      // Read analog input associated with the refernce electrode
+
     };
-
 }
+
 
 #endif

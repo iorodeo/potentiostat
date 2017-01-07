@@ -1,6 +1,6 @@
 #include "ps_analog_subsystem.h"
 
-ps::AnalogSubsystem analog_subsys;
+ps::AnalogSubsystem analogSubsys;
 
 void setup()
 {

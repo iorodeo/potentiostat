@@ -19,7 +19,7 @@ namespace ps
     
     const int DAC_UNI_PIN = A14;
     const int TIA_OUT_UNI_PIN = A1;
-
+    const int REF_ELECT_UNI_PIN = A2;
 }
 
 #endif
