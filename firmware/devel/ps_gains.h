@@ -1,14 +1,16 @@
 #ifndef PS_GAINS_H
 #define PS_GAINS_H
+#include <Arduino.h>
 
 namespace ps
 {
     enum VoltGain // Analog output voltage scaling factor 
     {
-        VoltGain1X,   // [-1V,  +1V]   w/ default resisotors
-        VoltGain2X,   // [-2V,  +2V]
-        VoltGain5X,   // [-5V,  +5V]
-        VoltGain10X,  // [-10V  +10V]
+        VoltGain1X  = 0,   // [-1V,  +1V]   w/ default resisotors
+        VoltGain2X  = 1,   // [-2V,  +2V]
+        VoltGain5X  = 2,   // [-5V,  +5V]
+        VoltGain10X = 3,   // [-10V  +10V]
+        NumVoltGain = 4
     };
 
     enum CurrGain // TransImpedance Amplifiler Current gain path
@@ -17,8 +19,30 @@ namespace ps
         CurrGainPathIn2 = 1,  // [-10uA,   +10uA]   
         CurrGainPathIn3 = 2,  // [-100uA,  +100uA]  
         CurrGainPathIn4 = 3,  // [-1000uA, +1000uA] 
-        CurrGainPathErr = 4   // Incorrect path setting
+        CurrGainPathErr = 4,  // Incorrect path setting
+        NumCurrGain = 5
     };
+
+    const String VoltGainStringArray[NumVoltGain] = 
+    {
+        String("VoltGain1X"),
+        String("VoltGain2X"),
+        String("VoltGain5X"),
+        String("VoltGain10X")
+    };
+
+    const String CurrGainStringArray[NumCurrGain] = 
+    {
+        String("CurrGainPathIn1"),
+        String("CurrGainPathIn2"),
+        String("CurrGainPathIn3"),
+        String("CurrGainPathIn4"),
+        String("CurrGainPathErr")
+    };
+
+    String voltGainToString(VoltGain value);
+
+    String currGainToString(CurrGain value);
 
 }
 #endif

@@ -13,27 +13,32 @@ namespace ps
             static const VoltGain DefaultVoltGain = VoltGain1X;
             static const CurrGain DefaultCurrGain = CurrGainPathIn1;
 
-            static const unsigned int DefaultAnalogWriteResolution = 12;
-            static const unsigned int DefaultAnalogReadResolution = 16;
-            static const unsigned int DefaultAnalogReadAveraging = 16;
-            static const unsigned int DefaultAnalogReference = INTERNAL;
+            static const uint16_t DefaultAnalogWriteResolution = 12;
+            static const uint16_t DefaultAnalogReadResolution = 16;
+            static const uint16_t DefaultAnalogReadAveraging = 16;
+            static const uint8_t  DefaultAnalogReference = INTERNAL;
 
             AnalogSubsystem();
             void initialize();
 
             void setVoltGain(VoltGain value);
-            VoltGain getVoltGain();
-
             void setCurrGain(CurrGain value);
-            CurrGain getCurrGain();
+
+            VoltGain getVoltGain() const;
+            CurrGain getCurrGain() const;
+
+            String getVoltGainString() const;
+            String getCurrGainString() const;
 
             void setVoltDAC(uint16_t value); // Set voltage output DAC value 16-bit
-            uint16_t getVoltDAC();           // Get the DAC voltage output setting  
+            uint16_t getVoltDAC() const;     // Get the DAC voltage output setting  
 
-            uint16_t readCurrAin();          // Read analog input associated with the current-to-voltage 
-                                             // converter (transimpedance amplifier).
-                                             //
+            uint16_t readCurrAin();          // Read analog input associated with the transimpedance amplifier 
+                                             
             uint16_t readRefElectAin();      // Read analog input associated with the refernce electrode
+
+            uint16_t getMaxValueDAC() const;
+            uint16_t getZeroValueDAC() const;
 
     };
 }

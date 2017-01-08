@@ -7,17 +7,17 @@ namespace ps
 
     void AnalogSubsystem::initialize()
     {
-        // Set mode for DAC gain seletion IO pins
+        // Set  DAC gain seletion IO pins to output
         pinMode(AD8250_GAIN_A0,OUTPUT);
         pinMode(AD8250_GAIN_A1,OUTPUT);
 
-        // Set mode for TIA gain selection IO pins for switch 1
+        // Set TIA (current) gain selection IO pins for switch 1 to output
         pinMode(TIA_SW1_IN1,OUTPUT);
         pinMode(TIA_SW1_IN2,OUTPUT);
         pinMode(TIA_SW1_IN3,OUTPUT);
         pinMode(TIA_SW1_IN4,OUTPUT);
 
-        // Set mode for TIA gain selection IO pins for switch 2
+        // Set TIA (current) gain selection IO pins for switch 2 to output
         pinMode(TIA_SW2_IN1,OUTPUT);
         pinMode(TIA_SW2_IN2,OUTPUT);
         pinMode(TIA_SW2_IN3,OUTPUT);
@@ -32,6 +32,10 @@ namespace ps
         analogReadResolution(DefaultAnalogReadResolution);
         analogReadAveraging(DefaultAnalogReadAveraging);
         analogReference(DefaultAnalogReference);
+
+        // Set output voltage to zero
+        uint16_t zeroValueDAC = getZeroValueDAC();
+        setVoltDAC(zeroValueDAC);
     }
 
 
@@ -70,30 +74,30 @@ namespace ps
     }
 
 
-    VoltGain AnalogSubsystem::getVoltGain()
+    VoltGain AnalogSubsystem::getVoltGain() const
     {
-        int value0= digitalRead(AD8250_GAIN_A0);
-        int value1 = digitalRead(AD8250_GAIN_A1);
+        uint8_t value0 = digitalRead(AD8250_GAIN_A0);
+        uint8_t  value1 = digitalRead(AD8250_GAIN_A1);
 
-        VoltGain volt_gain;  
+        VoltGain voltGain;  
 
         if ((value0 == LOW) && (value1 == LOW))
         {
-            volt_gain = VoltGain1X;
+            voltGain = VoltGain1X;
         }
         else if ((value0 == HIGH) && (value1 == LOW))
         {
-            volt_gain =  VoltGain2X;
+            voltGain =  VoltGain2X;
         }
         else if ((value0 == HIGH) && (value1 == LOW))
         {
-            volt_gain = VoltGain5X;
+            voltGain = VoltGain5X;
         }
         else
         {
-            volt_gain = VoltGain10X;
+            voltGain = VoltGain10X;
         }
-        return volt_gain;
+        return voltGain;
     }
 
 
@@ -160,23 +164,71 @@ namespace ps
     }
 
 
-    CurrGain AnalogSubsystem::getCurrGain()
+    CurrGain AnalogSubsystem::getCurrGain() const
     {
-        int value_sw1_in1 = digitalRead(TIA_SW1_IN1);
-        int value_sw1_in2 = digitalRead(TIA_SW1_IN2);
-        int value_sw1_in3 = digitalRead(TIA_SW1_IN3);
-        int value_sw1_in1 = digitalRead(TIA_SW1_IN4);
+        uint8_t sw1 = 0;
+        sw1 += digitalRead(TIA_SW1_IN1) << 0;
+        sw1 += digitalRead(TIA_SW1_IN2) << 1;
+        sw1 += digitalRead(TIA_SW1_IN3) << 2;
+        sw1 += digitalRead(TIA_SW1_IN4) << 3;
 
-        int value_sw2_in1 = digitalRead(TIA_SW2_IN1);
-        int value_sw2_in2 = digitalRead(TIA_SW2_IN2);
-        int value_sw2_in3 = digitalRead(TIA_SW2_IN3);
-        int value_sw2_in1 = digitalRead(TIA_SW2_IN4);
+        uint8_t sw2 = 0;
+        sw2 += digitalRead(TIA_SW2_IN1) << 0;
+        sw2 += digitalRead(TIA_SW2_IN2) << 1;
+        sw2 += digitalRead(TIA_SW2_IN3) << 2;
+        sw2 += digitalRead(TIA_SW2_IN4) << 3;
 
-        CurrGain = CurrGainErr;
+        CurrGain currGain = CurrGainPathErr;
 
-        // NOT DONE /////
-
-
+        if ((sw1 == 0b1110 ) && (sw2 == 0b1110))
+        {
+            currGain = CurrGainPathIn1;
+        }
+        else if ((sw1 == 0b1101) && (sw2 == 0b1101))
+        {
+            currGain = CurrGainPathIn2;
+        }
+        else if ((sw1 == 0b1011) && (sw2 == 0b1011))
+        {
+            currGain = CurrGainPathIn3;
+        }
+        else if ((sw1 == 0b0111) & (sw2 == 0b0111))
+        {
+            currGain = CurrGainPathIn4;
+        }
+        return currGain;
     }
+
+    String AnalogSubsystem::getVoltGainString() const
+    {
+        VoltGain voltGain = getVoltGain();
+        return voltGainToString(voltGain);
+    }
+
+
+    String AnalogSubsystem::getCurrGainString() const
+    {
+        CurrGain currGain = getCurrGain();
+        return currGainToString(currGain);
+    }
+
+
+    void AnalogSubsystem::setVoltDAC(uint16_t value)
+    {
+        static uint16_t maxValueDAC = getMaxValueDAC();
+        value = min(value,maxValueDAC);
+        analogWrite(DAC_UNI_PIN,value);
+    }
+
+    uint16_t AnalogSubsystem::getMaxValueDAC() const
+    { 
+        return (1 << DefaultAnalogWriteResolution) - 1;
+    }
+
+    uint16_t AnalogSubsystem::getZeroValueDAC() const
+    { 
+        return getMaxValueDAC()/2;
+    }
+
 
 }
