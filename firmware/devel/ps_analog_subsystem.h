@@ -18,6 +18,9 @@ namespace ps
             static const uint16_t DefaultAnalogReadAveraging = 16;
             static const uint8_t  DefaultAnalogReference = INTERNAL;
 
+            static const uint16_t MaxValueDAC = (1 << DefaultAnalogWriteResolution)-1;
+            static const uint16_t MidValueDAC = MaxValueDAC/2;
+
             AnalogSubsystem();
             void initialize();
 
@@ -30,15 +33,15 @@ namespace ps
             String getVoltGainString() const;
             String getCurrGainString() const;
 
-            void setVoltDAC(uint16_t value); // Set voltage output DAC value 16-bit
-            uint16_t getVoltDAC() const;     // Get the DAC voltage output setting  
+            void setValueDAC(uint16_t value);   // Set voltage output DAC value 16-bit
+            uint16_t getValueDAC() const;       // Get the DAC voltage output setting  
 
-            uint16_t readCurrAin();          // Read analog input associated with the transimpedance amplifier 
-                                             
-            uint16_t readRefElectAin();      // Read analog input associated with the refernce electrode
+            uint16_t getTransAmpAin() const;   // Read analog input associated with the transimpedance amplifier 
+            uint16_t getRefElectAin() const;   // Read analog input associated with the refernce electrode
 
-            uint16_t getMaxValueDAC() const;
-            uint16_t getZeroValueDAC() const;
+        protected:
+
+            uint16_t valueDAC_ = 0;
 
     };
 }

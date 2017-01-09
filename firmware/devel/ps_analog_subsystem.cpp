@@ -34,8 +34,8 @@ namespace ps
         analogReference(DefaultAnalogReference);
 
         // Set output voltage to zero
-        uint16_t zeroValueDAC = getZeroValueDAC();
-        setVoltDAC(zeroValueDAC);
+        setValueDAC(MidValueDAC); 
+    
     }
 
 
@@ -213,22 +213,28 @@ namespace ps
     }
 
 
-    void AnalogSubsystem::setVoltDAC(uint16_t value)
+    void AnalogSubsystem::setValueDAC(uint16_t value)
     {
-        static uint16_t maxValueDAC = getMaxValueDAC();
-        value = min(value,maxValueDAC);
-        analogWrite(DAC_UNI_PIN,value);
+        valueDAC_ = min(value,MaxValueDAC);
+        analogWrite(DAC_UNI_PIN,valueDAC_);
     }
 
-    uint16_t AnalogSubsystem::getMaxValueDAC() const
-    { 
-        return (1 << DefaultAnalogWriteResolution) - 1;
+
+    uint16_t AnalogSubsystem::getValueDAC() const
+    {
+        return valueDAC_;
     }
 
-    uint16_t AnalogSubsystem::getZeroValueDAC() const
-    { 
-        return getMaxValueDAC()/2;
+
+    uint16_t AnalogSubsystem::getTransAmpAin() const  
+    {
+       return analogRead(TIA_OUT_UNI_PIN);
     }
 
+
+    uint16_t AnalogSubsystem::getRefElectAin() const
+    {
+        return analogRead(REF_ELECT_UNI_PIN);
+    }
 
 }
