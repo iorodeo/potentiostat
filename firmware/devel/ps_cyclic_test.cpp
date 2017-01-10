@@ -60,17 +60,21 @@ namespace ps
 
     uint16_t CyclicTest::getValue(uint64_t t)
     {
-        uint16_t value = 0;
         uint64_t tmod = t%period_;
+
+        int32_t value_int32 = 0;
+
         if (tmod < period_/2)
         {
-           value = (uint64_t(4*amplitude_)*tmod)/period_ + uint64_t(offset_) - uint64_t(amplitude_);
+           value_int32 += int32_t((uint64_t(4*amplitude_)*tmod)/period_);
+           value_int32 += int32_t(offset_) - int32_t(amplitude_);
         }
         else
         {
-           value = (uint64_t(4*amplitude_)*(period_ - tmod))/period_ + uint64_t(offset_) - uint64_t(amplitude_);
+           value_int32 += int32_t((uint64_t(4*amplitude_)*(period_ - tmod))/period_);
+           value_int32 += int32_t(offset_) - int32_t(amplitude_);
         }
-        return value;
+        return uint16_t(constrain(value_int32, 0, AnalogSubsystem::MaxValueDAC));
     }
 
     uint16_t CyclicTest::getPeriodCount(uint64_t t)

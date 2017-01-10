@@ -12,12 +12,12 @@ namespace ps
         return rval;
     }
 
-    String currGainToString(CurrGain value)
+    String currGainPathToString(CurrGainPath value)
     {
         String rval("");
-        if (value < NumCurrGain)
+        if (value < NumCurrGainPath)
         {
-            rval = CurrGainStringArray[value];
+            rval = CurrGainPathStringArray[value];
         }
         return rval;
     }

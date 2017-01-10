@@ -1,6 +1,7 @@
 #ifndef PS_CYCLIC_TEST_H
 #define PS_CYCLIC_TEST_H
 #include <Arduino.h>
+#include "ps_analog_subsystem.h"
 
 namespace ps
 {
@@ -9,8 +10,8 @@ namespace ps
     {
         public:
 
-            static const uint16_t DefaultAmplitude = 2047;
-            static const uint16_t DefaultOffset = 2047;
+            static const uint16_t DefaultAmplitude = AnalogSubsystem::MidValueDAC;
+            static const uint16_t DefaultOffset = AnalogSubsystem::MidValueDAC;
             static const uint64_t DefaultPeriod = UINT64_C(5000000);
             static const uint64_t DefaultLag = UINT64_C(0);
 
