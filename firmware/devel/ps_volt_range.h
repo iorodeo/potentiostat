@@ -1,12 +1,57 @@
 #ifndef PS_VOLT_RANGE_H
 #define PS_VOLT_RANGE_H
 #include <Arduino.h>
+
+// old
 #include "ps_gains.h"
 
 namespace ps
 {
 
-    // TO DO .. modify so that VoltRange is a clas.
+    class VoltRangeNew
+    {
+
+        public:
+
+            static const uint16_t MaxNumberOfVoltRange = 4;
+
+            VoltRangeNew(String name, float minVolt, float maxVolt, VoltGain voltGain, uint16_t maxDac);
+
+            ~VoltRangeNew();
+
+            String name();
+            float minVolt();
+            float maxVolt();
+            uint16_t maxDac();
+            VoltGain voltGain();
+            String voltGainString();
+
+            uint16_t voltToDac(float volt);
+            float dacToVolt(uint16_t value);
+
+            static uint16_t numberOfVoltRange();
+            static VoltRangeNew *getVoltRangeByNumber(uint16_t num);
+            static VoltRangeNew *getVoltRangeByName(String name);
+
+        protected:
+
+            static uint16_t objCnt_;
+            static VoltRangeNew *objPtrArray_[MaxNumberOfVoltRange];
+            uint16_t objInd_;
+
+            String name_;
+            float minVolt_;
+            float maxVolt_;
+            VoltGain voltGain_;
+            uint16_t maxDac_;
+
+    };
+
+    extern VoltRangeNew VoltRangeNew1V; 
+    extern VoltRangeNew VoltRangeNew2V; 
+    extern VoltRangeNew VoltRangeNew5V; 
+    extern VoltRangeNew VoltRangeNew10V; 
+
 
     enum VoltRange
     {
