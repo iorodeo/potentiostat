@@ -74,7 +74,7 @@ namespace ps
            value_int32 += int32_t((uint64_t(4*amplitude_)*(period_ - tmod))/period_);
            value_int32 += int32_t(offset_) - int32_t(amplitude_);
         }
-        return uint16_t(constrain(value_int32, 0, AnalogSubsystem::MaxValueDAC));
+        return uint16_t(constrain(value_int32, 0, AnalogSubsystemHW::MaxValueDac));
     }
 
     uint16_t CyclicTest::getPeriodCount(uint64_t t)

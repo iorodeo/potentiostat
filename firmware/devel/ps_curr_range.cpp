@@ -1,51 +1,79 @@
 #include "ps_curr_range.h"
+#include "ps_analog_subsystem.h"
 
 namespace ps
 {
 
-    String currRangeToString(CurrRange value)
+    CurrRange::CurrRange(String name, float minCurr, float maxCurr, CurrGainPath gainPath, uint16_t maxAin)
+        : name_(name), minCurr_(minCurr), maxCurr_(maxCurr), gainPath_(gainPath), maxAin_(maxAin)
+    { }
+
+    String CurrRange::name() const
     {
-        String currRangeString("");
-        if (value < NumCurrRange)
-        {
-            currRangeString = CurrRangeStringArray[value];
-        }
-        return currRangeString;
+        return name_;
     }
 
 
-    CurrGainPath currRangeToGainPath(CurrRange value)
+    float CurrRange::minCurr() const
     {
-        CurrGainPath currGainPath = CurrGainPathErr;
-        if (value < NumCurrRange)
-        {
-            currGainPath = CurrRangeToGainPathMap[value];
-        }
-        return currGainPath;
+        return minCurr_;
     }
 
 
-    CurrRange currGainPathToRange(CurrGainPath value)
+    float CurrRange::maxCurr() const
     {
-        CurrRange currRange = CurrRange(0);
-        if (value < NumCurrGainPath)
-        {
-            currRange = CurrGainPathToRangeMap[value];
-        }
-        return currRange;
+        return maxCurr_;
     }
 
-    //float currRangeMaxValue(CurrRange currRange)
-    //{
 
-    //}
+    uint16_t CurrRange::maxAin() const
+    {
+        return maxAin_;
+    }
 
-    //float currRangeMinValue(CurrRange currRange)
-    //{
-    //}
 
-    //float AinToCurr(uint16_t valueDAC)
-    //{
-    //}
+    CurrGainPath CurrRange::gainPath() const
+    {
+        return gainPath_;
+    }
 
-}
+
+    String CurrRange::gainPathString() const
+    {
+        return currGainPathToString(gainPath_);
+    }
+
+
+    float CurrRange::ainToCurr(uint16_t ain)
+    {
+        float curr = 0.0;
+        return curr;
+    }
+
+
+    uint16_t CurrRange::CurrToAin(float curr)
+    {
+        uint16_t ain = 0;
+        return ain;
+    }
+
+
+    const CurrRange CurrRange1uA("1uA", -1.0, 1.0, CurrGainPathIn1, AnalogSubsystemHW::MaxValueAin); 
+    const CurrRange CurrRange10uA("10uA", -10.0, 10.0, CurrGainPathIn2, AnalogSubsystemHW::MaxValueAin); 
+    const CurrRange CurrRange100uA("100uA", -10.0, 10.0, CurrGainPathIn3, AnalogSubsystemHW::MaxValueAin); 
+    const CurrRange CurrRange1000uA("1000uA", -10.0, 10.0, CurrGainPathIn4, AnalogSubsystemHW::MaxValueAin); 
+
+    // CurrRangeVector methods
+    // ----------------------------------------------------------------------------------------------
+
+    CurrRangeFixedVector::CurrRangeFixedVector()
+    {
+        set(0,CurrRange1uA);
+        set(1,CurrRange10uA);
+        set(2,CurrRange100uA);
+        set(3,CurrRange1000uA);
+    }
+
+    CurrRangeFixedVector CurrRangeVector;
+
+} // namespace ps

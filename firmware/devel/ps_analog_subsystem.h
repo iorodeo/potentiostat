@@ -8,24 +8,23 @@
 namespace ps
 {
 
-    class AnalogSubsystem
+    class AnalogSubsystemHW
     {
         public:
-
-            static const VoltGain DefaultVoltGain = VoltGain1X;
-            static const CurrGainPath DefaultCurrGainPath = CurrGainPathIn1;
 
             static const uint16_t DefaultAnalogWriteResolution = 12;
             static const uint16_t DefaultAnalogReadResolution = 16;
             static const uint16_t DefaultAnalogReadAveraging = 16;
             static const uint8_t  DefaultAnalogReference = INTERNAL;
 
-            static const uint16_t MaxValueDAC = (1 << DefaultAnalogWriteResolution)-1;
-            static const uint16_t MidValueDAC = MaxValueDAC/2;
+            static const uint16_t MaxValueAin = uint16_t((uint32_t(1) << DefaultAnalogReadResolution) -1);
+            static const uint16_t MaxValueDac = uint16_t((uint32_t(1) << DefaultAnalogWriteResolution)-1);
+            static const uint16_t MidValueDac = MaxValueDac/2;
 
-            //static const float MaxValueAin = 1.2;
+            static const VoltRange DefaultVoltRange; 
+            static const CurrRange DefaultCurrRange; 
 
-            AnalogSubsystem();
+            AnalogSubsystemHW();
             void initialize(); 
 
             void setVolt(float value); 
@@ -34,14 +33,20 @@ namespace ps
             float getCurr() const;           
             float getRefElectVolt() const;   
 
-            void setVoltRange(VoltRange value);  
+            void setVoltRange(VoltRange range);  
             VoltRange getVoltRange() const;      
 
-            void setCurrRange(CurrRange value);  
+            void setCurrRange(CurrRange range);  
             CurrRange getCurrRange() const;      
 
-            String getVoltRangeString() const;   
-            String getCurrRangeString() const;   
+            String getVoltRangeName() const;   
+            String getCurrRangeName() const;   
+
+        protected:
+
+            uint16_t valueDac_;
+            VoltRange voltRange_;
+            CurrRange currRange_;
 
             void setVoltGain(VoltGain value);    
             VoltGain getVoltGain() const;        
@@ -52,20 +57,17 @@ namespace ps
             String getVoltGainString() const;
             String getCurrGainPathString() const;
 
-            void setValueDAC(uint16_t value); 
-            uint16_t getValueDAC() const;     
+            void setValueDac(uint16_t value); 
+            uint16_t getValueDac() const;     
 
             uint16_t getTransAmpAin() const;  
             uint16_t getRefElectAin() const;  
 
-        protected:
-
-            uint16_t valueDAC_;
-            VoltRange voltRange_;
-            CurrRange currRange_;
-
     };
-}
+
+    extern AnalogSubsystemHW AnalogSubsystem;
+
+} // namespace ps
 
 
 #endif

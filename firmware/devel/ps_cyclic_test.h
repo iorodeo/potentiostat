@@ -10,8 +10,8 @@ namespace ps
     {
         public:
 
-            static const uint16_t DefaultAmplitude = AnalogSubsystem::MidValueDAC;
-            static const uint16_t DefaultOffset = AnalogSubsystem::MidValueDAC;
+            static const uint16_t DefaultAmplitude = AnalogSubsystemHW::MidValueDac;
+            static const uint16_t DefaultOffset = AnalogSubsystemHW::MidValueDac;
             static const uint64_t DefaultPeriod = UINT64_C(5000000);
             static const uint64_t DefaultLag = UINT64_C(0);
 
@@ -37,8 +37,8 @@ namespace ps
 
             CyclicTest();
 
-            uint16_t amplitude_ = DefaultAmplitude;  // 12-bit DAC int
-            uint16_t offset_ = DefaultOffset;        // 12-bit DAC int
+            uint16_t amplitude_ = DefaultAmplitude;  // 12-bit Dac int
+            uint16_t offset_ = DefaultOffset;        // 12-bit Dac int
             uint64_t period_ = DefaultPeriod;        // waveform period (us)
             uint64_t lag_ = DefaultLag;              // waveform lag    (us)
 

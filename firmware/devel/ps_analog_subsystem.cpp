@@ -2,15 +2,20 @@
 
 namespace ps
 {
-    AnalogSubsystem::AnalogSubsystem() {}
+    // AnalogSubsystemHW public methods
+    // --------------------------------------------------------------------------------------------
+    
+    const VoltRange AnalogSubsystemHW::DefaultVoltRange = VoltRangeVector[0]; 
+    const CurrRange AnalogSubsystemHW::DefaultCurrRange = CurrRangeVector[1]; 
 
+    AnalogSubsystemHW::AnalogSubsystemHW() {}
 
-    void AnalogSubsystem::initialize()
+    void AnalogSubsystemHW::initialize()
     {
         // Setup analog subsystem. This method must be called (typically setup)
-        // before the AnalogSubsystem can be used. 
+        // before the AnalogSubsystemHW can be used. 
         
-        // Set  DAC gain seletion IO pins to output
+        // Set  Dac gain seletion IO pins to output
         pinMode(AD8250_GAIN_A0,OUTPUT);
         pinMode(AD8250_GAIN_A1,OUTPUT);
 
@@ -27,8 +32,11 @@ namespace ps
         pinMode(TIA_SW2_IN4,OUTPUT);
 
         // Set to voltage and current range to defaults
-        setVoltGain(DefaultVoltGain);
-        setCurrGainPath(DefaultCurrGainPath);
+        
+        // TODO ///////////////////////////////////////////
+        //setVoltRange(VoltRangeVector[0]);
+        //setCurrGainPath(CurrRangeVector[1]);
+        /////////////////////////////////////////////////////
 
         // Initialize analog input/output subsystem
         analogWriteResolution(DefaultAnalogWriteResolution);
@@ -37,90 +45,86 @@ namespace ps
         analogReference(DefaultAnalogReference);
 
         // Set output voltage to zero
-        setValueDAC(MidValueDAC); 
+        setValueDac(MidValueDac); 
     
     }
 
-    void AnalogSubsystem::setVolt(float value) 
+    void AnalogSubsystemHW::setVolt(float value) 
     {
         // Set working to reference electrode (output) voltage
-        setValueDAC(voltToDAC(value, voltRange_, MaxValueDAC));
+        setValueDac(voltRange_.voltToDac(value));
     }
 
 
-    float AnalogSubsystem::getVolt() const     
+    float AnalogSubsystemHW::getVolt() const     
     {
         // Get working to reference electrode (output) voltage setting
-        return DACToVolt(valueDAC_,voltRange_, MaxValueDAC);
+        //return voltRange_.dacToVolt(valueDac_);
     }
 
 
-    float AnalogSubsystem::getCurr() const           
+    float AnalogSubsystemHW::getCurr() const           
     {
         // Get current measurement from working electrode
     }
 
 
-    float AnalogSubsystem::getRefElectVolt() const   
+    float AnalogSubsystemHW::getRefElectVolt() const   
     {
         // Get measurement of reference electrode voltage (primarily for debugging)
     }
 
 
-    void AnalogSubsystem::setVoltRange(VoltRange value)
+    void AnalogSubsystemHW::setVoltRange(VoltRange range)
     {
         // Set the output voltage range - for working to reference electrode voltage
         // Note, this command will change the VoltGain setting. 
-        VoltGain voltGain = voltRangeToGain(value);
-        setVoltGain(voltGain);
+        voltRange_ = range;
+        setVoltGain(voltRange_.voltGain());
     }
 
 
-    VoltRange AnalogSubsystem::getVoltRange() const
+    VoltRange AnalogSubsystemHW::getVoltRange() const
     { 
-        // Get the output voltage range setting - for working to reference electrode votlage
-        VoltGain voltGain = getVoltGain();
-        VoltRange voltRange = voltGainToRange(voltGain);
-        return voltRange;
+        // Returns the devices voltage range settings.
+        return voltRange_;
     }
 
 
-    void AnalogSubsystem::setCurrRange(CurrRange value)
+    void AnalogSubsystemHW::setCurrRange(CurrRange range)
     {
-        // Set the measurement range for working electrode current
-        // Note, this command will change the CurrGainPath setting.
-        CurrGainPath currGainPath = currRangeToGainPath(value);
-        setCurrGainPath(currGainPath);
+        // Set current transimpedance amplifiers current range
+        setCurrGainPath(currRange_.gainPath());
     }
 
 
-    CurrRange AnalogSubsystem::getCurrRange() const
+    CurrRange AnalogSubsystemHW::getCurrRange() const
     {
-        // Get the current measurement range setting for working electrode current
-        CurrGainPath currGainPath = getCurrGainPath();
-        CurrRange currRange = currGainPathToRange(currGainPath);
-        return currRange;
+        // Returns the transimpedance amplifier's current range setting 
+        return currRange_;
     }
 
 
-    String AnalogSubsystem::getVoltRangeString() const
+    String AnalogSubsystemHW::getVoltRangeName() const
     { 
         // Returns a string representation of the voltage range setting
-        return voltRangeToString(getVoltRange());
+        return voltRange_.name();
     }
 
 
-    String AnalogSubsystem::getCurrRangeString() const
+    String AnalogSubsystemHW::getCurrRangeName() const
     {
         // Returns a string representation of the current range
-        return currRangeToString(getCurrRange());
+        return currRange_.name();
     }
 
 
-    void AnalogSubsystem::setVoltGain(VoltGain value)
+    // AnalogSubsystemHW protected methods
+    // --------------------------------------------------------------------------------------------
+
+    void AnalogSubsystemHW::setVoltGain(VoltGain value)
     {
         // Sets the amplifier gain for the working to reference electrode voltage output
-        bool gainSet = true;
 
         switch (value) 
         {
@@ -149,21 +153,13 @@ namespace ps
                 break;
 
             default:
-                gainSet = false;
                 break;
 
         }
-
-        if (gainSet)
-        {
-            // Save VoltRange setting for unit convertions 
-            voltRange_ = voltGainToRange(value);
-        }
-                    
     }
 
 
-    VoltGain AnalogSubsystem::getVoltGain() const
+    VoltGain AnalogSubsystemHW::getVoltGain() const
     {
         // Returns the value for the gain (as currently set) for output voltage amplifier
         uint8_t value0 = digitalRead(AD8250_GAIN_A0);
@@ -191,10 +187,9 @@ namespace ps
     }
 
 
-    void AnalogSubsystem::setCurrGainPath(CurrGainPath value)
+    void AnalogSubsystemHW::setCurrGainPath(CurrGainPath value)
     {
         // Sets the gain path (In1,In2,In3,In4) used for transimpedence amplifier
-        bool gainPathSet = true;
        
         switch (value)
         {
@@ -251,19 +246,13 @@ namespace ps
                 break;
 
             default:
-                gainPathSet = false;
                 break;
 
-        }
-
-        if (gainPathSet)
-        {
-            currRange_ = currGainPathToRange(value);
         }
     }
 
 
-    CurrGainPath AnalogSubsystem::getCurrGainPath() const
+    CurrGainPath AnalogSubsystemHW::getCurrGainPath() const
     {
         // Returns the gain path setting (currently in use) by the transimpedance
         // amplifier
@@ -301,7 +290,7 @@ namespace ps
         return currGainPath;
     }
 
-    String AnalogSubsystem::getVoltGainString() const
+    String AnalogSubsystemHW::getVoltGainString() const
     {
         // Returns a string representation for voltage gain
         VoltGain voltGain = getVoltGain();
@@ -309,7 +298,7 @@ namespace ps
     }
 
 
-    String AnalogSubsystem::getCurrGainPathString() const
+    String AnalogSubsystemHW::getCurrGainPathString() const
     {
         // Returns a string representation for current gain path
         CurrGainPath currGainPath = getCurrGainPath();
@@ -317,32 +306,37 @@ namespace ps
     }
 
 
-    void AnalogSubsystem::setValueDAC(uint16_t value)
+    void AnalogSubsystemHW::setValueDac(uint16_t value)
     {
-        // The value of the output voltage DAC
-        valueDAC_ = min(value,MaxValueDAC);
-        analogWrite(DAC_UNI_PIN,valueDAC_);
+        // The value of the output voltage Dac
+        valueDac_ = min(value,MaxValueDac);
+        analogWrite(DAC_UNI_PIN,valueDac_);
     }
 
 
-    uint16_t AnalogSubsystem::getValueDAC() const
+    uint16_t AnalogSubsystemHW::getValueDac() const
     {
-        // Return the value currently used by the output voltage DAC
-        return valueDAC_;
+        // Return the value currently used by the output voltage Dac
+        return valueDac_;
     }
 
 
-    uint16_t AnalogSubsystem::getTransAmpAin() const  
+    uint16_t AnalogSubsystemHW::getTransAmpAin() const  
     {
         // Read analog input associated with the transimpedance amplifier 
        return analogRead(TIA_OUT_UNI_PIN);
     }
 
 
-    uint16_t AnalogSubsystem::getRefElectAin() const
+    uint16_t AnalogSubsystemHW::getRefElectAin() const
     {
         // Read analog input associated with the refernce electrode
         return analogRead(REF_ELECT_UNI_PIN);
     }
 
-}
+
+    // AnalogSubsystemHW instance
+    // --------------------------------------------------------------------------------------------
+    AnalogSubsystemHW AnalogSubsystem;
+
+} // namespace ps
