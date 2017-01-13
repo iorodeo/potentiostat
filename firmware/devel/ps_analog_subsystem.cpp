@@ -32,11 +32,8 @@ namespace ps
         pinMode(TIA_SW2_IN4,OUTPUT);
 
         // Set to voltage and current range to defaults
-        
-        // TODO ///////////////////////////////////////////
-        //setVoltRange(VoltRangeVector[0]);
-        //setCurrGainPath(CurrRangeVector[1]);
-        /////////////////////////////////////////////////////
+        setVoltRange(DefaultVoltRange);
+        setCurrRange(DefaultCurrRange);
 
         // Initialize analog input/output subsystem
         analogWriteResolution(DefaultAnalogWriteResolution);
@@ -49,29 +46,32 @@ namespace ps
     
     }
 
+
     void AnalogSubsystemHW::setVolt(float value) 
     {
         // Set working to reference electrode (output) voltage
-        setValueDac(voltRange_.voltToDac(value));
+        setValueDac(voltRange_.valueToInt(value));
     }
 
 
     float AnalogSubsystemHW::getVolt() const     
     {
         // Get working to reference electrode (output) voltage setting
-        //return voltRange_.dacToVolt(valueDac_);
+        return voltRange_.intToValue(valueDac_);
     }
 
 
     float AnalogSubsystemHW::getCurr() const           
     {
         // Get current measurement from working electrode
+        return currRange_.intToValue(getTransAmpAin());
     }
 
 
     float AnalogSubsystemHW::getRefElectVolt() const   
     {
         // Get measurement of reference electrode voltage (primarily for debugging)
+        return VoltRange10V.intToValue(getRefElectAin());
     }
 
 
@@ -80,7 +80,7 @@ namespace ps
         // Set the output voltage range - for working to reference electrode voltage
         // Note, this command will change the VoltGain setting. 
         voltRange_ = range;
-        setVoltGain(voltRange_.voltGain());
+        setVoltGain(voltRange_.gain());
     }
 
 
@@ -94,7 +94,7 @@ namespace ps
     void AnalogSubsystemHW::setCurrRange(CurrRange range)
     {
         // Set current transimpedance amplifiers current range
-        setCurrGainPath(currRange_.gainPath());
+        setCurrGainPath(currRange_.gain());
     }
 
 

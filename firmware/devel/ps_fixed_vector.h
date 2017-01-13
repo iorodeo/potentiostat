@@ -1,5 +1,5 @@
-#ifndef FIXED_VECTOR_H
-#define FIXED_VECTOR_H
+#ifndef PS_FIXED_VECTOR_H
+#define PS_FIXED_VECTOR_H
 
 namespace ps
 {
@@ -137,7 +137,7 @@ namespace ps
         return vectorPtr_ -> get(pos_);
     }
 
-}
+} // namespace ps
 
 
 #endif
