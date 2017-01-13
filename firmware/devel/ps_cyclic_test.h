@@ -5,45 +5,52 @@
 
 namespace ps
 {
+    // TO DO ... modify CyclicTest to use floats instead of uint16_t this will be much clearer
 
     class CyclicTest
     {
         public:
 
-            static const uint16_t DefaultAmplitude = AnalogSubsystemHW::MidValueDac;
-            static const uint16_t DefaultOffset = AnalogSubsystemHW::MidValueDac;
-            static const uint64_t DefaultPeriod = UINT64_C(5000000);
-            static const uint64_t DefaultLag = UINT64_C(0);
+            static constexpr float DefaultAmplitude = 1.0; 
+            static constexpr float DefaultOffset = 0.0; 
+            static constexpr float DefaultPeriod = 1.0;
+            static constexpr float DefaultLag = 0.0;
+            static const uint16_t DefaultNumCycles = 1;
 
-            static CyclicTest &getInstance();
+            CyclicTest() {};
 
-            void setAmplitude(uint16_t amplitude);
-            uint16_t getAmplitude();
+            void setAmplitude(float amplitude);
+            float getAmplitude() const;
 
-            void setOffset(uint16_t offset);
-            uint16_t getOffset();
+            void setOffset(float offset);
+            float getOffset() const;
 
-            void setPeriod(uint64_t period);
-            uint64_t getPeriod();
+            void setPeriod(float period);
+            float getPeriod() const;
 
-            void setLag(uint64_t lag);
-            uint64_t getLag();
+            void setLag(float lag);
+            float getLag() const;
 
-            uint16_t getValue(uint64_t t);
+            float getCycleCount(double t) const;
 
-            uint16_t getPeriodCount(uint64_t t);
+            float getCycleFrac(double t) const;
+
+            float getValue(double t) const;
 
         private:
 
-            CyclicTest();
-
-            uint16_t amplitude_ = DefaultAmplitude;  // 12-bit Dac int
-            uint16_t offset_ = DefaultOffset;        // 12-bit Dac int
-            uint64_t period_ = DefaultPeriod;        // waveform period (us)
-            uint64_t lag_ = DefaultLag;              // waveform lag    (us)
+            float amplitude_ = DefaultAmplitude;  // 12-bit Dac int
+            float offset_ = DefaultOffset;        // 12-bit Dac int
+            float period_ = DefaultPeriod;        // Waveform period (us)
+            float lag_ = DefaultLag;              // Waveform lag    (us)
+            uint16_t numCycles_ = DefaultNumCycles;  // Number of cycles to perform
 
     };
 
-}
+
+
+} // namespace ps
+
+//std::function<float(uint16_t)> valueFunc = std::bind(&CyclicTest::getValue, &cyclicTest, std::placeholders::_1);
 
 #endif

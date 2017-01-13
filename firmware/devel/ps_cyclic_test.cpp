@@ -1,87 +1,85 @@
 #include "ps_cyclic_test.h"
+#include <math.h>
 
 namespace ps
 {
+    // TO DO ... modify CyclicTest to use floats instead of uint16_t this will be much clearer
 
-    // Public methods
-    CyclicTest &CyclicTest::getInstance()
-    {
-        static CyclicTest cyclicTest;
-        return cyclicTest;
-    }
-
-    void CyclicTest::setAmplitude(uint16_t amplitude)
+    void CyclicTest::setAmplitude(float amplitude)
     {
         amplitude_ = amplitude;
     }
 
 
-    uint16_t CyclicTest::getAmplitude()
+    float CyclicTest::getAmplitude() const
     {
         return amplitude_;
     }
 
 
-    void CyclicTest::setOffset(uint16_t offset)
+    void CyclicTest::setOffset(float offset)
     {
         offset_ = offset;
     }
 
 
-    uint16_t CyclicTest::getOffset()
+    float CyclicTest::getOffset() const
     {
         return offset_;
     }
 
 
-    void CyclicTest::setPeriod(uint64_t period)
+    void CyclicTest::setPeriod(float period)
     {
         period_ = period;
     }
 
 
-    uint64_t CyclicTest::getPeriod()
+    float CyclicTest::getPeriod() const
     {
         return period_;
     }
 
 
-    void CyclicTest::setLag(uint64_t lag)
+    void CyclicTest::setLag(float lag)
     {
         lag_ = lag;
     }
 
 
-    uint64_t CyclicTest::getLag()
+    float CyclicTest::getLag() const
     {
         return lag_;
     }
 
-
-    uint16_t CyclicTest::getValue(uint64_t t)
+    float CyclicTest::getCycleCount(double t) const
     {
-        uint64_t tmod = t%period_;
+        return float(t/double(period_));
+    }
 
-        int32_t value_int32 = 0;
+    float CyclicTest::getCycleFrac(double t) const
+    {
+        float cycleCount = getCycleCount(t);
+        return cycleCount - floor(cycleCount);
+    }
 
-        if (tmod < period_/2)
+
+
+    float CyclicTest::getValue(double t) const
+    {
+        float value = 0.0;
+        float s = getCycleFrac(t);
+
+        if (s < 0.5)
         {
-           value_int32 += int32_t((uint64_t(4*amplitude_)*tmod)/period_);
-           value_int32 += int32_t(offset_) - int32_t(amplitude_);
+            value = 4.0*amplitude_*s + offset_ - amplitude_;
         }
         else
         {
-           value_int32 += int32_t((uint64_t(4*amplitude_)*(period_ - tmod))/period_);
-           value_int32 += int32_t(offset_) - int32_t(amplitude_);
+            value = 4.0*amplitude_*(1.0 - s) + offset_ - amplitude_;
         }
-        return uint16_t(constrain(value_int32, 0, AnalogSubsystemHW::MaxValueDac));
+        return value;
     }
 
-    uint16_t CyclicTest::getPeriodCount(uint64_t t)
-    {
-        return uint16_t(t/period_);
-    }
 
-    // Private methods
-    CyclicTest::CyclicTest() {}
 }
