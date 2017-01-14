@@ -1,6 +1,7 @@
 #ifndef PS_FIXED_VECTOR_H
 #define PS_FIXED_VECTOR_H
 
+
 namespace ps
 {
 
@@ -68,6 +69,14 @@ namespace ps
         public:
 
             FixedVector() {};
+
+            //FixedVector(const T data* )
+            //{
+            //    for (int i=0; i<n; i++)
+            //    {
+            //        data_[i] = data[i];
+            //    }
+            //}
 
             unsigned int size() 
             { 

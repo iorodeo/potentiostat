@@ -1,5 +1,6 @@
 #include "ps_analog_subsystem.h"
 #include "ps_cyclic_test.h"
+#include <array>
 
 using namespace ps;
 
@@ -16,6 +17,8 @@ void testTimerCallback()
     static bool state = false;
     static double t = 0.0;
     static double dt = double(timerPeriod)*1.0e-6;
+
+    std::array<int,3> x({1,2,3});
 
 
     float volt = cyclicTest.getValue(t);

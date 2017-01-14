@@ -24,6 +24,8 @@ namespace ps
 
     const int NumVoltRange = 4;
 
+    // TO DO ... get rid of Fixed Vector and use std::array ....
+    //
     class VoltRangeFixedVector : public FixedVector<VoltRange,NumVoltRange>
     {
         public:

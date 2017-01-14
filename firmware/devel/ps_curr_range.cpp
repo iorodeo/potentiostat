@@ -8,6 +8,7 @@ namespace ps
     const CurrRange CurrRange100uA("100uA", -10.0, 10.0, CurrGainPathIn3, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange1000uA("1000uA", -10.0, 10.0, CurrGainPathIn4, AnalogSubsystem::MaxValueAin); 
 
+    // TO DO ... get rid of Fixed Vector and use std::array ....
     CurrRangeFixedVector::CurrRangeFixedVector()
     {
         set(0,CurrRange1uA);

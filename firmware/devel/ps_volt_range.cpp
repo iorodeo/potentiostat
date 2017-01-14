@@ -8,6 +8,7 @@ namespace ps
     const VoltRange VoltRange5V(String("5V"),-5.0, 5.0, VoltGain5X, AnalogSubsystem::MaxValueDac);
     const VoltRange VoltRange10V(String("10V"), -10.0, 10.0, VoltGain10X, AnalogSubsystem::MaxValueDac);
 
+    // TO DO ... get rid of Fixed Vector and use std::array ....
     VoltRangeFixedVector::VoltRangeFixedVector()
     {
         set(0,VoltRange1V);
