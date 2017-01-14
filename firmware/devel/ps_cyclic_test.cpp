@@ -3,7 +3,9 @@
 
 namespace ps
 {
-    // TO DO ... modify CyclicTest to use floats instead of uint16_t this will be much clearer
+    CyclicTest::CyclicTest()
+    { }
+
 
     void CyclicTest::setAmplitude(float amplitude)
     {
@@ -43,7 +45,7 @@ namespace ps
 
     void CyclicTest::setLag(float lag)
     {
-        lag_ = lag;
+        lag_ = constrain(lag,-1.0,1.0);
     }
 
 
@@ -52,17 +54,30 @@ namespace ps
         return lag_;
     }
 
+
+    void CyclicTest::setNumCycles(uint16_t numCycles)
+    {
+        numCycles_ = numCycles;
+    }
+
+
+    uint16_t CyclicTest::getNumCycles() const
+    {
+        return numCycles_;
+    }
+
+
     float CyclicTest::getCycleCount(double t) const
     {
         return float(t/double(period_));
     }
 
+
     float CyclicTest::getCycleFrac(double t) const
     {
-        float cycleCount = getCycleCount(t);
+        float cycleCount = getCycleCount(t) - lag_;
         return cycleCount - floor(cycleCount);
     }
-
 
 
     float CyclicTest::getValue(double t) const
@@ -72,14 +87,26 @@ namespace ps
 
         if (s < 0.5)
         {
-            value = 4.0*amplitude_*s + offset_ - amplitude_;
+            value = 2.0*amplitude_*s + offset_ - 0.5*amplitude_;
         }
         else
         {
-            value = 4.0*amplitude_*(1.0 - s) + offset_ - amplitude_;
+            value = 2.0*amplitude_*(1.0 - s) + offset_ - 0.5*amplitude_;
         }
         return value;
     }
 
 
-}
+    bool CyclicTest::isDone(double t) const
+    {
+        bool done = false;
+        float cycleCount = getCycleCount(t);
+        if (cycleCount >= numCycles_)
+        {
+            done = true;
+        }
+        return done;
+    }
+
+
+} // namespace ps

@@ -2,18 +2,18 @@
 
 namespace ps
 {
-    // AnalogSubsystemHW public methods
+    // AnalogSubsystem public methods
     // --------------------------------------------------------------------------------------------
     
-    const VoltRange AnalogSubsystemHW::DefaultVoltRange = VoltRangeVector[0]; 
-    const CurrRange AnalogSubsystemHW::DefaultCurrRange = CurrRangeVector[1]; 
+    const VoltRange AnalogSubsystem::DefaultVoltRange = VoltRangeVector[0]; 
+    const CurrRange AnalogSubsystem::DefaultCurrRange = CurrRangeVector[1]; 
 
-    AnalogSubsystemHW::AnalogSubsystemHW() {}
+    AnalogSubsystem::AnalogSubsystem() {}
 
-    void AnalogSubsystemHW::initialize()
+    void AnalogSubsystem::initialize()
     {
         // Setup analog subsystem. This method must be called (typically setup)
-        // before the AnalogSubsystemHW can be used. 
+        // before the AnalogSubsystem can be used. 
         
         // Set  Dac gain seletion IO pins to output
         pinMode(AD8250_GAIN_A0,OUTPUT);
@@ -47,35 +47,35 @@ namespace ps
     }
 
 
-    void AnalogSubsystemHW::setVolt(float value) 
+    void AnalogSubsystem::setVolt(float value) 
     {
         // Set working to reference electrode (output) voltage
         setValueDac(voltRange_.valueToInt(value));
     }
 
 
-    float AnalogSubsystemHW::getVolt() const     
+    float AnalogSubsystem::getVolt() const     
     {
         // Get working to reference electrode (output) voltage setting
         return voltRange_.intToValue(valueDac_);
     }
 
 
-    float AnalogSubsystemHW::getCurr() const           
+    float AnalogSubsystem::getCurr() const           
     {
         // Get current measurement from working electrode
         return currRange_.intToValue(getTransAmpAin());
     }
 
 
-    float AnalogSubsystemHW::getRefElectVolt() const   
+    float AnalogSubsystem::getRefElectVolt() const   
     {
         // Get measurement of reference electrode voltage (primarily for debugging)
         return VoltRange10V.intToValue(getRefElectAin());
     }
 
 
-    void AnalogSubsystemHW::setVoltRange(VoltRange range)
+    void AnalogSubsystem::setVoltRange(VoltRange range)
     {
         // Set the output voltage range - for working to reference electrode voltage
         // Note, this command will change the VoltGain setting. 
@@ -84,45 +84,45 @@ namespace ps
     }
 
 
-    VoltRange AnalogSubsystemHW::getVoltRange() const
+    VoltRange AnalogSubsystem::getVoltRange() const
     { 
         // Returns the devices voltage range settings.
         return voltRange_;
     }
 
 
-    void AnalogSubsystemHW::setCurrRange(CurrRange range)
+    void AnalogSubsystem::setCurrRange(CurrRange range)
     {
         // Set current transimpedance amplifiers current range
         setCurrGainPath(currRange_.gain());
     }
 
 
-    CurrRange AnalogSubsystemHW::getCurrRange() const
+    CurrRange AnalogSubsystem::getCurrRange() const
     {
         // Returns the transimpedance amplifier's current range setting 
         return currRange_;
     }
 
 
-    String AnalogSubsystemHW::getVoltRangeName() const
+    String AnalogSubsystem::getVoltRangeName() const
     { 
         // Returns a string representation of the voltage range setting
         return voltRange_.name();
     }
 
 
-    String AnalogSubsystemHW::getCurrRangeName() const
+    String AnalogSubsystem::getCurrRangeName() const
     {
         // Returns a string representation of the current range
         return currRange_.name();
     }
 
 
-    // AnalogSubsystemHW protected methods
+    // AnalogSubsystem protected methods
     // --------------------------------------------------------------------------------------------
 
-    void AnalogSubsystemHW::setVoltGain(VoltGain value)
+    void AnalogSubsystem::setVoltGain(VoltGain value)
     {
         // Sets the amplifier gain for the working to reference electrode voltage output
 
@@ -159,7 +159,7 @@ namespace ps
     }
 
 
-    VoltGain AnalogSubsystemHW::getVoltGain() const
+    VoltGain AnalogSubsystem::getVoltGain() const
     {
         // Returns the value for the gain (as currently set) for output voltage amplifier
         uint8_t value0 = digitalRead(AD8250_GAIN_A0);
@@ -187,7 +187,7 @@ namespace ps
     }
 
 
-    void AnalogSubsystemHW::setCurrGainPath(CurrGainPath value)
+    void AnalogSubsystem::setCurrGainPath(CurrGainPath value)
     {
         // Sets the gain path (In1,In2,In3,In4) used for transimpedence amplifier
        
@@ -252,7 +252,7 @@ namespace ps
     }
 
 
-    CurrGainPath AnalogSubsystemHW::getCurrGainPath() const
+    CurrGainPath AnalogSubsystem::getCurrGainPath() const
     {
         // Returns the gain path setting (currently in use) by the transimpedance
         // amplifier
@@ -290,7 +290,7 @@ namespace ps
         return currGainPath;
     }
 
-    String AnalogSubsystemHW::getVoltGainString() const
+    String AnalogSubsystem::getVoltGainString() const
     {
         // Returns a string representation for voltage gain
         VoltGain voltGain = getVoltGain();
@@ -298,7 +298,7 @@ namespace ps
     }
 
 
-    String AnalogSubsystemHW::getCurrGainPathString() const
+    String AnalogSubsystem::getCurrGainPathString() const
     {
         // Returns a string representation for current gain path
         CurrGainPath currGainPath = getCurrGainPath();
@@ -306,7 +306,7 @@ namespace ps
     }
 
 
-    void AnalogSubsystemHW::setValueDac(uint16_t value)
+    void AnalogSubsystem::setValueDac(uint16_t value)
     {
         // The value of the output voltage Dac
         valueDac_ = min(value,MaxValueDac);
@@ -314,29 +314,25 @@ namespace ps
     }
 
 
-    uint16_t AnalogSubsystemHW::getValueDac() const
+    uint16_t AnalogSubsystem::getValueDac() const
     {
         // Return the value currently used by the output voltage Dac
         return valueDac_;
     }
 
 
-    uint16_t AnalogSubsystemHW::getTransAmpAin() const  
+    uint16_t AnalogSubsystem::getTransAmpAin() const  
     {
         // Read analog input associated with the transimpedance amplifier 
        return analogRead(TIA_OUT_UNI_PIN);
     }
 
 
-    uint16_t AnalogSubsystemHW::getRefElectAin() const
+    uint16_t AnalogSubsystem::getRefElectAin() const
     {
         // Read analog input associated with the refernce electrode
         return analogRead(REF_ELECT_UNI_PIN);
     }
 
-
-    // AnalogSubsystemHW instance
-    // --------------------------------------------------------------------------------------------
-    AnalogSubsystemHW AnalogSubsystem;
 
 } // namespace ps

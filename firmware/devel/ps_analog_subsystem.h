@@ -8,7 +8,7 @@
 namespace ps
 {
 
-    class AnalogSubsystemHW
+    class AnalogSubsystem
     {
         public:
 
@@ -24,7 +24,7 @@ namespace ps
             static const VoltRange DefaultVoltRange; 
             static const CurrRange DefaultCurrRange; 
 
-            AnalogSubsystemHW();
+            AnalogSubsystem();
             void initialize(); 
 
             void setVolt(float value); 
@@ -64,8 +64,6 @@ namespace ps
             uint16_t getRefElectAin() const;  
 
     };
-
-    extern AnalogSubsystemHW AnalogSubsystem;
 
 } // namespace ps
 

@@ -5,7 +5,6 @@
 
 namespace ps
 {
-    // TO DO ... modify CyclicTest to use floats instead of uint16_t this will be much clearer
 
     class CyclicTest
     {
@@ -15,9 +14,9 @@ namespace ps
             static constexpr float DefaultOffset = 0.0; 
             static constexpr float DefaultPeriod = 1.0;
             static constexpr float DefaultLag = 0.0;
-            static const uint16_t DefaultNumCycles = 1;
+            static constexpr uint16_t DefaultNumCycles = 1;
 
-            CyclicTest() {};
+            CyclicTest();
 
             void setAmplitude(float amplitude);
             float getAmplitude() const;
@@ -31,26 +30,30 @@ namespace ps
             void setLag(float lag);
             float getLag() const;
 
+            void setNumCycles(uint16_t numCycles);
+            uint16_t getNumCycles() const;
+
             float getCycleCount(double t) const;
 
             float getCycleFrac(double t) const;
 
             float getValue(double t) const;
 
+            bool isDone(double t) const;
+
         private:
 
-            float amplitude_ = DefaultAmplitude;  // 12-bit Dac int
-            float offset_ = DefaultOffset;        // 12-bit Dac int
-            float period_ = DefaultPeriod;        // Waveform period (us)
-            float lag_ = DefaultLag;              // Waveform lag    (us)
+            float amplitude_ = DefaultAmplitude;     // 12-bit Dac int
+            float offset_ = DefaultOffset;           // 12-bit Dac int
+            float period_ = DefaultPeriod;           // Waveform period (s)
+            float lag_ = DefaultLag;                 // Waveform lag    (s)
             uint16_t numCycles_ = DefaultNumCycles;  // Number of cycles to perform
 
     };
 
-
-
 } // namespace ps
 
-//std::function<float(uint16_t)> valueFunc = std::bind(&CyclicTest::getValue, &cyclicTest, std::placeholders::_1);
+//std::function<float(double)> voltFunc = std::bind(&CyclicTest::getValue, &cyclicTest, std::placeholders::_1);
+//std::function<bool(double)>  isDoneFunc = std::bind(&CyclicTest::isDone, &cyclicTest, std::placeholders::_1);
 
 #endif
