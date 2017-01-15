@@ -18,23 +18,6 @@ namespace ps
     
     };
 
-    extern const CurrRange CurrRange1uA; 
-    extern const CurrRange CurrRange10uA; 
-    extern const CurrRange CurrRange100uA; 
-    extern const CurrRange CurrRange1000uA; 
-
-    const int NumCurrRange = 4;
-
-    // TO DO ... get rid of Fixed Vector and use std::array ....
-
-    class CurrRangeFixedVector : public FixedVector<CurrRange,NumCurrRange>
-    {
-        public:
-            CurrRangeFixedVector();
-    };
-
-    extern CurrRangeFixedVector CurrRangeVector;
-
-} // namesapce ps
+} 
 
 #endif

@@ -1,12 +1,13 @@
 #include "ps_analog_subsystem.h"
+#include "ps_constants.h"
 
 namespace ps
 {
     // AnalogSubsystem public methods
     // --------------------------------------------------------------------------------------------
     
-    const VoltRange AnalogSubsystem::DefaultVoltRange = VoltRangeVector[0]; 
-    const CurrRange AnalogSubsystem::DefaultCurrRange = CurrRangeVector[1]; 
+    const VoltRange AnalogSubsystem::DefaultVoltRange = VoltRangeArray[0]; 
+    const CurrRange AnalogSubsystem::DefaultCurrRange = CurrRangeArray[1]; 
 
     AnalogSubsystem::AnalogSubsystem() {}
 

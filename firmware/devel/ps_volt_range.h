@@ -17,23 +17,6 @@ namespace ps
     
     };
 
-    extern const VoltRange VoltRange1V; 
-    extern const VoltRange VoltRange2V; 
-    extern const VoltRange VoltRange5V; 
-    extern const VoltRange VoltRange10V; 
-
-    const int NumVoltRange = 4;
-
-    // TO DO ... get rid of Fixed Vector and use std::array ....
-    //
-    class VoltRangeFixedVector : public FixedVector<VoltRange,NumVoltRange>
-    {
-        public:
-            VoltRangeFixedVector();
-    };
-
-    extern VoltRangeFixedVector VoltRangeVector;
-
-} // namespace ps
+} 
 
 #endif
