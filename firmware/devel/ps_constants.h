@@ -28,6 +28,6 @@ namespace ps
     const int NumCurrRange = 4;
     extern Array<CurrRange,NumCurrRange> CurrRangeArray;
 
-}
+} // namespace ps
 
 #endif
