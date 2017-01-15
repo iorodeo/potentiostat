@@ -15,6 +15,7 @@ namespace ps
             static constexpr float DefaultPeriod = 1.0;
             static constexpr float DefaultLag = 0.0;
             static constexpr uint16_t DefaultNumCycles = 1;
+            static const String NameString; 
 
             CyclicTest();
 
@@ -41,6 +42,7 @@ namespace ps
 
             bool isDone(double t) const;
 
+
         private:
 
             float amplitude_ = DefaultAmplitude;     // 12-bit Dac int
@@ -55,5 +57,7 @@ namespace ps
 
 //std::function<float(double)> voltFunc = std::bind(&CyclicTest::getValue, &cyclicTest, std::placeholders::_1);
 //std::function<bool(double)>  isDoneFunc = std::bind(&CyclicTest::isDone, &cyclicTest, std::placeholders::_1);
+
+
 
 #endif

@@ -1,7 +1,7 @@
 #include "ps_constants.h"
 #include "ps_analog_subsystem.h"
 #include "ps_cyclic_test.h"
-#include <array>
+#include "ps_system_state.h"
 
 using namespace ps;
 
@@ -19,18 +19,16 @@ void testTimerCallback()
     static double t = 0.0;
     static double dt = double(timerPeriod)*1.0e-6;
 
-    std::array<int,3> x({1,2,3});
-
 
     float volt = cyclicTest.getValue(t);
     analogSubsystem.setVolt(volt);
 
     float curr = analogSubsystem.getCurr();
 
-    if (cyclicTest.isDone(t))
-    {
-        testTimer.end();
-    }
+    //if (cyclicTest.isDone(t))
+    //{
+    //    testTimer.end();
+    //}
 
     t += dt;
 
@@ -53,8 +51,8 @@ void setup()
     analogSubsystem.setCurrRange(CurrRange100uA);
 
     cyclicTest.setPeriod(1.0);
-    cyclicTest.setAmplitude(1.0);
-    cyclicTest.setOffset(0.5);
+    cyclicTest.setAmplitude(2.0);
+    cyclicTest.setOffset(0.0);
     cyclicTest.setLag(0.0);
     cyclicTest.setNumCycles(10);
 
@@ -69,6 +67,7 @@ void setup()
 void loop()
 {
 
-    delay(10);
+
+    delay(1000);
 }
 
