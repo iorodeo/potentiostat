@@ -2,7 +2,6 @@
 #define PS_VOLT_RANGE_H
 #include <Arduino.h>
 #include "ps_range.h"
-#include "ps_fixed_vector.h"
 #include "ps_gains.h"
 
 namespace ps
