@@ -1,5 +1,0 @@
-namespace ps
-{
-
-
-} // namespace ps
