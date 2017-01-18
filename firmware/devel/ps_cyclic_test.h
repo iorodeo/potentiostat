@@ -55,8 +55,6 @@ namespace ps
 
 } // namespace ps
 
-//std::function<float(double)> voltFunc = std::bind(&CyclicTest::getValue, &cyclicTest, std::placeholders::_1);
-//std::function<bool(double)>  isDoneFunc = std::bind(&CyclicTest::isDone, &cyclicTest, std::placeholders::_1);
 
 
 

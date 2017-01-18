@@ -8,6 +8,7 @@ namespace ps
     class Voltammetry
     {
         public:
+
             CyclicTest cyclicTest;
 
     };

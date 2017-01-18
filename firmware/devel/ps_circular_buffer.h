@@ -18,12 +18,12 @@ namespace ps
             void push_front(const T &value);
             void pop_front();
             void pop_back();
-
-            size_t size();
-            size_t max_size();
-
-            size_t pos_front();
-            size_t pos_back();
+            void clear();
+            bool empty() const;
+            size_t size() const;
+            size_t max_size() const;
+            size_t pos_front() const;
+            size_t pos_back() const;
 
         protected:
 
@@ -114,7 +114,22 @@ namespace ps
 
 
     template<typename T, size_t MAX_SIZE>
-    size_t CircularBuffer<T,MAX_SIZE>::size()
+    void CircularBuffer<T,MAX_SIZE>::clear()
+    {
+        pos_front_ = 0;
+        pos_back_ = 0;
+    }
+
+
+    template<typename T, size_t MAX_SIZE>
+    bool CircularBuffer<T,MAX_SIZE>::empty() const
+    {
+        return (size() == 0);
+    }
+
+
+    template<typename T, size_t MAX_SIZE>
+    size_t CircularBuffer<T,MAX_SIZE>::size() const
     {
         if (pos_front_ <= pos_back_)
         {
@@ -127,22 +142,22 @@ namespace ps
     }
 
 
-    template<typename T, size_t MAX_SIZE>
-    size_t CircularBuffer<T,MAX_SIZE>::max_size()
+    template<typename T, size_t MAX_SIZE> 
+    size_t CircularBuffer<T,MAX_SIZE>::max_size() const
     {
         return MAX_SIZE;
     }
 
 
     template<typename T, size_t MAX_SIZE>
-    size_t CircularBuffer<T,MAX_SIZE>::pos_front()
+    size_t CircularBuffer<T,MAX_SIZE>::pos_front() const
     {
         return pos_front_;
     }
 
 
     template<typename T, size_t MAX_SIZE>
-    size_t CircularBuffer<T,MAX_SIZE>::pos_back()
+    size_t CircularBuffer<T,MAX_SIZE>::pos_back() const
     {
         return pos_back_;
     }

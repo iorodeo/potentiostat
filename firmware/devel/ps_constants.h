@@ -28,6 +28,13 @@ namespace ps
     const int NumCurrRange = 4;
     extern Array<CurrRange,NumCurrRange> CurrRangeArray;
 
+    // Timer parameters
+    const unsigned int TestTimerPeriod = 100;
+
+    // Data buffer parameters
+    const int DataBufferSize = 1000;
+
+
 } // namespace ps
 
 #endif
