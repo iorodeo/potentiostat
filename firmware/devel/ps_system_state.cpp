@@ -17,7 +17,6 @@ namespace ps
     void SystemState::initialize()
     {
         analogSubsystem_.initialize();
-        analogSubsystem_.setVoltRange(VoltRange1V);
         analogSubsystem_.setCurrRange(CurrRange10uA);
 
         voltammetry_.cyclicTest.setPeriod(1.0);
@@ -26,9 +25,13 @@ namespace ps
         voltammetry_.cyclicTest.setLag(0.0);
         voltammetry_.cyclicTest.setNumCycles(10);
 
+        analogSubsystem_.autoVoltRange(voltammetry_.cyclicTest.getMinValue(), voltammetry_.cyclicTest.getMaxValue());
+
         testGetVolt_ = std::bind(&CyclicTest::getValue, &voltammetry_.cyclicTest, std::placeholders::_1);
         testIsDone_  = std::bind(&CyclicTest::isDone,   &voltammetry_.cyclicTest, std::placeholders::_1);
     }
+
+
 
     void SystemState::setTestTimerCallback(void(*callback)())
     {

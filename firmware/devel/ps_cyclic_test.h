@@ -42,6 +42,10 @@ namespace ps
 
             bool isDone(double t) const;
 
+            float getMaxValue() const;
+
+            float getMinValue() const;
+
 
         private:
 

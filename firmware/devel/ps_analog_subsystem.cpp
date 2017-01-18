@@ -84,6 +84,44 @@ namespace ps
         setVoltGain(voltRange_.gain());
     }
 
+    
+    bool AnalogSubsystem::autoVoltRange(float minVolt, float maxVolt)
+    {
+        bool success = false;
+
+        VoltRange bestRange;
+        float bestDelta;
+
+        for (size_t i=0; i<VoltRangeArray.size(); i++)
+        {
+            VoltRange range = VoltRangeArray[i];
+            float minRange = range.minValue();
+            float maxRange = range.maxValue();
+            if ((minVolt >= minRange) && (maxVolt <= maxRange))
+            {
+                float delta = max(minVolt - minRange, maxRange - maxVolt);
+                if (success)
+                {
+                    if (delta < bestDelta)
+                    {
+                        bestRange = range;
+                        bestDelta = delta;
+                    }
+                }
+                else
+                {
+                    bestRange = range;
+                    bestDelta = delta;
+                    success = true;
+                }
+            }
+        }
+        if (success)
+        {
+            setVoltRange(bestRange);
+        }
+        return success;
+    }
 
     VoltRange AnalogSubsystem::getVoltRange() const
     { 

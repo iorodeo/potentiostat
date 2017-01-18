@@ -35,9 +35,11 @@ namespace ps
 
             void setVoltRange(VoltRange range);  
             VoltRange getVoltRange() const;      
+            bool autoVoltRange(float minVolt, float maxVolt);
 
             void setCurrRange(CurrRange range);  
             CurrRange getCurrRange() const;      
+
 
             String getVoltRangeName() const;   
             String getCurrRangeName() const;   

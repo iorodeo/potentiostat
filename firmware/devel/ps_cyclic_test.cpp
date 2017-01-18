@@ -110,5 +110,16 @@ namespace ps
         return done;
     }
 
+    float CyclicTest::getMaxValue() const
+    {
+        return offset_ + 0.5*amplitude_;
+    }
+
+
+    float CyclicTest::getMinValue() const
+    {
+        return offset_ - 0.5*amplitude_;
+    }
+
 
 } // namespace ps
