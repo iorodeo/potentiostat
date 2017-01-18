@@ -6,18 +6,14 @@
 #include "ps_voltammetry.h"
 #include "ps_circular_buffer.h"
 #include "ps_test_data.h"
-#include <functional>
 
 namespace ps
 {
-
-
 
     class SystemState
     {
 
         public:
-
 
             SystemState();
             void initialize();
@@ -33,21 +29,13 @@ namespace ps
             Voltammetry voltammetry_;
 
             IntervalTimer testTimer_;
+            static void dummyTimerCallback() {};
+            void (*testTimerCallback_)() = dummyTimerCallback;
 
             double dt_ = (TestTimerPeriod*1.0e-6);
             double t_ = 0.0;
 
-            static void dummyTimerCallback() {};
-            void (*testTimerCallback_)() = dummyTimerCallback;
-
-            static bool dummyTestIsDone(double t) {return true; };
-            std::function<bool(double)> testIsDone_ = dummyTestIsDone; 
-
-            static float dummyTestGetVolt(double t) { return 0.0; };
-            std::function<float(double)> testGetVolt_ = dummyTestGetVolt; 
-
-
-
+            BaseTest *test_;
     };
 
 

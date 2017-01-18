@@ -1,23 +1,18 @@
 #include "ps_system_state.h"
 
 
-namespace std
-{
-    // Required for using std::function ...
-    void __throw_bad_function_call() { exit(0); }
-}
-
 namespace ps
 {
 
     SystemState::SystemState()
-    { };
+    { 
+        test_ = &voltammetry_.baseTest;
+    }
 
 
     void SystemState::initialize()
     {
         analogSubsystem_.initialize();
-        analogSubsystem_.setCurrRange(CurrRange10uA);
 
         voltammetry_.cyclicTest.setPeriod(1.0);
         voltammetry_.cyclicTest.setAmplitude(0.7);
@@ -25,12 +20,12 @@ namespace ps
         voltammetry_.cyclicTest.setLag(0.0);
         voltammetry_.cyclicTest.setNumCycles(10);
 
-        analogSubsystem_.autoVoltRange(voltammetry_.cyclicTest.getMinValue(), voltammetry_.cyclicTest.getMaxValue());
+        test_ = &voltammetry_.cyclicTest;
 
-        testGetVolt_ = std::bind(&CyclicTest::getValue, &voltammetry_.cyclicTest, std::placeholders::_1);
-        testIsDone_  = std::bind(&CyclicTest::isDone,   &voltammetry_.cyclicTest, std::placeholders::_1);
+        analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
+        analogSubsystem_.setCurrRange(CurrRange10uA);
+
     }
-
 
 
     void SystemState::setTestTimerCallback(void(*callback)())
@@ -41,20 +36,18 @@ namespace ps
 
     void SystemState::updateTestOnTimer()
     {
-
-        float volt = testGetVolt_(t_);
+        float volt = test_ -> getValue(t_);
         analogSubsystem_.setVolt(volt);
         float curr = analogSubsystem_.getCurr();
 
         // Don't push every data point
-        TestData data = {t_, volt, curr};
+        //TestData data = {t_, volt, curr};
         //dataBuffer_.push_back(data);
 
-        if (testIsDone_(t_))
+        if (test_ -> isDone(t_))
         {
             testTimer_.end();
         }
-
         t_ += dt_;
     }
 

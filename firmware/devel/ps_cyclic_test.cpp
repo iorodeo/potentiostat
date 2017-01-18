@@ -5,7 +5,7 @@ namespace ps
 {
     const String CyclicTest::NameString = String("Cyclic Voltammetry"); 
 
-    CyclicTest::CyclicTest()
+    CyclicTest::CyclicTest() 
     { }
 
 

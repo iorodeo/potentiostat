@@ -1,5 +1,6 @@
 #ifndef PS_VOLTAMMETRY_H
 #define PS_VOLTAMMETRY_H
+#include "ps_base_test.h"
 #include "ps_cyclic_test.h"
 
 namespace ps
@@ -9,6 +10,7 @@ namespace ps
     {
         public:
 
+            BaseTest baseTest;
             CyclicTest cyclicTest;
 
     };

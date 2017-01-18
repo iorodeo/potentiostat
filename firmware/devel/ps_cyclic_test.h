@@ -1,12 +1,13 @@
 #ifndef PS_CYCLIC_TEST_H
 #define PS_CYCLIC_TEST_H
 #include <Arduino.h>
+#include "ps_base_test.h"
 #include "ps_analog_subsystem.h"
 
 namespace ps
 {
 
-    class CyclicTest
+    class CyclicTest : public BaseTest
     {
         public:
 
@@ -38,13 +39,13 @@ namespace ps
 
             float getCycleFrac(double t) const;
 
-            float getValue(double t) const;
+            virtual float getValue(double t) const;
 
-            bool isDone(double t) const;
+            virtual bool isDone(double t) const;
 
-            float getMaxValue() const;
+            virtual float getMaxValue() const;
 
-            float getMinValue() const;
+            virtual float getMinValue() const;
 
 
         private:
