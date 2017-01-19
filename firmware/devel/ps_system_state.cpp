@@ -7,6 +7,7 @@ namespace ps
     SystemState::SystemState()
     { 
         test_ = &voltammetry_.baseTest;
+        currLowPass_.setParam(CurrLowPassParam);
     }
 
 
@@ -14,10 +15,10 @@ namespace ps
     {
         analogSubsystem_.initialize();
 
-        voltammetry_.cyclicTest.setPeriod(1.0);
-        voltammetry_.cyclicTest.setAmplitude(0.7);
+        voltammetry_.cyclicTest.setPeriod(2000000);
+        voltammetry_.cyclicTest.setAmplitude(0.8);
         voltammetry_.cyclicTest.setOffset(0.0);
-        voltammetry_.cyclicTest.setLag(0.0);
+        voltammetry_.cyclicTest.setLag(0);
         voltammetry_.cyclicTest.setNumCycles(10);
 
         test_ = &voltammetry_.cyclicTest;
@@ -33,12 +34,15 @@ namespace ps
         Serial.print("BufferSize: ");
         Serial.println(int(dataBuffer_.size()));
 
+        char buf[100];
+
         while (dataBuffer_.size() > 0)
         {
             Sample sample = dataBuffer_.front();
             dataBuffer_.pop_front();
             Serial.print("t = ");
-            Serial.print(sample.t,10);
+            snprintf(buf,sizeof(buf),"%llu", sample.t);
+            Serial.print(buf);
             Serial.print(", volt = ");
             Serial.println(sample.volt,10);
         }
@@ -53,16 +57,16 @@ namespace ps
 
     void SystemState::updateTestOnTimer()
     {
-        double t = double(timerCnt_)*timerDt_;
-
+        uint64_t t = uint64_t(TestTimerPeriod)*timerCnt_;
         float volt = test_ -> getValue(t);
         analogSubsystem_.setVolt(volt);
 
         float curr = analogSubsystem_.getCurr();
+        currLowPass_.update(curr,LowPassDtSec);
 
         if (timerCnt_%sampleModulus_ == 0)
         {
-            Sample sample = {t, volt, curr};
+            Sample sample = {t, volt, currLowPass_.value()};
             dataBuffer_.push_back(sample);
         }
 
@@ -78,8 +82,9 @@ namespace ps
     void SystemState::startTestTimer()
     {
         timerCnt_ = 0;
-        sampleModulus_ = samplePeriod_us_/TestTimerPeriod_us;
-        testTimer_.begin(testTimerCallback_, TestTimerPeriod_us);
+        sampleModulus_ = samplePeriod_/TestTimerPeriod;
+        currLowPass_.reset();
+        testTimer_.begin(testTimerCallback_, TestTimerPeriod);
     }
 
 

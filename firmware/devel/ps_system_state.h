@@ -3,9 +3,10 @@
 #include <Arduino.h>
 #include "ps_constants.h"
 #include "ps_analog_subsystem.h"
-#include "ps_voltammetry.h"
 #include "ps_circular_buffer.h"
+#include "ps_voltammetry.h"
 #include "ps_sample.h"
+#include "ps_filter.h"
 
 namespace ps
 {
@@ -34,12 +35,11 @@ namespace ps
             static void dummyTimerCallback() {};
             void (*testTimerCallback_)() = dummyTimerCallback;
 
-            double timerDt_ = TestTimerPeriod_us*1.0e-6;
-            uint64_t timerCnt_; 
-
-            uint32_t samplePeriod_us_ = DefaultSamplePeriod_us;
+            uint32_t samplePeriod_ = DefaultSamplePeriod;
             uint32_t sampleModulus_;  
+            uint64_t timerCnt_ = 0;
 
+            LowPass currLowPass_;
             BaseTest *test_;
     };
 

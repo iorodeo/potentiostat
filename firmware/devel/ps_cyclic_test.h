@@ -13,9 +13,9 @@ namespace ps
 
             static constexpr float DefaultAmplitude = 1.0; 
             static constexpr float DefaultOffset = 0.0; 
-            static constexpr float DefaultPeriod = 1.0;
-            static constexpr float DefaultLag = 0.0;
-            static constexpr uint16_t DefaultNumCycles = 1;
+            static constexpr uint64_t DefaultPeriod = UINT64_C(1000000);
+            static constexpr uint64_t DefaultLag = UINT64_C(0);
+            static constexpr uint32_t DefaultNumCycles = UINT32_C(1);
             static const String NameString; 
 
             CyclicTest();
@@ -26,23 +26,21 @@ namespace ps
             void setOffset(float offset);
             float getOffset() const;
 
-            void setPeriod(float period);
-            float getPeriod() const;
+            void setPeriod(uint64_t period);
+            uint64_t getPeriod() const;
 
-            void setLag(float lag);
-            float getLag() const;
+            void setLag(uint64_t lag);
+            uint64_t getLag() const;
 
-            void setNumCycles(uint16_t numCycles);
-            uint16_t getNumCycles() const;
+            void setNumCycles(uint32_t numCycles);
+            uint32_t getNumCycles() const;
 
-            float getCycleCount(double t) const;
+            uint32_t getCycleCount(uint64_t t) const;
 
-            float getCycleFrac(double t) const;
+            virtual bool isDone(uint64_t t) const;
 
-            virtual float getValue(double t) const;
-
-            virtual bool isDone(double t) const;
-
+            virtual float getValue(uint64_t t) const;
+            
             virtual float getMaxValue() const;
 
             virtual float getMinValue() const;
@@ -52,9 +50,10 @@ namespace ps
 
             float amplitude_ = DefaultAmplitude;     // 12-bit Dac int
             float offset_ = DefaultOffset;           // 12-bit Dac int
-            float period_ = DefaultPeriod;           // Waveform period (s)
-            float lag_ = DefaultLag;                 // Waveform lag    (s)
-            uint16_t numCycles_ = DefaultNumCycles;  // Number of cycles to perform
+            uint64_t period_ = DefaultPeriod;        // Waveform period (us)
+            uint64_t lag_ = DefaultLag;              // Waveform lag    (us)
+            uint32_t numCycles_ = DefaultNumCycles;  // Number of cycles to perform
+
 
     };
 

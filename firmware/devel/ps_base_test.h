@@ -10,8 +10,8 @@ namespace ps
         public:
 
             BaseTest() {};
-            virtual bool isDone(double t) const { return true; };
-            virtual float getValue(double t) const { return 0.0; };
+            virtual bool isDone(uint64_t t) const { return true; };
+            virtual float getValue(uint64_t t) const { return 0.0; };
             virtual float getMaxValue() const { return 0.0; };
             virtual float getMinValue() const { return 0.0; };
     };

@@ -8,7 +8,7 @@ namespace ps
     {
         public:
 
-            double t;
+            uint64_t t;
             float volt;
             float curr;
     };

@@ -2,6 +2,7 @@
 #define PS_CONSTANTS_H
 #include "ps_volt_range.h"
 #include "ps_curr_range.h"
+#include "ps_filter.h"
 #include "Array.h"
 
 namespace ps
@@ -31,10 +32,12 @@ namespace ps
     extern Array<CurrRange,NumCurrRange> CurrRangeArray;
 
     // Timer parameters
-    extern const uint32_t TestTimerPeriod_us; 
-    extern const uint32_t DefaultSamplePeriod_us;
+    extern const uint32_t TestTimerPeriod;      // us
+    extern const uint32_t DefaultSamplePeriod;  // us
 
-
+    // Low pass filter params for current samples
+    extern const LowPassParam CurrLowPassParam;
+    extern const float LowPassDtSec; 
 
 } // namespace ps
 

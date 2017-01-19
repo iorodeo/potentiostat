@@ -23,8 +23,13 @@ namespace ps
     Array<CurrRange,NumCurrRange>  CurrRangeArray(currRangeArrayTmp);
 
     // Timer parameters
-    const uint32_t TestTimerPeriod_us = 100;
-    const uint32_t DefaultSamplePeriod_us = 10000;
+    const uint32_t TestTimerPeriod = 100;       // us
+    const uint32_t DefaultSamplePeriod = 10000; // us
+
+    // Low pass filter params for current samples
+    const LowPassParam CurrLowPassParam = {50.0, 0.0, 2}; // cutoff freq (Hz), initial value, order
+    const float LowPassDtSec = 1.0e-6*TestTimerPeriod;    // (s)
+
 
 
 } // namespace ps

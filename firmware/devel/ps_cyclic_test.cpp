@@ -33,82 +33,77 @@ namespace ps
     }
 
 
-    void CyclicTest::setPeriod(float period)
+    void CyclicTest::setPeriod(uint64_t period)
     {
         period_ = period;
     }
 
 
-    float CyclicTest::getPeriod() const
+    uint64_t CyclicTest::getPeriod() const
     {
         return period_;
     }
 
 
-    void CyclicTest::setLag(float lag)
+    void CyclicTest::setLag(uint64_t lag)
     {
-        lag_ = constrain(lag,-1.0,1.0);
+        lag_ = lag;
     }
 
 
-    float CyclicTest::getLag() const
+    uint64_t CyclicTest::getLag() const
     {
         return lag_;
     }
 
 
-    void CyclicTest::setNumCycles(uint16_t numCycles)
+    void CyclicTest::setNumCycles(uint32_t numCycles)
     {
         numCycles_ = numCycles;
     }
 
 
-    uint16_t CyclicTest::getNumCycles() const
+    uint32_t CyclicTest::getNumCycles() const
     {
         return numCycles_;
     }
 
 
-    float CyclicTest::getCycleCount(double t) const
+    uint32_t CyclicTest::getCycleCount(uint64_t t) const
     {
-        return float(t/double(period_));
+        return uint32_t(t/period_);
     }
 
 
-    float CyclicTest::getCycleFrac(double t) const
-    {
-        float cycleCount = getCycleCount(t) - lag_;
-        return cycleCount - floor(cycleCount);
-    }
-
-
-    float CyclicTest::getValue(double t) const
-    {
-        float value = 0.0;
-        float s = getCycleFrac(t);
-
-        if (s < 0.5)
-        {
-            value = 2.0*amplitude_*s + offset_ - 0.5*amplitude_;
-        }
-        else
-        {
-            value = 2.0*amplitude_*(1.0 - s) + offset_ - 0.5*amplitude_;
-        }
-        return value;
-    }
-
-
-    bool CyclicTest::isDone(double t) const
+    bool CyclicTest::isDone(uint64_t t) const
     {
         bool done = false;
-        float cycleCount = getCycleCount(t);
+        uint32_t cycleCount = getCycleCount(t);
         if (cycleCount >= numCycles_)
         {
             done = true;
         }
         return done;
     }
+
+
+    float CyclicTest::getValue(uint64_t t) const
+    {
+        float value = 0.0;
+        uint64_t s = t%period_;
+        uint64_t halfPeriod = period_ >> 1;
+
+        if (s < halfPeriod) 
+        {
+            value = (2.0*amplitude_*s)/period_ + offset_ - 0.5*amplitude_;
+        }
+        else
+        {
+            value = (2.0*amplitude_*(period_ - s))/period_ + offset_ - 0.5*amplitude_;
+        }
+        return value;
+    };
+
 
     float CyclicTest::getMaxValue() const
     {

@@ -1,3 +1,4 @@
+#include <cstdint>
 #include "ps_constants.h"
 #include "ps_analog_subsystem.h"
 #include "ps_cyclic_test.h"
@@ -20,10 +21,8 @@ void setup()
 
 void loop()
 {
-
     systemState.serviceDataBuffer();
-
-    delay(10);
+    delay(50);
 }
 
 
