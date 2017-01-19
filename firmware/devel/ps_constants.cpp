@@ -13,7 +13,6 @@ namespace ps
     VoltRange voltRangeArrayTmp[NumVoltRange] = {VoltRange1V, VoltRange2V, VoltRange5V, VoltRange10V};
     Array<VoltRange,NumVoltRange> VoltRangeArray(voltRangeArrayTmp);
 
-
     // Ranges for input current
     const CurrRange CurrRange1uA("1uA", -1.0, 1.0, CurrGainPathIn1, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange10uA("10uA", -10.0, 10.0, CurrGainPathIn2, AnalogSubsystem::MaxValueAin); 
@@ -22,5 +21,10 @@ namespace ps
 
     CurrRange currRangeArrayTmp[NumCurrRange] = {CurrRange1uA,CurrRange10uA, CurrRange10uA, CurrRange100uA};
     Array<CurrRange,NumCurrRange>  CurrRangeArray(currRangeArrayTmp);
+
+    // Timer parameters
+    const uint32_t TestTimerPeriod_us = 100;
+    const uint32_t DefaultSamplePeriod_us = 10000;
+
 
 } // namespace ps

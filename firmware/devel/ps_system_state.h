@@ -22,6 +22,8 @@ namespace ps
 
             void startTestTimer();
 
+            void serviceDataBuffer();
+
         protected:
 
             AnalogSubsystem analogSubsystem_;
@@ -32,8 +34,11 @@ namespace ps
             static void dummyTimerCallback() {};
             void (*testTimerCallback_)() = dummyTimerCallback;
 
-            double dt_ = (TestTimerPeriod*1.0e-6);
-            double t_ = 0.0;
+            double timerDt_ = TestTimerPeriod_us*1.0e-6;
+            uint64_t timerCnt_; 
+
+            uint32_t samplePeriod_us_ = DefaultSamplePeriod_us;
+            uint32_t sampleModulus_;  
 
             BaseTest *test_;
     };

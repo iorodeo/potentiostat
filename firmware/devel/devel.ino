@@ -21,6 +21,7 @@ void setup()
 void loop()
 {
 
+    systemState.serviceDataBuffer();
 
     delay(10);
 }

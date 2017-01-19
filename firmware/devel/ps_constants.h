@@ -6,6 +6,8 @@
 
 namespace ps
 {
+    // Data buffer parameters
+    const int DataBufferSize = 1000;
 
     // Ranges for output voltage
     // --------------------------------------------------------------
@@ -29,10 +31,9 @@ namespace ps
     extern Array<CurrRange,NumCurrRange> CurrRangeArray;
 
     // Timer parameters
-    const unsigned int TestTimerPeriod = 100;
+    extern const uint32_t TestTimerPeriod_us; 
+    extern const uint32_t DefaultSamplePeriod_us;
 
-    // Data buffer parameters
-    const int DataBufferSize = 1000;
 
 
 } // namespace ps

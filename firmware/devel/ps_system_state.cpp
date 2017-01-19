@@ -28,6 +28,23 @@ namespace ps
     }
 
 
+    void SystemState::serviceDataBuffer()
+    {
+        Serial.print("BufferSize: ");
+        Serial.println(int(dataBuffer_.size()));
+
+        while (dataBuffer_.size() > 0)
+        {
+            Sample sample = dataBuffer_.front();
+            dataBuffer_.pop_front();
+            Serial.print("t = ");
+            Serial.print(sample.t,10);
+            Serial.print(", volt = ");
+            Serial.println(sample.volt,10);
+        }
+    }
+
+
     void SystemState::setTestTimerCallback(void(*callback)())
     {
         testTimerCallback_ = callback;
@@ -36,26 +53,33 @@ namespace ps
 
     void SystemState::updateTestOnTimer()
     {
-        float volt = test_ -> getValue(t_);
+        double t = double(timerCnt_)*timerDt_;
+
+        float volt = test_ -> getValue(t);
         analogSubsystem_.setVolt(volt);
+
         float curr = analogSubsystem_.getCurr();
 
-        // Don't push every data point
-        //Sample sample = {t_, volt, curr};
-        //dataBuffer_.push_back(sample);
+        if (timerCnt_%sampleModulus_ == 0)
+        {
+            Sample sample = {t, volt, curr};
+            dataBuffer_.push_back(sample);
+        }
 
-        if (test_ -> isDone(t_))
+        if (test_ -> isDone(t))
         {
             testTimer_.end();
         }
-        t_ += dt_;
+
+        timerCnt_++;
     }
 
 
     void SystemState::startTestTimer()
     {
-        t_ = 0.0;
-        testTimer_.begin(testTimerCallback_,TestTimerPeriod);
+        timerCnt_ = 0;
+        sampleModulus_ = samplePeriod_us_/TestTimerPeriod_us;
+        testTimer_.begin(testTimerCallback_, TestTimerPeriod_us);
     }
 
 
