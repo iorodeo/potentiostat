@@ -5,7 +5,7 @@
 #include "ps_analog_subsystem.h"
 #include "ps_voltammetry.h"
 #include "ps_circular_buffer.h"
-#include "ps_test_data.h"
+#include "ps_sample.h"
 
 namespace ps
 {
@@ -25,7 +25,7 @@ namespace ps
         protected:
 
             AnalogSubsystem analogSubsystem_;
-            CircularBuffer<TestData,DataBufferSize> dataBuffer_;
+            CircularBuffer<Sample,DataBufferSize> dataBuffer_;
             Voltammetry voltammetry_;
 
             IntervalTimer testTimer_;

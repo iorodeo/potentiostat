@@ -41,8 +41,8 @@ namespace ps
         float curr = analogSubsystem_.getCurr();
 
         // Don't push every data point
-        //TestData data = {t_, volt, curr};
-        //dataBuffer_.push_back(data);
+        //Sample sample = {t_, volt, curr};
+        //dataBuffer_.push_back(sample);
 
         if (test_ -> isDone(t_))
         {

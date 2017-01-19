@@ -1,10 +1,10 @@
-#ifndef PS_TEST_DATA_H
-#define PS_TEST_DATA_h
+#ifndef PS_SAMPLE_H
+#define PS_SAMPLE_h
 
 namespace ps
 {
 
-    class TestData
+    class Sample 
     {
         public:
 
