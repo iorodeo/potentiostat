@@ -27,7 +27,6 @@ namespace ps
         voltammetry_.sinusoidTest.setOffset(0.0);
         voltammetry_.sinusoidTest.setLag(0);
         voltammetry_.sinusoidTest.setNumCycles(10);
-        voltammetry_.sinusoidTest.updateLookupTable();
         test_ = &voltammetry_.sinusoidTest;
 
         analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());

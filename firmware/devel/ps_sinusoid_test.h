@@ -1,7 +1,7 @@
 #ifndef PS_SINUSOID_TEST_H
 #define PS_SINUSOID_TEST_H
 #include "ps_periodic_test.h"
-#include "Array.h"
+#include "ps_lookup_table.h"
 #include <Arduino.h>
 
 namespace ps
@@ -11,19 +11,23 @@ namespace ps
     {
         public:
 
-            static constexpr uint32_t LookupTableSize = 200;
+            static constexpr uint32_t LookupTableSize = 300;
 
             static const String NameString;
 
             SinusoidTest();
 
-            virtual float getValue(uint64_t t) const;
+            virtual void setAmplitude(float amplitude) override;
+
+            virtual void setOffset(float offset) override;
+
+            virtual float getValue(uint64_t t) const override;
 
             void updateLookupTable();
 
         protected:
 
-            Array<float,LookupTableSize> lookupTable_;
+            LookupTable<float,LookupTableSize> lookupTable_;
 
 
     };

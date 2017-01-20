@@ -7,21 +7,27 @@ namespace ps
     const String SinusoidTest::NameString = String("Sinusoid Test");
 
     SinusoidTest::SinusoidTest() 
-    {};
+    {
+        updateLookupTable();
+    };
 
-    //float SinusoidTest::getValue(uint64_t t) const
-    //{
-    //    uint64_t tmod = (t-lag_)%period_;
-    //    return amplitude_*sin(2.0*M_PI*float(tmod)/float(period_)) + offset_;
-    //}
+    void SinusoidTest::setAmplitude(float amplitude)
+    {
+        PeriodicTest::setAmplitude(amplitude);
+        updateLookupTable();
+    }
+
+    void SinusoidTest::setOffset(float offset)
+    {
+        PeriodicTest::setOffset(offset);
+        updateLookupTable();
+    }
 
     float SinusoidTest::getValue(uint64_t t) const
     {
         uint64_t tmod = (t-lag_)%period_;
-        size_t k = (tmod*LookupTableSize)/period_;
-        float s =  float(tmod*LookupTableSize)/float(period_)- float(k);
-        float value = (lookupTable_[k+1] - lookupTable_[k])*s + lookupTable_[k];
-        return value;
+        float pos =  float(tmod*LookupTableSize)/float(period_);
+        return lookupTable_.getValue(pos);
     }
 
     void SinusoidTest::updateLookupTable()

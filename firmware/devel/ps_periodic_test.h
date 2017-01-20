@@ -36,10 +36,10 @@ namespace ps
 
             virtual uint32_t getCycleCount(uint64_t t) const;
 
-            virtual bool isDone(uint64_t t) const;
-            virtual float getValue(uint64_t t) const;
-            virtual float getMaxValue() const;
-            virtual float getMinValue() const;
+            virtual bool isDone(uint64_t t) const override;
+            virtual float getValue(uint64_t t) const override;
+            virtual float getMaxValue() const override;
+            virtual float getMinValue() const override;
 
         protected:
 
