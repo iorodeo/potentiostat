@@ -1,5 +1,6 @@
 #ifndef PS_BASE_TEST_H
 #define PS_BASE_TEST_H
+#include <Arduino.h>
 
 namespace ps
 {

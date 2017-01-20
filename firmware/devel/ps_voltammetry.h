@@ -12,7 +12,6 @@ namespace ps
 
             BaseTest baseTest;
             CyclicTest cyclicTest;
-
     };
 
 }
