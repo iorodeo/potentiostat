@@ -10,7 +10,7 @@ namespace ps
     {
         public:
 
-            static const String NameString; 
+            static const String NameString;
 
             CyclicTest();
             virtual float getValue(uint64_t t) const;
@@ -18,8 +18,5 @@ namespace ps
     };
 
 } // namespace ps
-
-
-
 
 #endif

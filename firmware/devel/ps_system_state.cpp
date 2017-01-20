@@ -15,13 +15,20 @@ namespace ps
     {
         analogSubsystem_.initialize();
 
-        voltammetry_.cyclicTest.setPeriod(2000000);
-        voltammetry_.cyclicTest.setAmplitude(0.8);
-        voltammetry_.cyclicTest.setOffset(0.0);
-        voltammetry_.cyclicTest.setLag(0);
-        voltammetry_.cyclicTest.setNumCycles(10);
+        //voltammetry_.cyclicTest.setPeriod(2000000);
+        //voltammetry_.cyclicTest.setAmplitude(0.8);
+        //voltammetry_.cyclicTest.setOffset(0.0);
+        //voltammetry_.cyclicTest.setLag(0);
+        //voltammetry_.cyclicTest.setNumCycles(10);
+        //test_ = &voltammetry_.cyclicTest;
 
-        test_ = &voltammetry_.cyclicTest;
+        voltammetry_.sinusoidTest.setPeriod(1000000);
+        voltammetry_.sinusoidTest.setAmplitude(0.8);
+        voltammetry_.sinusoidTest.setOffset(0.0);
+        voltammetry_.sinusoidTest.setLag(0);
+        voltammetry_.sinusoidTest.setNumCycles(10);
+        voltammetry_.sinusoidTest.updateLookupTable();
+        test_ = &voltammetry_.sinusoidTest;
 
         analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
         analogSubsystem_.setCurrRange(CurrRange10uA);

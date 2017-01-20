@@ -5,13 +5,15 @@ namespace ps
 {
     const String CyclicTest::NameString = String("Cyclic Voltammetry"); 
 
+
     CyclicTest::CyclicTest()
     {}
+
 
     float CyclicTest::getValue(uint64_t t) const
     {
         float value = 0.0;
-        uint64_t s = t%period_;
+        uint64_t s = (t-lag_)%period_;
         uint64_t halfPeriod = period_ >> 1;
 
         if (s < halfPeriod) 
@@ -23,6 +25,6 @@ namespace ps
             value = (2.0*amplitude_*(period_ - s))/period_ + offset_ - 0.5*amplitude_;
         }
         return value;
-    };
+    }
 
 } // namespace ps
