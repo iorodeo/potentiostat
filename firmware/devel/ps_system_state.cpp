@@ -14,6 +14,7 @@ namespace ps
     void SystemState::initialize()
     {
         analogSubsystem_.initialize();
+        analogSubsystem_.setVolt(0.0);
 
         //voltammetry_.cyclicTest.setPeriod(2000000);
         //voltammetry_.cyclicTest.setAmplitude(0.8);
@@ -79,6 +80,7 @@ namespace ps
         if (test_ -> isDone(t))
         {
             testTimer_.end();
+            analogSubsystem_.setVolt(0.0);
         }
 
         timerCnt_++;

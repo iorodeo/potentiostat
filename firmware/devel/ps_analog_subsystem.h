@@ -29,7 +29,7 @@ namespace ps
 
             void setVolt(float value); 
             float getVolt() const;     
-
+            
             float getCurr() const;           
             float getRefElectVolt() const;   
 
@@ -39,7 +39,6 @@ namespace ps
 
             void setCurrRange(CurrRange range);  
             CurrRange getCurrRange() const;      
-
 
             String getVoltRangeName() const;   
             String getCurrRangeName() const;   
