@@ -3,6 +3,7 @@
 #include "ps_base_test.h"
 #include "ps_cyclic_test.h"
 #include "ps_sinusoid_test.h"
+#include "ps_constant_test.h"
 
 namespace ps
 {
@@ -14,6 +15,7 @@ namespace ps
             BaseTest baseTest;
             CyclicTest cyclicTest;
             SinusoidTest sinusoidTest;
+            ConstantTest constantTest;
     };
 
 }

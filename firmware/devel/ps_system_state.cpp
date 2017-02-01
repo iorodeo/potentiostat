@@ -23,12 +23,16 @@ namespace ps
         //voltammetry_.cyclicTest.setNumCycles(10);
         //test_ = &voltammetry_.cyclicTest;
 
-        voltammetry_.sinusoidTest.setPeriod(1000000);
-        voltammetry_.sinusoidTest.setAmplitude(0.8);
-        voltammetry_.sinusoidTest.setOffset(0.0);
-        voltammetry_.sinusoidTest.setLag(0);
-        voltammetry_.sinusoidTest.setNumCycles(10);
-        test_ = &voltammetry_.sinusoidTest;
+        //voltammetry_.sinusoidTest.setPeriod(1000000);
+        //voltammetry_.sinusoidTest.setAmplitude(0.8);
+        //voltammetry_.sinusoidTest.setOffset(0.0);
+        //voltammetry_.sinusoidTest.setLag(0);
+        //voltammetry_.sinusoidTest.setNumCycles(10);
+        //test_ = &voltammetry_.sinusoidTest;
+
+        voltammetry_.constantTest.setDuration(10000000);
+        voltammetry_.constantTest.setValue(1.0);
+        test_ = &voltammetry_.constantTest;
 
         analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
         analogSubsystem_.setCurrRange(CurrRange10uA);
