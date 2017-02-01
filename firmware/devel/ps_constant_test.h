@@ -12,6 +12,13 @@ namespace ps
 
             ConstantTest();
 
+            void setDuration(uint64_t duration);
+            uint64_t getDuration();
+
+            virtual bool isDone(uint64_t t) const override;
+            virtual float getValue(uint64_t t) const override; 
+            virtual float getMaxValue() const override; 
+            virtual float getMinValue() const override; 
 
         protected:
 

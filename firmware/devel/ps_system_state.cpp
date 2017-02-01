@@ -92,6 +92,7 @@ namespace ps
         timerCnt_ = 0;
         sampleModulus_ = samplePeriod_/TestTimerPeriod;
         currLowPass_.reset();
+        test_ -> reset();
         testTimer_.begin(testTimerCallback_, TestTimerPeriod);
     }
 
