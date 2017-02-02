@@ -5,6 +5,7 @@
 #include "ps_cyclic_test.h"
 #include "ps_sinusoid_test.h"
 #include "ps_constant_test.h"
+#include "ps_linearsweep_test.h"
 #include "ps_multistep_test.h"
 
 namespace ps
@@ -16,14 +17,16 @@ namespace ps
 
         public:
 
+            Voltammetry();
+
             BaseTest baseTest;
             CyclicTest cyclicTest;
             SinusoidTest sinusoidTest;
             ConstantTest constantTest;
+            LinearSweepTest linearSweepTest;
             MultiStepTest<2> chronoampTest;
             MultiStepTest<MultiStepMaxSize> multiStepTest;
 
-            Voltammetry();
     };
 
 }

@@ -40,17 +40,31 @@ namespace ps
         //voltammetry_.constantTest.setQuietValue(0.5);
         //test_ = &voltammetry_.constantTest;
 
-        voltammetry_.multiStepTest.setNumStep(3);
-        voltammetry_.multiStepTest.setStepValue(0,1.0);
-        voltammetry_.multiStepTest.setStepValue(1,1.5);
-        voltammetry_.multiStepTest.setStepValue(2,2.0);
-        voltammetry_.multiStepTest.setStepDuration(0, 1000000);
-        voltammetry_.multiStepTest.setStepDuration(1, 2000000);
-        voltammetry_.multiStepTest.setStepDuration(2, 3000000);
-        voltammetry_.multiStepTest.setQuietTime(5000000);
-        voltammetry_.multiStepTest.setQuietValue(0.0);
-        test_ = &voltammetry_.multiStepTest;
+        //voltammetry_.multiStepTest.setNumStep(3);
+        //voltammetry_.multiStepTest.setStepValue(0,1.0);
+        //voltammetry_.multiStepTest.setStepValue(1,1.5);
+        //voltammetry_.multiStepTest.setStepValue(2,2.0);
+        //voltammetry_.multiStepTest.setStepDuration(0, 1000000);
+        //voltammetry_.multiStepTest.setStepDuration(1, 2000000);
+        //voltammetry_.multiStepTest.setStepDuration(2, 3000000);
+        //voltammetry_.multiStepTest.setQuietTime(5000000);
+        //voltammetry_.multiStepTest.setQuietValue(0.0);
+        //test_ = &voltammetry_.multiStepTest;
 
+        //voltammetry_.chronoampTest.setStepValue(0,-1.0);
+        //voltammetry_.chronoampTest.setStepDuration(0,2000000);
+        //voltammetry_.chronoampTest.setStepValue(1,1.0);
+        //voltammetry_.chronoampTest.setStepDuration(1,4000000);
+        //voltammetry_.chronoampTest.setQuietTime(5000000);
+        //voltammetry_.chronoampTest.setQuietValue(0.0);
+        //test_ = &voltammetry_.chronoampTest; 
+          
+        voltammetry_.linearSweepTest.setStartValue(1.2);
+        voltammetry_.linearSweepTest.setFinalValue(-1.8);
+        voltammetry_.linearSweepTest.setDuration(7000000);
+        voltammetry_.linearSweepTest.setQuietTime(5000000);
+        voltammetry_.linearSweepTest.setQuietValueToStart();
+        test_ = &voltammetry_.linearSweepTest;
 
         analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
         analogSubsystem_.setCurrRange(CurrRange10uA);
