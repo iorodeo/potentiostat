@@ -71,7 +71,14 @@ namespace ps
 
     uint32_t PeriodicTest::getCycleCount(uint64_t t) const
     {
-        return uint32_t(t/period_);
+        if (t < quietTime_)
+        {
+            return 0;
+        }
+        else
+        {
+            return uint32_t((t-quietTime_)/period_);
+        }
     }
 
 

@@ -13,16 +13,23 @@ namespace ps
     float CyclicTest::getValue(uint64_t t) const
     {
         float value = 0.0;
-        uint64_t s = (t-lag_)%period_;
-        uint64_t halfPeriod = period_ >> 1;
-
-        if (s < halfPeriod) 
+        if ( t < quietTime_)
         {
-            value = (2.0*amplitude_*s)/period_ + offset_ - 0.5*amplitude_;
+            value = quietValue_;
         }
         else
         {
-            value = (2.0*amplitude_*(period_ - s))/period_ + offset_ - 0.5*amplitude_;
+            uint64_t s = (t - quietTime_ - lag_)%period_;
+            uint64_t halfPeriod = period_ >> 1;
+
+            if (s < halfPeriod) 
+            {
+                value = (2.0*amplitude_*s)/period_ + offset_ - 0.5*amplitude_;
+            }
+            else
+            {
+                value = (2.0*amplitude_*(period_ - s))/period_ + offset_ - 0.5*amplitude_;
+            }
         }
         return value;
     }

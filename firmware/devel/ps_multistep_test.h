@@ -142,7 +142,7 @@ namespace ps
     template<size_t MAX_SIZE>
     bool MultiStepTest<MAX_SIZE>::isDone(uint64_t t) const 
     {
-        if (t >= getDuration())
+        if (t >= (getDuration() + quietTime_))
         {
             return true;
         }
@@ -162,14 +162,22 @@ namespace ps
     float MultiStepTest<MAX_SIZE>::getValue(uint64_t t) const 
     {
         float value = 0.0;
-        uint64_t stepEndTime = 0;
-        for (size_t i=0; i<numStep_; i++)
+
+        if (t < quietTime_)
         {
-            stepEndTime += durationArray_[i];
-            if (t <= stepEndTime)
+            value = quietValue_;
+        }
+        else
+        {
+            uint64_t stepEndTime = quietTime_;
+            for (size_t i=0; i<numStep_; i++)
             {
-                value = valueArray_[i];
-                break;
+                stepEndTime += durationArray_[i];
+                if (t <= stepEndTime)
+                {
+                    value = valueArray_[i];
+                    break;
+                }
             }
         }
         return value;

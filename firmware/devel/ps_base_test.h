@@ -12,13 +12,25 @@ namespace ps
 
             static const String NameString;
 
-            BaseTest() {};
-            virtual bool isDone(uint64_t t) const { return true; };
-            virtual void reset() {};
+            BaseTest();
 
-            virtual float getValue(uint64_t t) const { return 0.0; };
-            virtual float getMaxValue() const { return 0.0; };
-            virtual float getMinValue() const { return 0.0; };
+            virtual bool isDone(uint64_t t) const; 
+            virtual void reset();
+
+            virtual float getValue(uint64_t t) const; 
+            virtual float getMaxValue() const; 
+            virtual float getMinValue() const; 
+
+            virtual void setQuietTime(uint64_t quietTime);
+            virtual uint64_t getQuietTime() const;
+
+            virtual void setQuietValue(float value);
+            virtual uint64_t getQuietValue() const;
+
+        protected:
+
+            uint64_t quietTime_ = 0;
+            float quietValue_ = 0.0;
 
     };
 

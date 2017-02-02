@@ -26,7 +26,14 @@ namespace ps
 
     float ConstantTest::getValue(uint64_t t) const 
     {
-        return value_;
+        if (t < quietTime_)
+        {
+            return quietValue_;
+        }
+        else
+        {
+            return value_;
+        }
     }
 
 
@@ -38,13 +45,13 @@ namespace ps
 
     float ConstantTest::getMaxValue() const 
     {
-        return value_;
+        return max(value_,quietValue_);
     }
 
 
     float ConstantTest::getMinValue() const 
     {
-        return value_;
+        return min(value_,quietValue_);
     }
 
 
