@@ -12,8 +12,8 @@ namespace ps
 
             static constexpr float DefaultAmplitude = 1.0; 
             static constexpr float DefaultOffset = 0.0; 
+            static constexpr float DefaultShift = 0.0;
             static constexpr uint64_t DefaultPeriod = UINT64_C(1000000);
-            static constexpr uint64_t DefaultLag = UINT64_C(0);
             static constexpr uint32_t DefaultNumCycles = UINT32_C(1);
             static const String NameString; 
 
@@ -28,8 +28,8 @@ namespace ps
             virtual void setPeriod(uint64_t period);
             virtual uint64_t getPeriod() const;
 
-            virtual void setLag(uint64_t lag);
-            virtual uint64_t getLag() const;
+            virtual void setShift(float lag);
+            virtual float getShift() const;
 
             virtual void setNumCycles(uint32_t numCycles);
             virtual uint32_t getNumCycles() const;
@@ -46,8 +46,12 @@ namespace ps
             float amplitude_ = DefaultAmplitude;     // 12-bit Dac int
             float offset_ = DefaultOffset;           // 12-bit Dac int
             uint64_t period_ = DefaultPeriod;        // Waveform period (us)
-            uint64_t lag_ = DefaultLag;              // Waveform lag    (us)
             uint32_t numCycles_ = DefaultNumCycles;  // Number of cycles to perform
+
+            float shift_ = DefaultShift;             // Waveform shift as fraction of period [0,1]
+            uint64_t shiftInUs_ = 0;                 // Waveform shift in us;
+
+            void updateShiftInUs();
 
 
     };

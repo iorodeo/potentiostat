@@ -68,6 +68,11 @@ namespace ps
     }
 
 
+    void BaseTest::setQuietValueToStart()
+    {
+        quietValue_ = getValue(quietTime_);
+    }
+
     uint64_t BaseTest::getQuietValue() const
     {
         return quietValue_;

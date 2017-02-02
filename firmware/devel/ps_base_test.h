@@ -25,6 +25,7 @@ namespace ps
             virtual uint64_t getQuietTime() const;
 
             virtual void setQuietValue(float value);
+            virtual void setQuietValueToStart();
             virtual uint64_t getQuietValue() const;
 
         protected:

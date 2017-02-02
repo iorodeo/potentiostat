@@ -36,7 +36,7 @@ namespace ps
         }
         else
         {
-            uint64_t tmod = (t - quietTime_ - lag_)%period_;
+            uint64_t tmod = (t - quietTime_ + shiftInUs_)%period_;
             float pos =  float(tmod*LookupTableSize)/float(period_);
             value = lookupTable_.getValue(pos);
         }

@@ -19,7 +19,7 @@ namespace ps
         }
         else
         {
-            uint64_t s = (t - quietTime_ - lag_)%period_;
+            uint64_t s = (t - quietTime_ + shiftInUs_)%period_;
             uint64_t halfPeriod = period_ >> 1;
 
             if (s < halfPeriod) 

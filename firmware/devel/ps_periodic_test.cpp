@@ -6,7 +6,9 @@ namespace ps
     const String PeriodicTest::NameString = String("Periodic Test Base"); 
 
     PeriodicTest::PeriodicTest() 
-    { }
+    { 
+        updateShiftInUs();
+    }
 
 
     void PeriodicTest::setAmplitude(float amplitude)
@@ -36,6 +38,7 @@ namespace ps
     void PeriodicTest::setPeriod(uint64_t period)
     {
         period_ = period;
+        updateShiftInUs();
     }
 
 
@@ -45,15 +48,16 @@ namespace ps
     }
 
 
-    void PeriodicTest::setLag(uint64_t lag)
+    void PeriodicTest::setShift(float shift)
     {
-        lag_ = lag;
+        shift_ = shift;
+        updateShiftInUs();
     }
 
 
-    uint64_t PeriodicTest::getLag() const
+    float PeriodicTest::getShift() const
     {
-        return lag_;
+        return shift_;
     }
 
 
@@ -109,6 +113,13 @@ namespace ps
     float PeriodicTest::getMinValue() const
     {
         return offset_ - 0.5*amplitude_;
+    }
+
+    // Protected methods
+    // ------------------------------------------------------------------------
+    void PeriodicTest::updateShiftInUs()
+    {
+        shiftInUs_ = uint64_t(double(shift_)*period_);
     }
 
 }

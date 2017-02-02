@@ -16,42 +16,43 @@ namespace ps
         analogSubsystem_.initialize();
         analogSubsystem_.setVolt(0.0);
 
-        voltammetry_.cyclicTest.setPeriod(2000000);
-        voltammetry_.cyclicTest.setAmplitude(0.8);
-        voltammetry_.cyclicTest.setOffset(0.0);
-        voltammetry_.cyclicTest.setLag(0);
-        voltammetry_.cyclicTest.setNumCycles(10);
-        float startValue = voltammetry_.cyclicTest.getValue(0);
-        voltammetry_.cyclicTest.setQuietTime(3000000);
-        voltammetry_.cyclicTest.setQuietValue(startValue); 
-        test_ = &voltammetry_.cyclicTest;
+        //voltammetry_.cyclicTest.setPeriod(2000000);
+        //voltammetry_.cyclicTest.setAmplitude(0.8);
+        //voltammetry_.cyclicTest.setOffset(0.0);
+        //voltammetry_.cyclicTest.setShift(0.25);
+        //voltammetry_.cyclicTest.setNumCycles(10);
+        //voltammetry_.cyclicTest.setQuietTime(3000000);
+        //voltammetry_.cyclicTest.setQuietValueToStart(); 
+        //test_ = &voltammetry_.cyclicTest;
 
         //voltammetry_.sinusoidTest.setPeriod(1000000);
         //voltammetry_.sinusoidTest.setAmplitude(0.8);
         //voltammetry_.sinusoidTest.setOffset(0.0);
-        //voltammetry_.sinusoidTest.setLag(0);
+        //voltammetry_.sinusoidTest.setShift(0.25);
         //voltammetry_.sinusoidTest.setNumCycles(10);
         //voltammetry_.sinusoidTest.setQuietTime(3000000);
-        //voltammetry_.sinusoidTest.setQuietValue(-0.5);
+        //voltammetry_.sinusoidTest.setQuietValueToStart();
         //test_ = &voltammetry_.sinusoidTest;
 
         //voltammetry_.constantTest.setDuration(10000000);
         //voltammetry_.constantTest.setValue(1.0);
+        //voltammetry_.constantTest.setQuietTime(3000000);
+        //voltammetry_.constantTest.setQuietValue(0.5);
         //test_ = &voltammetry_.constantTest;
 
-        //voltammetry_.multiStepTest.setNumStep(3);
-        //voltammetry_.multiStepTest.setStepValue(0,1.0);
-        //voltammetry_.multiStepTest.setStepValue(1,1.5);
-        //voltammetry_.multiStepTest.setStepValue(2,2.0);
-        //voltammetry_.multiStepTest.setStepDuration(0, 1000000);
-        //voltammetry_.multiStepTest.setStepDuration(1, 2000000);
-        //voltammetry_.multiStepTest.setStepDuration(2, 3000000);
-        //test_ = &voltammetry_.multiStepTest;
+        voltammetry_.multiStepTest.setNumStep(3);
+        voltammetry_.multiStepTest.setStepValue(0,1.0);
+        voltammetry_.multiStepTest.setStepValue(1,1.5);
+        voltammetry_.multiStepTest.setStepValue(2,2.0);
+        voltammetry_.multiStepTest.setStepDuration(0, 1000000);
+        voltammetry_.multiStepTest.setStepDuration(1, 2000000);
+        voltammetry_.multiStepTest.setStepDuration(2, 3000000);
+        voltammetry_.multiStepTest.setQuietTime(5000000);
+        voltammetry_.multiStepTest.setQuietValue(0.0);
+        test_ = &voltammetry_.multiStepTest;
 
         analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
         analogSubsystem_.setCurrRange(CurrRange10uA);
-
-        delay(2000);
     }
 
 
