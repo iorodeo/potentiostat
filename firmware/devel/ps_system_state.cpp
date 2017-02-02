@@ -30,13 +30,23 @@ namespace ps
         //voltammetry_.sinusoidTest.setNumCycles(10);
         //test_ = &voltammetry_.sinusoidTest;
 
-        voltammetry_.constantTest.setDuration(10000000);
-        voltammetry_.constantTest.setValue(1.0);
-        test_ = &voltammetry_.constantTest;
+        //voltammetry_.constantTest.setDuration(10000000);
+        //voltammetry_.constantTest.setValue(1.0);
+        //test_ = &voltammetry_.constantTest;
+
+        voltammetry_.multiStepTest.setNumStep(3);
+        voltammetry_.multiStepTest.setStepValue(0,1.0);
+        voltammetry_.multiStepTest.setStepValue(1,1.5);
+        voltammetry_.multiStepTest.setStepValue(2,2.0);
+        voltammetry_.multiStepTest.setStepDuration(0, 1000000);
+        voltammetry_.multiStepTest.setStepDuration(1, 2000000);
+        voltammetry_.multiStepTest.setStepDuration(2, 3000000);
+        test_ = &voltammetry_.multiStepTest;
 
         analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
         analogSubsystem_.setCurrRange(CurrRange10uA);
 
+        delay(2000);
     }
 
 
@@ -57,6 +67,40 @@ namespace ps
             Serial.print(", volt = ");
             Serial.println(sample.volt,10);
         }
+    }
+
+    void SystemState::debug()
+    {
+        Serial.println(analogSubsystem_.getVoltRangeName());
+        Serial.println(analogSubsystem_.getCurrRangeName());
+        Serial.println(VoltRangeArray[0].name());
+        Serial.println("hello");
+        //float value;
+        //uint64_t duration;
+        //for (int i=0; i<3; i++)
+        //{
+        //    duration = voltammetry_.multiStepTest.getStepDuration(i);
+        //    Serial.print(i);
+        //    Serial.print(" ");
+        //    Serial.println(uint32_t(duration));
+        //}
+        //Serial.println("***");
+        //for (int i=0; i<3; i++)
+        //{
+        //    value = voltammetry_.multiStepTest.getStepValue(i);
+        //    Serial.print(i);
+        //    Serial.print(" ");
+        //    Serial.println(value);
+        //}
+        //Serial.println("***");
+        //for (uint32_t i=0; i<5000000; i=i+100000)
+        //{
+        //    Serial.print(i);
+        //    Serial.print(" ");
+        //    value = voltammetry_.multiStepTest.getValue(i);
+        //    Serial.println(value);
+        //    Serial.println();
+        //}
     }
 
 

@@ -5,9 +5,6 @@ namespace ps
 {
     // AnalogSubsystem public methods
     // --------------------------------------------------------------------------------------------
-    
-    const VoltRange AnalogSubsystem::DefaultVoltRange = VoltRangeArray[0]; 
-    const CurrRange AnalogSubsystem::DefaultCurrRange = CurrRangeArray[1]; 
 
     AnalogSubsystem::AnalogSubsystem() {}
 
@@ -33,8 +30,8 @@ namespace ps
         pinMode(TIA_SW2_IN4,OUTPUT);
 
         // Set to voltage and current range to defaults
-        setVoltRange(DefaultVoltRange);
-        setCurrRange(DefaultCurrRange);
+        setVoltRange(VoltRange1V);
+        setCurrRange(CurrRange10uA);
 
         // Initialize analog input/output subsystem
         analogWriteResolution(DefaultAnalogWriteResolution);
@@ -133,6 +130,7 @@ namespace ps
     void AnalogSubsystem::setCurrRange(CurrRange range)
     {
         // Set current transimpedance amplifiers current range
+        currRange_ = range;
         setCurrGainPath(currRange_.gain());
     }
 

@@ -4,9 +4,11 @@
 #include "ps_cyclic_test.h"
 #include "ps_sinusoid_test.h"
 #include "ps_constant_test.h"
+#include "ps_multistep_test.h"
 
 namespace ps
 {
+
 
     class Voltammetry
     {
@@ -16,6 +18,7 @@ namespace ps
             CyclicTest cyclicTest;
             SinusoidTest sinusoidTest;
             ConstantTest constantTest;
+            MultiStepTest<10> multiStepTest;
     };
 
 }

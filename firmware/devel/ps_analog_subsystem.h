@@ -21,9 +21,6 @@ namespace ps
             static const uint16_t MaxValueDac = uint16_t((uint32_t(1) << DefaultAnalogWriteResolution)-1);
             static const uint16_t MidValueDac = MaxValueDac/2;
 
-            static const VoltRange DefaultVoltRange; 
-            static const CurrRange DefaultCurrRange; 
-
             AnalogSubsystem();
             void initialize(); 
 

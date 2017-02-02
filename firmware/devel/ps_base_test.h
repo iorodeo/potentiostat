@@ -14,10 +14,11 @@ namespace ps
 
             BaseTest() {};
             virtual bool isDone(uint64_t t) const { return true; };
+            virtual void reset() {};
+
             virtual float getValue(uint64_t t) const { return 0.0; };
             virtual float getMaxValue() const { return 0.0; };
             virtual float getMinValue() const { return 0.0; };
-            virtual void reset() {};
 
     };
 

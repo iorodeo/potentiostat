@@ -25,6 +25,8 @@ namespace ps
 
             void serviceDataBuffer();
 
+            void debug();
+
         protected:
 
             AnalogSubsystem analogSubsystem_;
