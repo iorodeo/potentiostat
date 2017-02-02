@@ -1,5 +1,6 @@
 #ifndef PS_VOLTAMMETRY_H
 #define PS_VOLTAMMETRY_H
+#include "ps_constants.h"
 #include "ps_base_test.h"
 #include "ps_cyclic_test.h"
 #include "ps_sinusoid_test.h"
@@ -12,13 +13,17 @@ namespace ps
 
     class Voltammetry
     {
+
         public:
 
             BaseTest baseTest;
             CyclicTest cyclicTest;
             SinusoidTest sinusoidTest;
             ConstantTest constantTest;
-            MultiStepTest<10> multiStepTest;
+            MultiStepTest<2> chronoampTest;
+            MultiStepTest<MultiStepMaxSize> multiStepTest;
+
+            Voltammetry();
     };
 
 }

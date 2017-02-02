@@ -38,6 +38,9 @@ namespace ps
     extern const LowPassParam CurrLowPassParam;
     extern const float LowPassDtSec; 
 
+    // Test parameters
+    const int MultiStepMaxSize = 10;
+
 } // namespace ps
 
 #endif

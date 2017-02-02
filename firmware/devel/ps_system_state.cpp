@@ -51,6 +51,7 @@ namespace ps
         voltammetry_.multiStepTest.setQuietValue(0.0);
         test_ = &voltammetry_.multiStepTest;
 
+
         analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
         analogSubsystem_.setCurrRange(CurrRange10uA);
     }

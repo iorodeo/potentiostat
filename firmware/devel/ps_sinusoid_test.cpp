@@ -7,7 +7,7 @@ namespace ps
     const String SinusoidTest::NameString = String("Sinusoid Test");
 
 
-    SinusoidTest::SinusoidTest() 
+    SinusoidTest::SinusoidTest() : PeriodicTest()
     {
         updateLookupTable();
     }
