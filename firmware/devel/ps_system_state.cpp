@@ -71,6 +71,13 @@ namespace ps
     }
 
 
+    void SystemState::processMessages()
+    {
+
+
+    }
+
+
     void SystemState::serviceDataBuffer()
     {
         Serial.print("BufferSize: ");

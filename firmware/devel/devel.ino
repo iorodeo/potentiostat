@@ -16,18 +16,15 @@ void setup()
     systemState.initialize();
     systemState.setTestTimerCallback(timerCallback);
 
-    systemState.startTestTimer();
+    //systemState.startTestTimer();
 }
 
 void loop()
 {
-    systemState.serviceDataBuffer();
+    systemState.processMessages();
 
-    //systemState.debug();
-
-
-
-    delay(50);
+    //systemState.serviceDataBuffer();
+    //delay(50);
 }
 
 

@@ -2,6 +2,7 @@
 #define PS_SYSTEM_STATE_H
 #include <Arduino.h>
 #include "ps_constants.h"
+#include "ps_message_handler.h"
 #include "ps_analog_subsystem.h"
 #include "ps_circular_buffer.h"
 #include "ps_voltammetry.h"
@@ -21,14 +22,16 @@ namespace ps
             void setTestTimerCallback(void(*func)());
             void updateTestOnTimer();
 
-            void startTestTimer();
+            void processMessages();
 
+            void startTestTimer();
             void serviceDataBuffer();
 
             void debug();
 
         protected:
 
+            MessageHandler messageHandler_;
             AnalogSubsystem analogSubsystem_;
             CircularBuffer<Sample,DataBufferSize> dataBuffer_;
             Voltammetry voltammetry_;
