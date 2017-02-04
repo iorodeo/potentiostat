@@ -8,7 +8,6 @@
 using namespace ps;
 
 SystemState systemState;
-void timerCallback(); 
 
 void setup()
 {
@@ -17,6 +16,7 @@ void setup()
     systemState.setTestTimerCallback(timerCallback);
 
     //systemState.startTestTimer();
+
 }
 
 void loop()
@@ -27,10 +27,12 @@ void loop()
     //delay(50);
 }
 
-
 void timerCallback() 
 { 
     systemState.updateTestOnTimer(); 
 }
 
-
+void serialEvent()
+{
+    systemState.updateMessageData();
+}

@@ -8,46 +8,9 @@
 namespace ps
 {
 
-    // Serial command ids
-    enum CmdId
-    {
-        CmdSetVoltOut = 0,
-        CmdGetVoltOut = 1,
-
-        CmdGetTIACurr = 2, 
-        CmdGetRefElect = 3,
-
-        CmdSetVoltRange = 4,
-        CmdGetVoltRange = 5,
-
-        CmdSetCurrRange = 6,
-        CmdGetCurrRange = 7,
-
-        CmdSetCyclicTestParam = 8,
-        CmdGetCyclicTestParam = 9,
-        CmdRunCyclicTest = 10,
-
-        CmdSetConstantTestParam = 11,
-        CmdGetConstantTestParam = 12,
-        CmdRunConstantTest = 13, 
-
-        CmdSetLinearSweepTestParam = 14,
-        CmdGetLinearSweepTestParam = 15,
-        CmdRunLinearSweepTest = 16,
-        
-        CmdSetChronoampTestParam = 17,
-        CmdGetChronoampTestParam = 18,
-        CmdRunChronoampTest = 19,
-
-        CmdSetMultiStepTestParam = 20,
-        CmdGetMultiStepTestParam = 21,
-        CmdRunMultiStepTest = 22
-
-    };
-
-
-    // Data buffer parameters
+    // Buffer parameters
     const int DataBufferSize = 1000;
+    const int SerialBufferSize = 1000;
 
     // Ranges for output voltage
     extern const VoltRange VoltRange1V; 

@@ -19,9 +19,11 @@ namespace ps
 
             SystemState();
             void initialize();
+
             void setTestTimerCallback(void(*func)());
             void updateTestOnTimer();
 
+            void updateMessageData();
             void processMessages();
 
             void startTestTimer();
@@ -33,19 +35,22 @@ namespace ps
 
             MessageHandler messageHandler_;
             AnalogSubsystem analogSubsystem_;
+
             CircularBuffer<Sample,DataBufferSize> dataBuffer_;
             Voltammetry voltammetry_;
 
             IntervalTimer testTimer_;
-            static void dummyTimerCallback() {};
             void (*testTimerCallback_)() = dummyTimerCallback;
 
             uint32_t samplePeriod_ = DefaultSamplePeriod;
             uint32_t sampleModulus_;  
-            uint64_t timerCnt_ = 0;
+            uint64_t timerCnt_;
 
             LowPass currLowPass_;
             BaseTest *test_;
+
+            static void dummyTimerCallback() {};
+            void updateSampleModulus();
     };
 
 
