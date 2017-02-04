@@ -4,6 +4,9 @@
 
 namespace ps
 { 
+    // Serial parameters
+    extern const uint32_t UsbSerialBaudrate = 115200;
+
     // Ranges for output voltage
     const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
     const VoltRange VoltRange2V(String("2V"),-2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueDac);

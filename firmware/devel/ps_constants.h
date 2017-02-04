@@ -7,10 +7,12 @@
 
 namespace ps
 {
-
     // Buffer parameters
-    const int DataBufferSize = 1000;
-    const int SerialBufferSize = 1000;
+    const uint32_t DataBufferSize = 1000;
+    const uint32_t SerialBufferSize = 1000;
+
+    // Serial parameters
+    extern const uint32_t UsbSerialBaudrate;
 
     // Ranges for output voltage
     extern const VoltRange VoltRange1V; 
@@ -18,7 +20,7 @@ namespace ps
     extern const VoltRange VoltRange5V; 
     extern const VoltRange VoltRange10V; 
 
-    const int NumVoltRange = 4;
+    const uint8_t NumVoltRange = 4;
     extern Array<VoltRange,NumVoltRange> VoltRangeArray;
 
     // Ranges for input current
@@ -27,7 +29,7 @@ namespace ps
     extern const CurrRange CurrRange100uA; 
     extern const CurrRange CurrRange1000uA; 
 
-    const int NumCurrRange = 4;
+    const uint8_t NumCurrRange = 4;
     extern Array<CurrRange,NumCurrRange> CurrRangeArray;
 
     // Timer parameters
@@ -39,7 +41,7 @@ namespace ps
     extern const float LowPassDtSec; 
 
     // Test parameters
-    const int MultiStepMaxSize = 10;
+    const uint8_t MultiStepMaxSize = 10;
 
 } // namespace ps
 
