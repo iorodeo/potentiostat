@@ -10,6 +10,7 @@ namespace ps
     // Buffer parameters
     const uint32_t DataBufferSize = 1000;
     const uint32_t SerialBufferSize = 1000;
+    const uint32_t JsonBufferSize = 1000;
 
     // Serial parameters
     extern const uint32_t UsbSerialBaudrate;

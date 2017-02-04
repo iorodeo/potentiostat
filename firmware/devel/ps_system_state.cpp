@@ -30,10 +30,58 @@ namespace ps
         if (messageReceiver_.available())
         {
             String message = messageReceiver_.next();
+            Serial.print("new msg = ");
             Serial.println(message);
+
+            JsonObject &jsonRoot = messageParser_.parse(message);
+            String response("");
+
+            if (jsonRoot.success())
+            {
+                //response = commandSwitchyard(jsonRoot);
+            }
+            else
+            {
+                ////////////////////////////////////////////////
+                // ERROR: unable to parse json
+                ////////////////////////////////////////////////
+                Serial.println("unable to parse");
+            }
+
+            ///////////////////////////////////////////////////
+            // Send comand response.
+            // Serial.println(response);
+            ///////////////////////////////////////////////////
         }
     }
 
+
+    //String SystemState::commandSwitchyard(JsonObject &jsonRoot)
+    //{
+    //    String response("");
+
+    //    if (jsonRoot.containsKey("cmd"))
+    //    {
+    //        String cmd = String((const char *)(jsonRoot["cmd"]));
+
+    //        Serial.print("cmd = ");
+    //        Serial.println(cmd);
+
+    //        if (cmd.equals("stop"))
+    //        {
+    //            Serial.println("cmd is stop");
+    //        }
+
+    //    }
+    //    else
+    //    {
+    //        ///////////////////////////////////////////////////
+    //        // ERROR: json does not contain "cmd"
+    //        ///////////////////////////////////////////////////
+    //    }
+
+    //    return response;
+    //}
 
     void SystemState::serviceDataBuffer()
     {

@@ -1,9 +1,12 @@
 #ifndef PS_SYSTEM_STATE_H
 #define PS_SYSTEM_STATE_H
 #include <Arduino.h>
+#include "ArduinoJson.h"
 #include "ps_constants.h"
-#include "ps_message_receiver.h"
 #include "ps_analog_subsystem.h"
+#include "ps_message_receiver.h"
+#include "ps_message_parser.h"
+#include "ps_command_table.h"
 #include "ps_circular_buffer.h"
 #include "ps_voltammetry.h"
 #include "ps_sample.h"
@@ -23,8 +26,9 @@ namespace ps
             void setTestTimerCallback(void(*func)());
             void updateTestOnTimer();
 
-            void updateMessageData();
             void processMessages();
+            void updateMessageData();
+            //String commandSwitchyard(JsonObject &jsonRoot);
 
             void startTestTimer();
             void serviceDataBuffer();
@@ -33,8 +37,9 @@ namespace ps
 
         protected:
 
-            MessageReceiver messageReceiver_;
             AnalogSubsystem analogSubsystem_;
+            MessageReceiver messageReceiver_;
+            MessageParser messageParser_;
 
             CircularBuffer<Sample,DataBufferSize> dataBuffer_;
             Voltammetry voltammetry_;
