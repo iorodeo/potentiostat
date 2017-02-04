@@ -1,19 +1,19 @@
-#include "ps_message_handler.h"
+#include "ps_message_receiver.h"
 #include <util/atomic.h>
 
 namespace ps
 {
-    MessageHandler::MessageHandler() 
+    MessageReceiver::MessageReceiver() 
     { }
 
-    void MessageHandler::reset()
+    void MessageReceiver::reset()
     {
         overflow_ = false;
         messageCnt_ = 0;
     }
 
 
-    void MessageHandler::readData()
+    void MessageReceiver::readData()
     {
         while(Serial.available() > 0)
         {
@@ -35,7 +35,7 @@ namespace ps
     }
 
 
-    String MessageHandler::next()
+    String MessageReceiver::next()
     {
         String message("");
         if (messageCnt_ > 0)
@@ -59,19 +59,19 @@ namespace ps
     }
 
 
-    bool MessageHandler::available() const
+    bool MessageReceiver::available() const
     {
         return (messageCnt_ > 0);
     }
 
 
-    uint32_t MessageHandler::getMessageCnt() const
+    uint32_t MessageReceiver::getMessageCnt() const
     {
         return messageCnt_;
     }
 
 
-    uint32_t MessageHandler::getTotalMessageCnt() const
+    uint32_t MessageReceiver::getTotalMessageCnt() const
     {
         return totalMessageCnt_;
     }

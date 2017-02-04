@@ -1,5 +1,5 @@
-#ifndef PS_MESSAGE_HANDLER_H
-#define PS_MESSAGE_HANDLER_H
+#ifndef PS_MESSAGE_RECEIVER_H 
+#define PS_MESSAGE_RECEIVER_H
 #include <Arduino.h>
 #include "ps_constants.h"
 #include "ps_circular_buffer.h"
@@ -7,12 +7,12 @@
 namespace ps
 {
 
-    class MessageHandler
+    class MessageReceiver
     {
 
         public:
 
-            MessageHandler();
+            MessageReceiver();
             void reset();
             void readData();
             String next();

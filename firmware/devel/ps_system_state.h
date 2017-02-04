@@ -2,7 +2,7 @@
 #define PS_SYSTEM_STATE_H
 #include <Arduino.h>
 #include "ps_constants.h"
-#include "ps_message_handler.h"
+#include "ps_message_receiver.h"
 #include "ps_analog_subsystem.h"
 #include "ps_circular_buffer.h"
 #include "ps_voltammetry.h"
@@ -33,7 +33,7 @@ namespace ps
 
         protected:
 
-            MessageHandler messageHandler_;
+            MessageReceiver messageReceiver_;
             AnalogSubsystem analogSubsystem_;
 
             CircularBuffer<Sample,DataBufferSize> dataBuffer_;

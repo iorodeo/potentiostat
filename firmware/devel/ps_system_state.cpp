@@ -17,19 +17,19 @@ namespace ps
     {
         analogSubsystem_.initialize();
         analogSubsystem_.setVolt(0.0);
-        messageHandler_.reset();
+        messageReceiver_.reset();
     }
 
     void SystemState::updateMessageData()
     {
-        messageHandler_.readData();
+        messageReceiver_.readData();
     }
 
     void SystemState::processMessages()
     {
-        if (messageHandler_.available())
+        if (messageReceiver_.available())
         {
-            String message = messageHandler_.next();
+            String message = messageReceiver_.next();
             Serial.println(message);
         }
     }
