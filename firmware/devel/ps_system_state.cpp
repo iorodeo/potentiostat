@@ -10,6 +10,13 @@ namespace ps
         test_ = &voltammetry_.baseTest;
         currLowPass_.setParam(CurrLowPassParam);
         updateSampleModulus();
+
+        commandTable_.setClient(this);
+        commandTable_.registerMethod("test",&SystemState::testCommand);
+    }
+
+    void SystemState::testCommand(JsonObject &jsonRoot)
+    {
     }
 
 
@@ -30,15 +37,19 @@ namespace ps
         if (messageReceiver_.available())
         {
             String message = messageReceiver_.next();
+
+            // DEBUG
+            //////////////////////////////////////////////////////
             Serial.print("new msg = ");
             Serial.println(message);
+            /////////////////////////////////////////////////////
 
             JsonObject &jsonRoot = messageParser_.parse(message);
             String response("");
 
             if (jsonRoot.success())
             {
-                //response = commandSwitchyard(jsonRoot);
+                ReturnStatus status = commandTable_.run(jsonRoot);
             }
             else
             {
@@ -56,32 +67,6 @@ namespace ps
     }
 
 
-    //String SystemState::commandSwitchyard(JsonObject &jsonRoot)
-    //{
-    //    String response("");
-
-    //    if (jsonRoot.containsKey("cmd"))
-    //    {
-    //        String cmd = String((const char *)(jsonRoot["cmd"]));
-
-    //        Serial.print("cmd = ");
-    //        Serial.println(cmd);
-
-    //        if (cmd.equals("stop"))
-    //        {
-    //            Serial.println("cmd is stop");
-    //        }
-
-    //    }
-    //    else
-    //    {
-    //        ///////////////////////////////////////////////////
-    //        // ERROR: json does not contain "cmd"
-    //        ///////////////////////////////////////////////////
-    //    }
-
-    //    return response;
-    //}
 
     void SystemState::serviceDataBuffer()
     {

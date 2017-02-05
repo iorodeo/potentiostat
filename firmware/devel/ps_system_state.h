@@ -28,10 +28,11 @@ namespace ps
 
             void processMessages();
             void updateMessageData();
-            //String commandSwitchyard(JsonObject &jsonRoot);
 
             void startTestTimer();
             void serviceDataBuffer();
+
+            void testCommand(JsonObject &jsonRoot);
 
             void debug();
 
@@ -40,6 +41,9 @@ namespace ps
             AnalogSubsystem analogSubsystem_;
             MessageReceiver messageReceiver_;
             MessageParser messageParser_;
+
+            CommandTable<SystemState,10> commandTable_;
+
 
             CircularBuffer<Sample,DataBufferSize> dataBuffer_;
             Voltammetry voltammetry_;
