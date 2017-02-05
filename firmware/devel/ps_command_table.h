@@ -92,9 +92,7 @@ namespace ps
     template<typename T, size_t MAX_SIZE>
     void CommandTable<T,MAX_SIZE>::registerMethod(String name, void (T::*method)(JsonObject&))
     {
-        NamedCommand<T> namedCommand;// = {name,method};
-        namedCommand.name = name;
-        namedCommand.method = method;
+        NamedCommand<T> namedCommand(name,method);
         table_.push_back(namedCommand);
     }
 
