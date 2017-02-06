@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include "ArduinoJson.h"
 #include "ps_constants.h"
+#include "ps_return_status.h"
 #include "ps_analog_subsystem.h"
 #include "ps_message_receiver.h"
 #include "ps_message_parser.h"
@@ -32,7 +33,7 @@ namespace ps
             void startTestTimer();
             void serviceDataBuffer();
 
-            void testCommand(JsonObject &jsonRoot);
+            ReturnStatus testCommand(JsonObject &jsonRoot);
 
             void debug();
 

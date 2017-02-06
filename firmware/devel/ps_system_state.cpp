@@ -12,11 +12,14 @@ namespace ps
         updateSampleModulus();
 
         commandTable_.setClient(this);
-        commandTable_.registerMethod("test",&SystemState::testCommand);
+        commandTable_.registerMethod("cmd","test",&SystemState::testCommand);
     }
 
-    void SystemState::testCommand(JsonObject &jsonRoot)
+    ReturnStatus SystemState::testCommand(JsonObject &jsonRoot)
     {
+        ReturnStatus status;
+        Serial.println("hello from testCommand");
+        return status;
     }
 
 
@@ -49,7 +52,7 @@ namespace ps
 
             if (jsonRoot.success())
             {
-                ReturnStatus status = commandTable_.run(jsonRoot);
+                ReturnStatus status = commandTable_.apply("cmd",jsonRoot);
             }
             else
             {
