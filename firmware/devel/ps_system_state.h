@@ -33,7 +33,20 @@ namespace ps
             void startTestTimer();
             void serviceDataBuffer();
 
-            ReturnStatus testCommand(JsonObject &jsonRoot);
+            ReturnStatus runTest(JsonObject &jsonRoot);
+            ReturnStatus stopTest(JsonObject &jsonRoot);
+
+            ReturnStatus setVolt(JsonObject &jsonRoot);
+            ReturnStatus getCurr(JsonObject &jsonRoot);
+
+            ReturnStatus setTestParam(JsonObject &jsonRoot);
+            ReturnStatus getTestParam(JsonObject &jsonRoot);
+
+            ReturnStatus setVoltRange(JsonObject &jsonRoot);
+            ReturnStatus getVoltRange(JsonObject &jsonRoot);
+
+            ReturnStatus setCurrRange(JsonObject &jsonRoot);
+            ReturnStatus getCurrRange(JsonObject &jsonRoot);
 
             void debug();
 

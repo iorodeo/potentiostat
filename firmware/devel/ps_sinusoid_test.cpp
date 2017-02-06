@@ -4,12 +4,10 @@
 namespace ps
 { 
 
-    const String SinusoidTest::NameString = String("Sinusoid Test");
-
-
     SinusoidTest::SinusoidTest() : PeriodicTest()
     {
         updateLookupTable();
+        setName("sinusoid");
     }
 
 

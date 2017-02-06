@@ -2,8 +2,6 @@
 
 namespace ps
 {
-    const String BaseTest::NameString = String("Base Test");
-
 
     BaseTest::BaseTest() 
     { }
@@ -76,6 +74,17 @@ namespace ps
     uint64_t BaseTest::getQuietValue() const
     {
         return quietValue_;
+    }
+
+    void BaseTest::setName(String name)
+    {
+        name_ = name;
+    }
+
+    
+    String BaseTest::getName()
+    {
+        return name_;
     }
 
 

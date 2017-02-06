@@ -13,8 +13,6 @@ namespace ps
 
             static constexpr uint32_t LookupTableSize = 300;
 
-            static const String NameString;
-
             SinusoidTest();
 
             virtual void setAmplitude(float amplitude) override;

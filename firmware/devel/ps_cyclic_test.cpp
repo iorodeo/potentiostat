@@ -3,11 +3,11 @@
 
 namespace ps
 {
-    const String CyclicTest::NameString = String("Cyclic Voltammetry"); 
-
 
     CyclicTest::CyclicTest() : PeriodicTest()
-    {}
+    {
+        setName("cyclic");
+    }
 
 
     float CyclicTest::getValue(uint64_t t) const

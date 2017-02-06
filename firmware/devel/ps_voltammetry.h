@@ -18,6 +18,7 @@ namespace ps
         public:
 
             Voltammetry();
+            BaseTest *getTestByName(String name);
 
             BaseTest baseTest;
             CyclicTest cyclicTest;

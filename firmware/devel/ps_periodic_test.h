@@ -15,7 +15,6 @@ namespace ps
             static constexpr float DefaultShift = 0.0;
             static constexpr uint64_t DefaultPeriod = UINT64_C(1000000);
             static constexpr uint32_t DefaultNumCycles = UINT32_C(1);
-            static const String NameString; 
 
             PeriodicTest();
 

@@ -4,7 +4,9 @@ namespace ps
 {
 
     LinearSweepTest::LinearSweepTest()
-    { }
+    { 
+        setName("linearSweep");
+    }
 
 
     void LinearSweepTest::setStartValue(float value)

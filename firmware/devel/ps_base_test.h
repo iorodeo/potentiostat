@@ -10,8 +10,6 @@ namespace ps
 
         public:
 
-            static const String NameString;
-
             BaseTest();
 
             virtual bool isDone(uint64_t t) const; 
@@ -28,10 +26,14 @@ namespace ps
             virtual void setQuietValueToStart();
             virtual uint64_t getQuietValue() const;
 
+            virtual void setName(String name);
+            virtual String getName();
+
         protected:
 
             uint64_t quietTime_ = 0;
             float quietValue_ = 0.0;
+            String name_ = String("base");
 
     };
 

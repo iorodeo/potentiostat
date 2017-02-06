@@ -3,11 +3,10 @@
 namespace ps
 {
 
-    const String PeriodicTest::NameString = String("Periodic Test Base"); 
-
     PeriodicTest::PeriodicTest() 
     { 
         updateShiftInUs();
+        setName("period");
     }
 
 

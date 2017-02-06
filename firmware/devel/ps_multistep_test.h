@@ -48,6 +48,7 @@ namespace ps
         valueArray_.fill(0.0);
         durationArray_.fill(0);
         setNumStep(numStep);
+        setName("multiStep");
     }
 
 

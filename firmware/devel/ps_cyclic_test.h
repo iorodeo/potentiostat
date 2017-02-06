@@ -10,8 +10,6 @@ namespace ps
     {
         public:
 
-            static const String NameString;
-
             CyclicTest();
 
             virtual float getValue(uint64_t t) const override;

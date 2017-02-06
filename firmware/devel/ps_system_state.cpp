@@ -12,14 +12,22 @@ namespace ps
         updateSampleModulus();
 
         commandTable_.setClient(this);
-        commandTable_.registerMethod("cmd","test",&SystemState::testCommand);
-    }
 
-    ReturnStatus SystemState::testCommand(JsonObject &jsonRoot)
-    {
-        ReturnStatus status;
-        Serial.println("hello from testCommand");
-        return status;
+        commandTable_.registerMethod("cmd","runTest", &SystemState::runTest);
+        commandTable_.registerMethod("cmd","stopTest", &SystemState::stopTest);
+
+        commandTable_.registerMethod("cmd","setVolt", &SystemState::setVolt);
+        commandTable_.registerMethod("cmd","getCurr", &SystemState::getCurr);
+
+        commandTable_.registerMethod("cmd","setParam", &SystemState::setTestParam);
+        commandTable_.registerMethod("cmd","getParam", &SystemState::getTestParam);
+
+        commandTable_.registerMethod("cmd","setVoltRange", &SystemState::setVoltRange);
+        commandTable_.registerMethod("cmd","getVoltRange", &SystemState::getVoltRange);
+
+        commandTable_.registerMethod("cmd","setCurrRange", &SystemState::setCurrRange);
+        commandTable_.registerMethod("cmd","getCurrRange", &SystemState::getCurrRange);
+
     }
 
 
@@ -30,10 +38,97 @@ namespace ps
         messageReceiver_.reset();
     }
 
+
+    ReturnStatus SystemState::runTest(JsonObject &jsonRoot)
+    {
+        ReturnStatus status;
+        Serial.println(__PRETTY_FUNCTION__);
+        Serial.println(voltammetry_.constantTest.getName());
+        Serial.println(voltammetry_.cyclicTest.getName());
+        Serial.println(voltammetry_.sinusoidTest.getName());
+        Serial.println(voltammetry_.chronoampTest.getName());
+        Serial.println(voltammetry_.linearSweepTest.getName());
+        return status;
+    }
+
+
+    ReturnStatus SystemState::stopTest(JsonObject &jsonRoot)
+    {
+        ReturnStatus status;
+        Serial.println(__PRETTY_FUNCTION__);
+        return status;
+    }
+
+
+    ReturnStatus SystemState::setVolt(JsonObject &jsonRoot)
+    {
+        ReturnStatus status;
+        Serial.println(__PRETTY_FUNCTION__);
+        return status;
+    }
+
+    
+    ReturnStatus SystemState::getCurr(JsonObject &jsonRoot)
+    {
+        ReturnStatus status;
+        Serial.println(__PRETTY_FUNCTION__);
+        return status;
+    }
+
+
+    ReturnStatus SystemState::setTestParam(JsonObject &jsonRoot)
+    {
+        ReturnStatus status;
+        Serial.println(__PRETTY_FUNCTION__);
+        return status;
+    }
+
+
+    ReturnStatus SystemState::getTestParam(JsonObject &jsonRoot)
+    {
+        ReturnStatus status;
+        Serial.println(__PRETTY_FUNCTION__);
+        return status;
+    }
+
+
+    ReturnStatus SystemState::setVoltRange(JsonObject &jsonRoot)
+    {
+        ReturnStatus status;
+        Serial.println(__PRETTY_FUNCTION__);
+        return status;
+    }
+
+
+    ReturnStatus SystemState::getVoltRange(JsonObject &jsonRoot)
+    {
+        ReturnStatus status;
+        Serial.println(__PRETTY_FUNCTION__);
+        return status;
+    }
+
+
+    ReturnStatus SystemState::setCurrRange(JsonObject &jsonRoot)
+    {
+        ReturnStatus status;
+        Serial.println(__PRETTY_FUNCTION__);
+        return status;
+    }
+
+
+    ReturnStatus SystemState::getCurrRange(JsonObject &jsonRoot)
+    {
+        ReturnStatus status;
+        Serial.println(__PRETTY_FUNCTION__);
+        return status;
+    }
+
+
     void SystemState::updateMessageData()
     {
         messageReceiver_.readData();
     }
+
 
     void SystemState::processMessages()
     {

@@ -2,8 +2,11 @@
 
 namespace ps
 {
+
     ConstantTest::ConstantTest() 
-    { } 
+    { 
+        setName("constant");
+    } 
 
 
     void ConstantTest::setDuration(uint64_t duration)
