@@ -13,7 +13,7 @@ namespace ps
         public:
 
             MessageParser();
-            JsonObject &parse(String message);
+            JsonObject& parse(String &message);
 
         protected:
 

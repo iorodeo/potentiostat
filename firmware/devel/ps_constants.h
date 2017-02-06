@@ -42,7 +42,8 @@ namespace ps
     extern const float LowPassDtSec; 
 
     // Test parameters
-    const uint8_t MultiStepMaxSize = 10;
+    const uint32_t AvailableTestsMaxSize = 10;
+    const uint32_t MultiStepMaxSize = 10;
 
 } // namespace ps
 

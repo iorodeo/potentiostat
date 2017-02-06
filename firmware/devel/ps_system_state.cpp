@@ -7,7 +7,7 @@ namespace ps
     SystemState::SystemState()
     { 
         timerCnt_ = 0;
-        test_ = &voltammetry_.baseTest;
+        test_ = nullptr;
         currLowPass_.setParam(CurrLowPassParam);
         updateSampleModulus();
 
@@ -42,12 +42,25 @@ namespace ps
     ReturnStatus SystemState::runTest(JsonObject &jsonRoot)
     {
         ReturnStatus status;
+
         Serial.println(__PRETTY_FUNCTION__);
-        Serial.println(voltammetry_.constantTest.getName());
-        Serial.println(voltammetry_.cyclicTest.getName());
-        Serial.println(voltammetry_.sinusoidTest.getName());
-        Serial.println(voltammetry_.chronoampTest.getName());
-        Serial.println(voltammetry_.linearSweepTest.getName());
+
+        test_ = voltammetry_.getTest(jsonRoot);
+
+        if (test_ != nullptr)
+        {
+
+            Serial.print("running test: ");
+            Serial.println(test_ -> getName());
+
+            analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
+            startTestTimer();
+        }
+        else
+        {
+            status.success = false;
+            status.message = "test not found";
+        }
         return status;
     }
 
@@ -168,19 +181,22 @@ namespace ps
 
     void SystemState::serviceDataBuffer()
     {
-        Serial.print("BufferSize: ");
-        Serial.println(int(dataBuffer_.size()));
 
-        char buf[100];
+        if (dataBuffer_.size() > 0)
+        {
+            Serial.print("BufferSize: ");
+            Serial.println(int(dataBuffer_.size()));
+        }
+
 
         while (dataBuffer_.size() > 0)
         {
+            char buf[100];
             Sample sample = dataBuffer_.front();
             dataBuffer_.pop_front();
-            Serial.print("t = ");
             snprintf(buf,sizeof(buf),"%llu", sample.t);
             Serial.print(buf);
-            Serial.print(", volt = ");
+            Serial.print(", ");
             Serial.println(sample.volt,10);
         }
     }
@@ -228,35 +244,51 @@ namespace ps
 
     void SystemState::updateTestOnTimer()
     {
-        uint64_t t = uint64_t(TestTimerPeriod)*timerCnt_;
-        float volt = test_ -> getValue(t);
-        analogSubsystem_.setVolt(volt);
-
-        float curr = analogSubsystem_.getCurr();
-        currLowPass_.update(curr,LowPassDtSec);
-
-        if (timerCnt_%sampleModulus_ == 0)
+        if (test_ != nullptr)
         {
-            Sample sample = {t, volt, currLowPass_.value()};
-            dataBuffer_.push_back(sample);
-        }
+            uint64_t t = uint64_t(TestTimerPeriod)*timerCnt_;
+            float volt = test_ -> getValue(t);
+            analogSubsystem_.setVolt(volt);
 
-        if (test_ -> isDone(t))
+            float curr = analogSubsystem_.getCurr();
+            currLowPass_.update(curr,LowPassDtSec);
+
+            if (timerCnt_%sampleModulus_ == 0)
+            {
+                Sample sample = {t, volt, currLowPass_.value()};
+                dataBuffer_.push_back(sample);
+            }
+
+            if (test_ -> isDone(t))
+            {
+                testTimer_.end();
+                analogSubsystem_.setVolt(0.0);
+            }
+
+            timerCnt_++;
+        }
+        else
         {
-            testTimer_.end();
-            analogSubsystem_.setVolt(0.0);
+            /////////////////////////////////////////
+            // TODO:  stop test.
+            /////////////////////////////////////////
+            return;
         }
-
-        timerCnt_++;
     }
 
 
     void SystemState::startTestTimer()
     {
-        timerCnt_ = 0;
-        test_ -> reset();
-        currLowPass_.reset();
-        testTimer_.begin(testTimerCallback_, TestTimerPeriod);
+        Serial.println(__PRETTY_FUNCTION__);
+
+        if (test_ != nullptr)
+        {
+            Serial.println("starting timer");
+            timerCnt_ = 0;
+            test_ -> reset();
+            currLowPass_.reset();
+            testTimer_.begin(testTimerCallback_, TestTimerPeriod);
+        }
     }
 
     void SystemState::updateSampleModulus()

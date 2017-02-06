@@ -17,9 +17,7 @@ void setup()
 void loop()
 {
     systemState.processMessages();
-
-    //systemState.serviceDataBuffer();
-    //delay(50);
+    systemState.serviceDataBuffer();
 }
 
 void timerCallback() 

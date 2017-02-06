@@ -1,5 +1,6 @@
 #ifndef PS_VOLTAMMETRY_H
 #define PS_VOLTAMMETRY_H
+#include "ArduinoJson.h"
 #include "ps_constants.h"
 #include "ps_base_test.h"
 #include "ps_cyclic_test.h"
@@ -7,6 +8,7 @@
 #include "ps_constant_test.h"
 #include "ps_linearsweep_test.h"
 #include "ps_multistep_test.h"
+#include "Array.h"
 
 namespace ps
 {
@@ -18,7 +20,9 @@ namespace ps
         public:
 
             Voltammetry();
-            BaseTest *getTestByName(String name);
+
+            BaseTest *getTest(String name);
+            BaseTest *getTest(JsonObject &json);
 
             BaseTest baseTest;
             CyclicTest cyclicTest;
@@ -27,6 +31,11 @@ namespace ps
             LinearSweepTest linearSweepTest;
             MultiStepTest<2> chronoampTest;
             MultiStepTest<MultiStepMaxSize> multiStepTest;
+
+        protected:
+
+            Array<BaseTest*,AvailableTestsMaxSize> availableTests_;
+
 
     };
 

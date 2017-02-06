@@ -5,12 +5,11 @@ namespace ps
     MessageParser::MessageParser()
     { }
 
-    JsonObject &MessageParser::parse(String message)
+    JsonObject &MessageParser::parse(String &message)
     { 
         // Clear the buffer and parse the message
         jsonBuffer_ = StaticJsonBuffer<JsonBufferSize>(); 
-        JsonObject &jsonRoot = jsonBuffer_.parseObject((char *)(message.c_str()));
-        return jsonRoot;
+        return jsonBuffer_.parseObject((char *)(message.c_str()));
     }
 
 } // namespace ps
