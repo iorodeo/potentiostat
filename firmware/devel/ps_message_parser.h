@@ -17,7 +17,7 @@ namespace ps
 
         protected:
 
-            StaticJsonBuffer<JsonBufferSize> jsonBuffer_;
+            StaticJsonBuffer<JsonMessageBufferSize> jsonBuffer_;
 
     };
 

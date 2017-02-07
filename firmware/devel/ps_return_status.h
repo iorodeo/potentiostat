@@ -11,10 +11,9 @@ namespace ps
         public:
 
             ReturnStatus() {};
-
             bool success = true;;
-            String message;;
-
+            String command;
+            String message;
     };
 
 } // namespace ps

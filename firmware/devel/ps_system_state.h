@@ -6,6 +6,7 @@
 #include "ps_return_status.h"
 #include "ps_analog_subsystem.h"
 #include "ps_message_receiver.h"
+#include "ps_message_sender.h"
 #include "ps_message_parser.h"
 #include "ps_command_table.h"
 #include "ps_circular_buffer.h"
@@ -53,11 +54,12 @@ namespace ps
         protected:
 
             AnalogSubsystem analogSubsystem_;
+
             MessageReceiver messageReceiver_;
             MessageParser messageParser_;
+            MessageSender messageSender_;
 
             CommandTable<SystemState,10> commandTable_;
-
 
             CircularBuffer<Sample,DataBufferSize> dataBuffer_;
             Voltammetry voltammetry_;

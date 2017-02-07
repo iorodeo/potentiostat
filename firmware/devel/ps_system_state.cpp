@@ -42,18 +42,10 @@ namespace ps
     ReturnStatus SystemState::runTest(JsonObject &jsonRoot)
     {
         ReturnStatus status;
-
-        Serial.println(__PRETTY_FUNCTION__);
-
         test_ = voltammetry_.getTest(jsonRoot);
 
         if (test_ != nullptr)
         {
-
-            Serial.print("running test: ");
-            Serial.println(test_ -> getName());
-
-            analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
             startTestTimer();
         }
         else
@@ -151,24 +143,25 @@ namespace ps
 
             // DEBUG
             //////////////////////////////////////////////////////
-            Serial.print("new msg = ");
-            Serial.println(message);
+            //Serial.print("new msg = ");
+            //Serial.println(message);
             /////////////////////////////////////////////////////
 
             JsonObject &jsonRoot = messageParser_.parse(message);
             String response("");
 
+            ReturnStatus status;
             if (jsonRoot.success())
             {
-                ReturnStatus status = commandTable_.apply("cmd",jsonRoot);
+                status = commandTable_.apply("cmd",jsonRoot);
             }
             else
             {
-                ////////////////////////////////////////////////
-                // ERROR: unable to parse json
-                ////////////////////////////////////////////////
-                Serial.println("unable to parse");
+                status.success = false;
+                status.message = "unable to parse json";
             }
+
+            messageSender_.sendCommandResponse(status);
 
             ///////////////////////////////////////////////////
             // Send comand response.
@@ -181,23 +174,12 @@ namespace ps
 
     void SystemState::serviceDataBuffer()
     {
-
-        if (dataBuffer_.size() > 0)
-        {
-            Serial.print("BufferSize: ");
-            Serial.println(int(dataBuffer_.size()));
-        }
-
-
+        // Extract data from buffer and send
         while (dataBuffer_.size() > 0)
         {
-            char buf[100];
             Sample sample = dataBuffer_.front();
             dataBuffer_.pop_front();
-            snprintf(buf,sizeof(buf),"%llu", sample.t);
-            Serial.print(buf);
-            Serial.print(", ");
-            Serial.println(sample.volt,10);
+            messageSender_.sendSample(sample);
         }
     }
 
@@ -279,14 +261,14 @@ namespace ps
 
     void SystemState::startTestTimer()
     {
-        Serial.println(__PRETTY_FUNCTION__);
-
         if (test_ != nullptr)
         {
-            Serial.println("starting timer");
             timerCnt_ = 0;
+            analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
+
             test_ -> reset();
             currLowPass_.reset();
+
             testTimer_.begin(testTimerCallback_, TestTimerPeriod);
         }
     }

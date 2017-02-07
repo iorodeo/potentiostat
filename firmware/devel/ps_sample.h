@@ -1,5 +1,5 @@
 #ifndef PS_SAMPLE_H
-#define PS_SAMPLE_h
+#define PS_SAMPLE_H
 
 namespace ps
 {

@@ -12,7 +12,7 @@ namespace ps
 
         public:
 
-            MultiStepTest(size_t numStep=3);
+            MultiStepTest(size_t numStep=5);
 
             virtual void setStepValue(size_t n, float value);
             virtual float getStepValue(size_t n) const;
@@ -118,10 +118,22 @@ namespace ps
 
         valueArray_.clear();
         durationArray_.clear();
+
+        // Set default values
+        bool pos = true;
         for (size_t i=0; i< numStep_; i++)
         {
-            valueArray_.push_back(0.0);
-            durationArray_.push_back(0);
+            if (pos)
+            {
+                valueArray_.push_back(0.5);
+                pos = false;
+            }
+            else
+            {
+                valueArray_.push_back(-0.5);
+                pos = true;
+            }
+            durationArray_.push_back(1000000);
         }
     }
     

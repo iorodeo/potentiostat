@@ -26,7 +26,7 @@ namespace ps
     Array<CurrRange,NumCurrRange>  CurrRangeArray(currRangeArrayTmp);
 
     // Timer parameters
-    const uint32_t TestTimerPeriod = 100;         // us
+    const uint32_t TestTimerPeriod = 200;         // us
     const uint32_t DefaultSamplePeriod = 10000;   // us
 
     // Low pass filter params for current samples

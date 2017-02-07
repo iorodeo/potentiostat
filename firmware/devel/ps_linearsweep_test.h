@@ -28,9 +28,9 @@ namespace ps
 
         protected:
 
-            float startValue_ = 0.0;
-            float finalValue_ = 0.0;
-            uint64_t duration_ = 0;
+            float startValue_ = -0.5;
+            float finalValue_ =  0.5;
+            uint64_t duration_ = 2000000;
 
     };
 

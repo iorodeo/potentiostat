@@ -24,8 +24,8 @@ namespace ps
 
         protected:
 
-            uint64_t duration_;
-            float value_;
+            uint64_t duration_ = 5000000;
+            float value_ = 1.0;
     };
 
 } // namespace ps

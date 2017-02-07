@@ -8,7 +8,7 @@ namespace ps
     JsonObject &MessageParser::parse(String &message)
     { 
         // Clear the buffer and parse the message
-        jsonBuffer_ = StaticJsonBuffer<JsonBufferSize>(); 
+        jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
         return jsonBuffer_.parseObject((char *)(message.c_str()));
     }
 

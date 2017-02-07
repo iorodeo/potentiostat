@@ -10,7 +10,8 @@ namespace ps
     // Buffer parameters
     const uint32_t DataBufferSize = 1000;
     const uint32_t SerialBufferSize = 1000;
-    const uint32_t JsonBufferSize = 1000;
+    const uint32_t JsonMessageBufferSize = 1000;
+    const uint32_t JsonTestDataBufferSize = 200;
 
     // Serial parameters
     extern const uint32_t UsbSerialBaudrate;
@@ -43,7 +44,7 @@ namespace ps
 
     // Test parameters
     const uint32_t AvailableTestsMaxSize = 10;
-    const uint32_t MultiStepMaxSize = 10;
+    const uint32_t MultiStepMaxSize = 20;
 
 } // namespace ps
 

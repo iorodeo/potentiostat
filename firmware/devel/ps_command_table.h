@@ -99,6 +99,8 @@ namespace ps
                     if (cmd.equals(table_[i].value()))
                     {
                         status = table_[i].applyMethod(client_,json);
+                        status.command = cmd;
+                        break;
                     }
                 }
             }
