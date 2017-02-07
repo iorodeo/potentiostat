@@ -140,15 +140,7 @@ namespace ps
         if (messageReceiver_.available())
         {
             String message = messageReceiver_.next();
-
-            // DEBUG
-            //////////////////////////////////////////////////////
-            //Serial.print("new msg = ");
-            //Serial.println(message);
-            /////////////////////////////////////////////////////
-
             JsonObject &jsonRoot = messageParser_.parse(message);
-            String response("");
 
             ReturnStatus status;
             if (jsonRoot.success())
@@ -162,14 +154,8 @@ namespace ps
             }
 
             messageSender_.sendCommandResponse(status);
-
-            ///////////////////////////////////////////////////
-            // Send comand response.
-            // Serial.println(response);
-            ///////////////////////////////////////////////////
         }
     }
-
 
 
     void SystemState::serviceDataBuffer()
@@ -182,6 +168,7 @@ namespace ps
             messageSender_.sendSample(sample);
         }
     }
+
 
     void SystemState::debug()
     {
