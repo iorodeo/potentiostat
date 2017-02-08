@@ -3,6 +3,8 @@
 namespace ps
 {
 
+    const String Voltammetry::TestKey("test");
+
     Voltammetry::Voltammetry()
     {
         chronoampTest.setNumStep(2);
@@ -32,17 +34,53 @@ namespace ps
         return testPtr;
     }
 
-
-    BaseTest *Voltammetry::getTest(JsonObject &json)
+    
+    ReturnStatus Voltammetry::getTest(JsonObject &jsonMsg, JsonObject &jsonDat, BaseTest* &testPtr)
     {
-        BaseTest *testPtr = nullptr;
-        String testKey = String("test");
-        if (json.containsKey(testKey.c_str()))
+        ReturnStatus status;
+        if (jsonMsg.containsKey(TestKey))
         {
-            String testName = String((const char *)(json[testKey.c_str()]));
+            String testName = String((const char *)(jsonMsg[TestKey]));
             testPtr = getTest(testName);
+            jsonDat.set(TestKey,testName);
+            if (testPtr == nullptr)
+            {
+                status.success = false;
+                status.message = String("test not found"); 
+            }
         }
-        return testPtr;
+        else
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + TestKey;
+        }
+        return status;
     }
+
+
+    ReturnStatus Voltammetry::getParam(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (jsonMsg.containsKey(TestKey))
+        {
+
+        }
+        else
+        {
+            status.success = false;
+            status.message = "test not found";
+        }
+
+        return status;
+    }
+    
+    
+    ReturnStatus Voltammetry::setParam(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+
+        return status;
+    }
+
 
 } // namespace ps

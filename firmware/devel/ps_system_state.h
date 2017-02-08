@@ -29,20 +29,16 @@ namespace ps
             void updateMessageData();
             void serviceDataBuffer();
 
-            ReturnStatus onCommandRunTest(JsonObject &jsonRoot);
-            ReturnStatus onCommandStopTest(JsonObject &jsonRoot);
-
-            ReturnStatus onCommandSetVolt(JsonObject &jsonRoot);
-            ReturnStatus onCommandGetCurr(JsonObject &jsonRoot);
-
-            ReturnStatus onCommandSetTestParam(JsonObject &jsonRoot);
-            ReturnStatus onCommandGetTestParam(JsonObject &jsonRoot);
-
-            ReturnStatus onCommandSetVoltRange(JsonObject &jsonRoot);
-            ReturnStatus onCommandGetVoltRange(JsonObject &jsonRoot);
-
-            ReturnStatus onCommandSetCurrRange(JsonObject &jsonRoot);
-            ReturnStatus onCommandGetCurrRange(JsonObject &jsonRoot);
+            ReturnStatus onCommandRunTest(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandStopTest(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetVolt(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetCurr(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetTestParam(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetTestParam(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetCurrRange(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetCurrRange(JsonObject &jsonMsg, JsonObject &jsonDat);
 
             void startTest();
             void stopTest();
@@ -62,6 +58,7 @@ namespace ps
             MessageSender messageSender_;
 
             CommandTable<SystemState,10> commandTable_;
+            StaticJsonBuffer<JsonMessageBufferSize> commandRespJsonBuffer_;
 
             CircularBuffer<Sample,DataBufferSize> dataBuffer_;
             Voltammetry voltammetry_;

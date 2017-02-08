@@ -24,9 +24,9 @@ namespace ps
             size_t maxSize();
 
             void setClient(T *client);
-            void registerMethod(String key, String value, ReturnStatus (T::*method)(JsonObject&));
+            void registerMethod(String key, String value, ReturnStatus (T::*method)(JsonObject&,JsonObject&));
 
-            ReturnStatus apply(String key, JsonObject &json);
+            ReturnStatus apply(String key, JsonObject &jsonMsg, JsonObject &jsonDat);
 
         protected:
 
@@ -77,7 +77,7 @@ namespace ps
 
 
     template<typename T, size_t MAX_SIZE>
-    void CommandTable<T,MAX_SIZE>::registerMethod(String key, String value, ReturnStatus (T::*method)(JsonObject&))
+    void CommandTable<T,MAX_SIZE>::registerMethod(String key, String value, ReturnStatus (T::*method)(JsonObject&,JsonObject&))
     {
         KeyValueCommand<T> kvCommand(key,value,method);
         table_.push_back(kvCommand);
@@ -86,20 +86,20 @@ namespace ps
 
 
     template<typename T, size_t MAX_SIZE>
-    ReturnStatus CommandTable<T,MAX_SIZE>::apply(String key, JsonObject &json)
+    ReturnStatus CommandTable<T,MAX_SIZE>::apply(String key, JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
         if (client_!= nullptr)
         {
-            if ( json.containsKey(key.c_str()) )
+            if ( jsonMsg.containsKey(key.c_str()) )
             {
-                String cmd = String((const char *)(json[key.c_str()])).trim();
+                String cmd = String((const char *)(jsonMsg[key.c_str()])).trim();
                 for (size_t i=0; i<table_.size(); i++)
                 {
                     if (cmd.equals(table_[i].value()))
                     {
-                        status = table_[i].applyMethod(client_,json);
-                        status.command = cmd;
+                        status = table_[i].applyMethod(client_,jsonMsg,jsonDat);
+                        jsonDat.set("command",cmd);
                         break;
                     }
                 }

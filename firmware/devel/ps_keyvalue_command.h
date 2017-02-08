@@ -9,7 +9,7 @@ namespace ps
     {
         public:
             KeyValueCommand() {};
-            KeyValueCommand(String key, String value, ReturnStatus (T::*method)(JsonObject&));
+            KeyValueCommand(String key, String value, ReturnStatus (T::*method)(JsonObject&,JsonObject&));
 
             String key();
             void setKey(String key);
@@ -17,18 +17,18 @@ namespace ps
             String value();
             void setValue(String value);
 
-            void setMethod(ReturnStatus (T::*method)(JsonObject&));
-            ReturnStatus applyMethod(T* client, JsonObject &json);
+            void setMethod(ReturnStatus (T::*method)(JsonObject&,JsonObject&));
+            ReturnStatus applyMethod(T* client, JsonObject &jsonMsg, JsonObject &jsonDat);
 
         protected:
             String key_;
             String value_;
-            ReturnStatus (T::*method_)(JsonObject&) = nullptr;
+            ReturnStatus (T::*method_)(JsonObject&,JsonObject&) = nullptr;
     };
 
 
     template<typename T>
-    KeyValueCommand<T>::KeyValueCommand(String key, String value, ReturnStatus (T::*method)(JsonObject&))
+    KeyValueCommand<T>::KeyValueCommand(String key, String value, ReturnStatus (T::*method)(JsonObject&,JsonObject&))
         : key_(key), value_(value), method_(method) 
     {}
 
@@ -62,19 +62,19 @@ namespace ps
 
 
     template<typename T>
-    void KeyValueCommand<T>::setMethod(ReturnStatus (T::*method)(JsonObject&))
+    void KeyValueCommand<T>::setMethod(ReturnStatus (T::*method)(JsonObject&,JsonObject&))
     {
         method_ = method;
     }
 
 
     template<typename T>
-    ReturnStatus KeyValueCommand<T>::applyMethod(T *client, JsonObject &json)
+    ReturnStatus KeyValueCommand<T>::applyMethod(T *client, JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
         if (method_ != nullptr)
         {
-            status = ((*client).*(method_))(json);
+            status = ((*client).*(method_))(jsonMsg,jsonDat);
         }
         else
         {

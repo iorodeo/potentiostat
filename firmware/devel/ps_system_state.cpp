@@ -40,25 +40,20 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::onCommandRunTest(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandRunTest(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-        test_ = voltammetry_.getTest(jsonRoot);
+        status = voltammetry_.getTest(jsonMsg,jsonDat,test_);
 
-        if (test_ != nullptr)
+        if ((status.success) && (test_ != nullptr))
         {
             startTest();
-        }
-        else
-        {
-            status.success = false;
-            status.message = "test not found";
         }
         return status;
     }
 
 
-    ReturnStatus SystemState::onCommandStopTest(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandStopTest(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
         stopTest();
@@ -66,24 +61,35 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::onCommandSetVolt(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandSetVolt(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-        if (jsonRoot.containsKey("value"))
+        String voltKey("v");
+        if (jsonMsg.containsKey(voltKey))
         {
-            float value = jsonRoot.get<float>("value");
-            analogSubsystem_.setVolt(value);
+            float volt = jsonMsg.get<float>(voltKey);
+            analogSubsystem_.setVolt(volt);
+            jsonDat.set("v",volt,JsonFloatDecimals);
         }
         else
         {
             status.success = false;
-            status.message = "no value in json object";
+            status.message = String("json does not contain key: ") + voltKey;
         }
         return status;
     }
 
     
-    ReturnStatus SystemState::onCommandGetCurr(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandGetCurr(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        float curr = analogSubsystem_.getCurr();
+        jsonDat.set("i",curr,JsonFloatDecimals);
+        return status;
+    }
+
+
+    ReturnStatus SystemState::onCommandSetTestParam(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -91,7 +97,7 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::onCommandSetTestParam(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandGetTestParam(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -99,7 +105,7 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::onCommandGetTestParam(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandSetVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -107,7 +113,7 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::onCommandSetVoltRange(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandGetVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -115,7 +121,7 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::onCommandGetVoltRange(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandSetCurrRange(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -123,15 +129,7 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::onCommandSetCurrRange(JsonObject &jsonRoot)
-    {
-        ReturnStatus status;
-        Serial.println(__PRETTY_FUNCTION__);
-        return status;
-    }
-
-
-    ReturnStatus SystemState::onCommandGetCurrRange(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandGetCurrRange(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -150,12 +148,15 @@ namespace ps
         if (messageReceiver_.available())
         {
             String message = messageReceiver_.next();
-            JsonObject &jsonRoot = messageParser_.parse(message);
+            JsonObject &jsonMsg = messageParser_.parse(message);
+
+            commandRespJsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>();
+            JsonObject &jsonDat = commandRespJsonBuffer_.createObject();
 
             ReturnStatus status;
-            if (jsonRoot.success())
+            if (jsonMsg.success())
             {
-                status = commandTable_.apply("cmd",jsonRoot);
+                status = commandTable_.apply("cmd",jsonMsg,jsonDat);
             }
             else
             {
@@ -163,7 +164,7 @@ namespace ps
                 status.message = "unable to parse json";
             }
 
-            messageSender_.sendCommandResponse(status);
+            messageSender_.sendCommandResponse(status,jsonDat);
         }
     }
 

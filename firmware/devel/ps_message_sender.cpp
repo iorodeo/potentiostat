@@ -6,40 +6,45 @@ namespace ps
     MessageSender::MessageSender()
     {}
 
-    void MessageSender::sendCommandResponse(ReturnStatus status)
+
+    void MessageSender::sendCommandResponse(ReturnStatus status, JsonObject &jsonDat)
     {
         jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
-        JsonObject &jsonRoot = jsonBuffer_.createObject();
+        JsonObject &jsonMsg = jsonBuffer_.createObject();
 
-        jsonRoot["success"] = status.success;
-        jsonRoot["message"] = status.message;
-        jsonRoot["command"] = status.command;
+        jsonMsg.set("success", status.success);
+        if (status.message.length() > 0)
+        {
+            jsonMsg.set("message", status.message);
+        }
+        jsonMsg.set("response", jsonDat);
 
-        jsonRoot.printTo(Serial);
+        jsonMsg.printTo(Serial);
         Serial.println();
 
     }
 
+
     void MessageSender::sendSample(Sample sample)
     {
         jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
-        JsonObject &jsonRoot = jsonBuffer_.createObject();
+        JsonObject &jsonSample = jsonBuffer_.createObject();
 
-        // Send time in us as string
-        // -------------------------------------------------------
-        //char timeBuf[100]; 
-        //snprintf(timeBuf,sizeof(timeBuf),"%llu", sample.t);
-        //jsonRoot["t"] = timeBuf;
-        // ------------------------------------------------------
+        jsonSample.set("t",uint32_t(sample.t/1000)); // send time in ms
+        jsonSample.set("v",sample.volt,JsonFloatDecimals);
+        jsonSample.set("i",sample.curr,JsonFloatDecimals);
 
-        jsonRoot.set("t",uint32_t(sample.t/1000)); // send time in ms
-        jsonRoot.set("v",sample.volt,5);
-        jsonRoot.set("i",sample.curr,5);
-
-        jsonRoot.printTo(Serial);
+        jsonSample.printTo(Serial);
         Serial.println();
     }
 
 
 } // namespace ps
 
+
+// Send time in us as string
+// -------------------------------------------------------
+//char timeBuf[100]; 
+//snprintf(timeBuf,sizeof(timeBuf),"%llu", sample.t);
+//jsonRoot["t"] = timeBuf;
+// ------------------------------------------------------

@@ -15,6 +15,7 @@ namespace ps
 
     // Serial parameters
     extern const uint32_t UsbSerialBaudrate;
+    extern const uint32_t JsonFloatDecimals;
 
     // Ranges for output voltage
     extern const VoltRange VoltRange1V; 

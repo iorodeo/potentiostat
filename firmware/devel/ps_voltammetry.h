@@ -2,6 +2,7 @@
 #define PS_VOLTAMMETRY_H
 #include "ArduinoJson.h"
 #include "ps_constants.h"
+#include "ps_return_status.h"
 #include "ps_base_test.h"
 #include "ps_cyclic_test.h"
 #include "ps_sinusoid_test.h"
@@ -22,7 +23,10 @@ namespace ps
             Voltammetry();
 
             BaseTest *getTest(String name);
-            BaseTest *getTest(JsonObject &json);
+            ReturnStatus getTest(JsonObject &jsonMsg, JsonObject &jsonDat, BaseTest* &testPtr);
+
+            ReturnStatus getParam(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
 
             BaseTest baseTest;
             CyclicTest cyclicTest;
@@ -31,6 +35,9 @@ namespace ps
             LinearSweepTest linearSweepTest;
             MultiStepTest<2> chronoampTest;
             MultiStepTest<MultiStepMaxSize> multiStepTest;
+
+            static const String TestKey;
+
 
         protected:
 
