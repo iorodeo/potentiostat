@@ -25,33 +25,35 @@ namespace ps
             SystemState();
             void initialize();
 
-            void setTestTimerCallback(void(*func)());
-            void updateTestOnTimer();
-
             void processMessages();
             void updateMessageData();
-
-            void startTestTimer();
             void serviceDataBuffer();
 
-            ReturnStatus runTest(JsonObject &jsonRoot);
-            ReturnStatus stopTest(JsonObject &jsonRoot);
+            ReturnStatus onCommandRunTest(JsonObject &jsonRoot);
+            ReturnStatus onCommandStopTest(JsonObject &jsonRoot);
 
-            ReturnStatus setVolt(JsonObject &jsonRoot);
-            ReturnStatus getCurr(JsonObject &jsonRoot);
+            ReturnStatus onCommandSetVolt(JsonObject &jsonRoot);
+            ReturnStatus onCommandGetCurr(JsonObject &jsonRoot);
 
-            ReturnStatus setTestParam(JsonObject &jsonRoot);
-            ReturnStatus getTestParam(JsonObject &jsonRoot);
+            ReturnStatus onCommandSetTestParam(JsonObject &jsonRoot);
+            ReturnStatus onCommandGetTestParam(JsonObject &jsonRoot);
 
-            ReturnStatus setVoltRange(JsonObject &jsonRoot);
-            ReturnStatus getVoltRange(JsonObject &jsonRoot);
+            ReturnStatus onCommandSetVoltRange(JsonObject &jsonRoot);
+            ReturnStatus onCommandGetVoltRange(JsonObject &jsonRoot);
 
-            ReturnStatus setCurrRange(JsonObject &jsonRoot);
-            ReturnStatus getCurrRange(JsonObject &jsonRoot);
+            ReturnStatus onCommandSetCurrRange(JsonObject &jsonRoot);
+            ReturnStatus onCommandGetCurrRange(JsonObject &jsonRoot);
+
+            void startTest();
+            void stopTest();
+            void setTestTimerCallback(void(*func)());
+            void updateTestOnTimer();
 
             void debug();
 
         protected:
+
+            bool testInProgress_;
 
             AnalogSubsystem analogSubsystem_;
 

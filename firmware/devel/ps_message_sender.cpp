@@ -25,9 +25,14 @@ namespace ps
         jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
         JsonObject &jsonRoot = jsonBuffer_.createObject();
 
-        char timeBuf[100]; 
-        snprintf(timeBuf,sizeof(timeBuf),"%llu", sample.t);
-        jsonRoot["t"] = timeBuf;
+        // Send time in us as string
+        // -------------------------------------------------------
+        //char timeBuf[100]; 
+        //snprintf(timeBuf,sizeof(timeBuf),"%llu", sample.t);
+        //jsonRoot["t"] = timeBuf;
+        // ------------------------------------------------------
+
+        jsonRoot.set("t",uint32_t(sample.t/1000)); // send time in ms
         jsonRoot.set("v",sample.volt,5);
         jsonRoot.set("i",sample.curr,5);
 

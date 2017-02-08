@@ -1,3 +1,4 @@
+#define ARDUINOJSON_USE_LONG_LONG 1
 #include "ps_system_state.h"
 
 using namespace ps;

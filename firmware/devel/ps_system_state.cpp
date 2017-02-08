@@ -6,28 +6,29 @@ namespace ps
 
     SystemState::SystemState()
     { 
+        testInProgress_ = false;
         timerCnt_ = 0;
         test_ = nullptr;
+
         currLowPass_.setParam(CurrLowPassParam);
         updateSampleModulus();
 
         commandTable_.setClient(this);
 
-        commandTable_.registerMethod("cmd","runTest", &SystemState::runTest);
-        commandTable_.registerMethod("cmd","stopTest", &SystemState::stopTest);
+        commandTable_.registerMethod("cmd","runTest", &SystemState::onCommandRunTest);
+        commandTable_.registerMethod("cmd","stopTest", &SystemState::onCommandStopTest);
 
-        commandTable_.registerMethod("cmd","setVolt", &SystemState::setVolt);
-        commandTable_.registerMethod("cmd","getCurr", &SystemState::getCurr);
+        commandTable_.registerMethod("cmd","setVolt", &SystemState::onCommandSetVolt);
+        commandTable_.registerMethod("cmd","getCurr", &SystemState::onCommandGetCurr);
 
-        commandTable_.registerMethod("cmd","setParam", &SystemState::setTestParam);
-        commandTable_.registerMethod("cmd","getParam", &SystemState::getTestParam);
+        commandTable_.registerMethod("cmd","setParam", &SystemState::onCommandSetTestParam);
+        commandTable_.registerMethod("cmd","getParam", &SystemState::onCommandGetTestParam);
 
-        commandTable_.registerMethod("cmd","setVoltRange", &SystemState::setVoltRange);
-        commandTable_.registerMethod("cmd","getVoltRange", &SystemState::getVoltRange);
+        commandTable_.registerMethod("cmd","setVoltRange", &SystemState::onCommandSetVoltRange);
+        commandTable_.registerMethod("cmd","getVoltRange", &SystemState::onCommandGetVoltRange);
 
-        commandTable_.registerMethod("cmd","setCurrRange", &SystemState::setCurrRange);
-        commandTable_.registerMethod("cmd","getCurrRange", &SystemState::getCurrRange);
-
+        commandTable_.registerMethod("cmd","setCurrRange", &SystemState::onCommandSetCurrRange);
+        commandTable_.registerMethod("cmd","getCurrRange", &SystemState::onCommandGetCurrRange);
     }
 
 
@@ -39,14 +40,14 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::runTest(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandRunTest(JsonObject &jsonRoot)
     {
         ReturnStatus status;
         test_ = voltammetry_.getTest(jsonRoot);
 
         if (test_ != nullptr)
         {
-            startTestTimer();
+            startTest();
         }
         else
         {
@@ -57,23 +58,32 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::stopTest(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandStopTest(JsonObject &jsonRoot)
     {
         ReturnStatus status;
-        Serial.println(__PRETTY_FUNCTION__);
+        stopTest();
         return status;
     }
 
 
-    ReturnStatus SystemState::setVolt(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandSetVolt(JsonObject &jsonRoot)
     {
         ReturnStatus status;
-        Serial.println(__PRETTY_FUNCTION__);
+        if (jsonRoot.containsKey("value"))
+        {
+            float value = jsonRoot.get<float>("value");
+            analogSubsystem_.setVolt(value);
+        }
+        else
+        {
+            status.success = false;
+            status.message = "no value in json object";
+        }
         return status;
     }
 
     
-    ReturnStatus SystemState::getCurr(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandGetCurr(JsonObject &jsonRoot)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -81,7 +91,7 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::setTestParam(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandSetTestParam(JsonObject &jsonRoot)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -89,7 +99,7 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::getTestParam(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandGetTestParam(JsonObject &jsonRoot)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -97,7 +107,7 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::setVoltRange(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandSetVoltRange(JsonObject &jsonRoot)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -105,7 +115,7 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::getVoltRange(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandGetVoltRange(JsonObject &jsonRoot)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -113,7 +123,7 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::setCurrRange(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandSetCurrRange(JsonObject &jsonRoot)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -121,7 +131,7 @@ namespace ps
     }
 
 
-    ReturnStatus SystemState::getCurrRange(JsonObject &jsonRoot)
+    ReturnStatus SystemState::onCommandGetCurrRange(JsonObject &jsonRoot)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -176,32 +186,6 @@ namespace ps
         Serial.println(analogSubsystem_.getCurrRangeName());
         Serial.println(VoltRangeArray[0].name());
         Serial.println("hello");
-        //float value;
-        //uint64_t duration;
-        //for (int i=0; i<3; i++)
-        //{
-        //    duration = voltammetry_.multiStepTest.getStepDuration(i);
-        //    Serial.print(i);
-        //    Serial.print(" ");
-        //    Serial.println(uint32_t(duration));
-        //}
-        //Serial.println("***");
-        //for (int i=0; i<3; i++)
-        //{
-        //    value = voltammetry_.multiStepTest.getStepValue(i);
-        //    Serial.print(i);
-        //    Serial.print(" ");
-        //    Serial.println(value);
-        //}
-        //Serial.println("***");
-        //for (uint32_t i=0; i<5000000; i=i+100000)
-        //{
-        //    Serial.print(i);
-        //    Serial.print(" ");
-        //    value = voltammetry_.multiStepTest.getValue(i);
-        //    Serial.println(value);
-        //    Serial.println();
-        //}
     }
 
 
@@ -213,7 +197,13 @@ namespace ps
 
     void SystemState::updateTestOnTimer()
     {
-        if (test_ != nullptr)
+        bool done = false;
+
+        if (test_ == nullptr)
+        {
+            done = true;
+        }
+        else
         {
             uint64_t t = uint64_t(TestTimerPeriod)*timerCnt_;
             float volt = test_ -> getValue(t);
@@ -227,26 +217,18 @@ namespace ps
                 Sample sample = {t, volt, currLowPass_.value()};
                 dataBuffer_.push_back(sample);
             }
-
-            if (test_ -> isDone(t))
-            {
-                testTimer_.end();
-                analogSubsystem_.setVolt(0.0);
-            }
-
+            done = test_ -> isDone(t);
             timerCnt_++;
         }
-        else
+
+        if (done) 
         {
-            /////////////////////////////////////////
-            // TODO:  stop test.
-            /////////////////////////////////////////
-            return;
+            stopTest();
         }
     }
 
 
-    void SystemState::startTestTimer()
+    void SystemState::startTest()
     {
         if (test_ != nullptr)
         {
@@ -256,8 +238,17 @@ namespace ps
             test_ -> reset();
             currLowPass_.reset();
 
+            testInProgress_ = true;
             testTimer_.begin(testTimerCallback_, TestTimerPeriod);
         }
+    }
+
+
+    void SystemState::stopTest()
+    {
+        testTimer_.end();
+        testInProgress_ = false;
+        analogSubsystem_.setVolt(0.0);
     }
 
     void SystemState::updateSampleModulus()
