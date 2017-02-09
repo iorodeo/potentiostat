@@ -41,8 +41,8 @@ namespace ps
         if (jsonMsg.containsKey(TestKey))
         {
             String testName = String((const char *)(jsonMsg[TestKey]));
+            jsonDat.set(TestKey,jsonMsg[TestKey]);
             testPtr = getTest(testName);
-            jsonDat.set(TestKey,testName);
             if (testPtr == nullptr)
             {
                 status.success = false;
@@ -63,6 +63,18 @@ namespace ps
         ReturnStatus status;
         if (jsonMsg.containsKey(TestKey))
         {
+            String testName = String((const char *)(jsonMsg[TestKey]));
+            jsonDat.set(TestKey,jsonMsg[TestKey]);
+            for (size_t i=0; i<availableTests_.size(); i++)
+            {
+                BaseTest *testPtr = availableTests_[i];
+                String currName = (testPtr -> getName()).trim();
+                if (testName.equals(currName))
+                {
+                    testPtr -> getParam(jsonDat);
+                    break;
+                }
+            }
 
         }
         else
@@ -71,6 +83,14 @@ namespace ps
             status.message = "test not found";
         }
 
+        // DEBUG
+        // /////////////////////////////////////////////////////////
+        JsonArray &array = jsonDat.createNestedArray("array");
+        for (int i=0;i<20; i++)
+        {
+            array.add(i);
+        }
+        ////////////////////////////////////////////////////////////
         return status;
     }
     

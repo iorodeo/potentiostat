@@ -1,6 +1,8 @@
 #ifndef PS_MULTISTEP_TEST_H
 #define PS_MULTISTEP_TEST_H
 #include "ps_base_test.h"
+#include "ps_constants.h"
+#include "ps_time_utils.h"
 #include "Array.h"
 
 namespace ps
@@ -31,6 +33,9 @@ namespace ps
             virtual float getValue(uint64_t t) const; 
             virtual float getMaxValue() const; 
             virtual float getMinValue() const; 
+
+            virtual void getParam(JsonObject &json);
+            virtual void setParam(JsonObject &json);
 
 
         protected:
@@ -233,6 +238,36 @@ namespace ps
         }
         return minValue;
     }
+
+
+    template<size_t MAX_SIZE>
+    void MultiStepTest<MAX_SIZE>::getParam(JsonObject &json)
+    {
+
+        BaseTest::getParam(json);
+
+        //Serial.println("getParam1");
+        //JsonArray &tmp = json.createNestedArray("array");
+        //Serial.println("getParam2");
+        //tmp.add(11);
+        //Serial.println("getParam3");
+
+        //JsonArray &valueJson = json.createNestedArray("value");
+        //JsonArray &durationJson = json.createNestedArray("duration");
+        //for (size_t i=0; i<numStep_; i++)
+        //{
+        //    valueJson.add(valueArray_[i], JsonFloatDecimals);
+        //    durationJson.add(convertUsToMs(durationArray_[i]));
+        //}
+    }
+
+
+    template<size_t MAX_SIZE>
+    void MultiStepTest<MAX_SIZE>::setParam(JsonObject &json)
+    {
+    }
+
+
 
 } // namespace ps
 

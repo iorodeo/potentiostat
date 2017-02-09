@@ -1,4 +1,5 @@
 #include "ps_periodic_test.h"
+#include "ps_time_utils.h"
 
 namespace ps
 {
@@ -113,6 +114,22 @@ namespace ps
     {
         return offset_ - 0.5*amplitude_;
     }
+
+
+    void PeriodicTest::getParam(JsonObject &json)
+    {
+        BaseTest::getParam(json);
+        json.set("amplitude", amplitude_, JsonFloatDecimals);
+        json.set("offset", offset_, JsonFloatDecimals);
+        json.set("period", convertUsToMs(period_));
+        json.set("numCycles", numCycles_);
+        json.set("shift", shift_, JsonFloatDecimals);
+    }
+
+    void PeriodicTest::setParam(JsonObject &json)
+    {
+    }
+
 
     // Protected methods
     // ------------------------------------------------------------------------

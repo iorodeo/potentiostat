@@ -1,4 +1,6 @@
 #include "ps_constant_test.h"
+#include "ps_time_utils.h"
+#include "ps_constants.h"
 
 namespace ps
 {
@@ -57,5 +59,16 @@ namespace ps
         return min(value_,quietValue_);
     }
 
+
+    void ConstantTest::getParam(JsonObject &json)
+    {
+        BaseTest::getParam(json);
+        json.set("value", value_, JsonFloatDecimals);
+        json.set("duration", convertUsToMs(duration_));
+    }
+
+    void ConstantTest::setParam(JsonObject &json)
+    {
+    }
 
 } // namespace ps

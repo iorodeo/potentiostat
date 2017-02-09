@@ -14,7 +14,6 @@
 namespace ps
 {
 
-
     class Voltammetry
     {
 
@@ -38,11 +37,9 @@ namespace ps
 
             static const String TestKey;
 
-
         protected:
 
             Array<BaseTest*,AvailableTestsMaxSize> availableTests_;
-
 
     };
 

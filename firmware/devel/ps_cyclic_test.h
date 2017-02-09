@@ -11,7 +11,6 @@ namespace ps
         public:
 
             CyclicTest();
-
             virtual float getValue(uint64_t t) const override;
 
     };

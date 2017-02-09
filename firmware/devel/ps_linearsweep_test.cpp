@@ -1,4 +1,6 @@
 #include "ps_linearsweep_test.h"
+#include "ps_time_utils.h"
+#include "ps_constants.h"
 
 namespace ps
 {
@@ -85,5 +87,17 @@ namespace ps
         return min(startValue_, min(finalValue_, quietValue_));
     }
 
+
+    void LinearSweepTest::getParam(JsonObject &json)
+    {
+        BaseTest::getParam(json);
+        json.set("startValue", startValue_, JsonFloatDecimals);
+        json.set("finalValue", finalValue_, JsonFloatDecimals);
+        json.set("duration", convertUsToMs(duration_));
+    }
+
+    void LinearSweepTest::setParam(JsonObject &json)
+    {
+    }
 
 } // namespace ps

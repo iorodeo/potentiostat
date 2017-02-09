@@ -1,4 +1,6 @@
 #include "ps_base_test.h"
+#include "ps_constants.h"
+#include "ps_time_utils.h"
 
 namespace ps
 {
@@ -71,6 +73,7 @@ namespace ps
         quietValue_ = getValue(quietTime_);
     }
 
+
     uint64_t BaseTest::getQuietValue() const
     {
         return quietValue_;
@@ -86,6 +89,19 @@ namespace ps
     {
         return name_;
     }
+
+
+    void BaseTest::getParam(JsonObject &json)
+    {
+        json.set("quietValue", quietValue_, JsonFloatDecimals);
+        json.set("quietTime",  convertUsToMs(quietTime_));
+    }
+
+    void BaseTest::setParam(JsonObject &json)
+    {
+    }
+
+
 
 
 } // namespace ps

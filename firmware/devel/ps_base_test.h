@@ -1,6 +1,7 @@
 #ifndef PS_BASE_TEST_H
 #define PS_BASE_TEST_H
 #include <Arduino.h>
+#include "ArduinoJson.h"
 
 namespace ps
 {
@@ -28,6 +29,9 @@ namespace ps
 
             virtual void setName(String name);
             virtual String getName();
+
+            virtual void getParam(JsonObject &json);
+            virtual void setParam(JsonObject &json);
 
         protected:
 

@@ -100,7 +100,7 @@ namespace ps
     ReturnStatus SystemState::onCommandGetTestParam(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-        Serial.println(__PRETTY_FUNCTION__);
+        voltammetry_.getParam(jsonMsg,jsonDat);
         return status;
     }
 

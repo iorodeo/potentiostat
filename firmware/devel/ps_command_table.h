@@ -93,13 +93,14 @@ namespace ps
         {
             if ( jsonMsg.containsKey(key.c_str()) )
             {
-                String cmd = String((const char *)(jsonMsg[key.c_str()])).trim();
+                String cmd = String((const char *)(jsonMsg[key])).trim();
+
                 for (size_t i=0; i<table_.size(); i++)
                 {
                     if (cmd.equals(table_[i].value()))
                     {
+                        jsonDat.set("command",jsonMsg[key]);
                         status = table_[i].applyMethod(client_,jsonMsg,jsonDat);
-                        jsonDat.set("command",cmd);
                         break;
                     }
                 }

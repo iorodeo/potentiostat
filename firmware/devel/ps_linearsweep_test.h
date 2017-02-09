@@ -25,6 +25,8 @@ namespace ps
             virtual float getValue(uint64_t t) const; 
             virtual float getMaxValue() const; 
             virtual float getMinValue() const; 
+            virtual void getParam(JsonObject &json);
+            virtual void setParam(JsonObject &json);
 
         protected:
 

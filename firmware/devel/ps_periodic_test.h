@@ -39,6 +39,8 @@ namespace ps
             virtual float getValue(uint64_t t) const override;
             virtual float getMaxValue() const override;
             virtual float getMinValue() const override;
+            virtual void getParam(JsonObject &json);
+            virtual void setParam(JsonObject &json);
 
         protected:
 

@@ -1,4 +1,5 @@
 #include "ps_message_sender.h"
+#include "ps_time_utils.h"
 
 namespace ps
 {
@@ -12,12 +13,19 @@ namespace ps
         jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
         JsonObject &jsonMsg = jsonBuffer_.createObject();
 
+        //JsonArray &array = jsonDat.createNestedArray("array");
+        //array.add(1);
+        //array.add(2);
+        //array.add(3);
+        
+
         jsonMsg.set("success", status.success);
         if (status.message.length() > 0)
         {
             jsonMsg.set("message", status.message);
         }
         jsonMsg.set("response", jsonDat);
+
 
         jsonMsg.printTo(Serial);
         Serial.println();
@@ -30,7 +38,7 @@ namespace ps
         jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
         JsonObject &jsonSample = jsonBuffer_.createObject();
 
-        jsonSample.set("t",uint32_t(sample.t/1000)); // send time in ms
+        jsonSample.set("t",convertUsToMs(sample.t)); 
         jsonSample.set("v",sample.volt,JsonFloatDecimals);
         jsonSample.set("i",sample.curr,JsonFloatDecimals);
 
