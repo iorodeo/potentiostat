@@ -4,6 +4,7 @@
 #include "ps_constants.h"
 #include "ps_time_utils.h"
 #include "Array.h"
+#include "ArduinoJson.h"
 
 namespace ps
 {
@@ -243,8 +244,10 @@ namespace ps
     template<size_t MAX_SIZE>
     void MultiStepTest<MAX_SIZE>::getParam(JsonObject &json)
     {
-
+        //json.printTo(Serial);
+        json.set("bob", 1);
         BaseTest::getParam(json);
+        //json.printTo(Serial);
 
         //Serial.println("getParam1");
         //JsonArray &tmp = json.createNestedArray("array");

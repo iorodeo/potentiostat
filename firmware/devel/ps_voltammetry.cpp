@@ -61,6 +61,12 @@ namespace ps
     ReturnStatus Voltammetry::getParam(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+
+        //jsonDat.set("bob", 1);
+        Serial.print("1. jsonDat = ");
+        jsonDat.printTo(Serial);
+        Serial.println();
+
         if (jsonMsg.containsKey(TestKey))
         {
             String testName = String((const char *)(jsonMsg[TestKey]));
@@ -71,7 +77,8 @@ namespace ps
                 String currName = (testPtr -> getName()).trim();
                 if (testName.equals(currName))
                 {
-                    testPtr -> getParam(jsonDat);
+                    //testPtr -> getParam(jsonDat);
+                    chronoampTest.getParam(jsonDat);
                     break;
                 }
             }
@@ -82,6 +89,10 @@ namespace ps
             status.success = false;
             status.message = "test not found";
         }
+
+        Serial.print("2. jsonDat = ");
+        jsonDat.printTo(Serial);
+        Serial.println();
 
         // DEBUG
         // /////////////////////////////////////////////////////////
