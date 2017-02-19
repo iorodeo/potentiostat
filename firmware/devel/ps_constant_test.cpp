@@ -33,6 +33,12 @@ namespace ps
     }
 
 
+    float ConstantTest::getValue()
+    {
+        return value_;
+    }
+
+
     float ConstantTest::getValue(uint64_t t) const 
     {
         if (t < quietTime_)
@@ -83,13 +89,25 @@ namespace ps
             return status;
         }
 
-        // Get value
+        // Set parameters
+        setDurationFromJson(jsonPrm,jsonDat,status);
+        setValueFromJson(jsonPrm,jsonDat,status);
+
+        return status;
+    }
+
+
+    // Protected Methods
+    // ----------------------------------------------------------------------------------
+
+    void ConstantTest::setDurationFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    {
         if (jsonPrm.containsKey(ValueKey))
         {
             if (jsonPrm[ValueKey].is<float>())
             {
-                value_  = jsonPrm.get<float>(ValueKey);
-                jsonDat.set(ValueKey,value_,JsonFloatDecimals);
+                setValue(jsonPrm.get<float>(ValueKey));
+                jsonDat.set(ValueKey,getValue(),JsonFloatDecimals);
             }
             else
             {
@@ -98,14 +116,17 @@ namespace ps
                 status.appendToMessage(errorMsg);
             }
         }
-       
-        // Get duration
+    }
+
+
+    void ConstantTest::setValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    {
         if (jsonPrm.containsKey(DurationKey))
         {
             if (jsonPrm[DurationKey].is<unsigned long>())
             {
-                duration_ = convertMsToUs(jsonPrm.get<unsigned long>(DurationKey));
-                jsonDat.set(DurationKey,convertUsToMs(duration_));
+                setDuration(convertMsToUs(jsonPrm.get<unsigned long>(DurationKey)));
+                jsonDat.set(DurationKey,convertUsToMs(getDuration()));
             }
             else
             {
@@ -114,11 +135,7 @@ namespace ps
                 status.appendToMessage(errorMsg);
             }
         }
-
-        return status;
     }
 
-    //uint64_t duration_ = 5000000;
-    //float value_ = 1.0;
 
 } // namespace ps

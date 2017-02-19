@@ -66,9 +66,9 @@ namespace ps
     }
 
 
-    void BaseTest::setQuietValue(float quietVolt)
+    void BaseTest::setQuietValue(float quietValue)
     {
-        quietValue_ = quietVolt;
+        quietValue_ = quietValue;
     }
 
 
@@ -78,7 +78,7 @@ namespace ps
     }
 
 
-    uint64_t BaseTest::getQuietValue() const
+    float BaseTest::getQuietValue() const
     {
         return quietValue_;
     }
@@ -112,40 +112,15 @@ namespace ps
             return status;
         }
 
-        // Get quietValue_ 
-        if (jsonPrm.containsKey(QuietValueKey))
-        {
-            if (jsonPrm[QuietValueKey].is<float>())
-            {
-                quietValue_  = jsonPrm.get<float>(QuietValueKey);
-                jsonDat.set(QuietValueKey,quietValue_,JsonFloatDecimals);
-            }
-            else
-            {
-                status.success = false;
-                String errorMsg = QuietValueKey + String(" not a float");
-                status.appendToMessage(errorMsg);
-            }
-        }
-
-        // Set quietTime_
-        if (jsonPrm.containsKey(QuietTimeKey))
-        {
-            if (jsonPrm[QuietTimeKey].is<unsigned long>())
-            {
-                quietTime_ = convertMsToUs(jsonPrm.get<unsigned long>(QuietTimeKey));
-                jsonDat.set(QuietTimeKey,convertUsToMs(quietTime_));
-            }
-            else
-            {
-                status.success = false;
-                String errorMsg = QuietTimeKey + String(" not uint32");
-                status.appendToMessage(errorMsg);
-            }
-        }
+        // Set Parameters_ 
+        setQuietValueFromJson(jsonPrm,jsonDat,status);
+        setQuietTimeFromJson(jsonPrm,jsonDat,status);
 
         return status;
     }
+
+    // Protected Methods
+    // ----------------------------------------------------------------------------------
 
     JsonObject &BaseTest::getParamJsonObject(JsonObject &jsonMsg, ReturnStatus &status)
     {
@@ -166,5 +141,44 @@ namespace ps
         }
         return jsonMsg[ParamKey];
     }
+
+    void BaseTest::setQuietValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    {
+        if (jsonPrm.containsKey(QuietValueKey))
+        {
+            if (jsonPrm[QuietValueKey].is<float>())
+            {
+                setQuietValue(jsonPrm.get<float>(QuietValueKey));
+                jsonDat.set(QuietValueKey,getQuietValue(),JsonFloatDecimals);
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = QuietValueKey + String(" not a float");
+                status.appendToMessage(errorMsg);
+            }
+        }
+    }
+
+
+    void BaseTest::setQuietTimeFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    {
+        if (jsonPrm.containsKey(QuietTimeKey))
+        {
+            if (jsonPrm[QuietTimeKey].is<unsigned long>())
+            {
+                setQuietTime(convertMsToUs(jsonPrm.get<unsigned long>(QuietTimeKey)));
+                jsonDat.set(QuietTimeKey,convertUsToMs(getQuietTime()));
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = QuietTimeKey + String(" not uint32");
+                status.appendToMessage(errorMsg);
+            }
+        }
+    }
+
+
 
 } // namespace ps

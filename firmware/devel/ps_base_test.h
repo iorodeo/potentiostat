@@ -31,7 +31,7 @@ namespace ps
 
             virtual void setQuietValue(float value);
             virtual void setQuietValueToStart();
-            virtual uint64_t getQuietValue() const;
+            virtual float getQuietValue() const;
 
             virtual void setName(String name);
             virtual String getName();
@@ -46,6 +46,8 @@ namespace ps
             String name_ = String("base");
 
             JsonObject &getParamJsonObject(JsonObject &jsonMsg, ReturnStatus &status);
+            void setQuietValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
+            void setQuietTimeFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
 
 
     };

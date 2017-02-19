@@ -7,16 +7,17 @@ dev = pstat_serial.PStatSerial(port)
 #test_list = ['constant', 'cyclic', 'sinusoid', 'linearSweep', 'chronoamp', 'multiStep']
 
 const_param = {
-        "qietValue" : 2.0,
-        "quietTime" : 2000,
-        "value"     : 4.0,
-        "duration"  : 5000,
+        "quietValue" : 2.0,
+        "quietTime"  : 2000,
+        "value"      : 4.0,
+        "duration"   : 5000,
         }
 
 
 test_list = [
         ('constant',const_param), 
         ] 
+
 
 for test, param in test_list:
 

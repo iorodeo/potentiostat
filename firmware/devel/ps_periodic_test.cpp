@@ -126,13 +126,72 @@ namespace ps
         json.set("shift", shift_, JsonFloatDecimals);
     }
 
-    void PeriodicTest::setParam(JsonObject &json)
+    ReturnStatus PeriodicTest::setParam(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
+        ReturnStatus status;
+        status = BaseTest::setParam(jsonMsg,jsonDat);
+
+        // Extract JsonObject containing parameters
+        JsonObject &jsonPrm = getParamJsonObject(jsonMsg,status);
+        if (!status.success)
+        {
+            return status;
+        }
+
+        // Set parameters
+        setAmplitudeFromJson(jsonPrm,jsonDat,status);
+        setOffsetFromJson(jsonPrm,jsonDat,status);
+        setPeriodFromJson(jsonPrm,jsonDat,status);
+        setNumCyclesFromJson(jsonPrm,jsonDat,status);
+        setShiftFromJson(jsonPrm,jsonDat,status);
+
+        return status;
     }
 
 
-    // Protected methods
+    // Protected Methods
     // ------------------------------------------------------------------------
+    
+    void PeriodicTest::setAmplitudeFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    {
+        ////////////////////////////////////////////////
+        // TODO
+        ////////////////////////////////////////////////
+    }
+
+
+    void PeriodicTest::setOffsetFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    {
+        ////////////////////////////////////////////////
+        // TODO
+        ////////////////////////////////////////////////
+    }
+
+
+    void PeriodicTest::setPeriodFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    {
+        ////////////////////////////////////////////////
+        // TODO
+        ////////////////////////////////////////////////
+    }
+
+
+    void PeriodicTest::setNumCyclesFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    {
+        ////////////////////////////////////////////////
+        // TODO
+        ////////////////////////////////////////////////
+    }
+
+
+    void PeriodicTest::setShiftFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    {
+        ////////////////////////////////////////////////
+        // TODO
+        ////////////////////////////////////////////////
+    }
+
+
     void PeriodicTest::updateShiftInUs()
     {
         shiftInUs_ = uint64_t(double(shift_)*period_);
