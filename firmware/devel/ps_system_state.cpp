@@ -91,16 +91,14 @@ namespace ps
 
     ReturnStatus SystemState::onCommandSetTestParam(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
-        ReturnStatus status;
-        Serial.println(__PRETTY_FUNCTION__);
+        ReturnStatus status = voltammetry_.setParam(jsonMsg,jsonDat);
         return status;
     }
 
 
     ReturnStatus SystemState::onCommandGetTestParam(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
-        ReturnStatus status;
-        voltammetry_.getParam(jsonMsg,jsonDat);
+        ReturnStatus status = voltammetry_.getParam(jsonMsg,jsonDat);
         return status;
     }
 
@@ -145,73 +143,28 @@ namespace ps
 
     void SystemState::processMessages()
     {
-
-        // DEBUG
-        ////////////////////////////////////////////////////////////////////////
-        static uint32_t cnt = 0;
-        ReturnStatus status;
-
-        Serial.print("cnt: ");
-        Serial.println(cnt);
-
+        if (messageReceiver_.available())
         {
+            ReturnStatus status;
+
+            String message = messageReceiver_.next();
+            JsonObject &jsonMsg = messageParser_.parse(message);
+
             commandRespJsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>();
             JsonObject &jsonDat = commandRespJsonBuffer_.createObject();
-            jsonDat.printTo(Serial);
-            Serial.println();
-            voltammetry_.cyclicTest.getParam(jsonDat);
-            jsonDat.printTo(Serial);
-            Serial.println();
+
+            if (jsonMsg.success())
+            {
+                status = commandTable_.apply("cmd",jsonMsg,jsonDat);
+            }
+            else
+            {
+                status.success = false;
+                status.message = "unable to parse json";
+            }
+
+            messageSender_.sendCommandResponse(status,jsonDat);
         }
-
-        {
-            commandRespJsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>();
-            JsonObject &jsonDat = commandRespJsonBuffer_.createObject();
-            jsonDat.printTo(Serial);
-            Serial.println();
-            //voltammetry_.chronoampTest.getParam(jsonDat);
-            voltammetry_.multiStepTest.getParam(jsonDat);
-            jsonDat.printTo(Serial);
-            Serial.println();
-        }
-
-        Serial.println();
-        Serial.println();
-        //messageSender_.sendCommandResponse(status,jsonDat);
-
-        cnt++;
-        delay(100);
-        ///////////////////////////////////////////////////////////////////////
-
-        //if (messageReceiver_.available())
-        //{
-        //    ReturnStatus status;
-
-        //    String message = messageReceiver_.next();
-        //    JsonObject &jsonMsg = messageParser_.parse(message);
-
-        //    commandRespJsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>();
-        //    JsonObject &jsonDat = commandRespJsonBuffer_.createObject();
-
-        //    //Serial.print("jsonMsg = ");
-        //    //jsonMsg.printTo(Serial);
-        //    //Serial.println();
-        //    //Serial.print("0. jsonDat = ");
-        //    //jsonDat.printTo(Serial);
-        //    //Serial.println();
-
-        //    if (jsonMsg.success())
-        //    {
-        //        status = commandTable_.apply("cmd",jsonMsg,jsonDat);
-        //    }
-        //    else
-        //    {
-        //        status.success = false;
-        //        status.message = "unable to parse json";
-        //    }
-
-        //    messageSender_.sendCommandResponse(status,jsonDat);
-        //}
     }
 
 

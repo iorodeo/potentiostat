@@ -10,6 +10,10 @@ namespace ps
 
         public:
 
+            static const String DurationKey;
+            static const String ValueKey;
+
+
             ConstantTest();
 
             void setDuration(uint64_t duration);
@@ -22,7 +26,8 @@ namespace ps
             virtual float getMaxValue() const override; 
             virtual float getMinValue() const override; 
             virtual void getParam(JsonObject &json);
-            virtual void setParam(JsonObject &json);
+            virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
+
 
         protected:
 

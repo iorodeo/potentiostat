@@ -31,9 +31,8 @@ namespace ps
         protected:
 
             Array<T,MAX_SIZE+1> data_;
-
-            size_t  pos_front_ = 0;
-            size_t  pos_back_  = 0;
+            volatile size_t  pos_front_ = 0;
+            volatile size_t  pos_back_  = 0;
 
     };
 

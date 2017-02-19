@@ -9,9 +9,6 @@ void setup()
     Serial.begin(UsbSerialBaudrate);
     systemState.initialize();
     systemState.setTestTimerCallback(timerCallback);
-
-    //systemState.startTestTimer();
-
 }
 
 void loop()

@@ -13,12 +13,6 @@ namespace ps
         jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
         JsonObject &jsonMsg = jsonBuffer_.createObject();
 
-        //JsonArray &array = jsonDat.createNestedArray("array");
-        //array.add(1);
-        //array.add(2);
-        //array.add(3);
-        
-
         jsonMsg.set("success", status.success);
         if (status.message.length() > 0)
         {

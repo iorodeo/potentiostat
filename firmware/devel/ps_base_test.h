@@ -2,6 +2,7 @@
 #define PS_BASE_TEST_H
 #include <Arduino.h>
 #include "ArduinoJson.h"
+#include "ps_return_status.h"
 
 namespace ps
 {
@@ -10,6 +11,11 @@ namespace ps
     {
 
         public:
+
+            static const String ParamKey;
+            static const String QuietValueKey; 
+            static const String QuietTimeKey;
+
 
             BaseTest();
 
@@ -30,14 +36,17 @@ namespace ps
             virtual void setName(String name);
             virtual String getName();
 
-            virtual void getParam(JsonObject &json);
-            virtual void setParam(JsonObject &json);
+            virtual void getParam(JsonObject &jsonDat);
+            virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
 
         protected:
 
             uint64_t quietTime_ = 0;
             float quietValue_ = 0.0;
             String name_ = String("base");
+
+            JsonObject &getParamJsonObject(JsonObject &jsonMsg, ReturnStatus &status);
+
 
     };
 

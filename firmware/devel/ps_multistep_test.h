@@ -244,24 +244,14 @@ namespace ps
     template<size_t MAX_SIZE>
     void MultiStepTest<MAX_SIZE>::getParam(JsonObject &json)
     {
-        //json.printTo(Serial);
-        json.set("bob", 1);
         BaseTest::getParam(json);
-        //json.printTo(Serial);
-
-        //Serial.println("getParam1");
-        //JsonArray &tmp = json.createNestedArray("array");
-        //Serial.println("getParam2");
-        //tmp.add(11);
-        //Serial.println("getParam3");
-
-        //JsonArray &valueJson = json.createNestedArray("value");
-        //JsonArray &durationJson = json.createNestedArray("duration");
-        //for (size_t i=0; i<numStep_; i++)
-        //{
-        //    valueJson.add(valueArray_[i], JsonFloatDecimals);
-        //    durationJson.add(convertUsToMs(durationArray_[i]));
-        //}
+        JsonArray &valueJson = json.createNestedArray("value");
+        JsonArray &durationJson = json.createNestedArray("duration");
+        for (size_t i=0; i<numStep_; i++)
+        {
+            valueJson.add(valueArray_[i], JsonFloatDecimals);
+            durationJson.add(convertUsToMs(durationArray_[i]));
+        }
     }
 
 

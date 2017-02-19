@@ -49,7 +49,7 @@ namespace ps
 
         protected:
 
-            bool testInProgress_;
+            volatile bool testInProgress_;
 
             AnalogSubsystem analogSubsystem_;
 

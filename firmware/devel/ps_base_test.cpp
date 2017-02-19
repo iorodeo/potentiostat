@@ -5,6 +5,10 @@
 namespace ps
 {
 
+    const String BaseTest::ParamKey = String("param");
+    const String BaseTest::QuietValueKey = String("quietValue"); 
+    const String BaseTest::QuietTimeKey = String("quietTime");
+
     BaseTest::BaseTest() 
     { }
 
@@ -91,17 +95,76 @@ namespace ps
     }
 
 
-    void BaseTest::getParam(JsonObject &json)
+    void BaseTest::getParam(JsonObject &jsonDat)
     {
-        json.set("quietValue", quietValue_, JsonFloatDecimals);
-        json.set("quietTime",  convertUsToMs(quietTime_));
+        jsonDat.set(QuietValueKey, quietValue_, JsonFloatDecimals);
+        jsonDat.set(QuietTimeKey, convertUsToMs(quietTime_));
     }
 
-    void BaseTest::setParam(JsonObject &json)
+    ReturnStatus BaseTest::setParam(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
+        ReturnStatus status;
+
+        // Extract JsonObject containing parameters
+        JsonObject &jsonPrm = getParamJsonObject(jsonMsg,status);
+        if (!status.success)
+        {
+            return status;
+        }
+
+        // Get quietValue_ 
+        if (jsonPrm.containsKey(QuietValueKey))
+        {
+            if (jsonPrm[QuietValueKey].is<float>())
+            {
+                quietValue_  = jsonPrm.get<float>(QuietValueKey);
+                jsonDat.set(QuietValueKey,quietValue_,JsonFloatDecimals);
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = QuietValueKey + String(" not a float");
+                status.appendToMessage(errorMsg);
+            }
+        }
+
+        // Set quietTime_
+        if (jsonPrm.containsKey(QuietTimeKey))
+        {
+            if (jsonPrm[QuietTimeKey].is<unsigned long>())
+            {
+                quietTime_ = convertMsToUs(jsonPrm.get<unsigned long>(QuietTimeKey));
+                jsonDat.set(QuietTimeKey,convertUsToMs(quietTime_));
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = QuietTimeKey + String(" not uint32");
+                status.appendToMessage(errorMsg);
+            }
+        }
+
+        return status;
     }
 
-
-
+    JsonObject &BaseTest::getParamJsonObject(JsonObject &jsonMsg, ReturnStatus &status)
+    {
+        // Extract JsonObject containing parameters
+        if (!jsonMsg.containsKey(ParamKey))
+        {
+            status.success = false;
+            String errorMsg = String("key ") + ParamKey + String(" missing");
+            status.appendToMessage(errorMsg);
+            return jsonMsg;
+        }
+        if (!jsonMsg[ParamKey].is<JsonObject>())
+        {
+            status.success = false;
+            String errorMsg = ParamKey + String(" not JsonObject");
+            status.appendToMessage(errorMsg);
+            return jsonMsg;
+        }
+        return jsonMsg[ParamKey];
+    }
 
 } // namespace ps

@@ -62,46 +62,20 @@ namespace ps
     {
         ReturnStatus status;
 
-        //jsonDat.set("bob", 1);
-        Serial.print("1. jsonDat = ");
-        jsonDat.printTo(Serial);
-        Serial.println();
-
         if (jsonMsg.containsKey(TestKey))
         {
-            String testName = String((const char *)(jsonMsg[TestKey]));
-            jsonDat.set(TestKey,jsonMsg[TestKey]);
-            for (size_t i=0; i<availableTests_.size(); i++)
+            BaseTest *testPtr = nullptr;
+            status = getTest(jsonMsg,jsonDat,testPtr);
+            if (status.success && (testPtr != nullptr))
             {
-                BaseTest *testPtr = availableTests_[i];
-                String currName = (testPtr -> getName()).trim();
-                if (testName.equals(currName))
-                {
-                    //testPtr -> getParam(jsonDat);
-                    chronoampTest.getParam(jsonDat);
-                    break;
-                }
+                testPtr -> getParam(jsonDat);
             }
-
         }
         else
         {
             status.success = false;
-            status.message = "test not found";
+            status.message = String("json does not contain key: ") + TestKey;
         }
-
-        Serial.print("2. jsonDat = ");
-        jsonDat.printTo(Serial);
-        Serial.println();
-
-        // DEBUG
-        // /////////////////////////////////////////////////////////
-        JsonArray &array = jsonDat.createNestedArray("array");
-        for (int i=0;i<20; i++)
-        {
-            array.add(i);
-        }
-        ////////////////////////////////////////////////////////////
         return status;
     }
     
@@ -110,6 +84,20 @@ namespace ps
     {
         ReturnStatus status;
 
+        if (jsonMsg.containsKey(TestKey))
+        {
+            BaseTest *testPtr = nullptr;
+            status = getTest(jsonMsg,jsonDat,testPtr);
+            if (status.success && (testPtr != nullptr))
+            {
+                status = testPtr -> setParam(jsonMsg,jsonDat);
+            }
+        }
+        else
+        {
+            status.success = false;
+            status.message = String("test not found");
+        }
         return status;
     }
 
