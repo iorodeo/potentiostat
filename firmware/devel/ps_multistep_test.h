@@ -15,6 +15,9 @@ namespace ps
 
         public:
 
+            static const String ValueArrayKey;
+            static const String DurationArrayKey;
+
             MultiStepTest(size_t numStep=5);
 
             virtual void setStepValue(size_t n, float value);
@@ -35,8 +38,8 @@ namespace ps
             virtual float getMaxValue() const; 
             virtual float getMinValue() const; 
 
-            virtual void getParam(JsonObject &json);
-            virtual void setParam(JsonObject &json);
+            virtual void getParam(JsonObject &jsonDat);
+            virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
 
 
         protected:
@@ -45,7 +48,17 @@ namespace ps
             Array<uint64_t, MAX_SIZE> durationArray_;
             size_t numStep_; 
 
+            void setValueAndDurationFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
+
     };
+
+
+    template<size_t MAX_SIZE>
+    const String MultiStepTest<MAX_SIZE>::ValueArrayKey = String("value");
+
+
+    template<size_t MAX_SIZE>
+    const String MultiStepTest<MAX_SIZE>::DurationArrayKey = String("duration");
 
 
     template<size_t MAX_SIZE>
@@ -242,24 +255,46 @@ namespace ps
 
 
     template<size_t MAX_SIZE>
-    void MultiStepTest<MAX_SIZE>::getParam(JsonObject &json)
+    void MultiStepTest<MAX_SIZE>::getParam(JsonObject &jsonDat)
     {
-        BaseTest::getParam(json);
-        JsonArray &valueJson = json.createNestedArray("value");
-        JsonArray &durationJson = json.createNestedArray("duration");
+        BaseTest::getParam(jsonDat);
+        JsonArray &jsonValueArray = jsonDat.createNestedArray(ValueArrayKey);
+        JsonArray &jsonDurationArray = jsonDat.createNestedArray(DurationArrayKey);
         for (size_t i=0; i<numStep_; i++)
         {
-            valueJson.add(valueArray_[i], JsonFloatDecimals);
-            durationJson.add(convertUsToMs(durationArray_[i]));
+            jsonValueArray.add(valueArray_[i], JsonFloatDecimals);
+            jsonDurationArray.add(convertUsToMs(durationArray_[i]));
         }
     }
 
 
     template<size_t MAX_SIZE>
-    void MultiStepTest<MAX_SIZE>::setParam(JsonObject &json)
+    ReturnStatus MultiStepTest<MAX_SIZE>::setParam(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
+        ReturnStatus status;
+        status = BaseTest::setParam(jsonMsg,jsonDat);
+
+        // Extract JsonObject containing parameters
+        JsonObject &jsonPrm = getParamJsonObject(jsonMsg,status);
+        if (!status.success)
+        {
+            return status;
+        }
+
+        // Set parameters
+        setValueAndDurationFromJson(jsonPrm,jsonDat,status);
+
+        return status;
     }
 
+
+    // Protected methods
+    // --------------------------------------------------------------------------------------------
+
+    template<size_t MAX_SIZE>
+    void MultiStepTest<MAX_SIZE>::setValueAndDurationFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    {
+    }
 
 
 } // namespace ps

@@ -5,6 +5,11 @@
 namespace ps
 {
 
+    const String LinearSweepTest::StartValueKey = String("startValue");
+    const String LinearSweepTest::FinalValueKey = String("finalValue");
+    const String LinearSweepTest::DurationKey = String("duration");
+
+
     LinearSweepTest::LinearSweepTest()
     { 
         setName("linearSweep");
@@ -88,16 +93,96 @@ namespace ps
     }
 
 
-    void LinearSweepTest::getParam(JsonObject &json)
+    void LinearSweepTest::getParam(JsonObject &jsonDat)
     {
-        BaseTest::getParam(json);
-        json.set("startValue", startValue_, JsonFloatDecimals);
-        json.set("finalValue", finalValue_, JsonFloatDecimals);
-        json.set("duration", convertUsToMs(duration_));
+        BaseTest::getParam(jsonDat);
+        jsonDat.set(StartValueKey, startValue_, JsonFloatDecimals);
+        jsonDat.set(FinalValueKey, finalValue_, JsonFloatDecimals);
+        jsonDat.set(DurationKey, convertUsToMs(duration_));
     }
 
-    void LinearSweepTest::setParam(JsonObject &json)
+    ReturnStatus LinearSweepTest::setParam(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
+        ReturnStatus status;
+        status = BaseTest::setParam(jsonMsg,jsonDat);
+
+        // Extract JsonObject containing parameters
+        JsonObject &jsonPrm = getParamJsonObject(jsonMsg,status);
+        if (!status.success)
+        {
+            return status;
+        }
+
+        // Set parameters
+        setStartValueFromJson(jsonPrm,jsonDat,status);
+        setFinalValueFromJson(jsonPrm,jsonDat,status);
+        setDurationFromJson(jsonPrm,jsonDat,status);
+
+        return status;
     }
+
+    // Protected methods
+    // ----------------------------------------------------------------------------------
+
+    //float startValue_ = -0.5;
+    //float finalValue_ =  0.5;
+    //uint64_t duration_ = 2000000;
+
+    void LinearSweepTest::setStartValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    {
+        if (jsonPrm.containsKey(StartValueKey))
+        {
+            if (jsonPrm[StartValueKey].is<float>())
+            {
+                setStartValue(jsonPrm.get<float>(StartValueKey));
+                jsonDat.set(StartValueKey,getStartValue(),JsonFloatDecimals);
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = StartValueKey + String(" not a float");
+                status.appendToMessage(errorMsg);
+            }
+        }
+    }
+
+
+    void LinearSweepTest::setFinalValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    {
+        if (jsonPrm.containsKey(FinalValueKey))
+        {
+            if (jsonPrm[FinalValueKey].is<float>())
+            {
+                setFinalValue(jsonPrm.get<float>(FinalValueKey));
+                jsonDat.set(FinalValueKey,getFinalValue(),JsonFloatDecimals);
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = FinalValueKey + String(" not a float");
+                status.appendToMessage(errorMsg);
+            }
+        }
+    }
+
+
+    void LinearSweepTest::setDurationFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    {
+        if (jsonPrm.containsKey(DurationKey))
+        {
+            if (jsonPrm[DurationKey].is<unsigned long>())
+            {
+                setDuration(convertMsToUs(jsonPrm.get<unsigned long>(DurationKey)));
+                jsonDat.set(DurationKey,convertUsToMs(getDuration()));
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = DurationKey + String(" not uint32");
+                status.appendToMessage(errorMsg);
+            }
+        }
+    }
+
 
 } // namespace ps

@@ -70,11 +70,11 @@ namespace ps
     }
 
 
-    void ConstantTest::getParam(JsonObject &json)
+    void ConstantTest::getParam(JsonObject &jsonDat)
     {
-        BaseTest::getParam(json);
-        json.set(ValueKey, value_, JsonFloatDecimals);
-        json.set(DurationKey, convertUsToMs(duration_));
+        BaseTest::getParam(jsonDat);
+        jsonDat.set(ValueKey, value_, JsonFloatDecimals);
+        jsonDat.set(DurationKey, convertUsToMs(duration_));
     }
 
     ReturnStatus ConstantTest::setParam(JsonObject &jsonMsg, JsonObject &jsonDat)

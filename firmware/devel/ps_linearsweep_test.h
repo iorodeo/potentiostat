@@ -10,6 +10,11 @@ namespace ps
 
         public:
 
+            static const String StartValueKey;
+            static const String FinalValueKey;
+            static const String DurationKey;
+
+
             LinearSweepTest();
 
             void setStartValue(float value);
@@ -25,14 +30,18 @@ namespace ps
             virtual float getValue(uint64_t t) const; 
             virtual float getMaxValue() const; 
             virtual float getMinValue() const; 
-            virtual void getParam(JsonObject &json);
-            virtual void setParam(JsonObject &json);
+            virtual void getParam(JsonObject &jsonDat);
+            virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
 
         protected:
 
             float startValue_ = -0.5;
             float finalValue_ =  0.5;
             uint64_t duration_ = 2000000;
+
+            void setStartValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
+            void setFinalValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
+            void setDurationFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
 
     };
 

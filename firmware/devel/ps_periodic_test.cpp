@@ -2,7 +2,13 @@
 #include "ps_time_utils.h"
 
 namespace ps
-{
+{ 
+    const String PeriodicTest::AmplitudeKey = String("amplitude");
+    const String PeriodicTest::OffsetKey = String("offset");
+    const String PeriodicTest::PeriodKey = String("period");
+    const String PeriodicTest::NumCyclesKey = String("numCycles");
+    const String PeriodicTest::ShiftKey = String("shift");
+
 
     PeriodicTest::PeriodicTest() 
     { 
@@ -116,14 +122,14 @@ namespace ps
     }
 
 
-    void PeriodicTest::getParam(JsonObject &json)
+    void PeriodicTest::getParam(JsonObject &jsonDat)
     {
-        BaseTest::getParam(json);
-        json.set("amplitude", amplitude_, JsonFloatDecimals);
-        json.set("offset", offset_, JsonFloatDecimals);
-        json.set("period", convertUsToMs(period_));
-        json.set("numCycles", numCycles_);
-        json.set("shift", shift_, JsonFloatDecimals);
+        BaseTest::getParam(jsonDat);
+        jsonDat.set(AmplitudeKey, amplitude_, JsonFloatDecimals);
+        jsonDat.set(OffsetKey, offset_, JsonFloatDecimals);
+        jsonDat.set(PeriodKey, convertUsToMs(period_));
+        jsonDat.set(NumCyclesKey, numCycles_);
+        jsonDat.set(ShiftKey, shift_, JsonFloatDecimals);
     }
 
     ReturnStatus PeriodicTest::setParam(JsonObject &jsonMsg, JsonObject &jsonDat)
@@ -154,41 +160,106 @@ namespace ps
     
     void PeriodicTest::setAmplitudeFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
     {
-        ////////////////////////////////////////////////
-        // TODO
-        ////////////////////////////////////////////////
+        if (jsonPrm.containsKey(AmplitudeKey))
+        {
+            if (jsonPrm[AmplitudeKey].is<float>())
+            {
+                setAmplitude(jsonPrm.get<float>(AmplitudeKey));
+                jsonDat.set(AmplitudeKey,getAmplitude(),JsonFloatDecimals);
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = AmplitudeKey + String(" not a float");
+                status.appendToMessage(errorMsg);
+            }
+        }
     }
 
 
     void PeriodicTest::setOffsetFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
     {
-        ////////////////////////////////////////////////
-        // TODO
-        ////////////////////////////////////////////////
+        if (jsonPrm.containsKey(OffsetKey))
+        {
+            if (jsonPrm[OffsetKey].is<float>())
+            {
+                setOffset(jsonPrm.get<float>(OffsetKey));
+                jsonDat.set(OffsetKey,getOffset(),JsonFloatDecimals);
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = OffsetKey + String(" not a float");
+                status.appendToMessage(errorMsg);
+            }
+        }
     }
 
 
     void PeriodicTest::setPeriodFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
     {
-        ////////////////////////////////////////////////
-        // TODO
-        ////////////////////////////////////////////////
+        if (jsonPrm.containsKey(PeriodKey))
+        {
+            if (jsonPrm[PeriodKey].is<unsigned long>())
+            {
+                setPeriod(convertMsToUs(jsonPrm.get<unsigned long>(PeriodKey)));
+                jsonDat.set(PeriodKey,convertUsToMs(getPeriod()));
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = PeriodKey + String(" not uint32");
+                status.appendToMessage(errorMsg);
+            }
+        }
     }
 
 
     void PeriodicTest::setNumCyclesFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
     {
-        ////////////////////////////////////////////////
-        // TODO
-        ////////////////////////////////////////////////
+        if (jsonPrm.containsKey(NumCyclesKey))
+        {
+            if (jsonPrm[NumCyclesKey].is<unsigned long>())
+            {
+                setNumCycles(jsonPrm.get<unsigned long>(NumCyclesKey));
+                jsonDat.set(NumCyclesKey,getNumCycles());
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = NumCyclesKey + String(" not uint32");
+                status.appendToMessage(errorMsg);
+            }
+        }
     }
 
 
     void PeriodicTest::setShiftFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
     {
-        ////////////////////////////////////////////////
-        // TODO
-        ////////////////////////////////////////////////
+        if (jsonPrm.containsKey(ShiftKey))
+        {
+            if (jsonPrm[ShiftKey].is<float>())
+            {
+                float shiftTmp = jsonPrm.get<float>(ShiftKey);
+                if ((shiftTmp >= 0.0) || (shiftTmp <= 1.0))
+                {
+                    setShift(shiftTmp);
+                    jsonDat.set(ShiftKey,getShift(),JsonFloatDecimals);
+                }
+                else
+                {
+                    status.success = false;
+                    String errorMsg = ShiftKey + String(" out of range");
+                    status.appendToMessage(errorMsg);
+                }
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = ShiftKey + String(" not a float");
+                status.appendToMessage(errorMsg);
+            }
+        }
     }
 
 

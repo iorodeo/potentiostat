@@ -16,6 +16,12 @@ namespace ps
             static constexpr uint64_t DefaultPeriod = UINT64_C(1000000);
             static constexpr uint32_t DefaultNumCycles = UINT32_C(10);
 
+            static const String AmplitudeKey;
+            static const String OffsetKey;
+            static const String PeriodKey;
+            static const String NumCyclesKey;
+            static const String ShiftKey;
+
             PeriodicTest();
 
             virtual void setAmplitude(float amplitude);
@@ -27,11 +33,11 @@ namespace ps
             virtual void setPeriod(uint64_t period);
             virtual uint64_t getPeriod() const;
 
-            virtual void setShift(float lag);
-            virtual float getShift() const;
-
             virtual void setNumCycles(uint32_t numCycles);
             virtual uint32_t getNumCycles() const;
+
+            virtual void setShift(float lag);
+            virtual float getShift() const;
 
             virtual uint32_t getCycleCount(uint64_t t) const;
 
@@ -39,7 +45,7 @@ namespace ps
             virtual float getValue(uint64_t t) const override;
             virtual float getMaxValue() const override;
             virtual float getMinValue() const override;
-            virtual void getParam(JsonObject &json);
+            virtual void getParam(JsonObject &jsonDat);
             virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
 
         protected:
