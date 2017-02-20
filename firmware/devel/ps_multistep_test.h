@@ -15,8 +15,7 @@ namespace ps
 
         public:
 
-            static const String ValueArrayKey;
-            static const String DurationArrayKey;
+            static const String StepArrayKey;
 
             MultiStepTest(size_t numStep=5);
 
@@ -54,11 +53,7 @@ namespace ps
 
 
     template<size_t MAX_SIZE>
-    const String MultiStepTest<MAX_SIZE>::ValueArrayKey = String("value");
-
-
-    template<size_t MAX_SIZE>
-    const String MultiStepTest<MAX_SIZE>::DurationArrayKey = String("duration");
+    const String MultiStepTest<MAX_SIZE>::StepArrayKey = String("step");
 
 
     template<size_t MAX_SIZE>
@@ -258,12 +253,12 @@ namespace ps
     void MultiStepTest<MAX_SIZE>::getParam(JsonObject &jsonDat)
     {
         BaseTest::getParam(jsonDat);
-        JsonArray &jsonValueArray = jsonDat.createNestedArray(ValueArrayKey);
-        JsonArray &jsonDurationArray = jsonDat.createNestedArray(DurationArrayKey);
+        JsonArray &jsonStepArray = jsonDat.createNestedArray(StepArrayKey);
         for (size_t i=0; i<numStep_; i++)
         {
-            jsonValueArray.add(valueArray_[i], JsonFloatDecimals);
-            jsonDurationArray.add(convertUsToMs(durationArray_[i]));
+            JsonArray &jsonStep = jsonStepArray.createNestedArray();
+            jsonStep.add(convertUsToMs(durationArray_[i]));
+            jsonStep.add(valueArray_[i],JsonFloatDecimals);
         }
     }
 
@@ -294,6 +289,100 @@ namespace ps
     template<size_t MAX_SIZE>
     void MultiStepTest<MAX_SIZE>::setValueAndDurationFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
     {
+        if (!jsonPrm.containsKey(StepArrayKey))
+        {
+            status.success = false;
+            String errorMsg = StepArrayKey + String(" key not found");
+            status.appendToMessage(errorMsg);
+            return;
+        }
+
+        if (!jsonPrm[StepArrayKey].is<JsonArray&>())
+        {
+            status.success = false;
+            String errorMsg = StepArrayKey + String(" not a JsonArray");
+            status.appendToMessage(errorMsg);
+            return;
+        }
+
+        JsonArray &jsonStepArray = jsonPrm[StepArrayKey];
+
+        if (jsonStepArray.size() > MAX_SIZE)
+        {
+            status.success = false;
+            String errorMsg = StepArrayKey + String(" array too large");
+            status.appendToMessage(errorMsg);
+            return;
+        }
+
+        Array<uint64_t, MAX_SIZE> durationArrayTmp;
+        Array<float, MAX_SIZE> valueArrayTmp;
+
+        for (size_t i=0; i<jsonStepArray.size(); i++)
+        {
+            if (jsonStepArray[i].is<JsonArray&>())
+            {
+                JsonArray &jsonStep = jsonStepArray[i];
+
+                if (jsonStep.size() == 2)
+                {
+                    if (jsonStep[0].is<unsigned long>())
+                    { 
+                        durationArrayTmp.push_back(convertMsToUs(jsonStep.get<unsigned long>(0)));
+                    }
+                    else
+                    {
+                        status.success = false;
+                        String errorMsg = StepArrayKey + String(" item[0] not uint32");
+                        status.appendToMessage(errorMsg);
+                        break;
+                    }
+
+                    if (jsonStep[1].is<float>())
+                    {
+                        valueArrayTmp.push_back(jsonStep.get<float>(1));
+                    }
+                    else
+                    {
+                        status.success = false;
+                        String errorMsg = StepArrayKey + String(" item[1] not float");
+                        status.appendToMessage(errorMsg);
+                        break;
+                    }
+                }
+                else
+                {
+                    status.success = false;
+                    String errorMsg = StepArrayKey + String(" item size!=2");
+                    status.appendToMessage(errorMsg);
+                    break;
+                }
+
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = StepArrayKey + String(" item not JsonArary");
+                status.appendToMessage(errorMsg);
+                break;
+            }
+
+        } // for (size_t i=0; ... 
+
+        if (status.success)
+        {
+            setNumStep(jsonStepArray.size());
+            JsonArray &jsonStepDatArray = jsonDat.createNestedArray(StepArrayKey);
+            for (size_t i=0; i<getNumStep(); i++)
+            {
+                setStepDuration(i,durationArrayTmp[i]);
+                setStepValue(i,valueArrayTmp[i]);
+                JsonArray &jsonStepDat = jsonStepDatArray.createNestedArray();
+                jsonStepDat.add(convertUsToMs(durationArray_[i]));
+                jsonStepDat.add(valueArray_[i],JsonFloatDecimals);
+            }
+        }
+
     }
 
 

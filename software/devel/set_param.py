@@ -16,7 +16,7 @@ const_param = {
 cyclic_param = {
         'quietValue' : 0.2,
         'quietTime'  : 1500,
-        'amplitude'  : 1.5,
+        'amplitude'  : 1.52243432,
         'offset'     : 0.1,
         'period'     : 2000,
         'numCycles'  : 5,
@@ -42,20 +42,36 @@ linearSweep_param = {
         }
 
 
+step = []
+for i in range(0,10):
+    step.append(((i+1)*1000,round(0.2*(i+1),5)))
+
+multiStep_param = {
+        'quietValue' : 2.26,
+        'quietTime'  : 3550,
+        'step'       : step,
+        }
+
+chronoamp_param = {
+        'quietValue' : -2.26,
+        'quietTime'  : 4550,
+        'step'       : [(1234,0.11), (2345,0.22)],
+        }
+
 test_list = [
         ('constant',    const_param), 
         ('cyclic',      cyclic_param),
         ('sinusoid',    sinusoid_param),
         ('linearSweep', linearSweep_param),
+        ('multiStep',   multiStep_param),
+        ('chronoamp',   chronoamp_param),
         ] 
-
 
 for test, param in test_list:
 
-    cmd_dict = {'cmd':'setParam','test':test, 'param': param}
-    print(cmd_dict)
-    rsp_dict = dev.send_cmd(cmd_dict)
     print('test =', test)
+    cmd_dict = {'cmd':'setParam','test':test, 'param': param}
+    rsp_dict = dev.send_cmd(cmd_dict)
     print('resp =', rsp_dict)
     print()
 

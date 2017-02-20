@@ -15,6 +15,7 @@ class PStatSerial(serial.Serial):
 
     def send_cmd(self,cmd_dict):
         cmd_json = json.dumps(cmd_dict)
+        print('cmd_json = ', cmd_json)
         self.write(cmd_json + '\n')
         rsp = self.readline()
         rsp = rsp.strip()
