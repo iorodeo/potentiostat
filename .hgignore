@@ -4,6 +4,7 @@ syntax: glob
 *.swp
 *.bak
 *cache.lib
+*.pyc
 docs/gas_and_particulate/_build
 docs/particulate_only/_build
 notes/alphasense_calibration/build

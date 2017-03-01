@@ -1,8 +1,8 @@
 from __future__ import print_function
-import pstat_serial
+from potentiostat import Potentiostat
 
 port = '/dev/ttyACM0'
-dev = pstat_serial.PStatSerial(port)
+dev = Potentiostat(port)
 
 #test_list = ['constant', 'cyclic', 'sinusoid', 'linearSweep', 'chronoamp', 'multiStep']
 
