@@ -69,8 +69,15 @@ namespace ps
     void ConstantTest::getParam(JsonObject &jsonDat)
     {
         BaseTest::getParam(jsonDat);
-        jsonDat.set(ValueKey, value_, JsonFloatDecimals);
-        jsonDat.set(DurationKey, convertUsToMs(duration_));
+
+        ReturnStatus status;
+        JsonObject &jsonDatPrm = getParamJsonObject(jsonDat,status);
+
+        if (status.success)
+        {
+            jsonDatPrm.set(ValueKey, value_, JsonFloatDecimals);
+            jsonDatPrm.set(DurationKey, convertUsToMs(duration_));
+        }
     }
 
     ReturnStatus ConstantTest::setParam(JsonObject &jsonMsg, JsonObject &jsonDat)
@@ -78,16 +85,22 @@ namespace ps
         ReturnStatus status;
         status = BaseTest::setParam(jsonMsg,jsonDat);
 
-        // Extract JsonObject containing parameters
-        JsonObject &jsonPrm = getParamJsonObject(jsonMsg,status);
+        // Extract parameter JsonObjects
+        JsonObject &jsonMsgPrm = getParamJsonObject(jsonMsg,status);
+        if (!status.success)
+        {
+            return status;
+        }
+
+        JsonObject &jsonDatPrm = getParamJsonObject(jsonDat,status);
         if (!status.success)
         {
             return status;
         }
 
         // Set parameters
-        setDurationFromJson(jsonPrm,jsonDat,status);
-        setValueFromJson(jsonPrm,jsonDat,status);
+        setDurationFromJson(jsonMsgPrm,jsonDatPrm,status);
+        setValueFromJson(jsonMsgPrm,jsonDatPrm,status);
 
         return status;
     }
@@ -96,14 +109,14 @@ namespace ps
     // Protected Methods
     // ----------------------------------------------------------------------------------
 
-    void ConstantTest::setDurationFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    void ConstantTest::setDurationFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (jsonPrm.containsKey(ValueKey))
+        if (jsonMsgPrm.containsKey(ValueKey))
         {
-            if (jsonPrm[ValueKey].is<float>())
+            if (jsonMsgPrm[ValueKey].is<float>())
             {
-                setValue(jsonPrm.get<float>(ValueKey));
-                jsonDat.set(ValueKey,getValue(),JsonFloatDecimals);
+                setValue(jsonMsgPrm.get<float>(ValueKey));
+                jsonDatPrm.set(ValueKey,getValue(),JsonFloatDecimals);
             }
             else
             {
@@ -115,14 +128,14 @@ namespace ps
     }
 
 
-    void ConstantTest::setValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    void ConstantTest::setValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (jsonPrm.containsKey(DurationKey))
+        if (jsonMsgPrm.containsKey(DurationKey))
         {
-            if (jsonPrm[DurationKey].is<unsigned long>())
+            if (jsonMsgPrm[DurationKey].is<unsigned long>())
             {
-                setDuration(convertMsToUs(jsonPrm.get<unsigned long>(DurationKey)));
-                jsonDat.set(DurationKey,convertUsToMs(getDuration()));
+                setDuration(convertMsToUs(jsonMsgPrm.get<unsigned long>(DurationKey)));
+                jsonDatPrm.set(DurationKey,convertUsToMs(getDuration()));
             }
             else
             {

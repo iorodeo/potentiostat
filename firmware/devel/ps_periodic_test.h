@@ -52,11 +52,11 @@ namespace ps
             float shift_ = DefaultShift;             // Waveform shift as fraction of period [0,1]
             uint64_t shiftInUs_ = 0;                 // Waveform shift in us;
             
-            void setAmplitudeFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
-            void setOffsetFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
-            void setPeriodFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
-            void setNumCyclesFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
-            void setShiftFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
+            void setAmplitudeFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
+            void setOffsetFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
+            void setPeriodFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
+            void setNumCyclesFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
+            void setShiftFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
 
             void updateShiftInUs();
 

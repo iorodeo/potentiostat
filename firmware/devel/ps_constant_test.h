@@ -30,8 +30,8 @@ namespace ps
             uint64_t duration_ = 5000000;
             float value_ = 1.0;
 
-            void setDurationFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
-            void setValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
+            void setDurationFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
+            void setValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
     };
 
 } // namespace ps

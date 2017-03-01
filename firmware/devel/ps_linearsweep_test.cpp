@@ -91,9 +91,16 @@ namespace ps
     void LinearSweepTest::getParam(JsonObject &jsonDat)
     {
         BaseTest::getParam(jsonDat);
-        jsonDat.set(StartValueKey, startValue_, JsonFloatDecimals);
-        jsonDat.set(FinalValueKey, finalValue_, JsonFloatDecimals);
-        jsonDat.set(DurationKey, convertUsToMs(duration_));
+
+        ReturnStatus status;
+        JsonObject &jsonDatPrm = getParamJsonObject(jsonDat,status);
+
+        if (status.success)
+        {
+            jsonDatPrm.set(StartValueKey, startValue_, JsonFloatDecimals);
+            jsonDatPrm.set(FinalValueKey, finalValue_, JsonFloatDecimals);
+            jsonDatPrm.set(DurationKey, convertUsToMs(duration_));
+        }
     }
 
     ReturnStatus LinearSweepTest::setParam(JsonObject &jsonMsg, JsonObject &jsonDat)
@@ -101,17 +108,23 @@ namespace ps
         ReturnStatus status;
         status = BaseTest::setParam(jsonMsg,jsonDat);
 
-        // Extract JsonObject containing parameters
-        JsonObject &jsonPrm = getParamJsonObject(jsonMsg,status);
+        // Extract parameter JsonObjects
+        JsonObject &jsonMsgPrm = getParamJsonObject(jsonMsg,status);
+        if (!status.success)
+        {
+            return status;
+        }
+
+        JsonObject &jsonDatPrm = getParamJsonObject(jsonDat,status);
         if (!status.success)
         {
             return status;
         }
 
         // Set parameters
-        setStartValueFromJson(jsonPrm,jsonDat,status);
-        setFinalValueFromJson(jsonPrm,jsonDat,status);
-        setDurationFromJson(jsonPrm,jsonDat,status);
+        setStartValueFromJson(jsonMsgPrm,jsonDatPrm,status);
+        setFinalValueFromJson(jsonMsgPrm,jsonDatPrm,status);
+        setDurationFromJson(jsonMsgPrm,jsonDatPrm,status);
 
         return status;
     }
@@ -119,18 +132,14 @@ namespace ps
     // Protected methods
     // ----------------------------------------------------------------------------------
 
-    //float startValue_ = -0.5;
-    //float finalValue_ =  0.5;
-    //uint64_t duration_ = 2000000;
-
-    void LinearSweepTest::setStartValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    void LinearSweepTest::setStartValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (jsonPrm.containsKey(StartValueKey))
+        if (jsonMsgPrm.containsKey(StartValueKey))
         {
-            if (jsonPrm[StartValueKey].is<float>())
+            if (jsonMsgPrm[StartValueKey].is<float>())
             {
-                setStartValue(jsonPrm.get<float>(StartValueKey));
-                jsonDat.set(StartValueKey,getStartValue(),JsonFloatDecimals);
+                setStartValue(jsonMsgPrm.get<float>(StartValueKey));
+                jsonDatPrm.set(StartValueKey,getStartValue(),JsonFloatDecimals);
             }
             else
             {
@@ -142,14 +151,14 @@ namespace ps
     }
 
 
-    void LinearSweepTest::setFinalValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    void LinearSweepTest::setFinalValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (jsonPrm.containsKey(FinalValueKey))
+        if (jsonMsgPrm.containsKey(FinalValueKey))
         {
-            if (jsonPrm[FinalValueKey].is<float>())
+            if (jsonMsgPrm[FinalValueKey].is<float>())
             {
-                setFinalValue(jsonPrm.get<float>(FinalValueKey));
-                jsonDat.set(FinalValueKey,getFinalValue(),JsonFloatDecimals);
+                setFinalValue(jsonMsgPrm.get<float>(FinalValueKey));
+                jsonDatPrm.set(FinalValueKey,getFinalValue(),JsonFloatDecimals);
             }
             else
             {
@@ -161,14 +170,14 @@ namespace ps
     }
 
 
-    void LinearSweepTest::setDurationFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    void LinearSweepTest::setDurationFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (jsonPrm.containsKey(DurationKey))
+        if (jsonMsgPrm.containsKey(DurationKey))
         {
-            if (jsonPrm[DurationKey].is<unsigned long>())
+            if (jsonMsgPrm[DurationKey].is<unsigned long>())
             {
-                setDuration(convertMsToUs(jsonPrm.get<unsigned long>(DurationKey)));
-                jsonDat.set(DurationKey,convertUsToMs(getDuration()));
+                setDuration(convertMsToUs(jsonMsgPrm.get<unsigned long>(DurationKey)));
+                jsonDatPrm.set(DurationKey,convertUsToMs(getDuration()));
             }
             else
             {

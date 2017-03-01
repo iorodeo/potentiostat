@@ -93,8 +93,9 @@ namespace ps
 
     void BaseTest::getParam(JsonObject &jsonDat)
     {
-        jsonDat.set(QuietValueKey, quietValue_, JsonFloatDecimals);
-        jsonDat.set(QuietTimeKey, convertUsToMs(quietTime_));
+        JsonObject &jsonDatPrm = jsonDat.createNestedObject(ParamKey);
+        jsonDatPrm.set(QuietValueKey, quietValue_, JsonFloatDecimals);
+        jsonDatPrm.set(QuietTimeKey, convertUsToMs(quietTime_));
     }
 
     ReturnStatus BaseTest::setParam(JsonObject &jsonMsg, JsonObject &jsonDat)
@@ -102,15 +103,17 @@ namespace ps
         ReturnStatus status;
 
         // Extract JsonObject containing parameters
-        JsonObject &jsonPrm = getParamJsonObject(jsonMsg,status);
+        JsonObject &jsonMsgPrm = getParamJsonObject(jsonMsg,status);
         if (!status.success)
         {
             return status;
         }
 
         // Set Parameters_ 
-        setQuietValueFromJson(jsonPrm,jsonDat,status);
-        setQuietTimeFromJson(jsonPrm,jsonDat,status);
+        JsonObject &jsonDatPrm = jsonDat.createNestedObject(ParamKey);
+
+        setQuietValueFromJson(jsonMsgPrm, jsonDatPrm, status);
+        setQuietTimeFromJson(jsonMsgPrm, jsonDatPrm, status);
 
         return status;
     }
@@ -118,34 +121,34 @@ namespace ps
     // Protected Methods
     // ----------------------------------------------------------------------------------
 
-    JsonObject &BaseTest::getParamJsonObject(JsonObject &jsonMsg, ReturnStatus &status)
+    JsonObject &BaseTest::getParamJsonObject(JsonObject &json, ReturnStatus &status)
     {
         // Extract JsonObject containing parameters
-        if (!jsonMsg.containsKey(ParamKey))
+        if (!json.containsKey(ParamKey))
         {
             status.success = false;
             String errorMsg = String("key ") + ParamKey + String(" missing");
             status.appendToMessage(errorMsg);
-            return jsonMsg;
+            return json;
         }
-        if (!jsonMsg[ParamKey].is<JsonObject>())
+        if (!json[ParamKey].is<JsonObject>())
         {
             status.success = false;
             String errorMsg = ParamKey + String(" not JsonObject");
             status.appendToMessage(errorMsg);
-            return jsonMsg;
+            return json;
         }
-        return jsonMsg[ParamKey];
+        return json[ParamKey];
     }
 
-    void BaseTest::setQuietValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    void BaseTest::setQuietValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (jsonPrm.containsKey(QuietValueKey))
+        if (jsonMsgPrm.containsKey(QuietValueKey))
         {
-            if (jsonPrm[QuietValueKey].is<float>())
+            if (jsonMsgPrm[QuietValueKey].is<float>())
             {
-                setQuietValue(jsonPrm.get<float>(QuietValueKey));
-                jsonDat.set(QuietValueKey,getQuietValue(),JsonFloatDecimals);
+                setQuietValue(jsonMsgPrm.get<float>(QuietValueKey));
+                jsonDatPrm.set(QuietValueKey,getQuietValue(),JsonFloatDecimals);
             }
             else
             {
@@ -157,14 +160,14 @@ namespace ps
     }
 
 
-    void BaseTest::setQuietTimeFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    void BaseTest::setQuietTimeFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (jsonPrm.containsKey(QuietTimeKey))
+        if (jsonMsgPrm.containsKey(QuietTimeKey))
         {
-            if (jsonPrm[QuietTimeKey].is<unsigned long>())
+            if (jsonMsgPrm[QuietTimeKey].is<unsigned long>())
             {
-                setQuietTime(convertMsToUs(jsonPrm.get<unsigned long>(QuietTimeKey)));
-                jsonDat.set(QuietTimeKey,convertUsToMs(getQuietTime()));
+                setQuietTime(convertMsToUs(jsonMsgPrm.get<unsigned long>(QuietTimeKey)));
+                jsonDatPrm.set(QuietTimeKey,convertUsToMs(getQuietTime()));
             }
             else
             {

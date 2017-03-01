@@ -119,11 +119,18 @@ namespace ps
     void PeriodicTest::getParam(JsonObject &jsonDat)
     {
         BaseTest::getParam(jsonDat);
-        jsonDat.set(AmplitudeKey, amplitude_, JsonFloatDecimals);
-        jsonDat.set(OffsetKey, offset_, JsonFloatDecimals);
-        jsonDat.set(PeriodKey, convertUsToMs(period_));
-        jsonDat.set(NumCyclesKey, numCycles_);
-        jsonDat.set(ShiftKey, shift_, JsonFloatDecimals);
+
+        ReturnStatus status;
+        JsonObject &jsonDatPrm = getParamJsonObject(jsonDat,status);
+
+        if (status.success)
+        {
+            jsonDatPrm.set(AmplitudeKey, amplitude_, JsonFloatDecimals);
+            jsonDatPrm.set(OffsetKey, offset_, JsonFloatDecimals);
+            jsonDatPrm.set(PeriodKey, convertUsToMs(period_));
+            jsonDatPrm.set(NumCyclesKey, numCycles_);
+            jsonDatPrm.set(ShiftKey, shift_, JsonFloatDecimals);
+        }
     }
 
     ReturnStatus PeriodicTest::setParam(JsonObject &jsonMsg, JsonObject &jsonDat)
@@ -131,19 +138,25 @@ namespace ps
         ReturnStatus status;
         status = BaseTest::setParam(jsonMsg,jsonDat);
 
-        // Extract JsonObject containing parameters
-        JsonObject &jsonPrm = getParamJsonObject(jsonMsg,status);
+        // Extract parameter JsonObjects
+        JsonObject &jsonMsgPrm = getParamJsonObject(jsonMsg,status);
+        if (!status.success)
+        {
+            return status;
+        }
+
+        JsonObject &jsonDatPrm = getParamJsonObject(jsonDat,status);
         if (!status.success)
         {
             return status;
         }
 
         // Set parameters
-        setAmplitudeFromJson(jsonPrm,jsonDat,status);
-        setOffsetFromJson(jsonPrm,jsonDat,status);
-        setPeriodFromJson(jsonPrm,jsonDat,status);
-        setNumCyclesFromJson(jsonPrm,jsonDat,status);
-        setShiftFromJson(jsonPrm,jsonDat,status);
+        setAmplitudeFromJson(jsonMsgPrm,jsonDatPrm,status);
+        setOffsetFromJson(jsonMsgPrm,jsonDatPrm,status);
+        setPeriodFromJson(jsonMsgPrm,jsonDatPrm,status);
+        setNumCyclesFromJson(jsonMsgPrm,jsonDatPrm,status);
+        setShiftFromJson(jsonMsgPrm,jsonDatPrm,status);
 
         return status;
     }
@@ -152,14 +165,14 @@ namespace ps
     // Protected Methods
     // ------------------------------------------------------------------------
     
-    void PeriodicTest::setAmplitudeFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    void PeriodicTest::setAmplitudeFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (jsonPrm.containsKey(AmplitudeKey))
+        if (jsonMsgPrm.containsKey(AmplitudeKey))
         {
-            if (jsonPrm[AmplitudeKey].is<float>())
+            if (jsonMsgPrm[AmplitudeKey].is<float>())
             {
-                setAmplitude(jsonPrm.get<float>(AmplitudeKey));
-                jsonDat.set(AmplitudeKey,getAmplitude(),JsonFloatDecimals);
+                setAmplitude(jsonMsgPrm.get<float>(AmplitudeKey));
+                jsonDatPrm.set(AmplitudeKey,getAmplitude(),JsonFloatDecimals);
             }
             else
             {
@@ -171,14 +184,14 @@ namespace ps
     }
 
 
-    void PeriodicTest::setOffsetFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    void PeriodicTest::setOffsetFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (jsonPrm.containsKey(OffsetKey))
+        if (jsonMsgPrm.containsKey(OffsetKey))
         {
-            if (jsonPrm[OffsetKey].is<float>())
+            if (jsonMsgPrm[OffsetKey].is<float>())
             {
-                setOffset(jsonPrm.get<float>(OffsetKey));
-                jsonDat.set(OffsetKey,getOffset(),JsonFloatDecimals);
+                setOffset(jsonMsgPrm.get<float>(OffsetKey));
+                jsonDatPrm.set(OffsetKey,getOffset(),JsonFloatDecimals);
             }
             else
             {
@@ -190,14 +203,14 @@ namespace ps
     }
 
 
-    void PeriodicTest::setPeriodFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    void PeriodicTest::setPeriodFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (jsonPrm.containsKey(PeriodKey))
+        if (jsonMsgPrm.containsKey(PeriodKey))
         {
-            if (jsonPrm[PeriodKey].is<unsigned long>())
+            if (jsonMsgPrm[PeriodKey].is<unsigned long>())
             {
-                setPeriod(convertMsToUs(jsonPrm.get<unsigned long>(PeriodKey)));
-                jsonDat.set(PeriodKey,convertUsToMs(getPeriod()));
+                setPeriod(convertMsToUs(jsonMsgPrm.get<unsigned long>(PeriodKey)));
+                jsonDatPrm.set(PeriodKey,convertUsToMs(getPeriod()));
             }
             else
             {
@@ -209,14 +222,14 @@ namespace ps
     }
 
 
-    void PeriodicTest::setNumCyclesFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    void PeriodicTest::setNumCyclesFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (jsonPrm.containsKey(NumCyclesKey))
+        if (jsonMsgPrm.containsKey(NumCyclesKey))
         {
-            if (jsonPrm[NumCyclesKey].is<unsigned long>())
+            if (jsonMsgPrm[NumCyclesKey].is<unsigned long>())
             {
-                setNumCycles(jsonPrm.get<unsigned long>(NumCyclesKey));
-                jsonDat.set(NumCyclesKey,getNumCycles());
+                setNumCycles(jsonMsgPrm.get<unsigned long>(NumCyclesKey));
+                jsonDatPrm.set(NumCyclesKey,getNumCycles());
             }
             else
             {
@@ -228,17 +241,17 @@ namespace ps
     }
 
 
-    void PeriodicTest::setShiftFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    void PeriodicTest::setShiftFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (jsonPrm.containsKey(ShiftKey))
+        if (jsonMsgPrm.containsKey(ShiftKey))
         {
-            if (jsonPrm[ShiftKey].is<float>())
+            if (jsonMsgPrm[ShiftKey].is<float>())
             {
-                float shiftTmp = jsonPrm.get<float>(ShiftKey);
+                float shiftTmp = jsonMsgPrm.get<float>(ShiftKey);
                 if ((shiftTmp >= 0.0) || (shiftTmp <= 1.0))
                 {
                     setShift(shiftTmp);
-                    jsonDat.set(ShiftKey,getShift(),JsonFloatDecimals);
+                    jsonDatPrm.set(ShiftKey,getShift(),JsonFloatDecimals);
                 }
                 else
                 {

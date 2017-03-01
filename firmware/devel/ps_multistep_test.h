@@ -47,7 +47,7 @@ namespace ps
             Array<uint64_t, MAX_SIZE> durationArray_;
             size_t numStep_; 
 
-            void setValueAndDurationFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
+            void setValueAndDurationFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
 
     };
 
@@ -253,12 +253,19 @@ namespace ps
     void MultiStepTest<MAX_SIZE>::getParam(JsonObject &jsonDat)
     {
         BaseTest::getParam(jsonDat);
-        JsonArray &jsonStepArray = jsonDat.createNestedArray(StepArrayKey);
-        for (size_t i=0; i<numStep_; i++)
+
+        ReturnStatus status;
+        JsonObject &jsonDatPrm = getParamJsonObject(jsonDat,status);
+
+        if (status.success)
         {
-            JsonArray &jsonStep = jsonStepArray.createNestedArray();
-            jsonStep.add(convertUsToMs(durationArray_[i]));
-            jsonStep.add(valueArray_[i],JsonFloatDecimals);
+            JsonArray &jsonStepArray = jsonDatPrm.createNestedArray(StepArrayKey);
+            for (size_t i=0; i<numStep_; i++)
+            {
+                JsonArray &jsonStep = jsonStepArray.createNestedArray();
+                jsonStep.add(convertUsToMs(durationArray_[i]));
+                jsonStep.add(valueArray_[i],JsonFloatDecimals);
+            }
         }
     }
 
@@ -269,15 +276,21 @@ namespace ps
         ReturnStatus status;
         status = BaseTest::setParam(jsonMsg,jsonDat);
 
-        // Extract JsonObject containing parameters
-        JsonObject &jsonPrm = getParamJsonObject(jsonMsg,status);
+        // Extract parameter JsonObjects
+        JsonObject &jsonMsgPrm = getParamJsonObject(jsonMsg,status);
+        if (!status.success)
+        {
+            return status;
+        }
+
+        JsonObject &jsonDatPrm = getParamJsonObject(jsonDat,status);
         if (!status.success)
         {
             return status;
         }
 
         // Set parameters
-        setValueAndDurationFromJson(jsonPrm,jsonDat,status);
+        setValueAndDurationFromJson(jsonMsgPrm,jsonDatPrm,status);
 
         return status;
     }
@@ -287,9 +300,9 @@ namespace ps
     // --------------------------------------------------------------------------------------------
 
     template<size_t MAX_SIZE>
-    void MultiStepTest<MAX_SIZE>::setValueAndDurationFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status)
+    void MultiStepTest<MAX_SIZE>::setValueAndDurationFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (!jsonPrm.containsKey(StepArrayKey))
+        if (!jsonMsgPrm.containsKey(StepArrayKey))
         {
             status.success = false;
             String errorMsg = StepArrayKey + String(" key not found");
@@ -297,7 +310,7 @@ namespace ps
             return;
         }
 
-        if (!jsonPrm[StepArrayKey].is<JsonArray&>())
+        if (!jsonMsgPrm[StepArrayKey].is<JsonArray&>())
         {
             status.success = false;
             String errorMsg = StepArrayKey + String(" not a JsonArray");
@@ -305,7 +318,7 @@ namespace ps
             return;
         }
 
-        JsonArray &jsonStepArray = jsonPrm[StepArrayKey];
+        JsonArray &jsonStepArray = jsonMsgPrm[StepArrayKey];
 
         if (jsonStepArray.size() > MAX_SIZE)
         {
@@ -372,7 +385,7 @@ namespace ps
         if (status.success)
         {
             setNumStep(jsonStepArray.size());
-            JsonArray &jsonStepDatArray = jsonDat.createNestedArray(StepArrayKey);
+            JsonArray &jsonStepDatArray = jsonDatPrm.createNestedArray(StepArrayKey);
             for (size_t i=0; i<getNumStep(); i++)
             {
                 setStepDuration(i,durationArrayTmp[i]);

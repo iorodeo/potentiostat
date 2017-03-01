@@ -34,9 +34,9 @@ namespace ps
             float finalValue_ =  0.5;
             uint64_t duration_ = 2000000;
 
-            void setStartValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
-            void setFinalValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
-            void setDurationFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
+            void setStartValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
+            void setFinalValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
+            void setDurationFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
 
     };
 

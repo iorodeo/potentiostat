@@ -40,9 +40,9 @@ namespace ps
             float quietValue_ = 0.0;
             String name_ = String("base");
 
-            JsonObject &getParamJsonObject(JsonObject &jsonMsg, ReturnStatus &status);
-            void setQuietValueFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
-            void setQuietTimeFromJson(JsonObject &jsonPrm, JsonObject &jsonDat, ReturnStatus &status);
+            JsonObject &getParamJsonObject(JsonObject &json, ReturnStatus &status);
+            void setQuietValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
+            void setQuietTimeFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
 
 
     };
