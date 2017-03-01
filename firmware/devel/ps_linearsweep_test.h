@@ -10,11 +10,6 @@ namespace ps
 
         public:
 
-            static const String StartValueKey;
-            static const String FinalValueKey;
-            static const String DurationKey;
-
-
             LinearSweepTest();
 
             void setStartValue(float value);

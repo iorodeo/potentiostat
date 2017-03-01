@@ -13,12 +13,12 @@ namespace ps
         jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
         JsonObject &jsonMsg = jsonBuffer_.createObject();
 
-        jsonMsg.set("success", status.success);
+        jsonMsg.set(SuccessKey, status.success);
         if (status.message.length() > 0)
         {
-            jsonMsg.set("message", status.message);
+            jsonMsg.set(MessageKey, status.message);
         }
-        jsonMsg.set("response", jsonDat);
+        jsonMsg.set(ResponseKey, jsonDat);
 
 
         jsonMsg.printTo(Serial);
@@ -32,9 +32,9 @@ namespace ps
         jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
         JsonObject &jsonSample = jsonBuffer_.createObject();
 
-        jsonSample.set("t",convertUsToMs(sample.t)); 
-        jsonSample.set("v",sample.volt,JsonFloatDecimals);
-        jsonSample.set("i",sample.curr,JsonFloatDecimals);
+        jsonSample.set(TimeKey, convertUsToMs(sample.t)); 
+        jsonSample.set(VoltKey, sample.volt,JsonFloatDecimals);
+        jsonSample.set(CurrKey, sample.curr,JsonFloatDecimals);
 
         jsonSample.printTo(Serial);
         Serial.println();
@@ -48,5 +48,5 @@ namespace ps
 // -------------------------------------------------------
 //char timeBuf[100]; 
 //snprintf(timeBuf,sizeof(timeBuf),"%llu", sample.t);
-//jsonRoot["t"] = timeBuf;
+//jsonRoot[TimeKey] = timeBuf;
 // ------------------------------------------------------

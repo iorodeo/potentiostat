@@ -10,10 +10,6 @@ namespace ps
 
         public:
 
-            static const String DurationKey;
-            static const String ValueKey;
-
-
             ConstantTest();
 
             void setDuration(uint64_t duration);

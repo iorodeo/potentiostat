@@ -5,6 +5,7 @@
 #include "Array.h"
 #include "ps_return_status.h"
 #include "ps_keyvalue_command.h"
+#include "ps_constants.h"
 
 namespace ps
 {
@@ -99,7 +100,7 @@ namespace ps
                 {
                     if (cmd.equals(table_[i].value()))
                     {
-                        jsonDat.set("command",jsonMsg[key]);
+                        jsonDat.set(CommandKey,jsonMsg[key]);
                         status = table_[i].applyMethod(client_,jsonMsg,jsonDat);
                         break;
                     }

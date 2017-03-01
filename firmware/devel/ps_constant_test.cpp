@@ -5,10 +5,6 @@
 namespace ps
 {
 
-    const String ConstantTest::DurationKey = String("duration");
-    const String ConstantTest::ValueKey = String("value");
-
-
     ConstantTest::ConstantTest() 
     { 
         setName("constant");

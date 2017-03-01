@@ -3,12 +3,6 @@
 
 namespace ps
 { 
-    const String PeriodicTest::AmplitudeKey = String("amplitude");
-    const String PeriodicTest::OffsetKey = String("offset");
-    const String PeriodicTest::PeriodKey = String("period");
-    const String PeriodicTest::NumCyclesKey = String("numCycles");
-    const String PeriodicTest::ShiftKey = String("shift");
-
 
     PeriodicTest::PeriodicTest() 
     { 

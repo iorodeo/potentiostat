@@ -13,12 +13,24 @@ class PStatSerial(serial.Serial):
         super(PStatSerial,self).__init__(port,**params)
         time.sleep(self.ResetSleepDt)
 
+    def get_param(self,test):
+        cmd_dict = {'command': 'getParam', 'test': test} 
+        rsp_dict = self.send_cmd(cmd_dict)
+        return rsp_dict
+
+    def set_param(self,test,param):
+        cmd_dict = {'command': 'setParam', 'test': test, 'param': param}
+        rsp_dict = self.send_cmd(cmd_dict)
+        return rsp_dict
+
     def send_cmd(self,cmd_dict):
         cmd_json = json.dumps(cmd_dict)
-        print('cmd_json = ', cmd_json)
         self.write(cmd_json + '\n')
-        rsp = self.readline()
-        rsp = rsp.strip()
-        rsp_dict = json.loads(rsp)
+        rsp_json = self.readline()
+        rsp_json = rsp_json.strip()
+        rsp_dict = json.loads(rsp_json)
         return rsp_dict
+
+
+
 

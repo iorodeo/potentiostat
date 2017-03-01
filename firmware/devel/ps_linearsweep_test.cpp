@@ -5,11 +5,6 @@
 namespace ps
 {
 
-    const String LinearSweepTest::StartValueKey = String("startValue");
-    const String LinearSweepTest::FinalValueKey = String("finalValue");
-    const String LinearSweepTest::DurationKey = String("duration");
-
-
     LinearSweepTest::LinearSweepTest()
     { 
         setName("linearSweep");

@@ -70,13 +70,11 @@ test_list = [
 for test, param in test_list:
 
     print('test =', test)
-    cmd_dict = {'cmd':'setParam','test':test, 'param': param}
-    rsp_dict = dev.send_cmd(cmd_dict)
+    rsp_dict = dev.set_param(test,param)
     print('resp =', rsp_dict)
     print()
 
-    cmd_dict = {'cmd':'getParam', 'test':test}
-    rsp_dict = dev.send_cmd(cmd_dict)
+    rsp_dict = dev.get_param(test)
     print('test =', test)
     print('resp =', rsp_dict)
     print()

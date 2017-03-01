@@ -16,12 +16,6 @@ namespace ps
             static constexpr uint64_t DefaultPeriod = UINT64_C(1000000);
             static constexpr uint32_t DefaultNumCycles = UINT32_C(10);
 
-            static const String AmplitudeKey;
-            static const String OffsetKey;
-            static const String PeriodKey;
-            static const String NumCyclesKey;
-            static const String ShiftKey;
-
             PeriodicTest();
 
             virtual void setAmplitude(float amplitude);

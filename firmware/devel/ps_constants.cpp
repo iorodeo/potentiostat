@@ -8,6 +8,43 @@ namespace ps
     const uint32_t UsbSerialBaudrate = 115200;
     const uint32_t JsonFloatDecimals = 5;
 
+    // Json message keys 
+    const String CommandKey = String("command");
+    const String ResponseKey = String("response");
+    const String MessageKey = String("message");
+    const String SuccessKey = String("success");
+
+    const String RunTestKey = String("runTest");
+    const String StopTestKey = String("stopTest");
+    const String SetVoltKey = String("setVolt");
+    const String GetCurrKey = String("getCurr");
+    const String SetParamKey = String("setParam");
+    const String GetParamKey = String("getParam");
+    const String SetVoltRangeKey = String("setVoltRange");
+    const String GetVoltRangeKey = String("getVoltRange");
+    const String SetCurrRangeKey = String("setCurrRange");
+    const String GetCurrRangeKey = String("getCurrRange");
+
+    const String CurrKey = String("i");
+    const String VoltKey = String("v");
+    const String TimeKey = String("t");
+
+    const String ParamKey = String("param");
+    const String QuietValueKey = String("quietValue"); 
+    const String QuietTimeKey = String("quietTime");
+
+    const String DurationKey = String("duration");
+    const String ValueKey = String("value");
+
+    const String StartValueKey = String("startValue");
+    const String FinalValueKey = String("finalValue");
+
+    const String AmplitudeKey = String("amplitude");
+    const String OffsetKey = String("offset");
+    const String PeriodKey = String("period");
+    const String NumCyclesKey = String("numCycles");
+    const String ShiftKey = String("shift");
+
     // Ranges for output voltage
     const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
     const VoltRange VoltRange2V(String("2V"),-2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueDac);

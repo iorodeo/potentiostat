@@ -12,11 +12,6 @@ namespace ps
 
         public:
 
-            static const String ParamKey;
-            static const String QuietValueKey; 
-            static const String QuietTimeKey;
-
-
             BaseTest();
 
             virtual bool isDone(uint64_t t) const; 

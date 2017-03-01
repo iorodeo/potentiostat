@@ -5,10 +5,6 @@
 namespace ps
 {
 
-    const String BaseTest::ParamKey = String("param");
-    const String BaseTest::QuietValueKey = String("quietValue"); 
-    const String BaseTest::QuietTimeKey = String("quietTime");
-
     BaseTest::BaseTest() 
     { }
 

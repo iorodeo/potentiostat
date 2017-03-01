@@ -7,10 +7,9 @@ dev = pstat_serial.PStatSerial(port)
 test_list = ['constant', 'cyclic', 'sinusoid', 'linearSweep', 'chronoamp', 'multiStep']
 
 for test in test_list:
-    cmd_dict = {'cmd':'getParam','test':test}
-    rsp_dict = dev.send_cmd(cmd_dict)
+    rsp_dict = dev.get_param(test)
     print('test =', test)
-    print('resp =', rsp_dict)
+    print('rsp  =', rsp_dict)
     print()
 
 
