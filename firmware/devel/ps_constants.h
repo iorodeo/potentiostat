@@ -22,37 +22,38 @@ namespace ps
     extern const String ResponseKey;
     extern const String MessageKey;
     extern const String SuccessKey;
-
-    extern const String RunTestKey;
-    extern const String StopTestKey;
-    extern const String SetVoltKey;
-    extern const String GetCurrKey;
-    extern const String SetParamKey;
-    extern const String GetParamKey;
-    extern const String SetVoltRangeKey;
-    extern const String GetVoltRangeKey;
-    extern const String SetCurrRangeKey;
-    extern const String GetCurrRangeKey;
-
-    extern const String CurrKey;
-    extern const String VoltKey;
     extern const String TimeKey;
-
+    extern const String VoltKey;
+    extern const String CurrKey;
     extern const String ParamKey;
+    extern const String VoltRangeKey;
+    extern const String CurrRangeKey;
     extern const String QuietValueKey; 
     extern const String QuietTimeKey;
-
     extern const String DurationKey;
     extern const String ValueKey;
-
     extern const String StartValueKey;
     extern const String FinalValueKey;
-
     extern const String AmplitudeKey;
     extern const String OffsetKey;
     extern const String PeriodKey;
     extern const String NumCyclesKey;
     extern const String ShiftKey;
+
+    // Json command strings
+    extern const String RunTestCmd;
+    extern const String StopTestCmd;
+    extern const String GetVoltCmd;
+    extern const String SetVoltCmd;
+    extern const String GetCurrCmd;
+    extern const String SetParamCmd;
+    extern const String GetParamCmd;
+    extern const String SetVoltRangeCmd;
+    extern const String GetVoltRangeCmd;
+    extern const String SetCurrRangeCmd;
+    extern const String GetCurrRangeCmd;
+    extern const String SetDeviceIdCmd;
+    extern const String GetDeviceIdCmd;
 
     // Ranges for output voltage
     extern const VoltRange VoltRange1V; 

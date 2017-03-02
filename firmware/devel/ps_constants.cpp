@@ -13,37 +13,39 @@ namespace ps
     const String ResponseKey = String("response");
     const String MessageKey = String("message");
     const String SuccessKey = String("success");
-
-    const String RunTestKey = String("runTest");
-    const String StopTestKey = String("stopTest");
-    const String SetVoltKey = String("setVolt");
-    const String GetCurrKey = String("getCurr");
-    const String SetParamKey = String("setParam");
-    const String GetParamKey = String("getParam");
-    const String SetVoltRangeKey = String("setVoltRange");
-    const String GetVoltRangeKey = String("getVoltRange");
-    const String SetCurrRangeKey = String("setCurrRange");
-    const String GetCurrRangeKey = String("getCurrRange");
-
-    const String CurrKey = String("i");
-    const String VoltKey = String("v");
     const String TimeKey = String("t");
-
+    const String VoltKey = String("v");
+    const String CurrKey = String("i");
     const String ParamKey = String("param");
+    const String VoltRangeKey = String("voltRange");
+    const String CurrRangeKey = String("currRange");
     const String QuietValueKey = String("quietValue"); 
     const String QuietTimeKey = String("quietTime");
-
     const String DurationKey = String("duration");
     const String ValueKey = String("value");
-
     const String StartValueKey = String("startValue");
     const String FinalValueKey = String("finalValue");
-
     const String AmplitudeKey = String("amplitude");
     const String OffsetKey = String("offset");
     const String PeriodKey = String("period");
     const String NumCyclesKey = String("numCycles");
     const String ShiftKey = String("shift");
+
+    // Json command strings
+    const String RunTestCmd = String("runTest");
+    const String StopTestCmd = String("stopTest");
+    const String GetVoltCmd = String("getVolt");
+    const String SetVoltCmd = String("setVolt");
+    const String GetCurrCmd = String("getCurr");
+    const String SetParamCmd = String("setParam");
+    const String GetParamCmd = String("getParam");
+
+    const String SetVoltRangeCmd = String("setVoltRange");
+    const String GetVoltRangeCmd = String("getVoltRange");
+    const String SetCurrRangeCmd = String("setCurrRange");
+    const String GetCurrRangeCmd = String("getCurrRange");
+    const String SetDeviceIdCmd = String("setDeviceId");
+    const String GetDeviceIdCmd = String("getDeviceId");
 
     // Ranges for output voltage
     const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);

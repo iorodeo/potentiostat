@@ -16,6 +16,7 @@ namespace ps
 
             MessageSender();
             void sendSample(Sample sample);
+            void sendSampleEnd();
             void sendCommandResponse(ReturnStatus status, JsonObject &jsonDat);
 
         protected:

@@ -40,6 +40,14 @@ namespace ps
         Serial.println();
     }
 
+    void MessageSender::sendSampleEnd()
+    {
+        jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
+        JsonObject &jsonSample = jsonBuffer_.createObject();
+        jsonSample.printTo(Serial);
+        Serial.println();
+    }
+
 
 } // namespace ps
 

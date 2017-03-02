@@ -31,6 +31,7 @@ namespace ps
 
             ReturnStatus onCommandRunTest(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandStopTest(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetVolt(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandSetVolt(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetCurr(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandSetTestParam(JsonObject &jsonMsg, JsonObject &jsonDat);
@@ -39,6 +40,8 @@ namespace ps
             ReturnStatus onCommandGetVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandSetCurrRange(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetCurrRange(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetDeviceId(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetDeviceId(JsonObject &jsonMsg, JsonObject &jsonDat);
 
             void startTest();
             void stopTest();
@@ -50,6 +53,7 @@ namespace ps
         protected:
 
             volatile bool testInProgress_;
+            volatile bool lastSampleFlag_;
 
             AnalogSubsystem analogSubsystem_;
 

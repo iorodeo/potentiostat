@@ -7,6 +7,7 @@ namespace ps
     SystemState::SystemState()
     { 
         testInProgress_ = false;
+        lastSampleFlag_ = false;
         timerCnt_ = 0;
         test_ = nullptr;
 
@@ -18,16 +19,19 @@ namespace ps
     void SystemState::initialize()
     {
         commandTable_.setClient(this);
-        commandTable_.registerMethod(CommandKey, RunTestKey, &SystemState::onCommandRunTest);
-        commandTable_.registerMethod(CommandKey, StopTestKey, &SystemState::onCommandStopTest);
-        commandTable_.registerMethod(CommandKey, SetVoltKey, &SystemState::onCommandSetVolt);
-        commandTable_.registerMethod(CommandKey, GetCurrKey, &SystemState::onCommandGetCurr);
-        commandTable_.registerMethod(CommandKey, SetParamKey, &SystemState::onCommandSetTestParam);
-        commandTable_.registerMethod(CommandKey, GetParamKey, &SystemState::onCommandGetTestParam);
-        commandTable_.registerMethod(CommandKey, SetVoltRangeKey, &SystemState::onCommandSetVoltRange);
-        commandTable_.registerMethod(CommandKey, GetVoltRangeKey, &SystemState::onCommandGetVoltRange);
-        commandTable_.registerMethod(CommandKey, SetCurrRangeKey, &SystemState::onCommandSetCurrRange);
-        commandTable_.registerMethod(CommandKey, GetCurrRangeKey, &SystemState::onCommandGetCurrRange);
+        commandTable_.registerMethod(CommandKey,  RunTestCmd,      &SystemState::onCommandRunTest);
+        commandTable_.registerMethod(CommandKey,  StopTestCmd,     &SystemState::onCommandStopTest);
+        commandTable_.registerMethod(CommandKey,  GetVoltCmd,      &SystemState::onCommandGetVolt);
+        commandTable_.registerMethod(CommandKey,  SetVoltCmd,      &SystemState::onCommandSetVolt);
+        commandTable_.registerMethod(CommandKey,  GetCurrCmd,      &SystemState::onCommandGetCurr);
+        commandTable_.registerMethod(CommandKey,  SetParamCmd,     &SystemState::onCommandSetTestParam);
+        commandTable_.registerMethod(CommandKey,  GetParamCmd,     &SystemState::onCommandGetTestParam);
+        commandTable_.registerMethod(CommandKey,  SetVoltRangeCmd, &SystemState::onCommandSetVoltRange);
+        commandTable_.registerMethod(CommandKey,  GetVoltRangeCmd, &SystemState::onCommandGetVoltRange);
+        commandTable_.registerMethod(CommandKey,  SetCurrRangeCmd, &SystemState::onCommandSetCurrRange);
+        commandTable_.registerMethod(CommandKey,  GetCurrRangeCmd, &SystemState::onCommandGetCurrRange);
+        commandTable_.registerMethod(CommandKey,  SetDeviceIdCmd,  &SystemState::onCommandSetDeviceId);
+        commandTable_.registerMethod(CommandKey,  GetDeviceIdCmd,  &SystemState::onCommandGetDeviceId);
 
         analogSubsystem_.initialize();
         analogSubsystem_.setVolt(0.0);
@@ -56,21 +60,36 @@ namespace ps
     }
 
 
+    ReturnStatus SystemState::onCommandGetVolt(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        float volt = analogSubsystem_.getVolt();
+        jsonDat.set(VoltKey,volt,JsonFloatDecimals);
+        return status;
+    }
+
+
     ReturnStatus SystemState::onCommandSetVolt(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-        String voltKey(VoltKey);
-        if (jsonMsg.containsKey(voltKey))
-        {
-            float volt = jsonMsg.get<float>(voltKey);
-            analogSubsystem_.setVolt(volt);
-            jsonDat.set(VoltKey,volt,JsonFloatDecimals);
-        }
-        else
+        if (!jsonMsg.containsKey(VoltKey))
         {
             status.success = false;
-            status.message = String("json does not contain key: ") + voltKey;
+            status.message = String("json does not contain key: ") + VoltKey;
+            return status;
         }
+
+        if (!jsonMsg[VoltKey].is<float>())
+        {
+            status.success = false;
+            status.message = String("unable to convert volt to float");
+            return status;
+        }
+
+        float volt = jsonMsg.get<float>(VoltKey);
+        analogSubsystem_.setVolt(volt);
+        volt = analogSubsystem_.getVolt();
+        jsonDat.set(VoltKey,volt,JsonFloatDecimals);
         return status;
     }
 
@@ -101,7 +120,15 @@ namespace ps
     ReturnStatus SystemState::onCommandSetVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-        Serial.println(__PRETTY_FUNCTION__);
+        if (!jsonMsg.containsKey(VoltRangeKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + VoltKey;
+            return status;
+        }
+
+        String voltRangeStr = String((const char *)(jsonMsg[VoltRangeKey]));
+
         return status;
     }
 
@@ -123,6 +150,22 @@ namespace ps
 
 
     ReturnStatus SystemState::onCommandGetCurrRange(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        Serial.println(__PRETTY_FUNCTION__);
+        return status;
+    }
+
+
+    ReturnStatus SystemState::onCommandSetDeviceId(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        Serial.println(__PRETTY_FUNCTION__);
+        return status;
+    }
+
+
+    ReturnStatus SystemState::onCommandGetDeviceId(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
         Serial.println(__PRETTY_FUNCTION__);
@@ -171,6 +214,12 @@ namespace ps
             Sample sample = dataBuffer_.front();
             dataBuffer_.pop_front();
             messageSender_.sendSample(sample);
+        }
+
+        if (lastSampleFlag_)
+        {
+            messageSender_.sendSampleEnd();
+            lastSampleFlag_ = false;
         }
     }
 
@@ -243,6 +292,7 @@ namespace ps
     {
         testTimer_.end();
         testInProgress_ = false;
+        lastSampleFlag_ = true;
         analogSubsystem_.setVolt(0.0);
     }
 
