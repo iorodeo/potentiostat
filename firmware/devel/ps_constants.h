@@ -8,12 +8,15 @@
 namespace ps
 {
     const uint32_t CommandTableMaxSize = 20;
-
+    
     // Buffer parameters
     const uint32_t DataBufferSize = 1000;
     const uint32_t SerialBufferSize = 1000;
     const uint32_t JsonMessageBufferSize = 5000;
     const uint32_t JsonTestDataBufferSize = 5000;
+
+    // Device ID EEPROM address
+    extern const uint32_t EEPROM_DeviceIdAddress;
 
     // Serial parameters
     extern const uint32_t UsbSerialBaudrate;
@@ -41,6 +44,7 @@ namespace ps
     extern const String PeriodKey;
     extern const String NumCyclesKey;
     extern const String ShiftKey;
+    extern const String DeviceIdKey;
 
     // Json command strings
     extern const String RunTestCmd;
@@ -86,6 +90,7 @@ namespace ps
     // Test parameters
     const uint32_t AvailableTestsMaxSize = 20;
     const uint32_t MultiStepMaxSize = 50;
+
 
 } // namespace ps
 

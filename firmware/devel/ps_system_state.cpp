@@ -1,4 +1,5 @@
 #include "ps_system_state.h"
+#include "ps_device_id_eeprom.h"
 
 
 namespace ps
@@ -172,7 +173,8 @@ namespace ps
     ReturnStatus SystemState::onCommandSetDeviceId(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-        Serial.println(__PRETTY_FUNCTION__);
+        DeviceId_EEPROM deviceIdMem;
+        status = deviceIdMem.set(jsonMsg,jsonDat);
         return status;
     }
 
@@ -180,7 +182,8 @@ namespace ps
     ReturnStatus SystemState::onCommandGetDeviceId(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-        Serial.println(__PRETTY_FUNCTION__);
+        DeviceId_EEPROM deviceIdMem;
+        deviceIdMem.get(jsonDat);
         return status;
     }
 

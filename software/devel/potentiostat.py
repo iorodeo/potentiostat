@@ -15,6 +15,7 @@ VoltKey = 'v'
 CurrKey = 'i'
 VoltRangeKey = 'voltRange'
 CurrRangeKey = 'currRange'
+DeviceIdKey = 'deviceId'
 
 # Voltage ranges
 VoltRange1V = '1V'
@@ -150,10 +151,16 @@ class Potentiostat(serial.Serial):
         return msg_dict[ResponseKey][CurrRangeKey]
 
     def set_device_id(self,device_id):
-        pass
+        cmd_dict = {CommandKey: SetDeviceIdCmd, DeviceIdKey: device_id}
+        msg_dict = self.send_cmd(cmd_dict)
+        self.check_cmd_msg(cmd_dict,msg_dict)
+        return msg_dict[ResponseKey][DeviceIdKey]
 
     def get_device_id(self):
-        pass
+        cmd_dict = {CommandKey: GetDeviceIdCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        self.check_cmd_msg(cmd_dict,msg_dict)
+        return msg_dict[ResponseKey][DeviceIdKey]
 
     def send_cmd(self,cmd_dict):
         cmd_json = json.dumps(cmd_dict)

@@ -8,6 +8,9 @@ namespace ps
     const uint32_t UsbSerialBaudrate = 115200;
     const uint32_t JsonFloatDecimals = 5;
 
+    // Device ID EEPROM address
+    extern const uint32_t EEPROM_DeviceIdAddress = 0;
+
     // Json message keys 
     const String CommandKey = String("command");
     const String ResponseKey = String("response");
@@ -30,6 +33,7 @@ namespace ps
     const String PeriodKey = String("period");
     const String NumCyclesKey = String("numCycles");
     const String ShiftKey = String("shift");
+    const String DeviceIdKey = String("deviceId");
 
     // Json command strings
     const String RunTestCmd = String("runTest");
