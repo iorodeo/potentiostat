@@ -96,14 +96,21 @@ namespace ps
             {
                 String cmd = String((const char *)(jsonMsg[key])).trim();
 
+                bool found = false;
                 for (size_t i=0; i<table_.size(); i++)
                 {
                     if (cmd.equals(table_[i].value()))
                     {
+                        found = true;
                         jsonDat.set(CommandKey,jsonMsg[key]);
                         status = table_[i].applyMethod(client_,jsonMsg,jsonDat);
                         break;
                     }
+                }
+                if (!found)
+                {
+                    status.success = false;
+                    status.message = String("command, ") + cmd + String(", not found");;
                 }
             }
             else

@@ -61,7 +61,7 @@ namespace ps
             MessageParser messageParser_;
             MessageSender messageSender_;
 
-            CommandTable<SystemState,10> commandTable_;
+            CommandTable<SystemState,CommandTableMaxSize> commandTable_;
             StaticJsonBuffer<JsonMessageBufferSize> commandRespJsonBuffer_;
 
             CircularBuffer<Sample,DataBufferSize> dataBuffer_;

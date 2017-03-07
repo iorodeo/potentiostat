@@ -13,6 +13,22 @@ ParamKey = 'param'
 TimeKey = 't'
 VoltKey = 'v'
 CurrKey = 'i'
+VoltRangeKey = 'voltRange'
+CurrRangeKey = 'currRange'
+
+# Voltage ranges
+VoltRange1V = '1V'
+VoltRange2V = '2V'
+VoltRange5V = '5V'
+VoltRange10V = '10V'
+VoltRangeList = [VoltRange1V, VoltRange2V, VoltRange5V, VoltRange10V]
+
+# Current Ranges
+CurrRange1uA = '1uA'
+CurrRange10uA = '10uA'
+CurrRange100uA = '100uA'
+CurrRange1000uA = '1000uA'
+CurrRangeList = [CurrRange1uA, CurrRange10uA, CurrRange100uA, CurrRange1000uA]
 
 # Commands
 RunTestCmd  = 'runTest'
@@ -106,16 +122,32 @@ class Potentiostat(serial.Serial):
         return msg_dict[ResponseKey][ParamKey]
 
     def set_volt_range(self,volt_range):
-        pass
+        if not volt_range in VoltRangeList:
+            raise ValueError('unknown voltage range')
+        cmd_dict = {CommandKey: SetVoltRangeCmd, VoltRangeKey: volt_range}
+        msg_dict = self.send_cmd(cmd_dict)
+        self.check_cmd_msg(cmd_dict,msg_dict)
+        return msg_dict[ResponseKey][VoltRangeKey]
 
     def get_volt_range(self):
-        pass
+        cmd_dict = {CommandKey: GetVoltRangeCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        self.check_cmd_msg(cmd_dict,msg_dict)
+        return msg_dict[ResponseKey][VoltRangeKey]
 
     def set_curr_range(self,curr_range):
-        pass
+        if not curr_range in CurrRangeList:
+            raise ValueError('unknown current range')
+        cmd_dict = {CommandKey: SetCurrRangeCmd, CurrRangeKey: curr_range}
+        msg_dict = self.send_cmd(cmd_dict)
+        self.check_cmd_msg(cmd_dict,msg_dict)
+        return msg_dict[ResponseKey][CurrRangeKey]
 
     def get_curr_range(self):
-        pass
+        cmd_dict = {CommandKey: GetCurrRangeCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        self.check_cmd_msg(cmd_dict,msg_dict)
+        return msg_dict[ResponseKey][CurrRangeKey]
 
     def set_device_id(self,device_id):
         pass

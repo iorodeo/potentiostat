@@ -123,12 +123,14 @@ namespace ps
         if (!jsonMsg.containsKey(VoltRangeKey))
         {
             status.success = false;
-            status.message = String("json does not contain key: ") + VoltKey;
-            return status;
+            status.message = String("json does not contain key: ") + VoltRangeKey;
         }
-
-        String voltRangeStr = String((const char *)(jsonMsg[VoltRangeKey]));
-
+        else
+        {
+            String voltRangeName = String((const char *)(jsonMsg[VoltRangeKey]));
+            status = analogSubsystem_.setVoltRangeByName(voltRangeName);
+            jsonDat.set(VoltRangeKey,analogSubsystem_.getVoltRangeName());
+        }
         return status;
     }
 
@@ -136,7 +138,7 @@ namespace ps
     ReturnStatus SystemState::onCommandGetVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-        Serial.println(__PRETTY_FUNCTION__);
+        jsonDat.set(VoltRangeKey,analogSubsystem_.getVoltRangeName());
         return status;
     }
 
@@ -144,7 +146,17 @@ namespace ps
     ReturnStatus SystemState::onCommandSetCurrRange(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-        Serial.println(__PRETTY_FUNCTION__);
+        if (!jsonMsg.containsKey(CurrRangeKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + CurrRangeKey;
+        }
+        else
+        {
+            String currRangeName = String((const char *)(jsonMsg[CurrRangeKey]));
+            status = analogSubsystem_.setCurrRangeByName(currRangeName);
+            jsonDat.set(CurrRangeKey,analogSubsystem_.getCurrRangeName());
+        }
         return status;
     }
 
@@ -152,7 +164,7 @@ namespace ps
     ReturnStatus SystemState::onCommandGetCurrRange(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-        Serial.println(__PRETTY_FUNCTION__);
+        jsonDat.set(CurrRangeKey,analogSubsystem_.getCurrRangeName());
         return status;
     }
 

@@ -4,6 +4,7 @@
 #include "ps_gains.h"
 #include "ps_volt_range.h"
 #include "ps_curr_range.h"
+#include "ps_return_status.h"
 
 namespace ps
 {
@@ -37,7 +38,10 @@ namespace ps
             void setCurrRange(CurrRange range);  
             CurrRange getCurrRange() const;      
 
+            ReturnStatus setVoltRangeByName(String voltRangeName);
             String getVoltRangeName() const;   
+
+            ReturnStatus setCurrRangeByName(String currRangeName);
             String getCurrRangeName() const;   
 
         protected:

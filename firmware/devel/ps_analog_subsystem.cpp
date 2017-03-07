@@ -142,6 +142,27 @@ namespace ps
     }
 
 
+    ReturnStatus AnalogSubsystem::setVoltRangeByName(String voltRangeName)
+    {
+        ReturnStatus status;
+        bool found = false;
+        for (size_t i=0; i<VoltRangeArray.size(); i++)
+        {
+            if (voltRangeName.equals(VoltRangeArray[i].name()))
+            {
+                found = true;
+                setVoltRange(VoltRangeArray[i]);
+            }
+        }
+        if (!found)
+        {
+            status.success = false;
+            status.message = String("voltRange, ") + voltRangeName + String(", not found");
+        }
+        return status;
+    }
+
+
     String AnalogSubsystem::getVoltRangeName() const
     { 
         // Returns a string representation of the voltage range setting
@@ -153,6 +174,28 @@ namespace ps
     {
         // Returns a string representation of the current range
         return currRange_.name();
+    }
+
+    ReturnStatus AnalogSubsystem::setCurrRangeByName(String currRangeName)
+    {
+        ReturnStatus status;
+        bool found = false;
+
+        for (size_t i=0; i<CurrRangeArray.size(); i++)
+        {
+            if (currRangeName.equals(CurrRangeArray[i].name()))
+            {
+                found = true;
+                setCurrRange(CurrRangeArray[i]);
+            }
+        }
+        
+        if (!found)
+        {
+            status.success = false;
+            status.message = String("currRange, ") + currRangeName + String(", not found");
+        }
+        return status;
     }
 
 
