@@ -404,7 +404,7 @@ namespace ps
     uint16_t AnalogSubsystem::getTransAmpAin() const  
     {
         // Read analog input associated with the transimpedance amplifier 
-       return analogRead(TIA_OUT_UNI_PIN);
+       return TransAmpSign*analogRead(TIA_OUT_UNI_PIN);
     }
 
 

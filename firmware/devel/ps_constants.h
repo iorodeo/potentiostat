@@ -79,6 +79,8 @@ namespace ps
     const uint8_t NumCurrRange = 4;
     extern Array<CurrRange,NumCurrRange> CurrRangeArray;
 
+    extern const uint16_t TransAmpSign;
+
     // Timer parameters
     extern const uint32_t TestTimerPeriod;      // us
     extern const uint32_t DefaultSamplePeriod;  // us

@@ -69,6 +69,8 @@ namespace ps
     CurrRange currRangeArrayTmp[NumCurrRange] = {CurrRange1uA,CurrRange10uA, CurrRange100uA, CurrRange1000uA};
     Array<CurrRange,NumCurrRange>  CurrRangeArray(currRangeArrayTmp);
 
+    const uint16_t TransAmpSign = -1;
+
     // Timer parameters
     const uint32_t TestTimerPeriod = 200;         // us
     const uint32_t DefaultSamplePeriod = 10000;   // us
