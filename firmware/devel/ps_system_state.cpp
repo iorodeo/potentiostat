@@ -274,6 +274,7 @@ namespace ps
             if (timerCnt_%sampleModulus_ == 0)
             {
                 Sample sample = {t, volt, currLowPass_.value()};
+                //Sample sample = {t, volt, curr};
                 dataBuffer_.push_back(sample);
             }
             done = test_ -> isDone(t);

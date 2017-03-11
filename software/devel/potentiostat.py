@@ -58,10 +58,9 @@ class Potentiostat(serial.Serial):
         super(Potentiostat,self).__init__(port,**params)
         time.sleep(self.ResetSleepDt)
 
-    def run_test(self, testname):
+    def run_test(self, testname, display=True):
         cmd_dict = {CommandKey: RunTestCmd, TestKey: testname}
         msg_dict = self.send_cmd(cmd_dict)
-        self.check_cmd_msg(cmd_dict,msg_dict)
 
         done = False
         tsec_list = [] 
@@ -79,7 +78,8 @@ class Potentiostat(serial.Serial):
                 tsec_list.append(tsec)
                 volt_list.append(volt)
                 curr_list.append(curr)
-                print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tsec,volt,curr))
+                if display:
+                    print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tsec,volt,curr))
             else:
                 done = True
         return tsec_list, volt_list, curr_list 
@@ -87,39 +87,33 @@ class Potentiostat(serial.Serial):
     def stop_test(self):
         cmd_dict = {CommandKey: StopTestCmd}
         msg_dict = self.send_cmd(cmd_dict)
-        self.check_cmd_msg(cmd_dict,msg_dict)
 
     def get_volt(self):
         cmd_dict = {CommandKey: GetVoltCmd}
         msg_dict = self.send_cmd(cmd_dict)
-        self.check_cmd_msg(cmd_dict,msg_dict)
         volt = msg_dict[ResponseKey][VoltKey]
         return volt
 
     def set_volt(self,volt):
         cmd_dict = {CommandKey: SetVoltCmd, VoltKey: volt}
         msg_dict = self.send_cmd(cmd_dict)
-        self.check_cmd_msg(cmd_dict,msg_dict)
         volt = msg_dict[ResponseKey][VoltKey]
         return volt
 
     def get_curr(self):
         cmd_dict = {CommandKey: GetCurrCmd}
         msg_dict = self.send_cmd(cmd_dict)
-        self.check_cmd_msg(cmd_dict,msg_dict)
         curr = msg_dict[ResponseKey][CurrKey]
         return curr
 
     def get_param(self,testname):
         cmd_dict = {CommandKey: GetParamCmd, TestKey: testname} 
         msg_dict = self.send_cmd(cmd_dict)
-        self.check_cmd_msg(cmd_dict,msg_dict)
         return msg_dict[ResponseKey][ParamKey]
 
     def set_param(self,testname,param):
         cmd_dict = {CommandKey: SetParamCmd, TestKey: testname, ParamKey: param}
         msg_dict = self.send_cmd(cmd_dict)
-        self.check_cmd_msg(cmd_dict,msg_dict)
         return msg_dict[ResponseKey][ParamKey]
 
     def set_volt_range(self,volt_range):
@@ -127,13 +121,11 @@ class Potentiostat(serial.Serial):
             raise ValueError('unknown voltage range')
         cmd_dict = {CommandKey: SetVoltRangeCmd, VoltRangeKey: volt_range}
         msg_dict = self.send_cmd(cmd_dict)
-        self.check_cmd_msg(cmd_dict,msg_dict)
         return msg_dict[ResponseKey][VoltRangeKey]
 
     def get_volt_range(self):
         cmd_dict = {CommandKey: GetVoltRangeCmd}
         msg_dict = self.send_cmd(cmd_dict)
-        self.check_cmd_msg(cmd_dict,msg_dict)
         return msg_dict[ResponseKey][VoltRangeKey]
 
     def set_curr_range(self,curr_range):
@@ -141,25 +133,21 @@ class Potentiostat(serial.Serial):
             raise ValueError('unknown current range')
         cmd_dict = {CommandKey: SetCurrRangeCmd, CurrRangeKey: curr_range}
         msg_dict = self.send_cmd(cmd_dict)
-        self.check_cmd_msg(cmd_dict,msg_dict)
         return msg_dict[ResponseKey][CurrRangeKey]
 
     def get_curr_range(self):
         cmd_dict = {CommandKey: GetCurrRangeCmd}
         msg_dict = self.send_cmd(cmd_dict)
-        self.check_cmd_msg(cmd_dict,msg_dict)
         return msg_dict[ResponseKey][CurrRangeKey]
 
     def set_device_id(self,device_id):
         cmd_dict = {CommandKey: SetDeviceIdCmd, DeviceIdKey: device_id}
         msg_dict = self.send_cmd(cmd_dict)
-        self.check_cmd_msg(cmd_dict,msg_dict)
         return msg_dict[ResponseKey][DeviceIdKey]
 
     def get_device_id(self):
         cmd_dict = {CommandKey: GetDeviceIdCmd}
         msg_dict = self.send_cmd(cmd_dict)
-        self.check_cmd_msg(cmd_dict,msg_dict)
         return msg_dict[ResponseKey][DeviceIdKey]
 
     def send_cmd(self,cmd_dict):
@@ -168,6 +156,7 @@ class Potentiostat(serial.Serial):
         msg_json = self.readline()
         msg_json = msg_json.strip()
         msg_dict = json.loads(msg_json)
+        self.check_cmd_msg(cmd_dict,msg_dict)
         return msg_dict
 
     def check_cmd_msg(self,cmd_dict,msg_dict):

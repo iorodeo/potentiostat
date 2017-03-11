@@ -28,6 +28,7 @@ namespace ps
     void LowPass::setParam(LowPassParam param)
     {
         param_ = param;
+        setCutoffFreq(param.cutoffFreq);
     }
 
     LowPassParam LowPass::param()
