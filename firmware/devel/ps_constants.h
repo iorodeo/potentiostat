@@ -5,6 +5,8 @@
 #include "ps_filter.h"
 #include "Array.h"
 
+//#define HARDWARE_VARIANT_NANO_AMP
+
 namespace ps
 {
     const uint32_t CommandTableMaxSize = 20;

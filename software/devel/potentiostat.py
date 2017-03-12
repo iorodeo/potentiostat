@@ -25,11 +25,19 @@ VoltRange10V = '10V'
 VoltRangeList = [VoltRange1V, VoltRange2V, VoltRange5V, VoltRange10V]
 
 # Current Ranges
+CurrRange60nA = '60nA'
+CurrRange100nA = '100nA'
 CurrRange1uA = '1uA'
 CurrRange10uA = '10uA'
 CurrRange100uA = '100uA'
 CurrRange1000uA = '1000uA'
-CurrRangeList = [CurrRange1uA, CurrRange10uA, CurrRange100uA, CurrRange1000uA]
+
+CurrRangeListNanoAmp = [CurrRange1uA, CurrRange10uA, CurrRange100nA, CurrRange60nA]
+CurrRangeListNormal = [CurrRange1uA, CurrRange10uA, CurrRange100uA, CurrRange1000uA]
+HwVariantToCurrRangeList = {
+        'normal' :CurrRangeListNormal, 
+        'nanoAmp': CurrRangeListNanoAmp
+        }
 
 # Commands
 RunTestCmd  = 'runTest'
@@ -57,6 +65,15 @@ class Potentiostat(serial.Serial):
         params = {'baudrate': self.Baudrate, 'timeout': self.Timeout}
         super(Potentiostat,self).__init__(port,**params)
         time.sleep(self.ResetSleepDt)
+        self.hw_variant = 'normal' 
+
+    def set_hardware_variant(self,variant):
+        if not variant in HwVariantToCurrRangeList:
+            raise RuntimeError('unknown hardware variant, {0}'.format(variant))
+        self.hw_variant = variant
+
+    def get_hardware_variant(self):
+        return self.hw_variant
 
     def run_test(self, testname, display=True):
         cmd_dict = {CommandKey: RunTestCmd, TestKey: testname}
@@ -129,7 +146,7 @@ class Potentiostat(serial.Serial):
         return msg_dict[ResponseKey][VoltRangeKey]
 
     def set_curr_range(self,curr_range):
-        if not curr_range in CurrRangeList:
+        if not curr_range in HwVariantToCurrRangeList[self.hw_variant]:
             raise ValueError('unknown current range')
         cmd_dict = {CommandKey: SetCurrRangeCmd, CurrRangeKey: curr_range}
         msg_dict = self.send_cmd(cmd_dict)
