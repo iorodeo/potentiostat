@@ -4,27 +4,26 @@ import matplotlib.pyplot as plt
 import scipy
 
 hw_variant = 'nanoAmp'
-curr_range = '60nA'
+curr_range = '100nA'
 
 port = '/dev/ttyACM0'
 dev = Potentiostat(port)
 dev.set_hardware_variant(hw_variant)
-
 dev.set_curr_range(curr_range)
 
 testname = 'cyclic'
 
-param = {
+testparam = {
         'quietValue' : 0.0,
         'quietTime'  : 0,
-        'amplitude'  : 0.1,
+        'amplitude'  : 1.0,
         'offset'     : 0.0,
         'period'     : 20000,
         'numCycles'  : 2,
         'shift'      : 0.0,
         }
 
-dev.set_param(testname,param)
+dev.set_param(testname,testparam)
 
 t,volt,curr = dev.run_test(testname)
 

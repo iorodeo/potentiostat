@@ -2,6 +2,9 @@ from __future__ import print_function
 import serial
 import time
 import json
+import atexit
+import contextlib
+#import progressbar
 
 # Json message keys
 CommandKey = 'command'
@@ -66,6 +69,9 @@ class Potentiostat(serial.Serial):
         super(Potentiostat,self).__init__(port,**params)
         time.sleep(self.ResetSleepDt)
         self.hw_variant = 'normal' 
+        atexit.register(self.stop_test)
+        while self.inWaiting() > 0:
+            val = self.read()
 
     def set_hardware_variant(self,variant):
         if not variant in HwVariantToCurrRangeList:
@@ -75,30 +81,43 @@ class Potentiostat(serial.Serial):
     def get_hardware_variant(self):
         return self.hw_variant
 
-    def run_test(self, testname, display=True):
+    def run_test(self, testname, display='pbar', filename=None):
         cmd_dict = {CommandKey: RunTestCmd, TestKey: testname}
         msg_dict = self.send_cmd(cmd_dict)
+
+        #if display == 'pbar':
+        #    widgets = [progressbar.Percentage(),progressbar.Bar()]
+        #    pbar = progressbar.ProgressBar(widgets=widgets )
 
         done = False
         tsec_list = [] 
         volt_list = [] 
         curr_list = []
 
-        while not done:
-            sample_json = self.readline()
-            sample_json = sample_json.strip()
-            sample_dict = json.loads(sample_json)
-            if len(sample_dict) > 0:
-                tsec = millisecondToSecond(sample_dict[TimeKey])
-                volt = sample_dict[VoltKey]
-                curr = sample_dict[CurrKey]
-                tsec_list.append(tsec)
-                volt_list.append(volt)
-                curr_list.append(curr)
-                if display:
-                    print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tsec,volt,curr))
-            else:
-                done = True
+        none_context = contextlib.contextmanager(lambda: iter([None]))()
+
+        with (open(filename,'w') if filename is not None else none_context) as fid:
+
+            while not done:
+                sample_json = self.readline()
+                sample_json = sample_json.strip()
+                sample_dict = json.loads(sample_json)
+                if len(sample_dict) > 0:
+                    tsec = millisecondToSecond(sample_dict[TimeKey])
+                    volt = sample_dict[VoltKey]
+                    curr = sample_dict[CurrKey]
+                    tsec_list.append(tsec)
+                    volt_list.append(volt)
+                    curr_list.append(curr)
+                    if display == 'data':
+                        print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tsec,volt,curr))
+                    #if display == 'pbar':
+                    #    pass
+                    if fid is not None:
+                        fid.write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tsec,volt,curr))
+                else:
+                    done = True
+
         return tsec_list, volt_list, curr_list 
 
     def stop_test(self):
