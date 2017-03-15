@@ -19,6 +19,24 @@ CurrKey = 'i'
 VoltRangeKey = 'voltRange'
 CurrRangeKey = 'currRange'
 DeviceIdKey = 'deviceId'
+SamplePeriodKey = 'samplePeriod'
+
+# Commands
+RunTestCmd  = 'runTest'
+StopTestCmd = 'stopTest'
+GetVoltCmd = 'getVolt'
+SetVoltCmd = 'setVolt'
+GetCurrCmd = 'getCurr'
+GetParamCmd = 'getParam'
+SetParamCmd = 'setParam'
+GetVoltRangeCmd = 'getVoltRange'
+SetVoltRangeCmd = 'setVoltRange'
+GetCurrRangeCmd = 'getCurrRange'
+SetCurrRangeCmd = 'setCurrRange'
+GetDeviceIdCmd = 'getDeviceId'
+SetDeviceIdCmd = 'setDeviceId'
+GetSamplePeriodCmd = 'getSamplePeriod'
+SetSamplePeriodCmd = 'setSamplePeriod'
 
 # Voltage ranges
 VoltRange1V = '1V'
@@ -41,21 +59,6 @@ HwVariantToCurrRangeList = {
         'normal' :CurrRangeListNormal, 
         'nanoAmp': CurrRangeListNanoAmp
         }
-
-# Commands
-RunTestCmd  = 'runTest'
-StopTestCmd = 'stopTest'
-GetVoltCmd = 'getVolt'
-SetVoltCmd = 'setVolt'
-GetCurrCmd = 'getCurr'
-GetParamCmd = 'getParam'
-SetParamCmd = 'setParam'
-GetVoltRangeCmd = 'getVoltRange'
-SetVoltRangeCmd = 'setVoltRange'
-GetCurrRangeCmd = 'getCurrRange'
-SetCurrRangeCmd = 'setCurrRange'
-GetDeviceIdCmd = 'getDeviceId'
-SetDeviceIdCmd = 'setDeviceId'
 
 
 class Potentiostat(serial.Serial):
@@ -185,6 +188,18 @@ class Potentiostat(serial.Serial):
         cmd_dict = {CommandKey: GetDeviceIdCmd}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][DeviceIdKey]
+
+    def set_sample_period(self,sample_period):
+        pass
+
+    def get_sample_period(self):
+        pass
+
+    def set_sample_rate(self,sample_rate):
+        pass
+
+    def get_sample_rate(self):
+        pass
 
     def send_cmd(self,cmd_dict):
         cmd_json = json.dumps(cmd_dict)

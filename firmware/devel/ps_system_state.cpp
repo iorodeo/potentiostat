@@ -13,7 +13,7 @@ namespace ps
         test_ = nullptr;
 
         currLowPass_.setParam(CurrLowPassParam);
-        updateSampleModulus();
+        setSamplePeriod(DefaultSamplePeriod);
     }
 
 
@@ -239,15 +239,6 @@ namespace ps
     }
 
 
-    void SystemState::debug()
-    {
-        Serial.println(analogSubsystem_.getVoltRangeName());
-        Serial.println(analogSubsystem_.getCurrRangeName());
-        Serial.println(VoltRangeArray[0].name());
-        Serial.println("hello");
-    }
-
-
     void SystemState::setTestTimerCallback(void(*callback)())
     {
         testTimerCallback_ = callback;
@@ -312,11 +303,24 @@ namespace ps
         analogSubsystem_.setVolt(0.0);
     }
 
+
+    void SystemState::setSamplePeriod(uint32_t samplePeriod)
+    {
+        samplePeriod_ = constrain(samplePeriod, MinimumSamplePeriod, MaximumSamplePeriod);
+        updateSampleModulus();
+    }
+
+
+    uint32_t SystemState::getSamplePeriod()
+    {
+        return samplePeriod_;
+    }
+
+
     void SystemState::updateSampleModulus()
     {
         sampleModulus_ = samplePeriod_/TestTimerPeriod;
     }
 
 }
-
 

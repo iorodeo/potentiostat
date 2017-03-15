@@ -3,8 +3,9 @@ from potentiostat import Potentiostat
 import matplotlib.pyplot as plt
 import scipy
 
-hw_variant = 'nanoAmp'
-curr_range = '100nA'
+#hw_variant = 'nanoAmp'
+hw_variant = 'normal'
+curr_range = '100uA'
 
 port = '/dev/ttyACM0'
 dev = Potentiostat(port)
@@ -18,14 +19,14 @@ testparam = {
         'quietTime'  : 0,
         'amplitude'  : 1.0,
         'offset'     : 0.0,
-        'period'     : 20000,
+        'period'     : 1000,
         'numCycles'  : 2,
         'shift'      : 0.0,
         }
 
 dev.set_param(testname,testparam)
 
-t,volt,curr = dev.run_test(testname)
+t,volt,curr = dev.run_test(testname,display='data')
 
 t = scipy.array(t)
 volt = scipy.array(volt)

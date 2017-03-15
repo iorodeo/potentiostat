@@ -45,10 +45,13 @@ namespace ps
 
             void startTest();
             void stopTest();
+
+            void setSamplePeriod(uint32_t samplePeriod);
+            uint32_t getSamplePeriod();
+
             void setTestTimerCallback(void(*func)());
             void updateTestOnTimer();
 
-            void debug();
 
         protected:
 
@@ -70,7 +73,7 @@ namespace ps
             IntervalTimer testTimer_;
             void (*testTimerCallback_)() = dummyTimerCallback;
 
-            uint32_t samplePeriod_ = DefaultSamplePeriod;
+            uint32_t samplePeriod_; 
             uint32_t sampleModulus_;  
             uint64_t timerCnt_;
 

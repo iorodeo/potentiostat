@@ -47,6 +47,7 @@ namespace ps
     extern const String NumCyclesKey;
     extern const String ShiftKey;
     extern const String DeviceIdKey;
+    extern const String SamplePeriodKey;
 
     // Json command strings
     extern const String RunTestCmd;
@@ -62,6 +63,8 @@ namespace ps
     extern const String GetCurrRangeCmd;
     extern const String SetDeviceIdCmd;
     extern const String GetDeviceIdCmd;
+    extern const String SetSamplePeriodCmd;
+    extern const String GetSamplePeriodCmd;
 
     // Ranges for output voltage
     extern const VoltRange VoltRange1V; 
@@ -86,6 +89,8 @@ namespace ps
     // Timer parameters
     extern const uint32_t TestTimerPeriod;      // us
     extern const uint32_t DefaultSamplePeriod;  // us
+    extern const uint32_t MinimumSamplePeriod;  // us
+    extern const uint32_t MaximumSamplePeriod;  // us
 
     // Low pass filter params for current samples
     extern const LowPassParam CurrLowPassParam;

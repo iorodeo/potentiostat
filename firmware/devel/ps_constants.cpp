@@ -34,6 +34,7 @@ namespace ps
     const String NumCyclesKey = String("numCycles");
     const String ShiftKey = String("shift");
     const String DeviceIdKey = String("deviceId");
+    const String SamplePeriodKey = String("samplePeriod");
 
     // Json command strings
     const String RunTestCmd = String("runTest");
@@ -43,13 +44,14 @@ namespace ps
     const String GetCurrCmd = String("getCurr");
     const String SetParamCmd = String("setParam");
     const String GetParamCmd = String("getParam");
-
     const String SetVoltRangeCmd = String("setVoltRange");
     const String GetVoltRangeCmd = String("getVoltRange");
     const String SetCurrRangeCmd = String("setCurrRange");
     const String GetCurrRangeCmd = String("getCurrRange");
     const String SetDeviceIdCmd = String("setDeviceId");
     const String GetDeviceIdCmd = String("getDeviceId");
+    const String SetSamplePeriodCmd = String("setSamplePeriod");
+    const String GetSamplePeriodCmd = String("getSamplePeriod");
 
     // Ranges for output voltage
     const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
@@ -79,8 +81,10 @@ namespace ps
     const uint16_t TransAmpSign = -1;
 
     // Timer parameters
-    const uint32_t TestTimerPeriod = 200;         // us
-    const uint32_t DefaultSamplePeriod = 10000;   // us
+    const uint32_t TestTimerPeriod = 200;                // us
+    const uint32_t DefaultSamplePeriod = 10000;          // us
+    extern const uint32_t MinimumSamplePeriod = 5000;    // us
+    extern const uint32_t MaximumSamplePeriod = 1000000; // us
 
     // Low pass filter params for current samples
     const LowPassParam CurrLowPassParam = {200.0, 0.0, 2}; // cutoff freq (Hz), initial value, order
