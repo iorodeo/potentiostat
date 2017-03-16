@@ -1,4 +1,5 @@
 #include "ps_voltammetry.h"
+#include "ps_time_utils.h"
 
 namespace ps
 {
@@ -92,12 +93,48 @@ namespace ps
             {
                 status = testPtr -> setParam(jsonMsg,jsonDat);
             }
+            else
+            {
+                status.success = false;
+                status.message = String("test not found");
+            }
         }
         else
         {
             status.success = false;
-            status.message = String("test not found");
+            status.message = TestKey + String(" key not found");
         }
+        return status;
+    } 
+    
+    
+    ReturnStatus Voltammetry::getTestDoneTime(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+
+        if (!jsonMsg.containsKey(TestKey))
+        {
+            status.success = false;
+            status.message = TestKey + String(" key not found");
+            return status;
+        }
+
+        BaseTest *testPtr = nullptr;
+        status = getTest(jsonMsg,jsonDat,testPtr);
+        if ((!status.success) || (testPtr == nullptr))
+        {
+            status.success = false;
+            status.message = String("test not found");
+            return status;
+        }
+
+        String testName = testPtr -> getName();
+        uint64_t doneTimeUs = testPtr -> getDoneTime();
+        uint32_t doneTimeMs = convertUsToMs(doneTimeUs);
+
+        jsonDat.set(TestKey, testName);
+        jsonDat.set(TestDoneTimeKey, doneTimeMs);
+
         return status;
     }
 

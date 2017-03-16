@@ -26,6 +26,7 @@ namespace ps
 
             ReturnStatus getParam(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus getTestDoneTime(JsonObject &jsonMsg, JsonObject &jsonDat);
 
             BaseTest baseTest;
             CyclicTest cyclicTest;

@@ -15,6 +15,7 @@ namespace ps
             BaseTest();
 
             virtual bool isDone(uint64_t t) const; 
+            virtual uint64_t getDoneTime() const;
             virtual void reset();
 
             virtual float getValue(uint64_t t) const; 
@@ -30,6 +31,7 @@ namespace ps
 
             virtual void setName(String name);
             virtual String getName();
+
 
             virtual void getParam(JsonObject &jsonDat);
             virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);

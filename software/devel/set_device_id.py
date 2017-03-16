@@ -17,4 +17,3 @@ rsp = dev.set_device_id(dev_id)
 print('device id: {0}'.format(rsp))
 
 
-

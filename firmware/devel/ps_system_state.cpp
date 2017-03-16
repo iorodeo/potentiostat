@@ -20,19 +20,22 @@ namespace ps
     void SystemState::initialize()
     {
         commandTable_.setClient(this);
-        commandTable_.registerMethod(CommandKey,  RunTestCmd,      &SystemState::onCommandRunTest);
-        commandTable_.registerMethod(CommandKey,  StopTestCmd,     &SystemState::onCommandStopTest);
-        commandTable_.registerMethod(CommandKey,  GetVoltCmd,      &SystemState::onCommandGetVolt);
-        commandTable_.registerMethod(CommandKey,  SetVoltCmd,      &SystemState::onCommandSetVolt);
-        commandTable_.registerMethod(CommandKey,  GetCurrCmd,      &SystemState::onCommandGetCurr);
-        commandTable_.registerMethod(CommandKey,  SetParamCmd,     &SystemState::onCommandSetTestParam);
-        commandTable_.registerMethod(CommandKey,  GetParamCmd,     &SystemState::onCommandGetTestParam);
-        commandTable_.registerMethod(CommandKey,  SetVoltRangeCmd, &SystemState::onCommandSetVoltRange);
-        commandTable_.registerMethod(CommandKey,  GetVoltRangeCmd, &SystemState::onCommandGetVoltRange);
-        commandTable_.registerMethod(CommandKey,  SetCurrRangeCmd, &SystemState::onCommandSetCurrRange);
-        commandTable_.registerMethod(CommandKey,  GetCurrRangeCmd, &SystemState::onCommandGetCurrRange);
-        commandTable_.registerMethod(CommandKey,  SetDeviceIdCmd,  &SystemState::onCommandSetDeviceId);
-        commandTable_.registerMethod(CommandKey,  GetDeviceIdCmd,  &SystemState::onCommandGetDeviceId);
+        commandTable_.registerMethod(CommandKey,   RunTestCmd,          &SystemState::onCommandRunTest);
+        commandTable_.registerMethod(CommandKey,   StopTestCmd,         &SystemState::onCommandStopTest);
+        commandTable_.registerMethod(CommandKey,   GetVoltCmd,          &SystemState::onCommandGetVolt);
+        commandTable_.registerMethod(CommandKey,   SetVoltCmd,          &SystemState::onCommandSetVolt);
+        commandTable_.registerMethod(CommandKey,   GetCurrCmd,          &SystemState::onCommandGetCurr);
+        commandTable_.registerMethod(CommandKey,   SetParamCmd,         &SystemState::onCommandSetTestParam);
+        commandTable_.registerMethod(CommandKey,   GetParamCmd,         &SystemState::onCommandGetTestParam);
+        commandTable_.registerMethod(CommandKey,   SetVoltRangeCmd,     &SystemState::onCommandSetVoltRange);
+        commandTable_.registerMethod(CommandKey,   GetVoltRangeCmd,     &SystemState::onCommandGetVoltRange);
+        commandTable_.registerMethod(CommandKey,   SetCurrRangeCmd,     &SystemState::onCommandSetCurrRange);
+        commandTable_.registerMethod(CommandKey,   GetCurrRangeCmd,     &SystemState::onCommandGetCurrRange);
+        commandTable_.registerMethod(CommandKey,   SetDeviceIdCmd,      &SystemState::onCommandSetDeviceId);
+        commandTable_.registerMethod(CommandKey,   GetDeviceIdCmd,      &SystemState::onCommandGetDeviceId);
+        commandTable_.registerMethod(CommandKey,   SetSamplePeriodCmd,  &SystemState::onCommandSetSamplePeriod);
+        commandTable_.registerMethod(CommandKey,   GetSamplePeriodCmd,  &SystemState::onCommandGetSamplePeriod);
+        commandTable_.registerMethod(CommandKey,   GetTestDoneTimeCmd,  &SystemState::onCommandGetTestDoneTime);
 
         analogSubsystem_.initialize();
         analogSubsystem_.setVolt(0.0);
@@ -184,6 +187,62 @@ namespace ps
         ReturnStatus status;
         DeviceId_EEPROM deviceIdMem;
         deviceIdMem.get(jsonDat);
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandSetSamplePeriod(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(SamplePeriodKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + SamplePeriodKey;
+        }
+        else
+        {
+            if (!jsonMsg[SamplePeriodKey].is<uint32_t>())
+            {
+                status.success = false;
+                status.message = String("json ") + SamplePeriodKey + String(" value is not uin32_t");
+            }
+            else
+            {
+                uint32_t samplePeriodMs = jsonMsg.get<uint32_t>(SamplePeriodKey);
+                uint32_t samplePeriodUs = uint32_t(convertMsToUs(samplePeriodMs));
+                if (samplePeriodUs > MaximumSamplePeriod)
+                {
+                    status.success = false;
+                    status.message = String("json ") + SamplePeriodKey + String(" value is too large");
+                }
+                else if (samplePeriodUs < MinimumSamplePeriod)
+                {
+                    status.success = false;
+                    status.message = String("json ") + SamplePeriodKey + String(" value is too small");
+                }
+                else
+                {
+                    setSamplePeriod(samplePeriodUs);
+                    jsonDat.set(SamplePeriodKey,convertUsToMs(getSamplePeriod()));
+                }
+            }
+        }
+
+        return status;
+    }
+
+
+    ReturnStatus SystemState::onCommandGetSamplePeriod(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        jsonDat.set(SamplePeriodKey,convertUsToMs(getSamplePeriod()));
+        return status;
+    }
+
+    
+    ReturnStatus SystemState::onCommandGetTestDoneTime(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        status = voltammetry_.getTestDoneTime(jsonMsg, jsonDat);
         return status;
     }
 

@@ -6,6 +6,7 @@ import atexit
 import contextlib
 #import progressbar
 
+
 # Json message keys
 CommandKey = 'command'
 ResponseKey = 'response'
@@ -20,6 +21,7 @@ VoltRangeKey = 'voltRange'
 CurrRangeKey = 'currRange'
 DeviceIdKey = 'deviceId'
 SamplePeriodKey = 'samplePeriod'
+TestDoneTimeKey = 'testDoneTime'
 
 # Commands
 RunTestCmd  = 'runTest'
@@ -37,6 +39,7 @@ GetDeviceIdCmd = 'getDeviceId'
 SetDeviceIdCmd = 'setDeviceId'
 GetSamplePeriodCmd = 'getSamplePeriod'
 SetSamplePeriodCmd = 'setSamplePeriod'
+GetTestDoneTimeCmd = 'getTestDoneTime'
 
 # Voltage ranges
 VoltRange1V = '1V'
@@ -84,7 +87,8 @@ class Potentiostat(serial.Serial):
     def get_hardware_variant(self):
         return self.hw_variant
 
-    def run_test(self, testname, display='pbar', filename=None):
+    def run_test(self, testname, timeunit='s', display='pbar', filename=None):
+
         cmd_dict = {CommandKey: RunTestCmd, TestKey: testname}
         msg_dict = self.send_cmd(cmd_dict)
 
@@ -190,16 +194,25 @@ class Potentiostat(serial.Serial):
         return msg_dict[ResponseKey][DeviceIdKey]
 
     def set_sample_period(self,sample_period):
-        pass
+        cmd_dict = {CommandKey: SetSamplePeriodCmd, SamplePeriodKey: sample_period}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][SamplePeriodKey]
 
     def get_sample_period(self):
-        pass
+        cmd_dict = {CommandKey: GetSamplePeriodCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][SamplePeriodKey]
 
     def set_sample_rate(self,sample_rate):
         pass
 
     def get_sample_rate(self):
         pass
+
+    def get_test_done_time(self, test):
+        cmd_dict = {CommandKey: GetTestDoneTimeCmd, TestKey: test}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][TestDoneTimeKey]
 
     def send_cmd(self,cmd_dict):
         cmd_json = json.dumps(cmd_dict)
@@ -218,7 +231,7 @@ class Potentiostat(serial.Serial):
 
     def check_for_success(self,msg_dict):
         if not msg_dict[SuccessKey]: 
-            raise IOError(msg_dict[MessageKey])
+            raise IOError('{0}, {1}'.format(msg_dict[MessageKey],msg_dict))
 
     def check_cmd_match(self,cmd_dict,msg_dict):
         cmd_sent = cmd_dict[CommandKey]

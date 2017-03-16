@@ -98,6 +98,12 @@ namespace ps
     }
 
 
+    uint64_t PeriodicTest::getDoneTime() const 
+    {
+        return quietTime_ + numCycles_*period_;
+    }
+
+
     float PeriodicTest::getValue(uint64_t t) const
     {
         return 0.0;

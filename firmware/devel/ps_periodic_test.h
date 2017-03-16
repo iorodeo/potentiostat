@@ -36,11 +36,12 @@ namespace ps
             virtual uint32_t getCycleCount(uint64_t t) const;
 
             virtual bool isDone(uint64_t t) const override;
+            virtual uint64_t getDoneTime() const override;
             virtual float getValue(uint64_t t) const override;
             virtual float getMaxValue() const override;
             virtual float getMinValue() const override;
-            virtual void getParam(JsonObject &jsonDat);
-            virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
+            virtual void getParam(JsonObject &jsonDat) override;
+            virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat) override;
 
         protected:
 

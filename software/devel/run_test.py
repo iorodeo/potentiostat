@@ -11,12 +11,13 @@ port = '/dev/ttyACM0'
 dev = Potentiostat(port)
 dev.set_hardware_variant(hw_variant)
 dev.set_curr_range(curr_range)
+dev.set_sample_period(10)
 
 testname = 'cyclic'
 
 testparam = {
-        'quietValue' : 0.0,
-        'quietTime'  : 0,
+        'quietValue' : -0.5,
+        'quietTime'  : 1000,
         'amplitude'  : 1.0,
         'offset'     : 0.0,
         'period'     : 1000,
@@ -32,6 +33,7 @@ t = scipy.array(t)
 volt = scipy.array(volt)
 curr = scipy.array(curr)
 
+
 print()
 print('curr_range: {0}'.format(dev.get_curr_range()))
 
@@ -41,6 +43,7 @@ if dev.get_hardware_variant() == 'nanoAmp':
 else:
     currLabel = 'current (uA)'
 
+
 plt.figure(1)
 plt.subplot(211)
 plt.plot(t,volt)
@@ -48,11 +51,13 @@ plt.ylabel('Potential (V)')
 plt.grid('on')
 plt.title('Current Range: $\pm$ {0}'.format(curr_range))
 
+
 plt.subplot(212)
-plt.plot(t,curr)
+plt.plot(t,curr,'.')
 plt.xlabel('time (sec)')
 plt.ylabel(currLabel)
 plt.grid('on')
+
 
 plt.figure(2)
 plt.plot(volt,curr)

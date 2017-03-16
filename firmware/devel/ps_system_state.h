@@ -42,6 +42,9 @@ namespace ps
             ReturnStatus onCommandGetCurrRange(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandSetDeviceId(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetDeviceId(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetSamplePeriod(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetSamplePeriod(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetTestDoneTime(JsonObject &jsonMsg, JsonObject &jsonDat);
 
             void startTest();
             void stopTest();

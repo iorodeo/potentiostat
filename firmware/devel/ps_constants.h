@@ -48,6 +48,7 @@ namespace ps
     extern const String ShiftKey;
     extern const String DeviceIdKey;
     extern const String SamplePeriodKey;
+    extern const String TestDoneTimeKey;
 
     // Json command strings
     extern const String RunTestCmd;
@@ -65,6 +66,7 @@ namespace ps
     extern const String GetDeviceIdCmd;
     extern const String SetSamplePeriodCmd;
     extern const String GetSamplePeriodCmd;
+    extern const String GetTestDoneTimeCmd;
 
     // Ranges for output voltage
     extern const VoltRange VoltRange1V; 

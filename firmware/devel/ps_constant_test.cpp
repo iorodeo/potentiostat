@@ -50,7 +50,13 @@ namespace ps
 
     bool ConstantTest::isDone(uint64_t t) const 
     {
-        return (t >= duration_ );
+        return (t >= (duration_ + quietTime_));
+    }
+
+
+    uint64_t ConstantTest::getDoneTime() const
+    {
+        return duration_ + quietTime_;
     }
 
 

@@ -21,12 +21,13 @@ namespace ps
             void setDuration(uint64_t duration);
             uint64_t getDuration() const;
 
-            virtual bool isDone(uint64_t t) const; 
-            virtual float getValue(uint64_t t) const; 
-            virtual float getMaxValue() const; 
-            virtual float getMinValue() const; 
-            virtual void getParam(JsonObject &jsonDat);
-            virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
+            virtual bool isDone(uint64_t t) const override; 
+            virtual uint64_t getDoneTime() const override;
+            virtual float getValue(uint64_t t) const override; 
+            virtual float getMaxValue() const override; 
+            virtual float getMinValue() const override; 
+            virtual void getParam(JsonObject &jsonDat) override;
+            virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat) override;
 
         protected:
 

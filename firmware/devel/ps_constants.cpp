@@ -35,6 +35,7 @@ namespace ps
     const String ShiftKey = String("shift");
     const String DeviceIdKey = String("deviceId");
     const String SamplePeriodKey = String("samplePeriod");
+    const String TestDoneTimeKey = String("testDoneTime");
 
     // Json command strings
     const String RunTestCmd = String("runTest");
@@ -52,6 +53,7 @@ namespace ps
     const String GetDeviceIdCmd = String("getDeviceId");
     const String SetSamplePeriodCmd = String("setSamplePeriod");
     const String GetSamplePeriodCmd = String("getSamplePeriod");
+    const String GetTestDoneTimeCmd = String("getTestDoneTime");
 
     // Ranges for output voltage
     const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
@@ -83,7 +85,7 @@ namespace ps
     // Timer parameters
     const uint32_t TestTimerPeriod = 200;                // us
     const uint32_t DefaultSamplePeriod = 10000;          // us
-    extern const uint32_t MinimumSamplePeriod = 5000;    // us
+    extern const uint32_t MinimumSamplePeriod = 2499;    // us
     extern const uint32_t MaximumSamplePeriod = 1000000; // us
 
     // Low pass filter params for current samples

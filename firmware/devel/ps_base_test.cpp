@@ -22,6 +22,12 @@ namespace ps
     }
 
 
+    uint64_t BaseTest::getDoneTime() const
+    {
+        return quietTime_;
+    }
+
+
     void BaseTest::reset() 
     { }
 

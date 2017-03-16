@@ -30,16 +30,16 @@ namespace ps
             virtual size_t getNumStep() const;
             virtual size_t getMaxNumStep() const;
 
-            virtual bool isDone(uint64_t t) const; 
-            virtual void reset(); 
+            virtual bool isDone(uint64_t t) const override; 
+            virtual uint64_t getDoneTime() const override;
+            virtual void reset() override; 
 
-            virtual float getValue(uint64_t t) const; 
-            virtual float getMaxValue() const; 
-            virtual float getMinValue() const; 
+            virtual float getValue(uint64_t t) const override; 
+            virtual float getMaxValue() const override; 
+            virtual float getMinValue() const override; 
 
-            virtual void getParam(JsonObject &jsonDat);
-            virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
-
+            virtual void getParam(JsonObject &jsonDat) override;
+            virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat) override;
 
         protected:
 
@@ -177,6 +177,14 @@ namespace ps
         {
             return false;
         }
+
+    }
+
+
+    template<size_t MAX_SIZE>
+    uint64_t MultiStepTest<MAX_SIZE>::getDoneTime() const 
+    {
+        return getDuration() + quietTime_;
     }
     
     

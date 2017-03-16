@@ -59,6 +59,10 @@ namespace ps
         }
     }
 
+    uint64_t LinearSweepTest::getDoneTime() const
+    {
+        return duration_ + quietTime_;
+    }
 
     float LinearSweepTest::getValue(uint64_t t) const 
     {
