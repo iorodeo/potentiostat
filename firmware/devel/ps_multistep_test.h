@@ -15,7 +15,7 @@ namespace ps
 
         public:
 
-            static const String StepArrayKey;
+            //static const String StepArrayKey;
 
             MultiStepTest(size_t numStep=5);
 
@@ -52,8 +52,8 @@ namespace ps
     };
 
 
-    template<size_t MAX_SIZE>
-    const String MultiStepTest<MAX_SIZE>::StepArrayKey = String("step");
+    //template<size_t MAX_SIZE>
+    //const String MultiStepTest<MAX_SIZE>::StepArrayKey = String("step");
 
 
     template<size_t MAX_SIZE>

@@ -138,5 +138,17 @@ namespace ps
         return status;
     }
 
+    ReturnStatus Voltammetry::getTestNames(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+
+        JsonArray &jsonNameArray = jsonDat.createNestedArray(TestNameArrayKey);
+        for (size_t i=0; i<availableTests_.size(); i++)
+        {
+            jsonNameArray.add(availableTests_[i] -> getName());
+        }
+        return status;
+    }
+
 
 } // namespace ps

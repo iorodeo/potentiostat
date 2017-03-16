@@ -9,6 +9,9 @@
 
 namespace ps
 {
+    extern const String FirmwareVersion;
+
+    // Command tabe parameters
     const uint32_t CommandTableMaxSize = 20;
     
     // Buffer parameters
@@ -49,6 +52,9 @@ namespace ps
     extern const String DeviceIdKey;
     extern const String SamplePeriodKey;
     extern const String TestDoneTimeKey;
+    extern const String StepArrayKey;
+    extern const String TestNameArrayKey;
+    extern const String VersionKey;
 
     // Json command strings
     extern const String RunTestCmd;
@@ -67,6 +73,8 @@ namespace ps
     extern const String SetSamplePeriodCmd;
     extern const String GetSamplePeriodCmd;
     extern const String GetTestDoneTimeCmd;
+    extern const String GetTestNamesCmd;
+    extern const String GetVersionCmd;
 
     // Ranges for output voltage
     extern const VoltRange VoltRange1V; 

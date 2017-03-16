@@ -4,6 +4,8 @@
 
 namespace ps
 { 
+    const String FirmwareVersion = String("0.0.0");
+
     // Serial parameters
     const uint32_t UsbSerialBaudrate = 115200;
     const uint32_t JsonFloatDecimals = 5;
@@ -36,6 +38,9 @@ namespace ps
     const String DeviceIdKey = String("deviceId");
     const String SamplePeriodKey = String("samplePeriod");
     const String TestDoneTimeKey = String("testDoneTime");
+    const String StepArrayKey = String("step");
+    const String TestNameArrayKey = String("testNames");
+    const String VersionKey = String("version");
 
     // Json command strings
     const String RunTestCmd = String("runTest");
@@ -54,6 +59,8 @@ namespace ps
     const String SetSamplePeriodCmd = String("setSamplePeriod");
     const String GetSamplePeriodCmd = String("getSamplePeriod");
     const String GetTestDoneTimeCmd = String("getTestDoneTime");
+    const String GetTestNamesCmd = String("getTestNames");
+    const String GetVersionCmd = String("getVersion");
 
     // Ranges for output voltage
     const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);

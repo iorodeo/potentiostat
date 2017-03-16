@@ -4,7 +4,7 @@ import time
 import json
 import atexit
 import contextlib
-#import progressbar
+import progressbar
 
 
 # Json message keys
@@ -22,6 +22,9 @@ CurrRangeKey = 'currRange'
 DeviceIdKey = 'deviceId'
 SamplePeriodKey = 'samplePeriod'
 TestDoneTimeKey = 'testDoneTime'
+StepArrayKey = 'step'
+TestNameArrayKey = 'testNames'
+VersionKey = 'version'
 
 # Commands
 RunTestCmd  = 'runTest'
@@ -40,6 +43,8 @@ SetDeviceIdCmd = 'setDeviceId'
 GetSamplePeriodCmd = 'getSamplePeriod'
 SetSamplePeriodCmd = 'setSamplePeriod'
 GetTestDoneTimeCmd = 'getTestDoneTime'
+GetTestNamesCmd = 'getTestNames'
+GetVersionCmd = 'getVersion'
 
 # Voltage ranges
 VoltRange1V = '1V'
@@ -63,6 +68,7 @@ HwVariantToCurrRangeList = {
         'nanoAmp': CurrRangeListNanoAmp
         }
 
+TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
 
 class Potentiostat(serial.Serial):
     
@@ -89,15 +95,32 @@ class Potentiostat(serial.Serial):
 
     def run_test(self, testname, timeunit='s', display='pbar', filename=None):
 
+        if timeunit not in TimeUnitToScale:
+            raise RuntimeError('uknown timeunit option {0}'.format(timeunit))
+
+        if display not in (None, 'pbar', 'data'):
+            raise RuntimeError('uknown display option {0}'.format(display))
+
+        if display in ('pbar', 'data'):
+            print_test_info = True
+
+        if print_test_info:
+            print()
+            print('test: {0}'.format(testname))
+            print()
+
+        test_done_tval = self.get_test_done_time(testname, timeunit=timeunit)
+
+        if display == 'pbar':
+            widgets = [progressbar.Percentage(),progressbar.Bar()]
+            pbar = progressbar.ProgressBar(widgets=widgets,maxval=test_done_tval)
+            pbar.start()
+
         cmd_dict = {CommandKey: RunTestCmd, TestKey: testname}
         msg_dict = self.send_cmd(cmd_dict)
 
-        #if display == 'pbar':
-        #    widgets = [progressbar.Percentage(),progressbar.Bar()]
-        #    pbar = progressbar.ProgressBar(widgets=widgets )
-
         done = False
-        tsec_list = [] 
+        tval_list = [] 
         volt_list = [] 
         curr_list = []
 
@@ -110,22 +133,26 @@ class Potentiostat(serial.Serial):
                 sample_json = sample_json.strip()
                 sample_dict = json.loads(sample_json)
                 if len(sample_dict) > 0:
-                    tsec = millisecondToSecond(sample_dict[TimeKey])
+                    tval = sample_dict[TimeKey]*TimeUnitToScale[timeunit]
                     volt = sample_dict[VoltKey]
                     curr = sample_dict[CurrKey]
-                    tsec_list.append(tsec)
+                    tval_list.append(tval)
                     volt_list.append(volt)
                     curr_list.append(curr)
                     if display == 'data':
-                        print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tsec,volt,curr))
-                    #if display == 'pbar':
-                    #    pass
+                        print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tval,volt,curr))
+                    if display == 'pbar':
+                        pbar.update(tval)
                     if fid is not None:
-                        fid.write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tsec,volt,curr))
+                        fid.write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tval,volt,curr))
                 else:
                     done = True
 
-        return tsec_list, volt_list, curr_list 
+        if print_test_info:
+            print()
+            print()
+
+        return tval_list, volt_list, curr_list 
 
     def stop_test(self):
         cmd_dict = {CommandKey: StopTestCmd}
@@ -204,15 +231,28 @@ class Potentiostat(serial.Serial):
         return msg_dict[ResponseKey][SamplePeriodKey]
 
     def set_sample_rate(self,sample_rate):
-        pass
+        sample_period = int(1.0e3/sample_rate)
+        return self.set_sample_period(sample_period)
 
     def get_sample_rate(self):
-        pass
+        sample_period = self.get_sample_period()
+        sample_rate = 1.0e3/sample_period
+        return sample_rate
 
-    def get_test_done_time(self, test):
+    def get_test_done_time(self, test, timeunit='ms'):
         cmd_dict = {CommandKey: GetTestDoneTimeCmd, TestKey: test}
         msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][TestDoneTimeKey]
+        return msg_dict[ResponseKey][TestDoneTimeKey]*TimeUnitToScale[timeunit]
+
+    def get_test_names(self):
+        cmd_dict = {CommandKey: GetTestNamesCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][TestNameArrayKey]
+
+    def get_version(self):
+        cmd_dict = {CommandKey: GetVersionCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][VersionKey]
 
     def send_cmd(self,cmd_dict):
         cmd_json = json.dumps(cmd_dict)

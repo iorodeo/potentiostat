@@ -36,6 +36,8 @@ namespace ps
         commandTable_.registerMethod(CommandKey,   SetSamplePeriodCmd,  &SystemState::onCommandSetSamplePeriod);
         commandTable_.registerMethod(CommandKey,   GetSamplePeriodCmd,  &SystemState::onCommandGetSamplePeriod);
         commandTable_.registerMethod(CommandKey,   GetTestDoneTimeCmd,  &SystemState::onCommandGetTestDoneTime);
+        commandTable_.registerMethod(CommandKey,   GetTestNamesCmd,     &SystemState::onCommandGetTestNames);
+        commandTable_.registerMethod(CommandKey,   GetVersionCmd,       &SystemState::onCommandGetVersion);
 
         analogSubsystem_.initialize();
         analogSubsystem_.setVolt(0.0);
@@ -226,7 +228,6 @@ namespace ps
                 }
             }
         }
-
         return status;
     }
 
@@ -246,6 +247,21 @@ namespace ps
         return status;
     }
 
+
+    ReturnStatus SystemState::onCommandGetTestNames(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        status = voltammetry_.getTestNames(jsonMsg, jsonDat);
+        return status;
+    }
+
+
+    ReturnStatus SystemState::onCommandGetVersion(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        jsonDat.set(VersionKey,FirmwareVersion);
+        return status;
+    }
 
     void SystemState::updateMessageData()
     {
