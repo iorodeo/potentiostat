@@ -13,15 +13,15 @@ dev.set_hardware_variant(hw_variant)
 dev.set_curr_range(curr_range)
 dev.set_sample_period(10)
 
-if 1:
+if 0:
     testname = 'cyclic'
     testparam = {
-            'quietValue' : -0.5,
-            'quietTime'  : 1000,
+            'quietValue' : 0.0,
+            'quietTime'  : 0,
             'amplitude'  : 1.0,
             'offset'     : 0.0,
-            'period'     : 1000,
-            'numCycles'  : 2,
+            'period'     : 3000,
+            'numCycles'  : 3,
             'shift'      : 0.0,
             }
 
@@ -33,17 +33,37 @@ if 0:
             'value'      : 1.0,
             'duration'   : 5000,
             }
+if 1:
+    testname = 'multiStep'
+    step = []
+    for i in range(0,10):
+        step.append((1000,round(0.2*(i+1),5)))
+        step.append((1000,-round(0.2*(i+1),5)))
+    
+    testparam = {
+            'quietValue' : 0.0,
+            'quietTime'  : 1000,
+            'step'       : step,
+            }
+
+    
 
 dev.set_param(testname,testparam)
 
 t,volt,curr = dev.run_test(testname,display='pbar')
 
+#print()
+#print('curr_range: {0}'.format(dev.get_curr_range()))
+
 t = scipy.array(t)
 volt = scipy.array(volt)
 curr = scipy.array(curr)
 
-#print()
-#print('curr_range: {0}'.format(dev.get_curr_range()))
+#mask = t >= testparam['quietTime']*1.0e-3
+#t = t[mask]
+#volt = volt[mask]
+#curr = curr[mask]
+
 
 if dev.get_hardware_variant() == 'nanoAmp':
     curr = 1.0e3*curr
@@ -75,7 +95,6 @@ yaxis_min = curr.min() - 0.1*scipy.absolute(curr.min())
 yaxis_max = curr.max() + 0.1*scipy.absolute(curr.max())
 plt.ylim(yaxis_min, yaxis_max)
 plt.grid('on')
-
 
 plt.figure(2)
 plt.plot(volt,curr)

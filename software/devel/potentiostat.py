@@ -81,9 +81,10 @@ class Potentiostat(serial.Serial):
         super(Potentiostat,self).__init__(port,**params)
         time.sleep(self.ResetSleepDt)
         self.hw_variant = 'normal' 
-        atexit.register(self.stop_test)
+        atexit.register(self.atexit_cleanup)
         while self.inWaiting() > 0:
             val = self.read()
+
 
     def set_hardware_variant(self,variant):
         if not variant in HwVariantToCurrRangeList:
@@ -94,24 +95,24 @@ class Potentiostat(serial.Serial):
         return self.hw_variant
 
     def run_test(self, testname, timeunit='s', display='pbar', filename=None):
-
+        
         if timeunit not in TimeUnitToScale:
             raise RuntimeError('uknown timeunit option {0}'.format(timeunit))
-
         if display not in (None, 'pbar', 'data'):
             raise RuntimeError('uknown display option {0}'.format(display))
 
         if display in ('pbar', 'data'):
             print_test_info = True
+        else:
+            print_test_info = False
 
         if print_test_info:
             print()
             print('test: {0}'.format(testname))
             print()
 
-        test_done_tval = self.get_test_done_time(testname, timeunit=timeunit)
-
         if display == 'pbar':
+            test_done_tval = self.get_test_done_time(testname, timeunit=timeunit)
             widgets = [progressbar.Percentage(),progressbar.Bar()]
             pbar = progressbar.ProgressBar(widgets=widgets,maxval=test_done_tval)
             pbar.start()
@@ -124,33 +125,40 @@ class Potentiostat(serial.Serial):
         volt_list = [] 
         curr_list = []
 
-        none_context = contextlib.contextmanager(lambda: iter([None]))()
+        if filename is not None:
+            fid = open(filename,'w')
 
-        with (open(filename,'w') if filename is not None else none_context) as fid:
+        while not done:
 
-            while not done:
-                sample_json = self.readline()
-                sample_json = sample_json.strip()
-                sample_dict = json.loads(sample_json)
-                if len(sample_dict) > 0:
-                    tval = sample_dict[TimeKey]*TimeUnitToScale[timeunit]
-                    volt = sample_dict[VoltKey]
-                    curr = sample_dict[CurrKey]
-                    tval_list.append(tval)
-                    volt_list.append(volt)
-                    curr_list.append(curr)
-                    if display == 'data':
-                        print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tval,volt,curr))
-                    if display == 'pbar':
-                        pbar.update(tval)
-                    if fid is not None:
-                        fid.write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tval,volt,curr))
-                else:
-                    done = True
+            # Get dat from device
+            sample_json = self.readline()
+            sample_json = sample_json.strip()
+            sample_dict = json.loads(sample_json)
+
+            if len(sample_dict) > 0:
+                tval = sample_dict[TimeKey]*TimeUnitToScale[timeunit]
+                volt = sample_dict[VoltKey]
+                curr = sample_dict[CurrKey]
+                tval_list.append(tval)
+                volt_list.append(volt)
+                curr_list.append(curr)
+                # Write data to file
+                if filename is not None:
+                    fid.write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tval,volt,curr))
+                # Handle diplay options
+                if display == 'data':
+                    print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tval,volt,curr))
+                elif display == 'pbar':
+                    pbar.update(tval)
+            else:
+                done = True
 
         if print_test_info:
             print()
             print()
+
+        if filename is not None:
+            fid.close()
 
         return tval_list, volt_list, curr_list 
 
@@ -284,6 +292,9 @@ class Potentiostat(serial.Serial):
         test_recv = msg_dict[ResponseKey][TestKey]
         if test_recv != test_sent:
             raise IOError('testname sent, {0}, not same as received, {1}'.format(test_sent,test_recv))
+
+    def atexit_cleanup(self):
+        self.stop_test()
 
 
 # Utility functions
