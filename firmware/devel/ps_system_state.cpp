@@ -1,5 +1,6 @@
 #include "ps_system_state.h"
 #include "ps_device_id_eeprom.h"
+#include "util/atomic.h"
 
 
 namespace ps
@@ -299,22 +300,33 @@ namespace ps
     void SystemState::serviceDataBuffer()
     {
         // Check for last sample flag to see if done
-        bool done = false;
+        bool run_complete = false;
         if (lastSampleFlag_)
         {
-            done = true;
+            run_complete = true;
         }
 
-        // Extract data from buffer and send
-        while (dataBuffer_.size() > 0)
+        // Empty data buffer
+        size_t buffer_size;
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
         {
-            Sample sample = dataBuffer_.front();
-            dataBuffer_.pop_front();
+            buffer_size = dataBuffer_.size();
+        }
+
+        while (buffer_size > 0)
+        {
+            Sample sample;
+            ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+            {
+                sample = dataBuffer_.front();
+                dataBuffer_.pop_front();
+                buffer_size = dataBuffer_.size();
+            }
             messageSender_.sendSample(sample);
         }
 
-        // Send indication the run it done
-        if (done)
+        // Send indication that the run is complete 
+        if (run_complete)
         {
             messageSender_.sendSampleEnd();
             lastSampleFlag_ = false;
