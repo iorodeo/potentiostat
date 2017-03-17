@@ -24,11 +24,11 @@ namespace ps
 
             if (s < halfPeriod) 
             {
-                value = (2.0*amplitude_*s)/period_ + offset_ - 0.5*amplitude_;
+                value = (4.0*amplitude_*s)/period_ + offset_ - amplitude_;
             }
             else
             {
-                value = (2.0*amplitude_*(period_ - s))/period_ + offset_ - 0.5*amplitude_;
+                value = (4.0*amplitude_*(period_ - s))/period_ + offset_ - amplitude_;
             }
         }
         return value;

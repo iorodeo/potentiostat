@@ -83,7 +83,7 @@ namespace ps
     const CurrRange CurrRange10uA("10uA", -10.0, 10.0, CurrGainPathIn2, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange100uA("100uA", -100.0, 100.0, CurrGainPathIn3, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange1000uA("1000uA", -1000.0, 1000.0, CurrGainPathIn4, AnalogSubsystem::MaxValueAin); 
-    CurrRange currRangeArrayTmp[NumCurrRange] = {CurrRange1uA,CurrRange10uA, CurrRange100uA, CurrRange1000uA};
+    CurrRange currRangeArrayTmp[NumCurrRange] = {CurrRange1uA, CurrRange10uA, CurrRange100uA, CurrRange1000uA};
 #endif
 
     Array<CurrRange,NumCurrRange>  CurrRangeArray(currRangeArrayTmp);
@@ -92,7 +92,7 @@ namespace ps
     // Timer parameters
     const uint32_t TestTimerPeriod = 200;                // us
     const uint32_t DefaultSamplePeriod = 10000;          // us
-    extern const uint32_t MinimumSamplePeriod = 2499;    // us
+    extern const uint32_t MinimumSamplePeriod = 1000;    // us
     extern const uint32_t MaximumSamplePeriod = 1000000; // us
 
     // Low pass filter params for current samples

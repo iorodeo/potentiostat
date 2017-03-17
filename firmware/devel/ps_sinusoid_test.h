@@ -14,13 +14,9 @@ namespace ps
             static constexpr uint32_t LookupTableSize = 300;
 
             SinusoidTest();
-
             virtual void setAmplitude(float amplitude) override;
-
             virtual void setOffset(float offset) override;
-
             virtual float getValue(uint64_t t) const override;
-
             void updateLookupTable();
 
         protected:

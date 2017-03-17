@@ -102,14 +102,12 @@ class Potentiostat(serial.Serial):
             raise RuntimeError('uknown display option {0}'.format(display))
 
         if display in ('pbar', 'data'):
-            print_test_info = True
-        else:
-            print_test_info = False
-
-        if print_test_info:
             print()
             print('test: {0}'.format(testname))
             print()
+            display_print = True
+        else:
+            display_print = False
 
         if display == 'pbar':
             test_done_tval = self.get_test_done_time(testname, timeunit=timeunit)
@@ -117,10 +115,6 @@ class Potentiostat(serial.Serial):
             pbar = progressbar.ProgressBar(widgets=widgets,maxval=test_done_tval)
             pbar.start()
 
-        cmd_dict = {CommandKey: RunTestCmd, TestKey: testname}
-        msg_dict = self.send_cmd(cmd_dict)
-
-        done = False
         tval_list = [] 
         volt_list = [] 
         curr_list = []
@@ -128,6 +122,10 @@ class Potentiostat(serial.Serial):
         if filename is not None:
             fid = open(filename,'w')
 
+        cmd_dict = {CommandKey: RunTestCmd, TestKey: testname}
+        msg_dict = self.send_cmd(cmd_dict)
+
+        done = False
         while not done:
 
             # Get dat from device
@@ -153,7 +151,7 @@ class Potentiostat(serial.Serial):
             else:
                 done = True
 
-        if print_test_info:
+        if display_print:
             print()
             print()
 
@@ -278,8 +276,13 @@ class Potentiostat(serial.Serial):
             self.check_test_match(cmd_dict,msg_dict)
 
     def check_for_success(self,msg_dict):
-        if not msg_dict[SuccessKey]: 
-            raise IOError('{0}, {1}'.format(msg_dict[MessageKey],msg_dict))
+        try: 
+            success = msg_dict[SuccessKey] 
+        except KeyError:
+            print('msg_dict: {0}'.format(msg_dict))
+            raise IOError('json key {0} missing'.format(SuccessKey))
+        if not success: 
+            raise IOError('{0}, {1}'.format(msg_dict[MessageKey], msg_dict))
 
     def check_cmd_match(self,cmd_dict,msg_dict):
         cmd_sent = cmd_dict[CommandKey]

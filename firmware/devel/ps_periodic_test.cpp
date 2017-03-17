@@ -112,13 +112,13 @@ namespace ps
 
     float PeriodicTest::getMaxValue() const
     {
-        return offset_ + 0.5*amplitude_;
+        return offset_ + amplitude_;
     }
 
 
     float PeriodicTest::getMinValue() const
     {
-        return offset_ - 0.5*amplitude_;
+        return offset_ - amplitude_;
     }
 
 

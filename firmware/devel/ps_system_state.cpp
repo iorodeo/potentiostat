@@ -298,6 +298,13 @@ namespace ps
 
     void SystemState::serviceDataBuffer()
     {
+        // Check for last sample flag to see if done
+        bool done = false;
+        if (lastSampleFlag_)
+        {
+            done = true;
+        }
+
         // Extract data from buffer and send
         while (dataBuffer_.size() > 0)
         {
@@ -306,7 +313,8 @@ namespace ps
             messageSender_.sendSample(sample);
         }
 
-        if (lastSampleFlag_)
+        // Send indication the run it done
+        if (done)
         {
             messageSender_.sendSampleEnd();
             lastSampleFlag_ = false;
