@@ -1,7 +1,7 @@
 from __future__ import print_function
 from potentiostat import Potentiostat
-import matplotlib.pyplot as plt
-import scipy
+#import matplotlib.pyplot as plt
+#import scipy
 
 #hw_variant = 'nanoAmp'
 hw_variant = 'normal'
@@ -62,7 +62,7 @@ if 0:
 
 dev.set_param(testname,testparam)
 
-if 0:
+if 1:
     t,volt,curr = dev.run_test(testname,display='pbar')
 else:
     for i in range(100):

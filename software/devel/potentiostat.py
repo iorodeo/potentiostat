@@ -131,7 +131,7 @@ class Potentiostat(serial.Serial):
             # Get dat from device
             sample_json = self.readline()
             sample_json = sample_json.strip()
-            sample_dict = json.loads(sample_json)
+            sample_dict = json.loads(sample_json.decode())
 
             if len(sample_dict) > 0:
                 tval = sample_dict[TimeKey]*TimeUnitToScale[timeunit]
@@ -261,11 +261,11 @@ class Potentiostat(serial.Serial):
         return msg_dict[ResponseKey][VersionKey]
 
     def send_cmd(self,cmd_dict):
-        cmd_json = json.dumps(cmd_dict)
-        self.write(cmd_json + '\n')
+        cmd_json = json.dumps(cmd_dict) + '\n'
+        self.write(cmd_json.encode())
         msg_json = self.readline()
         msg_json = msg_json.strip()
-        msg_dict = json.loads(msg_json)
+        msg_dict = json.loads(msg_json.decode())
         self.check_cmd_msg(cmd_dict,msg_dict)
         return msg_dict
 
