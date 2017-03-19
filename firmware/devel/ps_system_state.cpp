@@ -39,6 +39,7 @@ namespace ps
         commandTable_.registerMethod(CommandKey,   GetTestDoneTimeCmd,  &SystemState::onCommandGetTestDoneTime);
         commandTable_.registerMethod(CommandKey,   GetTestNamesCmd,     &SystemState::onCommandGetTestNames);
         commandTable_.registerMethod(CommandKey,   GetVersionCmd,       &SystemState::onCommandGetVersion);
+        commandTable_.registerMethod(CommandKey,   GetVariantCmd,       &SystemState::onCommandGetVariant);
 
         analogSubsystem_.initialize();
         analogSubsystem_.setVolt(0.0);
@@ -263,6 +264,15 @@ namespace ps
         jsonDat.set(VersionKey,FirmwareVersion);
         return status;
     }
+
+
+    ReturnStatus SystemState::onCommandGetVariant(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        jsonDat.set(VariantKey,HardwareVariant);
+        return status;
+    }
+
 
     void SystemState::updateMessageData()
     {

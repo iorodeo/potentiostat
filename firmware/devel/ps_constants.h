@@ -10,6 +10,7 @@
 namespace ps
 {
     extern const String FirmwareVersion;
+    extern const String HardwareVariant;
 
     // Command tabe parameters
     const uint32_t CommandTableMaxSize = 20;
@@ -55,6 +56,7 @@ namespace ps
     extern const String StepArrayKey;
     extern const String TestNameArrayKey;
     extern const String VersionKey;
+    extern const String VariantKey;
 
     // Json command strings
     extern const String RunTestCmd;
@@ -75,6 +77,7 @@ namespace ps
     extern const String GetTestDoneTimeCmd;
     extern const String GetTestNamesCmd;
     extern const String GetVersionCmd;
+    extern const String GetVariantCmd;
 
     // Ranges for output voltage
     extern const VoltRange VoltRange1V; 

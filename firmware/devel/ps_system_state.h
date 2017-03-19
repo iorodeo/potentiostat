@@ -47,6 +47,7 @@ namespace ps
             ReturnStatus onCommandGetTestDoneTime(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetTestNames(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetVersion(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetVariant(JsonObject &jsonMsg, JsonObject &jsonDat);
 
             void startTest();
             void stopTest();

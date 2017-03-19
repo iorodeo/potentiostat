@@ -25,6 +25,7 @@ TestDoneTimeKey = 'testDoneTime'
 StepArrayKey = 'step'
 TestNameArrayKey = 'testNames'
 VersionKey = 'version'
+VariantKey = 'variant'
 
 # Commands
 RunTestCmd  = 'runTest'
@@ -45,6 +46,7 @@ SetSamplePeriodCmd = 'setSamplePeriod'
 GetTestDoneTimeCmd = 'getTestDoneTime'
 GetTestNamesCmd = 'getTestNames'
 GetVersionCmd = 'getVersion'
+GetVariantCmd = 'getVariant'
 
 # Voltage ranges
 VoltRange1V = '1V'
@@ -62,10 +64,10 @@ CurrRange100uA = '100uA'
 CurrRange1000uA = '1000uA'
 
 CurrRangeListNanoAmp = [CurrRange1uA, CurrRange10uA, CurrRange100nA, CurrRange60nA]
-CurrRangeListNormal = [CurrRange1uA, CurrRange10uA, CurrRange100uA, CurrRange1000uA]
+CurrRangeListMicroAmp = [CurrRange1uA, CurrRange10uA, CurrRange100uA, CurrRange1000uA]
 HwVariantToCurrRangeList = {
-        'normal' :CurrRangeListNormal, 
-        'nanoAmp': CurrRangeListNanoAmp
+        'microAmp' :  CurrRangeListMicroAmp, 
+        'nanoAmp'  :  CurrRangeListNanoAmp
         }
 
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
@@ -80,10 +82,10 @@ class Potentiostat(serial.Serial):
         params = {'baudrate': self.Baudrate, 'timeout': self.Timeout}
         super(Potentiostat,self).__init__(port,**params)
         time.sleep(self.ResetSleepDt)
-        self.hw_variant = 'normal' 
         atexit.register(self.atexit_cleanup)
         while self.inWaiting() > 0:
             val = self.read()
+        self.hw_variant = self.get_hardware_variant()
 
 
     def set_hardware_variant(self,variant):
@@ -91,8 +93,131 @@ class Potentiostat(serial.Serial):
             raise RuntimeError('unknown hardware variant, {0}'.format(variant))
         self.hw_variant = variant
 
+
     def get_hardware_variant(self):
-        return self.hw_variant
+        cmd_dict = {CommandKey: GetVariantCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][VariantKey]
+
+
+    def stop_test(self):
+        cmd_dict = {CommandKey: StopTestCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+
+
+    def get_volt(self):
+        cmd_dict = {CommandKey: GetVoltCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        volt = msg_dict[ResponseKey][VoltKey]
+        return volt
+
+
+    def set_volt(self,volt):
+        cmd_dict = {CommandKey: SetVoltCmd, VoltKey: volt}
+        msg_dict = self.send_cmd(cmd_dict)
+        volt = msg_dict[ResponseKey][VoltKey]
+        return volt
+
+
+    def get_curr(self):
+        cmd_dict = {CommandKey: GetCurrCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        curr = msg_dict[ResponseKey][CurrKey]
+        return curr
+
+
+    def get_param(self,testname):
+        cmd_dict = {CommandKey: GetParamCmd, TestKey: testname} 
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ParamKey]
+
+
+    def set_param(self,testname,param):
+        cmd_dict = {CommandKey: SetParamCmd, TestKey: testname, ParamKey: param}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ParamKey]
+
+
+    def set_volt_range(self,volt_range):
+        if not volt_range in VoltRangeList:
+            raise ValueError('unknown voltage range')
+        cmd_dict = {CommandKey: SetVoltRangeCmd, VoltRangeKey: volt_range}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][VoltRangeKey]
+
+
+    def get_volt_range(self):
+        cmd_dict = {CommandKey: GetVoltRangeCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][VoltRangeKey]
+
+
+    def set_curr_range(self,curr_range):
+        if not curr_range in HwVariantToCurrRangeList[self.hw_variant]:
+            raise ValueError('unknown current range')
+        cmd_dict = {CommandKey: SetCurrRangeCmd, CurrRangeKey: curr_range}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][CurrRangeKey]
+
+
+    def get_curr_range(self):
+        cmd_dict = {CommandKey: GetCurrRangeCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][CurrRangeKey]
+
+
+    def set_device_id(self,device_id):
+        cmd_dict = {CommandKey: SetDeviceIdCmd, DeviceIdKey: device_id}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][DeviceIdKey]
+
+
+    def get_device_id(self):
+        cmd_dict = {CommandKey: GetDeviceIdCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][DeviceIdKey]
+
+
+    def set_sample_period(self,sample_period):
+        cmd_dict = {CommandKey: SetSamplePeriodCmd, SamplePeriodKey: sample_period}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][SamplePeriodKey]
+
+
+    def get_sample_period(self):
+        cmd_dict = {CommandKey: GetSamplePeriodCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][SamplePeriodKey]
+
+
+    def set_sample_rate(self,sample_rate):
+        sample_period = int(1.0e3/sample_rate)
+        return self.set_sample_period(sample_period)
+
+
+    def get_sample_rate(self):
+        sample_period = self.get_sample_period()
+        sample_rate = 1.0e3/sample_period
+        return sample_rate
+
+
+    def get_test_done_time(self, test, timeunit='ms'):
+        cmd_dict = {CommandKey: GetTestDoneTimeCmd, TestKey: test}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][TestDoneTimeKey]*TimeUnitToScale[timeunit]
+
+
+    def get_test_names(self):
+        cmd_dict = {CommandKey: GetTestNamesCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][TestNameArrayKey]
+
+
+    def get_version(self):
+        cmd_dict = {CommandKey: GetVersionCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][VersionKey]
+
 
     def run_test(self, testname, timeunit='s', display='pbar', filename=None):
         
@@ -160,105 +285,6 @@ class Potentiostat(serial.Serial):
 
         return tval_list, volt_list, curr_list 
 
-    def stop_test(self):
-        cmd_dict = {CommandKey: StopTestCmd}
-        msg_dict = self.send_cmd(cmd_dict)
-
-    def get_volt(self):
-        cmd_dict = {CommandKey: GetVoltCmd}
-        msg_dict = self.send_cmd(cmd_dict)
-        volt = msg_dict[ResponseKey][VoltKey]
-        return volt
-
-    def set_volt(self,volt):
-        cmd_dict = {CommandKey: SetVoltCmd, VoltKey: volt}
-        msg_dict = self.send_cmd(cmd_dict)
-        volt = msg_dict[ResponseKey][VoltKey]
-        return volt
-
-    def get_curr(self):
-        cmd_dict = {CommandKey: GetCurrCmd}
-        msg_dict = self.send_cmd(cmd_dict)
-        curr = msg_dict[ResponseKey][CurrKey]
-        return curr
-
-    def get_param(self,testname):
-        cmd_dict = {CommandKey: GetParamCmd, TestKey: testname} 
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][ParamKey]
-
-    def set_param(self,testname,param):
-        cmd_dict = {CommandKey: SetParamCmd, TestKey: testname, ParamKey: param}
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][ParamKey]
-
-    def set_volt_range(self,volt_range):
-        if not volt_range in VoltRangeList:
-            raise ValueError('unknown voltage range')
-        cmd_dict = {CommandKey: SetVoltRangeCmd, VoltRangeKey: volt_range}
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][VoltRangeKey]
-
-    def get_volt_range(self):
-        cmd_dict = {CommandKey: GetVoltRangeCmd}
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][VoltRangeKey]
-
-    def set_curr_range(self,curr_range):
-        if not curr_range in HwVariantToCurrRangeList[self.hw_variant]:
-            raise ValueError('unknown current range')
-        cmd_dict = {CommandKey: SetCurrRangeCmd, CurrRangeKey: curr_range}
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][CurrRangeKey]
-
-    def get_curr_range(self):
-        cmd_dict = {CommandKey: GetCurrRangeCmd}
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][CurrRangeKey]
-
-    def set_device_id(self,device_id):
-        cmd_dict = {CommandKey: SetDeviceIdCmd, DeviceIdKey: device_id}
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][DeviceIdKey]
-
-    def get_device_id(self):
-        cmd_dict = {CommandKey: GetDeviceIdCmd}
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][DeviceIdKey]
-
-    def set_sample_period(self,sample_period):
-        cmd_dict = {CommandKey: SetSamplePeriodCmd, SamplePeriodKey: sample_period}
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][SamplePeriodKey]
-
-    def get_sample_period(self):
-        cmd_dict = {CommandKey: GetSamplePeriodCmd}
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][SamplePeriodKey]
-
-    def set_sample_rate(self,sample_rate):
-        sample_period = int(1.0e3/sample_rate)
-        return self.set_sample_period(sample_period)
-
-    def get_sample_rate(self):
-        sample_period = self.get_sample_period()
-        sample_rate = 1.0e3/sample_period
-        return sample_rate
-
-    def get_test_done_time(self, test, timeunit='ms'):
-        cmd_dict = {CommandKey: GetTestDoneTimeCmd, TestKey: test}
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][TestDoneTimeKey]*TimeUnitToScale[timeunit]
-
-    def get_test_names(self):
-        cmd_dict = {CommandKey: GetTestNamesCmd}
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][TestNameArrayKey]
-
-    def get_version(self):
-        cmd_dict = {CommandKey: GetVersionCmd}
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][VersionKey]
 
     def send_cmd(self,cmd_dict):
         cmd_json = json.dumps(cmd_dict) + '\n'
@@ -269,11 +295,13 @@ class Potentiostat(serial.Serial):
         self.check_cmd_msg(cmd_dict,msg_dict)
         return msg_dict
 
+
     def check_cmd_msg(self,cmd_dict,msg_dict):
         self.check_for_success(msg_dict)
         self.check_cmd_match(cmd_dict,msg_dict)
         if TestKey in cmd_dict:
             self.check_test_match(cmd_dict,msg_dict)
+
 
     def check_for_success(self,msg_dict):
         try: 
@@ -284,11 +312,13 @@ class Potentiostat(serial.Serial):
         if not success: 
             raise IOError('{0}, {1}'.format(msg_dict[MessageKey], msg_dict))
 
+
     def check_cmd_match(self,cmd_dict,msg_dict):
         cmd_sent = cmd_dict[CommandKey]
         cmd_recv = msg_dict[ResponseKey][CommandKey]
         if cmd_recv != cmd_sent: 
             raise IOError('command sent, {0}, not same as received, {1}'.format(cmd_sent, cmd_recv))
+
 
     def check_test_match(self,cmd_dict,msg_dict): 
         test_sent = cmd_dict[TestKey]
@@ -296,18 +326,12 @@ class Potentiostat(serial.Serial):
         if test_recv != test_sent:
             raise IOError('testname sent, {0}, not same as received, {1}'.format(test_sent,test_recv))
 
+
     def atexit_cleanup(self):
         self.stop_test()
 
 
-# Utility functions
-# ---------------------------------------------------------------------------------------
 
-def millisecondToSecond(value):
-    return 1.0e-3*value
-
-def secondToMillisecond(value):
-    return int(1.0e3*value)
 
 
 

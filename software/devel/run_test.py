@@ -3,15 +3,14 @@ from potentiostat import Potentiostat
 #import matplotlib.pyplot as plt
 #import scipy
 
-#hw_variant = 'nanoAmp'
-hw_variant = 'normal'
 curr_range = '1000uA'
 
 port = '/dev/ttyACM0'
 dev = Potentiostat(port)
-dev.set_hardware_variant(hw_variant)
 dev.set_curr_range(curr_range)
 dev.set_sample_period(10)
+
+print('hardware variant: ', dev.get_hardware_variant())
 
 if 1:
     testname = 'cyclic'
