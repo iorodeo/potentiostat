@@ -5,7 +5,5 @@ syntax: glob
 *.bak
 *cache.lib
 *.pyc
-docs/gas_and_particulate/_build
-docs/particulate_only/_build
-notes/alphasense_calibration/build
-firmware/tests/methane_test/wifi_pass_temp.h
+*.egg-info
+__pycache__

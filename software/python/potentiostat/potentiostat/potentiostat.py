@@ -86,12 +86,7 @@ class Potentiostat(serial.Serial):
         while self.inWaiting() > 0:
             val = self.read()
         self.hw_variant = self.get_hardware_variant()
-
-
-    def set_hardware_variant(self,variant):
-        if not variant in HwVariantToCurrRangeList:
-            raise RuntimeError('unknown hardware variant, {0}'.format(variant))
-        self.hw_variant = variant
+        self.test_running = False
 
 
     def get_hardware_variant(self):
@@ -213,7 +208,7 @@ class Potentiostat(serial.Serial):
         return msg_dict[ResponseKey][TestNameArrayKey]
 
 
-    def get_version(self):
+    def get_firmware_version(self):
         cmd_dict = {CommandKey: GetVersionCmd}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][VersionKey]
@@ -249,6 +244,8 @@ class Potentiostat(serial.Serial):
 
         cmd_dict = {CommandKey: RunTestCmd, TestKey: testname}
         msg_dict = self.send_cmd(cmd_dict)
+        self.test_running = True
+
 
         done = False
         while not done:
@@ -275,6 +272,8 @@ class Potentiostat(serial.Serial):
                     pbar.update(tval)
             else:
                 done = True
+
+        self.test_running = False
 
         if display_print:
             print()
@@ -328,7 +327,8 @@ class Potentiostat(serial.Serial):
 
 
     def atexit_cleanup(self):
-        self.stop_test()
+        if self.isOpen() and self.test_running:
+            self.stop_test()
 
 
 
