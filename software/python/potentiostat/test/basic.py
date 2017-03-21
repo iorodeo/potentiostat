@@ -1,10 +1,10 @@
 from __future__ import print_function
 import unittest
 import potentiostat
-import sys
 import time
+import sys
 
-class TestBasic(unittest.TestCase):
+class Basic(unittest.TestCase):
 
     def setUp(self):
         self.dev = potentiostat.Potentiostat(PORT)
@@ -126,13 +126,6 @@ class TestBasic(unittest.TestCase):
 
     def test_get_firmware_version(self):
         ver = self.dev.get_firmware_version()
-
-
-    #def test_run_test(self):
-    #    test_names = self.dev.get_test_names()
-    #    for name in test_names:
-    #        t,volt,curr = self.dev.run_test(name,display=None)
-
 
 
 if __name__ == '__main__':
