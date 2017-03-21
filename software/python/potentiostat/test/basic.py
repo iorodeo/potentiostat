@@ -132,8 +132,11 @@ if __name__ == '__main__':
 
     if (len(sys.argv) > 1):
         PORT = sys.argv[1]
+        del sys.argv[1]
     else:
         PORT = '/dev/ttyACM0'
+
+
     unittest.main()
     
 
