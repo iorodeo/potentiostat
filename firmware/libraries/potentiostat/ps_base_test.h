@@ -1,8 +1,10 @@
 #ifndef PS_BASE_TEST_H
 #define PS_BASE_TEST_H
+
 #include <Arduino.h>
-#include "ArduinoJson.h"
 #include "ps_return_status.h"
+
+#include "third-party/ArduinoJson/ArduinoJson.h"
 
 namespace ps
 {

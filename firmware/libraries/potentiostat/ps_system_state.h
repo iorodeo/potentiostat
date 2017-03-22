@@ -1,7 +1,7 @@
 #ifndef PS_SYSTEM_STATE_H
 #define PS_SYSTEM_STATE_H
+
 #include <Arduino.h>
-#include "ArduinoJson.h"
 #include "ps_constants.h"
 #include "ps_return_status.h"
 #include "ps_analog_subsystem.h"
@@ -13,6 +13,8 @@
 #include "ps_voltammetry.h"
 #include "ps_sample.h"
 #include "ps_filter.h"
+
+#include "third-party/ArduinoJson/ArduinoJson.h"
 
 namespace ps
 {

@@ -1,5 +1,6 @@
 #ifndef PS_CONSTANT_TEST_H
 #define PS_CONSTANT_TEST_H
+
 #include "ps_base_test.h"
 
 namespace ps

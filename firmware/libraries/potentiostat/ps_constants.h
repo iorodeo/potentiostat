@@ -1,9 +1,11 @@
 #ifndef PS_CONSTANTS_H
 #define PS_CONSTANTS_H
+
 #include "ps_volt_range.h"
 #include "ps_curr_range.h"
 #include "ps_filter.h"
-#include "Array.h"
+
+#include "third-party/Array/Array.h"
 
 //#define HARDWARE_VARIANT_NANO_AMP
 

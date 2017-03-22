@@ -1,7 +1,8 @@
 #ifndef PS_CIRCULAR_BUFFER_H
 #define PS_CIRCULAR_BUFFER_H
+
 #include <Arduino.h>
-#include "Array.h"
+#include "third-party/Array/Array.h"
 
 namespace ps
 {

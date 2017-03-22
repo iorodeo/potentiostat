@@ -1,6 +1,6 @@
 #ifndef PS_VOLTAMMETRY_H
 #define PS_VOLTAMMETRY_H
-#include "ArduinoJson.h"
+
 #include "ps_constants.h"
 #include "ps_return_status.h"
 #include "ps_base_test.h"
@@ -9,7 +9,9 @@
 #include "ps_constant_test.h"
 #include "ps_linearsweep_test.h"
 #include "ps_multistep_test.h"
-#include "Array.h"
+
+#include "third-party/ArduinoJson/ArduinoJson.h"
+#include "third-party/Array/Array.h"
 
 namespace ps
 {

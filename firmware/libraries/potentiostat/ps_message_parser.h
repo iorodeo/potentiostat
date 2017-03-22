@@ -1,8 +1,10 @@
 #ifndef PS_MESSAGE_PARSER_H
 #define PS_MESSAGE_PARSER_H
+
 #include <Arduino.h>
-#include "ArduinoJson.h"
 #include "ps_constants.h"
+
+#include "third-party/ArduinoJson/ArduinoJson.h"
 
 namespace ps
 {
