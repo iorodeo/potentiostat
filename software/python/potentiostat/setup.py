@@ -11,7 +11,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='potentiostat',
+    name='iorodeo-potentiostat',
     version='0.0.1dev1',
     description='Serial interface to IO Rodeo Potentiostat',
     long_description=long_description,
