@@ -246,7 +246,6 @@ class Potentiostat(serial.Serial):
         msg_dict = self.send_cmd(cmd_dict)
         self.test_running = True
 
-
         done = False
         while not done:
 
