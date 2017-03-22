@@ -1,4 +1,4 @@
-#include "ps_system_state.h"
+#include "potentiostat.h"
 
 using namespace ps;
 
