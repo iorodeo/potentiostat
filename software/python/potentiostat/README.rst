@@ -1,12 +1,14 @@
 Python interface to IO Rodeo's Potentiostat Shield for the teensy 3.2 development board.
 -----------------------------------------------------------------------------------------
 
-Easy to use
------------
+Example
+--------
 
-.. code:: python
+.. sourcecode:: python
 
-    dev = Potentiostat(port)
+    from potentiostat import Potentiostat
+
+    dev = Potentiostat('/dev/ttyACM0')
     dev.set_curr_range('100uA')
     dev.set_sample_period(10)
     
@@ -25,8 +27,8 @@ Easy to use
     t,volt,curr = dev.run_test(name,display='pbar')
 
 
-Simple to setup
-----------------
+Installation
+------------
 
 .. code:: bash
 
