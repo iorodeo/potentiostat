@@ -22,9 +22,9 @@ Hardware:
 Firware:
 ---------
 * Implements many standard voltammetric methods including: contant voltage, cyclic voltammetery, linearsweep, chronoamperometry, multistep. 
-* Easy to extend enabling user to add custom test. 
-* API for controlling the device over USB/Serial.
+* Easy to extend enabling users to add custom tests. 
+* Simple API for controlling the device over USB/Serial using messages in JSON. 
 
 Software:
 ---------
-* Python libray implementing Serial API
+* Python libray implementing Serial API providing easy high level control of the device.
