@@ -1,20 +1,61 @@
-"""IO Rodeo Potentiostat
+"""
+iorodeo-potentiostat
+---------------------
+
+Python interface to IO Rodeo's Potentiostat Shield for the teensy 3.2 development 
+board.
+
+Example
+--------
+
+.. code:: python
+
+    from potentiostat import Potentiostat
+
+    dev = Potentiostat('/dev/ttyACM0')
+    dev.set_curr_range('100uA')
+    dev.set_sample_period(10)
+    
+    name = 'cyclic'
+    param = {
+            'quietValue' : 0.0,
+            'quietTime'  : 1000,
+            'amplitude'  : 2.0,
+            'offset'     : 0.0,
+            'period'     : 1000,
+            'numCycles'  : 5,
+            'shift'      : 0.0,
+            }
+    
+    dev.set_param(name,param)
+    t,volt,curr = dev.run_test(name,display='pbar')
+
+
+Install
+--------
+
+.. code:: bash
+
+    $ pip install iorodeo-potentiostat
+
+
+Links
+-----
+
+* Documentation https://potentiostat.iorodeo.com
+* Download https://bitbucket.org/iorodeo/potentiostat
 
 """
 from setuptools import setup, find_packages
-from codecs import open
 from os import path
 
 here = path.abspath(path.dirname(__file__))
 
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f: 
-    long_description = f.read()
-
 setup(
     name='iorodeo-potentiostat',
-    version='0.0.1dev1',
+    version='0.0.1dev3',
     description='Serial interface to IO Rodeo Potentiostat',
-    long_description=long_description,
+    long_description=__doc__,
     url='https://bitbucket.org/iorodeo/potentiostat',
     author='Will Dickson',
     author_email='will@iorodeo.com',

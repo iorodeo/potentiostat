@@ -1,7 +1,42 @@
-Python interface to the IO Rodeo teensy 3.2 based potentiostat.
+Python interface to IO Rodeo's Potentiostat Shield for the teensy 3.2 development board.
+-----------------------------------------------------------------------------------------
 
-- Documentation: TODO
-- Repository: https://bitbucket.org/iorodeo/potentiostat
+Easy to use
+-----------
 
+.. code:: python
+
+    dev = Potentiostat(port)
+    dev.set_curr_range('100uA')
+    dev.set_sample_period(10)
+    
+    name = 'cyclic'
+    param = {
+            'quietValue' : 0.0,
+            'quietTime'  : 1000,
+            'amplitude'  : 2.0,
+            'offset'     : 0.0,
+            'period'     : 1000,
+            'numCycles'  : 5,
+            'shift'      : 0.0,
+            }
+    
+    dev.set_param(name,param)
+    t,volt,curr = dev.run_test(name,display='pbar')
+
+
+Simple to setup
+----------------
+
+.. code:: bash
+
+    $ pip install iorodeo-potentiostat
+
+
+Links
+-----
+
+* Documentation https://potentiostat.iorodeo.com
+* Download https://bitbucket.org/iorodeo/potentiostat
 
 

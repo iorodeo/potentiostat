@@ -6,4 +6,7 @@ syntax: glob
 *cache.lib
 *.pyc
 *.egg-info
+*.egg
+*.tar.gz
 __pycache__
+build
