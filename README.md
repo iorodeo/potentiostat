@@ -8,10 +8,10 @@ Software, firmware and hardware designs files for IO Rodeo's Potentiostat Shield
 Hardware:
 ---------
 
-* Designed as a shield for  `teensy 3.2 development board <https://www.pjrc.com/teensy/teensy31.html>`_.   
+* Designed as a shield for  [teensy 3.2 development board](https://www.pjrc.com/teensy/teensy31.html).   
 * 12-bit voltage output with four range settings:  +/- 1, 2, 5, 10V
 * 16-bit current measurement with four  range settings: +/- 1, 10, 100, 1000 uA ranges
-* Can be programmed over USB using the Arduino IDE (`teensyduino <https://www.pjrc.com/teensy/td_download.html>`_)  
+* Can be programmed over USB using the Arduino IDE ([teensyduino](https://www.pjrc.com/teensy/td_download.html)).  
 * Expansion headers with DIO, analog inputs, UART, I2C, and SPI 
 
 Firware:
