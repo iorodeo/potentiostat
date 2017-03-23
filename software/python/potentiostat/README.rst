@@ -6,25 +6,25 @@ Example
 
 .. sourcecode :: python
 
-    from potentiostat import Potentiostat
+from potentiostat import Potentiostat
 
-    dev = Potentiostat('/dev/ttyACM0')
-    dev.set_curr_range('100uA')
-    dev.set_sample_period(10)
+dev = Potentiostat('/dev/ttyACM0')
+dev.set_curr_range('100uA')
+dev.set_sample_period(10)
     
-    name = 'cyclic'
-    param = {
-            'quietValue' : 0.0,
-            'quietTime'  : 1000,
-            'amplitude'  : 2.0,
-            'offset'     : 0.0,
-            'period'     : 1000,
-            'numCycles'  : 5,
-            'shift'      : 0.0,
-            }
+name = 'cyclic'
+param = {
+        'quietValue' : 0.0,
+        'quietTime'  : 1000,
+        'amplitude'  : 2.0,
+        'offset'     : 0.0,
+        'period'     : 1000,
+        'numCycles'  : 5,
+        'shift'      : 0.0,
+        }
     
-    dev.set_param(name,param)
-    t,volt,curr = dev.run_test(name,display='pbar')
+dev.set_param(name,param)
+t,volt,curr = dev.run_test(name,display='pbar')
 
 
 Installation
