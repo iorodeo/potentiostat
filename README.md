@@ -15,7 +15,12 @@ Hardware design, firmware and software for IO Rodeo's Potentiostat Shield.
 
 ## Firware
 
-* Implements many standard voltammetric methods including: constant voltage, cyclic, linearsweep, chronoamperometry, multistep. 
+* Implements many standard voltammetric methods including: 
+    - constant voltage, 
+    - cyclic voltammetry, 
+    - linearsweep voltammetry, 
+    - chronoamperometry, 
+    - multistep. 
 * API for control over USB/Serial using messages in JSON. 
 * Easy to extend enabling users to add custom tests. 
 
