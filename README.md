@@ -27,7 +27,6 @@ Hardware design, firmware and software for IO Rodeo's Potentiostat Shield.
 ## Libraries
 
 * Python 
-    - located in software/python/potentiostat sub-directory
     - Examples       (link to python library examples)
     - Documentation  (link to python library docs) 
 * Javascript
