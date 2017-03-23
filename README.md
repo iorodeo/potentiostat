@@ -1,7 +1,7 @@
 # IO Rodeo Potentiostat Shield
 
 
-Software, firmware and hardware designs files for IO Rodeo's Potentiostat Shield.  
+Hardware design, firmware and software for IO Rodeo's Potentiostat Shield.  
 
 
 ![alt text](/images/pstat_shield_img_0.JPG)
@@ -17,9 +17,11 @@ Software, firmware and hardware designs files for IO Rodeo's Potentiostat Shield
 ## Firware:
 
 * Implements many standard voltammetric methods including: constant voltage, cyclic, linearsweep, chronoamperometry, multistep. 
+* API for control over USB/Serial using messages in JSON. 
 * Easy to extend enabling users to add custom tests. 
-* Simple API for controlling the device over USB/Serial using messages in JSON. 
 
-Software:
----------
-* Python library implementing Serial API providing easy high level control of the device. (See software/python/potentiostat).
+## Libraries
+
+### Python
+
+Provides easy high level control of the potentiostat. (See software/python/potentiostat).
