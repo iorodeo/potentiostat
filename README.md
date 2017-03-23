@@ -13,7 +13,7 @@ Hardware design, firmware and software for IO Rodeo's Potentiostat Shield.
 * Can be programmed over USB using the Arduino IDE ([teensyduino](https://www.pjrc.com/teensy/td_download.html)).  
 * Expansion headers with DIO, analog inputs, UART, I2C, and SPI 
 
-## Firware
+## Firmware
 
 * Implements many standard voltammetric methods including: 
     - constant voltage, 
