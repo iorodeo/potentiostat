@@ -1,10 +1,9 @@
 # IO Rodeo Potentiostat Shield
 
+![alt text](/images/pstat_shield_img_0.JPG)
 
 Hardware design, firmware and software for IO Rodeo's Potentiostat Shield.  
 
-
-![alt text](/images/pstat_shield_img_0.JPG)
 
 ## Hardware
 
