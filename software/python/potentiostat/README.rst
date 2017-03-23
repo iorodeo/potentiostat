@@ -4,7 +4,7 @@ Python interface to IO Rodeo's Potentiostat Shield for the teensy 3.2 developmen
 Example
 --------
 
-.. sourcecode:: python
+.. sourcecode :: python
 
     from potentiostat import Potentiostat
 
