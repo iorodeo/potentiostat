@@ -19,6 +19,7 @@ Hardware design, firmware and software for IO Rodeo's Potentiostat Shield.
 * Implements many standard voltammetric methods including: 
     - constant voltage, 
     - cyclic voltammetry, 
+    - sinusoidal voltammetry,
     - linearsweep voltammetry, 
     - chronoamperometry, 
     - multistep. 

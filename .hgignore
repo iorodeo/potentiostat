@@ -10,3 +10,4 @@ syntax: glob
 *.tar.gz
 __pycache__
 build
+_build
