@@ -12,7 +12,7 @@ Hardware design, firmware and software for IO Rodeo's Potentiostat Shield.
 * 16-bit current measurement with four  range settings: +/- 1, 10, 100, 1000 uA ranges
 * Can be programmed over USB using the Arduino IDE ([teensyduino](https://www.pjrc.com/teensy/td_download.html)).  
 * Expansion headers with DIO, analog inputs, UART, I2C, and SPI 
-* [PCB Schematic](https://bitbucket.org/iorodeo/potentiostat/downloads/potentiostat_shield_schematic_v0p1r2.pdf)
+* [Schematic](https://bitbucket.org/iorodeo/potentiostat/downloads/potentiostat_shield_schematic_v0p1r2.pdf)
 
 ## Firmware
 
