@@ -48,14 +48,14 @@ namespace ps
     void AnalogSubsystem::setVolt(float value) 
     {
         // Set working to reference electrode (output) voltage
-        setValueDac(voltRange_.valueToInt(value));
+        setValueDac(voltRange_.valueToInt(SignDac*value));
     }
 
 
     float AnalogSubsystem::getVolt() const     
     {
         // Get working to reference electrode (output) voltage setting
-        return voltRange_.intToValue(valueDac_);
+        return SignDac*voltRange_.intToValue(valueDac_);
     }
 
 
@@ -404,7 +404,7 @@ namespace ps
     uint16_t AnalogSubsystem::getTransAmpAin() const  
     {
         // Read analog input associated with the transimpedance amplifier 
-       return TransAmpSign*analogRead(TIA_OUT_UNI_PIN);
+       return analogRead(TIA_OUT_UNI_PIN);
     }
 
 

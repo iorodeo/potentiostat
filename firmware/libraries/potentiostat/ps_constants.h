@@ -89,6 +89,7 @@ namespace ps
 
     const uint8_t NumVoltRange = 4;
     extern Array<VoltRange,NumVoltRange> VoltRangeArray;
+    extern const float SignDac; 
 
     // Ranges for input current
     extern const CurrRange CurrRange1uA; 
@@ -98,8 +99,6 @@ namespace ps
 
     const uint8_t NumCurrRange = 4;
     extern Array<CurrRange,NumCurrRange> CurrRangeArray;
-
-    extern const uint16_t TransAmpSign;
 
     // Timer parameters
     extern const uint32_t TestTimerPeriod;      // us

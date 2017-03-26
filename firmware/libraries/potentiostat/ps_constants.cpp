@@ -72,6 +72,7 @@ namespace ps
 
     VoltRange voltRangeArrayTmp[NumVoltRange] = {VoltRange1V, VoltRange2V, VoltRange5V, VoltRange10V};
     Array<VoltRange,NumVoltRange> VoltRangeArray(voltRangeArrayTmp);
+    const float SignDac = -1.0; 
 
     // Ranges for input current
 #ifdef HARDWARE_VARIANT_NANO_AMP
@@ -89,9 +90,7 @@ namespace ps
     const CurrRange CurrRange1000uA("1000uA", -1000.0, 1000.0, CurrGainPathIn4, AnalogSubsystem::MaxValueAin); 
     CurrRange currRangeArrayTmp[NumCurrRange] = {CurrRange1uA, CurrRange10uA, CurrRange100uA, CurrRange1000uA};
 #endif
-
     Array<CurrRange,NumCurrRange>  CurrRangeArray(currRangeArrayTmp);
-    const uint16_t TransAmpSign = -1;
 
     // Timer parameters
     const uint32_t TestTimerPeriod = 200;                // us
