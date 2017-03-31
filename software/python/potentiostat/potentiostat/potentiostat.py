@@ -1,3 +1,13 @@
+"""
+    potentiostat.py
+    ~~~~~~~~~~~~~~~
+
+    This module implements a serial interface to IO Rodeo's 
+    Potentiostat Shield.
+
+    :copyright: (c) 2017 by IO Rodeo 
+    :license: MIT, see LICENSE.tst for more details.
+"""
 from __future__ import print_function
 import serial
 import time
@@ -73,6 +83,12 @@ HwVariantToCurrRangeList = {
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
 
 class Potentiostat(serial.Serial):
+
+    """ The Potetentiostat Object provides a high level interface for performing 
+    serial communications with IO Rodeo's Potentiostat Shield.
+
+
+    """
     
     ResetSleepDt = 0.0
     Baudrate = 115200
