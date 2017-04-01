@@ -84,7 +84,7 @@ TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
 
 class Potentiostat(serial.Serial):
 
-    """ The Potetentiostat Object provides a high level interface for performing 
+    """The Potetentiostat object provides a high level interface for performing 
     serial communications with IO Rodeo's Potentiostat Shield.
 
 
@@ -95,6 +95,8 @@ class Potentiostat(serial.Serial):
     Timeout = 2.0
 
     def __init__(self, port, timeout=10.0, debug=False):
+        """ Constructor
+        """
         params = {'baudrate': self.Baudrate, 'timeout': self.Timeout}
         super(Potentiostat,self).__init__(port,**params)
         time.sleep(self.ResetSleepDt)
@@ -106,17 +108,26 @@ class Potentiostat(serial.Serial):
 
 
     def get_hardware_variant(self):
+        """Returns a string representing the hardware variant.
+        
+        """
         cmd_dict = {CommandKey: GetVariantCmd}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][VariantKey]
 
 
     def stop_test(self):
+        """Stops (any) currently running tests.
+
+        """
         cmd_dict = {CommandKey: StopTestCmd}
         msg_dict = self.send_cmd(cmd_dict)
 
 
     def get_volt(self):
+        """Returns the output voltage setting, i.e, the potential between the working and reference electrode. 
+
+        """
         cmd_dict = {CommandKey: GetVoltCmd}
         msg_dict = self.send_cmd(cmd_dict)
         volt = msg_dict[ResponseKey][VoltKey]
@@ -124,6 +135,9 @@ class Potentiostat(serial.Serial):
 
 
     def set_volt(self,volt):
+        """Sets the output voltage setting, i.e., the potential between the working and reference electrode. 
+
+        """
         cmd_dict = {CommandKey: SetVoltCmd, VoltKey: volt}
         msg_dict = self.send_cmd(cmd_dict)
         volt = msg_dict[ResponseKey][VoltKey]
@@ -131,6 +145,9 @@ class Potentiostat(serial.Serial):
 
 
     def get_curr(self):
+        """Returns and immediate measurement of electrical current flowing in/out of the working electrode. 
+
+        """
         cmd_dict = {CommandKey: GetCurrCmd}
         msg_dict = self.send_cmd(cmd_dict)
         curr = msg_dict[ResponseKey][CurrKey]
@@ -138,12 +155,18 @@ class Potentiostat(serial.Serial):
 
 
     def get_param(self,testname):
+        """Returns the current values of the parameters for the specified voltammetric test. 
+
+        """
         cmd_dict = {CommandKey: GetParamCmd, TestKey: testname} 
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][ParamKey]
 
 
     def set_param(self,testname,param):
+        """Sets the parameters for the specified voltammetric test.
+
+        """
         cmd_dict = {CommandKey: SetParamCmd, TestKey: testname, ParamKey: param}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][ParamKey]
