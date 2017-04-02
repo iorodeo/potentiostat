@@ -3,8 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+####################
 iorodeo-potentiostat  
-====================
+####################
+
 A Python library for controlling iorodeo's Potentiostat Shield 
 
 
@@ -35,12 +37,14 @@ Contents:
     :maxdepth: 2
 
     getting_started
+    example_cyclic
     api_reference
     hardware
 
 
+******************
 Indices and tables
-==================
+******************
 
 * :ref:`genindex`
 * :ref:`modindex`

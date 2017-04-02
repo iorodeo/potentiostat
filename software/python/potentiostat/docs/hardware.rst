@@ -1,8 +1,7 @@
+################
 Hardware Summary 
-================
+################
 
-A brief summary of the Potentiostat Shield's capabilites is given below. For a more detailed 
-description of the device hardware see (TODO)
 
 * teensy 3.2 (32-bit ARM Cortex-M4 72 MHz CPU, 256k Flash, 64k RAM, 2K EEPROM)
 * 12-bit voltage output with four available ranges:   ±1, 2, 5, 10V
@@ -18,8 +17,10 @@ description of the device hardware see (TODO)
     * chronoamperometry
     * multistep
 
+For a more detailed description of the device hardware see (TODO)
 
+*********
 Schematic
-~~~~~~~~~~
+*********
 `download pdf <https://bitbucket.org/iorodeo/potentiostat/downloads/potentiostat_shield_schematic_v0p1r2.pdf>`_
 
