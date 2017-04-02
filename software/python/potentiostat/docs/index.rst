@@ -38,6 +38,7 @@ Contents:
 
     getting_started
     example_cyclic
+    test_param
     api_reference
     hardware
 

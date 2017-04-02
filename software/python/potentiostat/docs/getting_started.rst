@@ -13,7 +13,7 @@ Installation
 
 If you are developing with the library it is very likely that you will want to
 use `virtualenv`_ during installation. A tutorial describing how to use virtualenv
-can be found here `virtualenv tutorial`_  and more detialed information can be
+can be found here `virtualenv tutorial`_  and more detailed information can be
 found in the `virtualenv documentation`_.  If you are using the library on
 Windows you might want to look this additional tutorial `Python, pip and
 virtuanenv on Windows`_. 
@@ -116,14 +116,14 @@ This method will return a list such as that given below
 
 .. code-block:: python
 
-  ['cyclic', 'sinusoid', 'constant', 'linearSweep', 'chronoamp', 'multiStep']
+  test_names = ['cyclic', 'sinusoid', 'constant', 'linearSweep', 'chronoamp', 'multiStep']
   
 
 ************************************
 Getting voltammetric test parameters
 ************************************
 
-The current parameter values used for a particular voltammetric test, stored
+The current parameter values used for a particular voltammetric test, which are stored
 in teensy 3.2 on the potentiostat shield, can be retrieved from the device using the
 :meth:`~potentiostat.Potentiostat.get_param` method. 
 
@@ -137,21 +137,100 @@ The following example shows how to get the current parameter values for the *lin
   param = dev.get_param('linearSweep')
 
 This method returns a dictionay containing the current parameters for the
-specified test, for *linearSweep* example above be might get
+specified test, for *linearSweep* example above be result would be something
+like this  
 
 .. code-block:: python
 
-  {'quietTime': 0, 'quietValue': 0.0, 'finalValue': 0.5, 'startValue': -0.5, 'duration': 2000}
+  param = {'quietTime': 0, 'quietValue': 0.0, 'finalValue': 0.5, 'startValue': -0.5, 'duration': 2000}
 
-  
+
+Note, all time values, such as quietTime and duration, are given in (ms). All
+output voltages, such as quietValue, startValue and finalValue, are given in
+(V).  A complete description of the parameters for all voltammetric tests is
+given in the :ref:`test_param_ref` section of the documentation.
+
 
 ************************************
 Setting voltammetric test parameters
 ************************************
 
+The :meth:`~potentiostat.Potentiostat.set_param` method can be used to set the
+parameters used for a specific voltammetric test. The parameters are stored in
+RAM (voltile memory) on teensy 3.2 . They will retain their value, for the
+specified test,  as long as the teensy 3.2 has power or until changed via
+another call to the set_param method. 
+
+The following examples demonstrates how to set the parameters for the *linearSweep* test.
+
+.. code-block:: python
+
+  from potentiostat import Potentiostat
+
+  param = {'quietTime': 0, 'quietValue': 0.0, 'finalValue': 0.5, 'startValue': -0.5, 'duration': 2000}
+
+  dev = Potentiostat('/dev/ttyACM0')
+  dev.set_param('linearSweep',param)
+  
+Note, all time values, such as quietTime and duration, are given in (ms). All
+output voltages, such as quietValue, startValue and finalValue, are given in
+(V).  A complete description of the parameters for all voltammetric tests is
+given in the :ref:`test_param_ref` section of the documentation.
+
 *********************************
 Setting measurement current range
 *********************************
+
+The potentiostat shield has four programmable current measurement ranges. The
+exact values for the avialable ranges is determined by the hardware variant of
+the device you are using. The library automatically detects the hardvariant of
+the device for you.  In order to get the list of the current ranges available
+on your device you can use the
+:meth:`~potentiostat.Potentiostat.get_all_curr_range` method.
+
+.. code-block:: python
+
+  from potentiostat import Potentiostat
+
+  dev = Potentiostat('/dev/ttyACM0')
+  curr_range_list = dev.get_all_curr_range()
+
+
+This will return a list of current range strings such as that given below
+
+.. code-block:: python
+
+  curr_range_list = ['1uA', '10uA', '100uA', '1000uA']
+
+
+To get the current measurement range your device is currently using you can use
+the :meth:`~potentiostat.Potentiostat.get_curr_range` method.
+
+.. code-block:: python
+
+  from potentiostat import Potentiostat
+
+  dev = Potentiostat('/dev/ttyACM0')
+  curr_range = dev.get_curr_range()
+
+This will return something like this
+
+.. code-block:: python
+
+  curr_range = '10uA'
+
+
+In order to set the desired current measurement range on your device you can
+use the :meth:`~potentiostat.Potentiostat.set_curr_range` method. For example,
+to change the current range to '100uA' you could to the following
+
+.. code-block:: python
+
+  from potentiostat import Potentiostat
+
+  dev = Potentiostat('/dev/ttyACM0')
+  dev.set_curr_range('100uA')
+
 
 *******************
 Setting sample rate

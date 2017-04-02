@@ -176,7 +176,7 @@ class Potentiostat(serial.Serial):
         """Sets the output voltage range (V)- used when setting output voltage manually.
 
         """
-        if not volt_range in VoltRangeList:
+        if not volt_range in get_all_volt_range():
             raise ValueError('unknown voltage range')
         cmd_dict = {CommandKey: SetVoltRangeCmd, VoltRangeKey: volt_range}
         msg_dict = self.send_cmd(cmd_dict)
@@ -191,12 +191,17 @@ class Potentiostat(serial.Serial):
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][VoltRangeKey]
 
+    def get_all_volt_range(self):
+        """Gets a list of voltage ranges supported by the device.
+
+        """
+        return VoltRangeList
 
     def set_curr_range(self,curr_range):
         """Sets the measurement current range (uA).
 
         """
-        if not curr_range in HwVariantToCurrRangeList[self.hw_variant]:
+        if not curr_range in self.get_all_curr_range(): 
             raise ValueError('unknown current range')
         cmd_dict = {CommandKey: SetCurrRangeCmd, CurrRangeKey: curr_range}
         msg_dict = self.send_cmd(cmd_dict)
@@ -211,6 +216,11 @@ class Potentiostat(serial.Serial):
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][CurrRangeKey]
 
+    def get_all_curr_range(self):
+        """Gets a list of all current ranges supported by the device.
+
+        """
+        return HwVariantToCurrRangeList[self.hw_variant]
 
     def get_device_id(self):
         """Gets the current value of the device identification number
