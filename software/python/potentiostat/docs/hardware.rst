@@ -1,0 +1,25 @@
+Hardware Summary 
+================
+
+A brief summary of the Potentiostat Shield's capabilites is given below. For a more detailed 
+description of the device hardware see (TODO)
+
+* teensy 3.2 (32-bit ARM Cortex-M4 72 MHz CPU, 256k Flash, 64k RAM, 2K EEPROM)
+* 12-bit voltage output with four available ranges:   ±1, 2, 5, 10V
+* 16-bit current measurement with four available ranges: ±1, 10, 100, 1000uA
+* Controlled over USB using simple JSON messages  
+* Can be programmed over USB using the Arduino IDE (`teensyduino <https://www.pjrc.com/teensy/td_download.html>`_).  
+* Expansion headers with DIO, analog inputs, UART, I2C, and SPI 
+* Firmware supports many standard voltammetric methods including:
+    * constant voltage
+    * cyclic voltammetry
+    * sinusoidal voltammetry 
+    * linear sweep voltammetry
+    * chronoamperometry
+    * multistep
+
+
+Schematic
+~~~~~~~~~~
+`download pdf <https://bitbucket.org/iorodeo/potentiostat/downloads/potentiostat_shield_schematic_v0p1r2.pdf>`_
+

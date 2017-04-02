@@ -173,6 +173,9 @@ class Potentiostat(serial.Serial):
 
 
     def set_volt_range(self,volt_range):
+        """Sets the output voltage range (V)- used when setting output voltage manually.
+
+        """
         if not volt_range in VoltRangeList:
             raise ValueError('unknown voltage range')
         cmd_dict = {CommandKey: SetVoltRangeCmd, VoltRangeKey: volt_range}
@@ -181,12 +184,18 @@ class Potentiostat(serial.Serial):
 
 
     def get_volt_range(self):
+        """Gets the current value for the output voltage range (V).
+
+        """
         cmd_dict = {CommandKey: GetVoltRangeCmd}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][VoltRangeKey]
 
 
     def set_curr_range(self,curr_range):
+        """Sets the measurement current range (uA).
+
+        """
         if not curr_range in HwVariantToCurrRangeList[self.hw_variant]:
             raise ValueError('unknown current range')
         cmd_dict = {CommandKey: SetCurrRangeCmd, CurrRangeKey: curr_range}
@@ -195,66 +204,101 @@ class Potentiostat(serial.Serial):
 
 
     def get_curr_range(self):
+        """Gets the current value of the measurement current range (uA).
+
+        """
         cmd_dict = {CommandKey: GetCurrRangeCmd}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][CurrRangeKey]
 
 
-    def set_device_id(self,device_id):
-        cmd_dict = {CommandKey: SetDeviceIdCmd, DeviceIdKey: device_id}
-        msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][DeviceIdKey]
-
-
     def get_device_id(self):
+        """Gets the current value of the device identification number
+
+        """
         cmd_dict = {CommandKey: GetDeviceIdCmd}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][DeviceIdKey]
 
 
+    def set_device_id(self,device_id):
+        """Sets the current value of the device identification number.
+
+        """
+        cmd_dict = {CommandKey: SetDeviceIdCmd, DeviceIdKey: device_id}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][DeviceIdKey]
+
+
     def set_sample_period(self,sample_period):
+        """Sets the sample period (s) used for measurements. The sample period is the
+        time between samples. 
+
+        """
         cmd_dict = {CommandKey: SetSamplePeriodCmd, SamplePeriodKey: sample_period}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][SamplePeriodKey]
 
 
     def get_sample_period(self):
+        """Gets the current value for the sample period (s). The sample period is the
+        time between samples.
+
+        """
         cmd_dict = {CommandKey: GetSamplePeriodCmd}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][SamplePeriodKey]
 
 
     def set_sample_rate(self,sample_rate):
+        """Sets the measurement sample rate (Hz). Note, this is an alternative way to set 
+        the sample period. 
+
+        """
         sample_period = int(1.0e3/sample_rate)
         return self.set_sample_period(sample_period)
 
 
     def get_sample_rate(self):
+        """Gets the measurement sample period (Hz). Note, the sample rate is 1/sample_period.
+
+        """
         sample_period = self.get_sample_period()
         sample_rate = 1.0e3/sample_period
         return sample_rate
 
 
     def get_test_done_time(self, test, timeunit='ms'):
+        """Gets the time in seconds required to complete the specified test including any quietTime, etc. 
+
+        """
         cmd_dict = {CommandKey: GetTestDoneTimeCmd, TestKey: test}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][TestDoneTimeKey]*TimeUnitToScale[timeunit]
 
 
     def get_test_names(self):
+        """Gets the list of the names of all tests which can be performed by the device with the current firmware. 
+
+        """
         cmd_dict = {CommandKey: GetTestNamesCmd}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][TestNameArrayKey]
 
 
     def get_firmware_version(self):
+        """Gets the version string for the firmware on the device.
+
+        """
         cmd_dict = {CommandKey: GetVersionCmd}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][VersionKey]
 
 
     def run_test(self, testname, timeunit='s', display='pbar', filename=None):
-        
+        """Runs the test with specified test name and returns the time, voltage and current data.
+
+        """
         if timeunit not in TimeUnitToScale:
             raise RuntimeError('uknown timeunit option {0}'.format(timeunit))
         if display not in (None, 'pbar', 'data'):
@@ -324,6 +368,10 @@ class Potentiostat(serial.Serial):
 
 
     def send_cmd(self,cmd_dict):
+        """Sends a command to the device.  Low-level method - command is specified 
+        using command dictionary.
+
+        """
         cmd_json = json.dumps(cmd_dict) + '\n'
         self.write(cmd_json.encode())
         msg_json = self.readline()
