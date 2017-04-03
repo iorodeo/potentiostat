@@ -93,7 +93,13 @@ A device object can be created as follows
 
   from potentiostat import Potentiostat
 
-  dev = Potentiostat('/dev/ttyACM0')
+  pstat = Potentiostat('/dev/ttyACM0')
+
+
+This will open a connection to the device. 
+
+Note, in order to avoid too much repetition,  in all of the examples which
+follow we will assume that created a Potentiostat device object named pstat.
 
 
 
@@ -107,10 +113,7 @@ the Potentiostat Shield's teensy 3.2 can be obtained using the
 
 .. code-block:: python
 
-  from potentiostat import Potentiostat
-
-  dev = Potentiostat('/dev/ttyACM0')
-  test_names = dev.get_test_names()
+  test_names = pstat.get_test_names()
 
 This method will return a list such as that given below
 
@@ -131,13 +134,10 @@ The following example shows how to get the current parameter values for the *lin
 
 .. code-block:: python
 
-  from potentiostat import Potentiostat
+  param = pstat.get_param('linearSweep')
 
-  dev = Potentiostat('/dev/ttyACM0')
-  param = dev.get_param('linearSweep')
-
-This method returns a dictionay containing the current parameters for the
-specified test, for *linearSweep* example above be result would be something
+This method returns a dictionay containing the current set of parameters for the
+specified test. For example, for the *linearSweep* example above be result would be something
 like this  
 
 .. code-block:: python
@@ -165,12 +165,9 @@ The following examples demonstrates how to set the parameters for the *linearSwe
 
 .. code-block:: python
 
-  from potentiostat import Potentiostat
-
   param = {'quietTime': 0, 'quietValue': 0.0, 'finalValue': 0.5, 'startValue': -0.5, 'duration': 2000}
 
-  dev = Potentiostat('/dev/ttyACM0')
-  dev.set_param('linearSweep',param)
+  pstat.set_param('linearSweep',param)
   
 Note, all time values, such as quietTime and duration, are given in (ms). All
 output voltages, such as quietValue, startValue and finalValue, are given in
@@ -183,17 +180,14 @@ Setting measurement current range
 
 The potentiostat shield has four programmable current measurement ranges. The
 exact values for the avialable ranges is determined by the hardware variant of
-the device you are using. The library automatically detects the hardvariant of
-the device for you.  In order to get the list of the current ranges available
-on your device you can use the
-:meth:`~potentiostat.Potentiostat.get_all_curr_range` method.
+the device you are using. The library will automatically detect the hardvariant of
+the device for you.  You can retrieve  the current ranges available
+on your device using the :meth:`~potentiostat.Potentiostat.get_all_curr_range` method.
+For example, 
 
 .. code-block:: python
 
-  from potentiostat import Potentiostat
-
-  dev = Potentiostat('/dev/ttyACM0')
-  curr_range_list = dev.get_all_curr_range()
+  curr_range_list = pstat.get_all_curr_range()
 
 
 This will return a list of current range strings such as that given below
@@ -203,17 +197,14 @@ This will return a list of current range strings such as that given below
   curr_range_list = ['1uA', '10uA', '100uA', '1000uA']
 
 
-To get the current measurement range your device is currently using you can use
-the :meth:`~potentiostat.Potentiostat.get_curr_range` method.
+You can get the current measurement range which your device is currently using 
+the :meth:`~potentiostat.Potentiostat.get_curr_range` method. For example, 
 
 .. code-block:: python
 
-  from potentiostat import Potentiostat
+  curr_range = pstat.get_curr_range()
 
-  dev = Potentiostat('/dev/ttyACM0')
-  curr_range = dev.get_curr_range()
-
-This will return something like this
+This will return a string representation of the current measurement range -  something like this
 
 .. code-block:: python
 
@@ -226,10 +217,7 @@ to change the current range to '100uA' you could to the following
 
 .. code-block:: python
 
-  from potentiostat import Potentiostat
-
-  dev = Potentiostat('/dev/ttyACM0')
-  dev.set_curr_range('100uA')
+  pstat.set_curr_range('100uA')
 
 
 *******************
