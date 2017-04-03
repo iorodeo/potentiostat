@@ -2,10 +2,10 @@
 Getting Started
 ###############
 
-This section provides a short guide to help you begin using the 
+This section provides a short guide to help you begin using your potentiostat shield using the 
 **iorodeo-potentiostat** library.
 
-This module is tested on Python 2.7 and Python 3.x. 
+This library is tested on Python 2.7 and Python 3.x. 
 
 ************
 Installation
@@ -60,8 +60,7 @@ udev rules (Linux only)
 =======================
 On Linux you may want to give non-root users permission to use the teensy
 device. This can be done by adding the `49-teensy.rules`_ file to the
-/etc/udev/rules.d directory and reloading the rules using udevadm to reload the
-rules for udev.
+/etc/udev/rules.d directory and reloading the rules using udevadm. 
 
 Copy to /etc/udev/rules.d as follows
 
@@ -80,12 +79,12 @@ Reload udev rules
 Creating a device object
 ************************
 
-The first step to using the Potentiostat via the library is to create a device
-object. In order to do this you will need to know the name of **port** on the
-computer which is associated with the potentiostat shield. The name of this
-port will vary depending on your computer, OS, etc. On linux this port will be
-named something like /dev/ttyACM0, /dev/ttyACM1, etc. On Windows it will be
-named something like COM1, COM2, etc. 
+The first step to controlling your potentiostat shield via the library is to
+create a device object. In order to do this you will need to know the name of
+the **port** on the computer which is associated with the potentiostat shield.
+The name of this port will vary depending on your computer, OS, etc. On linux
+this port will be named something like /dev/ttyACM0, /dev/ttyACM1, etc. On
+Windows it will be named something like COM1, COM2, etc. 
 
 A device object can be created as follows
 
@@ -96,10 +95,13 @@ A device object can be created as follows
   pstat = Potentiostat('/dev/ttyACM0')
 
 
-This will open a connection to the device. 
+This will open a connection which can be used to communicate with the potentiostat shield. 
 
-Note, in order to avoid too much repetition,  in all of the examples which
-follow we will assume that created a Potentiostat device object named pstat.
+.. note::
+
+    In order to avoid too much repetition,  in all of the examples which
+    follow,  we will assume that you have created a Potentiostat device object
+    named pstat.
 
 
 
@@ -126,29 +128,31 @@ This method will return a list such as that given below
 Getting voltammetric test parameters
 ************************************
 
-The current parameter values used for a particular voltammetric test, which are stored
-in teensy 3.2 on the potentiostat shield, can be retrieved from the device using the
+The parameter values used for a particular voltammetric test are stored in
+teensy 3.2 on the potentiostat shield. You can retrieve the current values for
+these parameters from the device using the
 :meth:`~potentiostat.Potentiostat.get_param` method. 
 
-The following example shows how to get the current parameter values for the *linearSweep* test.
+For example, to get the current parameter values for the *linearSweep* test you
+would do the following
 
 .. code-block:: python
 
   param = pstat.get_param('linearSweep')
 
-This method returns a dictionay containing the current set of parameters for the
-specified test. For example, for the *linearSweep* example above be result would be something
-like this  
+This method returns a dictionary containing the all of the the parameters for
+the specified test and their current values.   For example, for the
+*linearSweep* example above be result would be something like this  
 
 .. code-block:: python
 
   param = {'quietTime': 0, 'quietValue': 0.0, 'finalValue': 0.5, 'startValue': -0.5, 'duration': 2000}
 
 
-Note, all time values, such as quietTime and duration, are given in (ms). All
-output voltages, such as quietValue, startValue and finalValue, are given in
-(V).  A complete description of the parameters for all voltammetric tests is
-given in the :ref:`test_param_ref` section of the documentation.
+In the above output, all time values, such as quietTime and duration, are given
+in (ms) and all output voltages, such as quietValue, startValue and finalValue,
+are given in (V).  For a complete description of the parameters for all
+voltammetric see the :ref:`test_param_ref` section of the documentation.
 
 
 ************************************
@@ -169,10 +173,11 @@ The following examples demonstrates how to set the parameters for the *linearSwe
 
   pstat.set_param('linearSweep',param)
   
-Note, all time values, such as quietTime and duration, are given in (ms). All
-output voltages, such as quietValue, startValue and finalValue, are given in
-(V).  A complete description of the parameters for all voltammetric tests is
-given in the :ref:`test_param_ref` section of the documentation.
+In the param dictionary above specifying the parameter values all time values, such
+as quietTime and duration, are given in (ms) and all output voltages, such as
+quietValue, startValue and finalValue, are given in (V).  For a complete
+description of the parameters for all voltammetric see the
+:ref:`test_param_ref` section of the documentation.
 
 *****************************************
 Getting/setting measurement current range
@@ -180,7 +185,7 @@ Getting/setting measurement current range
 
 The potentiostat shield has four programmable current measurement ranges. The
 exact values for the avialable ranges is determined by the hardware variant of
-the device you are using. The library will automatically detect the hardvariant of
+the device you are using and the library will automatically detect the hardware variant of
 the device for you.  You can retrieve  the current ranges available
 on your device using the :meth:`~potentiostat.Potentiostat.get_all_curr_range` method.
 For example, 
@@ -213,11 +218,16 @@ This will return a string representation of the current measurement range -  som
 
 In order to set the desired current measurement range on your device you can
 use the :meth:`~potentiostat.Potentiostat.set_curr_range` method. For example,
-to change the current range to '100uA' you could to the following
+to change the current range to 100uA you could to the following
 
 .. code-block:: python
 
   pstat.set_curr_range('100uA')
+
+
+.. note::
+
+    Current ranges
 
 
 ***************************
@@ -262,13 +272,64 @@ The :meth:`~potentiostat.Potentiostat.set_sample_period` method sets the sample 
    pstat.set_sample_period(0.02)
 
 
-****************************
-Running a voltammetric tests
-****************************
+***************************
+Running  voltammetric tests
+***************************
+
+Voltammetric tests can be run using the
+:meth:`~potentiostat.Potentiostat.run_test` method. For example, in order to
+run the cyclic voltammetry test with the parameters as currently set in the
+device you could do the following. 
+
+.. code-block:: python
+
+   t, volt, curr = pstat.run_test('cyclic')
+
+
+This will return  lists containing the measurement times (s), voltages (V) and currents (uA) respectively.  
+
+This method takes several optional keyword arguments. For example, if you want
+to save the data to a file while the test proceeds you can specify an name for
+the optional filename argument.
+
+.. code-block:: python
+
+   t, volt, curr = pstat.run_test('cyclic', filename='data.txt')
+
+For more complete documentation on the :meth:`~potentiostat.Potentiostat.run_test` method see the :ref:`api_ref`
+section. 
+For a more complete description of the various voltammetric tests see :ref:`test_param_ref` section. 
+
+.. note::
+
+  Note, when running tests with the :meth:`~potentiostat.Potentiostat.run_test` the
+  output voltage range will automatically be selected based on the current set of
+  parameter values for that test. For this reason you do not need to specifically
+  select the output voltage range before using this method. 
+
 
 ****************************
 Setting output voltage range
 ****************************
+
+Under certain circumstances you may want to control the output voltage of the
+potentiostat manually (or directly) - rather than running a preprogrammed test
+proceedure. Prior to doing this you should select an appropriate voltage output
+range.  
+
+You can retrieve the list of available output voltage ranges using the
+:meth:`~potentiostat.Potentiostat.get_all_volt_range` method.
+
+.. code-block:: python
+
+  volt_range_list = pstat.get_all_volt_range()
+
+This will return a list of strings representing the available voltage ranges like that below
+
+.. code-block:: python
+
+  volt_range_list = ['1V', '2V', '5V', '10V']
+
 
 ****************
 Manual operation
