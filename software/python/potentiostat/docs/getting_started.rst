@@ -174,9 +174,9 @@ output voltages, such as quietValue, startValue and finalValue, are given in
 (V).  A complete description of the parameters for all voltammetric tests is
 given in the :ref:`test_param_ref` section of the documentation.
 
-*********************************
-Setting measurement current range
-*********************************
+*****************************************
+Getting/setting measurement current range
+*****************************************
 
 The potentiostat shield has four programmable current measurement ranges. The
 exact values for the avialable ranges is determined by the hardware variant of
@@ -220,9 +220,47 @@ to change the current range to '100uA' you could to the following
   pstat.set_curr_range('100uA')
 
 
-*******************
-Setting sample rate
-*******************
+***************************
+Getting/setting sample rate
+***************************
+When running a test the device returns measurements at a specified rate
+(samples/sec) for the duration of the test.  You can use the
+:meth:`~potentiostat.Potentiostat.get_sample_rate` to retrieve the current sample
+rate used for measurements. For example,  
+
+.. code-block:: python
+
+  sample_rate = pstat.get_sample_rate()
+
+This method will return the current sample rate, in samples/sec, as float.
+
+If you want to change the sample rate used for measurements you can use the
+:meth:`~potentiostat.Potentiostat.set_sample_rate` method. For example, to set the
+current sample rate to 50 samples/sec
+
+.. code-block:: python
+
+  pstat.set_sample_rate(50.0)
+
+
+As an alternative, there also exist methods for specifying the sample period,
+i.e., the time dt (sec) between samples or 1.0/(sample rate).  While these
+methods are somewhat redundant in that the ultimately do the same thing as the
+set/get sample rate methods they are provided for convienence.
+
+The :meth:`~potentiostat.Potentiostat.get_sample_period` method returns the sample_period in seconds.
+
+.. code-block:: python
+
+   sample_period = pstat.get_sample_period()
+
+
+The :meth:`~potentiostat.Potentiostat.set_sample_period` method sets the sample period (given in seconds). 
+
+.. code-block:: python
+
+   pstat.set_sample_period(0.02)
+
 
 ****************************
 Running a voltammetric tests
