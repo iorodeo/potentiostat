@@ -1,0 +1,5 @@
+Notes of prototype withe nano amp range modifications
+
+1.) Modified resistor R5 to be 6.04 MOhm w/ C19 a 10nF capacitor.
+
+2.) Modified resistor R6 to 10 MOhm w/ C20 a 10nF capacitor. 

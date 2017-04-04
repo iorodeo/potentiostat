@@ -76,8 +76,8 @@ CurrRange1000uA = '1000uA'
 CurrRangeListNanoAmp = [CurrRange1uA, CurrRange10uA, CurrRange100nA, CurrRange60nA]
 CurrRangeListMicroAmp = [CurrRange1uA, CurrRange10uA, CurrRange100uA, CurrRange1000uA]
 HwVariantToCurrRangeList = {
-        'microAmp' :  CurrRangeListMicroAmp, 
-        'nanoAmp'  :  CurrRangeListNanoAmp
+        'microAmpV0.1' :  CurrRangeListMicroAmp, 
+        'nanoAmpV0.1'  :  CurrRangeListNanoAmp
         }
 
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
@@ -176,7 +176,7 @@ class Potentiostat(serial.Serial):
         """Sets the output voltage range (V)- used when setting output voltage manually.
 
         """
-        if not volt_range in get_all_volt_range():
+        if not volt_range in self.get_all_volt_range():
             raise ValueError('unknown voltage range')
         cmd_dict = {CommandKey: SetVoltRangeCmd, VoltRangeKey: volt_range}
         msg_dict = self.send_cmd(cmd_dict)
