@@ -256,8 +256,8 @@ use for the test.
    t, volt, curr = pstat.run_test('cyclic', param=my_param)
 
 
-In this case the parameter values will first be set to the specified values and
-the potentiostat will run the test.
+In the above example the parameter values will first be set to the values
+specified (by my_param) and then the potentiostat will run the test.
 
 For more complete documentation on the
 :meth:`~potentiostat.Potentiostat.run_test` method see the :ref:`api_ref`
@@ -277,12 +277,12 @@ Setting output voltage range
 ****************************
 
 Under certain circumstances you may want to control the output voltage of the
-potentiostat manually (or directly) - rather than running a preprogrammed test
+potentiostat manually (or directly) - rather than running a pre-programmed test
 proceedure. Prior to doing this you should select an appropriate voltage output
 range.  
 
-You can retrieve the list of available output voltage ranges using the
-:meth:`~potentiostat.Potentiostat.get_all_volt_range` method.
+You can retrieve the list of available output voltage ranges supported by the
+device using the :meth:`~potentiostat.Potentiostat.get_all_volt_range` method.
 
 .. code-block:: python
 
@@ -295,9 +295,37 @@ This will return a list of strings representing the available voltage ranges lik
   volt_range_list = ['1V', '2V', '5V', '10V']
 
 
+.. note::
+
+   All output voltage ranges supported by the device are bipolar - including
+   both negative and positive voltages. For example the 2V voltage range allows
+   output voltages from -2V to +2V. 
+
+
 ****************
 Manual operation
 ****************
+
+When operating the device manually you simply set the output voltage directly using the 
+:meth:`~potentiostat.Potentiostat.set_volt` method. For example, to the output voltage to 
+0.75V you could do the following:
+
+.. code-block:: python
+
+  pstat.set_volt(0.75)
+
+The device will maintain this output voltage (between the working and reference
+electrode) until you change it with another call to
+:meth:`~potentiostat.Potentiostat.set_volt` or you run a test with the
+:meth:`~potentiostat.Potentiostat.run_test` method.
+
+To get a measurement of the current you can call the 
+:meth:`~potentiostat.Potentiostat.get_curr` method as shown below.
+
+.. code-block:: python
+
+  curr = pstat.get_curr()
+
 
 ************************************
 Setting device identification number
