@@ -2,89 +2,22 @@
 Getting Started
 ###############
 
-This section provides a short guide to help you begin using your potentiostat shield using the 
+This section provides a short guide to help you begin using your potentiostat shield with the 
 **iorodeo-potentiostat** library.
 
-This library is tested on Python 2.7 and Python 3.x. 
-
-************
-Installation
-************
-
-If you are developing with the library it is very likely that you will want to
-use `virtualenv`_ during installation. A tutorial describing how to use virtualenv
-can be found here `virtualenv tutorial`_  and more detailed information can be
-found in the `virtualenv documentation`_.  If you are using the library on
-Windows you might want to look this additional tutorial `Python, pip and
-virtuanenv on Windows`_. 
-
-Once you have created and activated a virtual environment the library can be
-installed using pip as follows:
-
-.. code-block:: bash
-
-  $ pip install iorodeo-potentiostat
-
-
-If you are installing using pip then all required dependencies should
-automatically be downloaded and installed when running this command.
-
-An alternative installation method is to download and install from source. If
-you would like to install in this manner the  source for the library can be
-found in the `potentiostat shield repository`_.  To install the software would
-run the following command from within the module's top level directory (software/python/potentiostat).
-
-
-.. code-block:: bash
-
-  $ python setup.py install
-
- 
-If your are installing from source (not with pip) then you will also need to
-install the following dependencies:
-
-* `Pyserial >= 2.6`_ 
-* `Progressbar33`_ 
-
-
-Driver (Windows Only)
-=====================
-
-On versions of windows < 10. You will need to install a driver in order to communicate with the
-teensy 3.2 as a serial port. The easiest way to do this is to run the `teensyduino installer`_.
-
-Note, this step is not required on Linux or on Mac OS.
-
-
-udev rules (Linux only)
-=======================
-On Linux you may want to give non-root users permission to use the teensy
-device. This can be done by adding the `49-teensy.rules`_ file to the
-/etc/udev/rules.d directory and reloading the rules using udevadm. 
-
-Copy to /etc/udev/rules.d as follows
-
-.. code-block:: bash
-
-  $ sudo cp 49-teensy.rules /etc/udev/rules.d/
-
-Reload udev rules
-
-.. code-block:: bash
-
-  $ sudo udevadm control --reload-rules
 
 
 ************************
 Creating a device object
 ************************
 
-The first step to controlling your potentiostat shield via the library is to
-create a device object. In order to do this you will need to know the name of
-the **port** on the computer which is associated with the potentiostat shield.
-The name of this port will vary depending on your computer, OS, etc. On linux
-this port will be named something like /dev/ttyACM0, /dev/ttyACM1, etc. On
-Windows it will be named something like COM1, COM2, etc. 
+The first step to controlling your potentiostat with the library is to create a
+device object. In order to do this you will need to know the name of the
+**port** on the computer which is associated with the potentiostat shield.  The
+name of this port will vary depending on your OS, what other devices are
+connected to your computer,  etc.  On linux this port will be named something
+like /dev/ttyACM0, /dev/ttyACM1, ..., etc.  On Windows it will be named
+something like COM1, COM2, etc. 
 
 A device object can be created as follows
 
@@ -99,9 +32,9 @@ This will open a connection which can be used to communicate with the potentiost
 
 .. note::
 
-    In order to avoid too much repetition,  in all of the examples which
-    follow,  we will assume that you have created a Potentiostat device object
-    named pstat.
+    In order to reduce repetition,  in all of the examples which follow,  we
+    will assume that you have created a Potentiostat device object named pstat
+    using the above command.
 
 
 
@@ -122,19 +55,19 @@ This method will return a list such as that given below
 .. code-block:: python
 
   test_names = ['cyclic', 'sinusoid', 'constant', 'linearSweep', 'chronoamp', 'multiStep']
-  
+
+where each string in the list is name of the voltammetric test which can be run on the device.  
 
 ************************************
 Getting voltammetric test parameters
 ************************************
 
-The parameter values used for a particular voltammetric test are stored in
-teensy 3.2 on the potentiostat shield. You can retrieve the current values for
-these parameters from the device using the
-:meth:`~potentiostat.Potentiostat.get_param` method. 
+The current parameter values used for a particular voltammetric test are stored
+in memory on the potentiostat.  You can retrieve the current values for these
+parameters from the device using the :meth:`~potentiostat.Potentiostat.get_param` method. 
 
-For example, to get the current parameter values for the *linearSweep* test you
-would do the following
+For example, you can  get the current parameter values for the *linearSweep* test using 
+the following command
 
 .. code-block:: python
 
@@ -147,7 +80,6 @@ the specified test and their current values.   For example, for the
 .. code-block:: python
 
   param = {'quietTime': 0, 'quietValue': 0.0, 'finalValue': 0.5, 'startValue': -0.5, 'duration': 2000}
-
 
 In the above output, all time values, such as quietTime and duration, are given
 in (ms) and all output voltages, such as quietValue, startValue and finalValue,
@@ -179,23 +111,29 @@ quietValue, startValue and finalValue, are given in (V).  For a complete
 description of the parameters for all voltammetric see the
 :ref:`test_param_ref` section of the documentation.
 
+.. note::
+
+  The parameter values for all voltammetric test are stored in volatile memory.
+  Because of this, after a power cycle of the potentiostat,  all parameters will
+  revert to their default  values. 
+
 *****************************************
 Getting/setting measurement current range
 *****************************************
 
 The potentiostat shield has four programmable current measurement ranges. The
 exact values for the avialable ranges is determined by the hardware variant of
-the device you are using and the library will automatically detect the hardware variant of
-the device for you.  You can retrieve  the current ranges available
-on your device using the :meth:`~potentiostat.Potentiostat.get_all_curr_range` method.
-For example, 
+the device you are using. The iorodeo-potentiostat library will automatically
+detect the hardware variant of the device for you and you can retrieve  the
+current ranges available on your device using the
+:meth:`~potentiostat.Potentiostat.get_all_curr_range` method as follows. 
 
 .. code-block:: python
 
   curr_range_list = pstat.get_all_curr_range()
 
 
-This will return a list of current range strings such as that given below
+This will return a list of strings representing the available current ranges such as that given below
 
 .. code-block:: python
 
@@ -227,7 +165,9 @@ to change the current range to 100uA you could to the following
 
 .. note::
 
-    Current ranges
+    All current ranges supported by the device are bipolar and can measure both
+    positive and negative currents. For example, when using the 10uA current
+    range, the device can measure current in the range  -10uA to +10uA. 
 
 
 ***************************
@@ -235,14 +175,15 @@ Getting/setting sample rate
 ***************************
 When running a test the device returns measurements at a specified rate
 (samples/sec) for the duration of the test.  You can use the
-:meth:`~potentiostat.Potentiostat.get_sample_rate` to retrieve the current sample
-rate used for measurements. For example,  
+:meth:`~potentiostat.Potentiostat.get_sample_rate` method to retrieve the
+current value of sample rate used for measurements as shown below.  
 
 .. code-block:: python
 
   sample_rate = pstat.get_sample_rate()
 
-This method will return the current sample rate, in samples/sec, as float.
+This method will return the current sample rate, in samples/sec, as floating
+point number.
 
 If you want to change the sample rate used for measurements you can use the
 :meth:`~potentiostat.Potentiostat.set_sample_rate` method. For example, to set the
@@ -253,12 +194,11 @@ current sample rate to 50 samples/sec
   pstat.set_sample_rate(50.0)
 
 
-As an alternative, there also exist methods for specifying the sample period,
-i.e., the time dt (sec) between samples or 1.0/(sample rate).  While these
-methods are somewhat redundant in that the ultimately do the same thing as the
-set/get sample rate methods they are provided for convienence.
 
-The :meth:`~potentiostat.Potentiostat.get_sample_period` method returns the sample_period in seconds.
+As an alternative you can also set/get the time between samples or sample
+period.  The sample period will alwasy be equal to 1/sample_rate.  The
+:meth:`~potentiostat.Potentiostat.get_sample_period` method returns the
+sample_period in seconds.
 
 .. code-block:: python
 
@@ -278,27 +218,51 @@ Running  voltammetric tests
 
 Voltammetric tests can be run using the
 :meth:`~potentiostat.Potentiostat.run_test` method. For example, in order to
-run the cyclic voltammetry test with the parameters as currently set in the
-device you could do the following. 
+run the cyclic voltammetry test you could do the following. 
 
 .. code-block:: python
 
    t, volt, curr = pstat.run_test('cyclic')
 
 
-This will return  lists containing the measurement times (s), voltages (V) and currents (uA) respectively.  
+This method will return lists which contain the measurement times (s), voltages (V) and
+currents (uA) respectively.  The test will be run with the parameter values
+set in the potentiostat's memory for the specified test. 
 
 This method takes several optional keyword arguments. For example, if you want
-to save the data to a file while the test proceeds you can specify an name for
-the optional filename argument.
+to save the data to a file while the test proceeds you can specify n file name 
+using the *filename* keyword as shown below.
 
 .. code-block:: python
 
    t, volt, curr = pstat.run_test('cyclic', filename='data.txt')
 
-For more complete documentation on the :meth:`~potentiostat.Potentiostat.run_test` method see the :ref:`api_ref`
-section. 
-For a more complete description of the various voltammetric tests see :ref:`test_param_ref` section. 
+
+The *param* keyword argument lets you specify the value of the parameters to
+use for the test. 
+
+.. code-block:: python
+
+    my_param = {
+            'quietValue' : 0.0,
+            'quietTime'  : 1000,
+            'amplitude'  : 2.0,
+            'offset'     : 0.0,
+            'period'     : 1000,
+            'numCycles'  : 5,
+            'shift'      : 0.0,
+            }
+
+   t, volt, curr = pstat.run_test('cyclic', param=my_param)
+
+
+In this case the parameter values will first be set to the specified values and
+the potentiostat will run the test.
+
+For more complete documentation on the
+:meth:`~potentiostat.Potentiostat.run_test` method see the :ref:`api_ref`
+section.  For a more complete description of the various voltammetric tests see
+:ref:`test_param_ref` section. 
 
 .. note::
 
@@ -339,18 +303,5 @@ Manual operation
 Setting device identification number
 ************************************
 
-**********
-References
-**********
 
-.. target-notes::
 
-.. _`virtualenv`: https://pypi.python.org/pypi/virtualenv
-.. _`virtualenv tutorial`: http://python-guide-pt-br.readthedocs.io/en/latest/dev/virtualenvs/ 
-.. _`virtualenv documentation`: https://virtualenv.pypa.io/en/stable/ 
-.. _`potentiostat shield repository`: https://bitbucket.org/iorodeo/potentiostat/
-.. _`Python, pip and virtuanenv on Windows`: http://www.tylerbutler.com/2012/05/how-to-install-python-pip-and-virtualenv-on-windows-with-powershell/
-.. _`Pyserial >= 2.6`: https://pythonhosted.org/pyserial/
-.. _`Progressbar33`: https://pypi.python.org/pypi/progressbar33 
-.. _`teensyduino installer`: https://www.pjrc.com/teensy/td_download.html
-.. _`49-teensy.rules`: https://www.pjrc.com/teensy/49-teensy.rules

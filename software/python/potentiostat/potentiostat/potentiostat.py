@@ -305,7 +305,7 @@ class Potentiostat(serial.Serial):
         return msg_dict[ResponseKey][VersionKey]
 
 
-    def run_test(self, testname, timeunit='s', display='pbar', filename=None):
+    def run_test(self, testname, param=None, filename=None, display='pbar', timeunit='s'):
         """Runs the test with specified test name and returns the time, voltage and current data.
 
         """
@@ -313,6 +313,9 @@ class Potentiostat(serial.Serial):
             raise RuntimeError('uknown timeunit option {0}'.format(timeunit))
         if display not in (None, 'pbar', 'data'):
             raise RuntimeError('uknown display option {0}'.format(display))
+
+        if param is not None:
+            self.set_param(testname,param)
 
         if display in ('pbar', 'data'):
             print()

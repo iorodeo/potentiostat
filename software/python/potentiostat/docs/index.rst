@@ -36,6 +36,7 @@ Contents:
 .. toctree::
     :maxdepth: 2
 
+    installation
     getting_started
     example_cyclic
     test_param
