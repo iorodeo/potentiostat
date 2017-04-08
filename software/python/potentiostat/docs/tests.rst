@@ -1,4 +1,4 @@
-.. _test_param_ref:
+.. _tests_ref:
 
 #################
 Voltametric Tests 

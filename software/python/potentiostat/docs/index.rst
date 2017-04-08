@@ -26,9 +26,8 @@ controlling the potentiostat shield allowing users to easily:
 * set/get the sample rate/period used for measurements
 
 
-To quickly get up and running using the library see the Getting Started guide.
-For a more comprehensive coverage of the API provided by the library see the
-API Reference.
+To quickly get up and running using the library see the :ref:`getting_started_ref` guide.
+For a more comprehensive coverage of the API provided by the library see the :ref:`api_ref`.
 
 
 Contents:
@@ -38,8 +37,8 @@ Contents:
 
     installation
     getting_started
-    example_cyclic
-    test_param
+    examples
+    tests 
     api_reference
     hardware
 
