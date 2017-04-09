@@ -1,25 +1,24 @@
-from __future__ import print_function
 from potentiostat import Potentiostat
 import matplotlib.pyplot as plt
 
 port = '/dev/ttyACM0'       # Serial port for potentiostat device
-datafile = 'test_data.txt'  # Output file for time, curr, volt data
+datafile = 'data.txt'       # Output file for time, curr, volt data
 
 test_name = 'cyclic'        # The name of the test to run
 curr_range = '100uA'        # The name of the current range [-100uA, +100uA]
 sample_rate = 100.0         # The number of samples/second to collect
 
-volt_min = -0.1             # The minimum voltage in the waveform
-volt_max =  1.0             # The maximum voltage in the waveform
-volt_per_sec = 0.050        # The rate at which to transition from volt_min to volt_max
+volt_min = -0.1             # The minimum voltage in the waveform (V)
+volt_max =  1.0             # The maximum voltage in the waveform (V)
+volt_per_sec = 0.050        # The rate at which to transition from volt_min to volt_max (V/s)
 num_cycles = 1              # The number of cycle in the waveform
 
-# Convert test parameters to amplitude, offset, period for triangle waveform output
-amplitude = abs((volt_min - volt_max)/2.0)         # Waveform peak amplitude (V) 
-offset = 0.5*(volt_max + volt_min)                 # Waveform offset (V) 
-period_ms = int(1000*4*amplitude/volt_per_sec)     # Waveform period in (ms)
-shift = 0.0                                        # Waveform phase shift - expressed as [0,1] number
-                                                   # 0 = no phase shift, 0.5 = 180 deg phase shift, etc.
+# Convert parameters to amplitude, offset, period, phase shift for triangle waveform
+amplitude = (volt_max - volt_min)/2.0            # Waveform peak amplitude (V) 
+offset = (volt_max + volt_min)/2.0               # Waveform offset (V) 
+period_ms = int(1000*4*amplitude/volt_per_sec)   # Waveform period in (ms)
+shift = 0.0                                      # Waveform phase shift - expressed as [0,1] number
+                                                 # 0 = no phase shift, 0.5 = 180 deg phase shift, etc.
 
 # Create dictionary of waveform parameters for cyclic voltammetry test
 test_param = {
@@ -32,7 +31,7 @@ test_param = {
         'shift'      : shift,
         }
 
-# Create potentiostat object and set range, sample rate and test parameters
+# Create potentiostat object and set current range, sample rate and test parameters
 dev = Potentiostat(port)     
 dev.set_curr_range(curr_range)   
 dev.set_sample_rate(sample_rate)
