@@ -53,7 +53,7 @@ here = path.abspath(path.dirname(__file__))
 
 setup(
     name='iorodeo-potentiostat',
-    version='0.0.1dev3',
+    version='0.0.1',
     description='Serial interface to IO Rodeo Potentiostat',
     long_description=__doc__,
     url='https://bitbucket.org/iorodeo/potentiostat',
