@@ -42,7 +42,7 @@ Install
 Links
 -----
 
-* Documentation https://potentiostat.iorodeo.com
+* Documentation http://stuff.iorodeo.com/docs/potentiostat
 * Download https://bitbucket.org/iorodeo/potentiostat
 
 """
