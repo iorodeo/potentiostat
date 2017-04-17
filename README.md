@@ -29,13 +29,10 @@ Hardware design, firmware and software for IO Rodeo's Potentiostat Shield.
 ## Libraries
 
 * Python 
-    - Examples       (link to python library examples)
-    - Documentation  (link to python library docs) 
+    - Documentation http://stuff.iorodeo.com/docs/potentiostat/  
 * Javascript
-    - Examples (TODO)
     - Documentation (TODO)
 * C++
-    - Examples (TODO)
     - Documentation (TODO)
 
 ## Software
