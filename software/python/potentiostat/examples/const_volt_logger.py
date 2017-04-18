@@ -1,8 +1,8 @@
 """
 const_volt_logger.py
 
-Example of a duration constant voltage test data logger -  designed for very
-long duration experiments with low sample rates. Uses Python's sched module for
+Example of a constant voltage test data logger which is intended for very long
+duration experiments with low sample rates. Uses Python's sched module for
 timing. Data is logged to output file specified in the params. The test runs
 indefinitely, but can  be interrupted with ctl-c. It can then restarted and
 will continue to append data to the same data file. 
