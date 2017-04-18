@@ -1,3 +1,16 @@
+"""
+const_volt_logger.py
+
+Example of a duration constant voltage test data logger -  designed for very
+long duration experiments with low sample rates. Uses Python's sched module for
+timing. Data is logged to output file specified in the params. The test runs
+indefinitely, but can  be interrupted with ctl-c. It can then restarted and
+will continue to append data to the same data file. 
+
+Potentiostat Shield is operated manual/direct control mode where output voltage
+is set directly from python.
+
+"""
 from __future__ import print_function
 from potentiostat import Potentiostat
 import time
@@ -6,10 +19,22 @@ import signal
 import sched
 
 
+
 class ConstVoltLogger(object):
 
     def __init__(self, param):
+        """
+        param - dictionary of parameters for the test. Should contain 
+        the following items.
 
+        filename      Data log filename
+        port          Potentiostat serial port
+        volt_range    Output voltage range
+        curr_range    Measurement current range
+        sample_dt     Sample period (s)
+        volt          # Output voltage (V)
+
+        """
         self.param = param
         self.done = False
         self.sep = ','
@@ -76,7 +101,7 @@ class ConstVoltLogger(object):
 if __name__ == '__main__':
 
     param = { 
-            'filename'   : 'testdata.txt',  # Data log filename
+            'filename'   : 'logfile.txt',   # Data log filename
             'port'       : '/dev/ttyACM0',  # Potentiostat serial port
             'volt_range' : '1V',            # Output voltage range
             'curr_range' : '1uA',           # Measurement current range
