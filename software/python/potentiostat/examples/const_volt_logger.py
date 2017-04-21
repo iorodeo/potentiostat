@@ -18,21 +18,19 @@ import os.path
 import signal
 import sched
 
-
-
 class ConstVoltLogger(object):
 
     def __init__(self, param):
         """
-        param - dictionary of parameters for the test. Should contain 
-        the following items.
+        param - dictionary of parameters for the constant voltage test. It
+        should contain the following items.
 
-        filename      Data log filename
-        port          Potentiostat serial port
-        volt_range    Output voltage range
-        curr_range    Measurement current range
-        sample_dt     Sample period (s)
-        volt          # Output voltage (V)
+         filename      Data log filename
+         port          Potentiostat serial port
+         volt_range    Output voltage range
+         curr_range    Measurement current range
+         sample_dt     Sample period (s)
+         volt          # Output voltage (V)
 
         """
         self.param = param
@@ -46,7 +44,6 @@ class ConstVoltLogger(object):
 
         self.scheduler = sched.scheduler(time.time, time.sleep)
         self.scheduler_event = None
-
         signal.signal(signal.SIGINT,self.sigint_handler)
 
 
@@ -66,6 +63,7 @@ class ConstVoltLogger(object):
 
 
     def run(self):
+        self.done = False
         t_start = time.time()
         t_start_file = self.get_file_start_time()
         if t_start_file is None:
@@ -97,7 +95,6 @@ class ConstVoltLogger(object):
         self.scheduler.cancel(self.scheduler_event)
         self.done = True 
 
-
 if __name__ == '__main__':
 
     param = { 
@@ -110,17 +107,5 @@ if __name__ == '__main__':
             }
 
     data_logger = ConstVoltLogger(param)
-
     data_logger.run()
-
-
-
-
-
-
-
-
-
-
-
 

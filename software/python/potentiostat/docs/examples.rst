@@ -84,10 +84,50 @@ exponentially, as the capacitor C1 charges, gradually approaching a steady state
 value.
 
 
-*********************
-Manual/Direct Control
-*********************
+**********************
+Manual/Direct Control:  
+**********************
 
+In this section we give several examples which demostrate how to use the
+potentiostat shield  in manual/direct control mode. When using this mode,
+the output voltage is set and the current is measured directly from the host PC
+using the :meth:`~potentiostat.Potentiostat.set_volt` and
+:meth:`~potentiostat.Potentiostat.get_curr` methods.  When running in
+manual/direct control mode the timing determined by the software on the host PC
+and it will not be as precise as when using a pre-programmed voltammetric test
+running in firmware on the Teensy 3.2.  However, it does offer a great deal of
+flexibility to the user and enables the creation of custom voltammetric test
+without any firmware programming. 
+
+Example 1: Linear Plus Sinewave
+================================
+
+This example demonstrates how to use manual/direct control to create an output voltage 
+which is sum of a linear function and a sine wave.  
+
+.. literalinclude:: ../examples/manual_control_v2.py
+   :language: python 
+
+Example data generated using the program above for 50k dummy cell (R1=50k,
+R2=R3=0 , C1=0) is shown below.  
+
+.. figure:: _static/manual_control_v2.png
+   :align:  center
+
+In a similar manner, by writing a custom output voltage function, you can
+easily create your own custom voltammetric tests.
+
+Example 2: Long Duration Constant Voltage Test 
+==============================================
+
+This example demonstrates how manual/direct control can be used to create a
+data logger for long duration constant voltage tests.  Once started, the data
+logger shown below will run forever or until stopped by the user with Ctl-C. In
+addition the tests can be stopped and re-started and the logger will continue
+appending to an exiting log file if one is found.
+
+.. literalinclude:: ../examples/const_volt_logger.py
+   :language: python 
 
 **********
 References
