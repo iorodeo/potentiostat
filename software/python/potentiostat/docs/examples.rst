@@ -5,7 +5,7 @@ Worked Examples
 ###############
 
 In this section we show several worked examples demonstrating how to use iorodeo-potentiostat library
-to make measurements. 
+with your Rodeostat shield to make measurements. 
 
 .. note::
 
@@ -84,13 +84,13 @@ Manual/Direct Control:
 **********************
 
 In this section we give several examples which demostrate how to use the
-potentiostat shield  in manual/direct control mode. When using this mode,
+Rodeostat  in manual/direct control mode. When using this mode,
 the output voltage is set and the current is measured directly from the host PC
 using the :meth:`~potentiostat.Potentiostat.set_volt` and
-:meth:`~potentiostat.Potentiostat.get_curr` methods.  When running in
-manual/direct control mode the timing determined by the software on the host PC
-and it will not be as precise as when using a pre-programmed voltammetric test
-running in firmware on the Teensy 3.2.  However, it does offer a great deal of
+:meth:`~potentiostat.Potentiostat.get_curr` methods.  Note, the timing in
+manual/direct control mode is determined by the software on the host PC and it
+will not be as precise as when using a pre-programmed voltammetric test running
+in firmware on the Teensy 3.2.  However, it does offer a great deal of
 flexibility to the user and enables the creation of custom voltammetric test
 without any firmware programming. 
 

@@ -4,7 +4,7 @@
 Getting Started
 ###############
 
-This section provides a short guide to help you begin using your potentiostat shield with the 
+This section provides a short guide to help you begin using your Rodeostat with the 
 **iorodeo-potentiostat** library.
 
 
@@ -15,7 +15,7 @@ Creating a device object
 
 The first step to controlling your potentiostat with the library is to create a
 device object. In order to do this you will need to know the name of the
-**port** on the computer which is associated with the potentiostat shield.  The
+**port** on the computer which is associated with the Rodeostat.  The
 name of this port will vary depending on your OS, what other devices are
 connected to your computer,  etc.  On linux this port will be named something
 like /dev/ttyACM0, /dev/ttyACM1, ..., etc.  On Windows it will be named
@@ -30,7 +30,7 @@ A device object can be created as follows
   pstat = Potentiostat('/dev/ttyACM0')
 
 
-This will open a connection which can be used to communicate with the potentiostat shield. 
+This will open a connection which can be used to communicate with the Rodeostat. 
 
 .. note::
 
@@ -45,7 +45,7 @@ Getting list of voltametric tests
 **********************************
 
 A list of all of the voltammetric tests supported by the current firmware on
-the Potentiostat Shield's teensy 3.2 can be obtained using the
+the g's teensy 3.2 can be obtained using the
 :meth:`~potentiostat.Potentiostat.get_test_names` method.
 
 .. code-block:: python
@@ -123,7 +123,7 @@ documentation.
 Getting/setting measurement current range
 *****************************************
 
-The potentiostat shield has four programmable current measurement ranges. The
+The Rodeostat has four programmable current measurement ranges. The
 exact values for the avialable ranges is determined by the hardware variant of
 the device you are using. The iorodeo-potentiostat library will automatically
 detect the hardware variant of the device for you and you can retrieve  the

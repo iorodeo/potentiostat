@@ -7,16 +7,15 @@
 iorodeo-potentiostat  
 ####################
 
-A Python library for controlling iorodeo's Potentiostat Shield 
+A Python library for controlling IO Rodeo's Rodeostat open source potentiostat
 
 
 .. figure:: _static/pstat_shield_img_0.JPG
    :align:  center
 
-IO Rodeo's Potentiostat Shield is an open source potentiostat for performing
+IO Rodeo's Rodeostat is an open source potentiostat for performing
 electrochemical measurments which is designed to work with the `teensy 3.2
 development board <https://www.pjrc.com/teensy/teensy31.html>`_. 
-
 The **iorodeo-potentiostat** library provides a simple highlevel intreface for
 controlling the potentiostat shield allowing users to easily:  
 
