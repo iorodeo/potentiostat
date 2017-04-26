@@ -15,7 +15,7 @@ Cyclic voltammetry
 In cyclic voltammetry the output voltage ramps up and down cyclically in
 piecewise linear fashion in a triangle waveform for a number of cycles.  This
 triangle waveform can be specified by the *amplitude*, *offset*, *period* and (phase)
-*shift* in a manner similar to a sinewave.  Prior to begining the triangle
+*shift* in a manner similar to a sine wave.  Prior to beginning the triangle
 waveform output, the  test procedure waits for a quiet period during which the
 voltage is held as a user specified value. The quiet period is defined by the
 *quietTime* and *quietValue* parameters.  Immediately following the end of the
@@ -51,10 +51,24 @@ voltammetry is shown below.
         'shift'      :  0.0,   # unitless phase shift
     }
 
-For this examle dictionary voltage output would be as shown in the figrue below. 
+For these parameters the cyclic voltammetry voltage output is as shown in the figure below. 
 
 .. figure:: _static/cyclic_test_fig.png
    :align:  center
+
+When the *shift* parameter is zero the triangle waveform output for the cyclic
+voltammetry test  will start at the minimum value.  This behaviour can be
+changed by entering a value for the *shift* parameter in the range [0,1].  The
+periodic triangle waveform will then be shifted forward (in time) by and amount
+equal to *shift x period*. Thus a shift value of 1/4 would shift the triangle
+waveform a quarter of a cycle forward, a shift value of 1/2 would shift the
+triangle waveform a half a cycle forward, etc. An example demonstrating the effect
+of the shift parameter is shown below.  
+
+
+.. figure:: _static/cyclic_shift_fig.png
+   :align:  center
+
 
 .. note::
 
@@ -67,21 +81,17 @@ For this examle dictionary voltage output would be as shown in the figrue below.
     * maximum voltage = offset + amplitude
     * minimum voltage = offset - amplitude
 
+More information on cyclic voltammetry can be found here `https://en.wikipedia.org/wiki/Cyclic_voltammetry`_
 
+************************
+Linear sweep voltammetry
+************************
 
-The voltage output for these parameters is shown in the figure below. 
-
-
-
-`cyclic voltammetry`_ 
 
 **********************
 Sinusoidal voltammetry
 **********************
 
-************************
-Linear sweep voltammetry
-************************
 
 *****************
 Constant voltage
@@ -94,4 +104,13 @@ Chronoamperometry
 *********************
 Multistep voltammetry
 *********************
+
+**********
+References
+**********
+
+.. target-notes::
+
+.. _`https://en.wikipedia.org/wiki/Cyclic_voltammetry`: https://en.wikipedia.org/wiki/Cyclic_voltammetry 
+
 

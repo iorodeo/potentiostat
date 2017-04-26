@@ -21,7 +21,7 @@ vpos_arrow_low = -0.15
 plt.fill([0.0,1.0,1.0,0.0],[-0.2, -0.2, 1.2, 1.2], color=(0.3,0.3,0.3), alpha=0.1)
 
 # Quiet time label
-plt.text(0.5,vpos_arrow_low,'quiet time',ha='center')
+plt.text(0.5,vpos_arrow_low,'quietTime',ha='center')
 plt.arrow(0.2,vpos_arrow_low+0.01,-0.158, 0.0, ec='k', fc='k')
 plt.arrow(0.8,vpos_arrow_low+0.01, 0.17, 0.0, ec='k', fc='k')
 
@@ -52,12 +52,15 @@ plt.text(hpos_amp_arrow,0.8,'amplitude', va='center', rotation=90)
 plt.arrow(hpos_amp_arrow+0.034, 0.7, 0.0, -0.15, fc='k', ec='k')
 plt.arrow(hpos_amp_arrow+0.034, 0.9, 0.0, 0.15, fc='k', ec='k')
 
+# Quite Value
+plt.figtext(0.05, 0.155, 'quietValue')
+
 plt.plot(t,v,'b',linewidth=linewidth)
 plt.xlabel('time (s)')
 plt.ylabel('potential (V)')
 plt.xlim(*xlim)
 plt.ylim(*ylim)
 plt.grid('on')
-plt.title('Cyclic Voltammetry Example')
+plt.title('Cyclic voltammetry parameters')
 plt.savefig('cyclic_test_fig.png')
 plt.show()

@@ -14,7 +14,7 @@ with your Rodeostat shield to make measurements.
 
 
 ******************
-Cyclic Voltammetry
+Cyclic voltammetry
 ******************
 
 In the following example we demonstate how perform a `cyclic voltammetry`_ test with the following parameters:
@@ -46,7 +46,7 @@ Further details on the methods used for the ascorbate experiments can be found
 here `http://potentiostat.iorodeo.com/methods`_.
 
 ****************************
-Constant Voltage Voltammetry
+Constant voltage voltammetry
 ****************************
 
 This example demonstrates how to preform constant voltage voltammetry. The test parameters are as follows: 
@@ -80,7 +80,7 @@ value.
 
 
 **********************
-Manual/Direct Control:  
+Manual/direct control:  
 **********************
 
 In this section we give several examples which demostrate how to use the
@@ -94,7 +94,7 @@ in firmware on the Teensy 3.2.  However, it does offer a great deal of
 flexibility to the user and enables the creation of custom voltammetric test
 without any firmware programming. 
 
-Example 1: Linear Plus Sinewave
+Example 1: linear plus sinewave
 ================================
 
 This example demonstrates how to use manual/direct control to create an output voltage 
@@ -113,7 +113,7 @@ In a similar manner you can easily create other custom tests by writing your
 own custom voltage function which gives specifies the desired output voltage as
 a function of time.
 
-Example 2: Long Duration Constant Voltage Test 
+Example 2: long duration constant voltage test 
 ==============================================
 
 Suppose you want to perform a very long duration (hours to days) constant
