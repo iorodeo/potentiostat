@@ -117,11 +117,11 @@ linear sweep voltammetry is shown below.
 .. code-block:: python 
 
     { 
-        'quietTime'  : 2000, 
-        'quietValue' :  0.0, 
-        'startValue' : -0.8, 
-        'finalValue' :  1.2, 
-        'duration'   : 8000, 
+        'quietTime'  : 2000,   # quiet period voltage (V) 
+        'quietValue' :  0.0,   # quiet period duration (ms)
+        'startValue' : -0.8,   # linear sweep starting value (V)
+        'finalValue' :  1.2,   # linear sweep final value (V)
+        'duration'   : 8000,   # linear sweep duration (ms)
     }
 
 With these parameters the output voltage is as shown in the figure below. 
