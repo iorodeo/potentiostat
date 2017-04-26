@@ -12,9 +12,10 @@ shield's firmware.
 Cyclic voltammetry 
 ******************
 
-In cyclic voltammetry the output voltage ramps up and down cyclically in
-piecewise linear fashion in a triangle waveform for a number of cycles.  This
-triangle waveform can be specified by the *amplitude*, *offset*, *period* and (phase)
+In cyclic voltammetry current is measured while the potential (voltage) between
+the working and reference electrode is ramped up and down cyclically in piecewise
+linear fashion - in a triangle waveform - for a number of cycles.  This triangle
+waveform can be specified by the *amplitude*, *offset*, *period* and (phase)
 *shift* in a manner similar to a sine wave.  Prior to beginning the triangle
 waveform output, the  test procedure waits for a quiet period during which the
 voltage is held as a user specified value. The quiet period is defined by the
@@ -51,7 +52,7 @@ voltammetry is shown below.
         'shift'      :  0.0,   # unitless phase shift
     }
 
-For these parameters the cyclic voltammetry voltage output is as shown in the figure below. 
+With these parameters the output voltage is as shown in the figure below. 
 
 .. figure:: _static/cyclic_test_fig.png
    :align:  center
@@ -87,23 +88,95 @@ More information on cyclic voltammetry can be found here `https://en.wikipedia.o
 Linear sweep voltammetry
 ************************
 
+In linear sweep voltammetry current is measured while the potential between the
+working and reference electrode sweeps linearly over a some range.  The range
+is specified by a starting value, *startValue*, a final value, *finalValue*,
+and a *duration*.  Prior to beginning the linear sweep, the test
+procedure waits for a quiet period during which the voltage is held as a user
+specified value.  The quiet period is specified by the quietTime and quietValue
+parameters. The five parameters used to define the linear sweep voltammetry
+test are test are summarized in the table below.
 
-**********************
-Sinusoidal voltammetry
-**********************
 
+================= ========================================= =========== ========== 
+ parameter         description                               units       type     
+================= ========================================= =========== ========== 
+  quietValue       output during the quiet period               V         float    
+  quietTime        duration of quiet period                     ms        integer   
+  startValue       linear sweep starting value                  V         float
+  finalValue       linear sweep final value                     V         float
+  duration         linear sweep duration                        ms        integer
+================= ========================================= =========== ========== 
+
+
+The parameters are set in the Rodeostat's firmware using the
+:meth:`~potentiostat.Potentiostat.set_param` method and are passed as a
+dictionary.  An example dictionary containing the five parameters for the
+linear sweep voltammetry is shown below. 
+
+.. code-block:: python 
+
+    { 
+        'quietTime'  : 2000, 
+        'quietValue' :  0.0, 
+        'startValue' : -0.8, 
+        'finalValue' :  1.2, 
+        'duration'   : 8000, 
+    }
+
+With these parameters the output voltage is as shown in the figure below. 
+
+.. figure:: _static/linear_sweep_fig.png
+   :align:  center
+
+
+Additional information on linear sweep voltammetry can be found here 
+`https://en.wikipedia.org/wiki/Linear_sweep_voltammetry`_
 
 *****************
 Constant voltage
 *****************
 
+================= ========================================= =========== ========== 
+ parameter         description                               units       type     
+================= ========================================= =========== ========== 
+  quietValue       output during the quiet period               V         float    
+  quietTime        duration of quiet period                     ms        integer   
+================= ========================================= =========== ========== 
+
+**********************
+Sinusoidal voltammetry
+**********************
+
+================= ========================================= =========== ========== 
+ parameter         description                               units       type     
+================= ========================================= =========== ========== 
+  quietValue       output during the quiet period               V         float    
+  quietTime        duration of quiet period                     ms        integer   
+================= ========================================= =========== ========== 
+
+
 *****************
 Chronoamperometry
 *****************
 
+================= ========================================= =========== ========== 
+ parameter         description                               units       type     
+================= ========================================= =========== ========== 
+  quietValue       output during the quiet period               V         float    
+  quietTime        duration of quiet period                     ms        integer   
+================= ========================================= =========== ========== 
+
 *********************
 Multistep voltammetry
 *********************
+
+================= ========================================= =========== ========== 
+ parameter         description                               units       type     
+================= ========================================= =========== ========== 
+  quietValue       output during the quiet period               V         float    
+  quietTime        duration of quiet period                     ms        integer   
+================= ========================================= =========== ========== 
 
 **********
 References
@@ -112,5 +185,6 @@ References
 .. target-notes::
 
 .. _`https://en.wikipedia.org/wiki/Cyclic_voltammetry`: https://en.wikipedia.org/wiki/Cyclic_voltammetry 
+.. _`https://en.wikipedia.org/wiki/Linear_sweep_voltammetry`: https://en.wikipedia.org/wiki/Linear_sweep_voltammetry
 
 
