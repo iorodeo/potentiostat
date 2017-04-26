@@ -26,7 +26,7 @@ define the cyclic voltammetry test are test are summarized in the table below.
 ================= ========================================= =========== ========== 
  parameter         description                               units       type     
 ================= ========================================= =========== ========== 
-  quietValue       output during the quiet period               V         float    
+  quietValue       output value during the quiet period         V         float    
   quietTime        duration of quiet period                     ms        integer   
   amplitude        peak amplitude of triangle waveform          V         float    
   offset           offset of triangle waveform from zero        V         float    
@@ -52,7 +52,8 @@ voltammetry is shown below.
         'shift'      :  0.0,   # unitless phase shift
     }
 
-With these parameters the output voltage is as shown in the figure below. 
+The following figure illustrates the output voltage of the potentiostat with
+these parameters. 
 
 .. figure:: _static/cyclic_test_fig.png
    :align:  center
@@ -101,7 +102,7 @@ test are test are summarized in the table below.
 ================= ========================================= =========== ========== 
  parameter         description                               units       type     
 ================= ========================================= =========== ========== 
-  quietValue       output during the quiet period               V         float    
+  quietValue       output value during the quiet period         V         float    
   quietTime        duration of quiet period                     ms        integer   
   startValue       linear sweep starting value                  V         float
   finalValue       linear sweep final value                     V         float
@@ -124,7 +125,8 @@ linear sweep voltammetry is shown below.
         'duration'   : 8000,   # linear sweep duration (ms)
     }
 
-With these parameters the output voltage is as shown in the figure below. 
+The following figure illustrates the output voltage of the potentiostat with
+these parameters. 
 
 .. figure:: _static/linear_sweep_fig.png
    :align:  center
@@ -140,43 +142,98 @@ Constant voltage
 ================= ========================================= =========== ========== 
  parameter         description                               units       type     
 ================= ========================================= =========== ========== 
-  quietValue       output during the quiet period               V         float    
+  quietValue       output value during the quiet period         V         float    
   quietTime        duration of quiet period                     ms        integer   
+  value            output value during the test period          V         float
+  duration         duration of the test period                  ms        integer
 ================= ========================================= =========== ========== 
+
+| 
+
+.. code-block:: python 
+
+    {
+        'quietValue' : 0.0,
+        'quietTime'  : 1000,
+        'value'      : 1.0,
+        'duration'   : 5000,
+    }
+
 
 **********************
 Sinusoidal voltammetry
 **********************
 
-================= ========================================= =========== ========== 
- parameter         description                               units       type     
-================= ========================================= =========== ========== 
-  quietValue       output during the quiet period               V         float    
-  quietTime        duration of quiet period                     ms        integer   
-================= ========================================= =========== ========== 
+================= =========================================== =========== ========== 
+ parameter         description                                  units       type     
+================= =========================================== =========== ========== 
+  quietValue       output value during the quiet period           V         float    
+  quietTime        duration of quiet period                       ms        integer   
+  amplitude        peak amplitude of sinusoid waveform            V         float    
+  offset           offset of sinusoid waveform from zero          V         float    
+  period           period of sinusoid waveform                    ms        integer  
+  numCycles        number of cycles to perform                    NA        integer  
+  shift            unitless phase shift for waveform              NA        float    
+================= =========================================== =========== ========== 
 
+|
+
+.. code-block:: python 
+
+    {
+        'quietValue' : 0.0,
+        'quietTime'  : 0,
+        'amplitude'  : 2.0,
+        'offset'     : 0.0,
+        'period'     : 2000,
+        'numCycles'  : 3,
+        'shift'      : 0.0,
+    }
 
 *****************
 Chronoamperometry
 *****************
 
-================= ========================================= =========== ========== 
- parameter         description                               units       type     
-================= ========================================= =========== ========== 
-  quietValue       output during the quiet period               V         float    
-  quietTime        duration of quiet period                     ms        integer   
-================= ========================================= =========== ========== 
+================= ================================================= =============== ====================== 
+ parameter         description                                         units           type     
+================= ================================================= =============== ====================== 
+  quietValue       output value during the quiet period                  V             float    
+  quietTime        duration of quiet period                              ms            integer   
+  step             list (len=2) of (duration,value) tuples             (ms, V)         (integer, float)
+================= ================================================= =============== ====================== 
+
+|
+
+.. code-block:: python 
+
+    {
+        'quietValue' : 0.0,
+        'quietTime'  : 1000,
+        'step'       : [(1000,-0.25), (1000,0.5)],
+    }
+
 
 *********************
 Multistep voltammetry
 *********************
 
-================= ========================================= =========== ========== 
- parameter         description                               units       type     
-================= ========================================= =========== ========== 
-  quietValue       output during the quiet period               V         float    
-  quietTime        duration of quiet period                     ms        integer   
-================= ========================================= =========== ========== 
+================= ================================================= =============== ====================== 
+ parameter         description                                         units           type     
+================= ================================================= =============== ====================== 
+  quietValue       output value during the quiet period                  V             float    
+  quietTime        duration of quiet period                              ms            integer   
+  step             list (len=<50) of (duration,value) tuples             (ms, V)         (integer, float)
+================= ================================================= =============== ====================== 
+
+|
+
+.. code-block:: python 
+
+    {
+        'quietValue' : 0.0,
+        'quietTime'  : 1000,
+        'step'       : [(1000,-0.5), (1000,-0.2), (1000,-0.3), (1000,-0.0), (1000,-0.1), (1000,0.3), (1000,0.2), (1000, 0.5)],
+    }
 
 **********
 References
