@@ -17,11 +17,12 @@ the working and reference electrode is ramped up and down cyclically in piecewis
 linear fashion - in a triangle waveform - for a number of cycles.  This triangle
 waveform can be specified by the *amplitude*, *offset*, *period* and (phase)
 *shift* in a manner similar to a sine wave.  Prior to beginning the triangle
-waveform output, the  test procedure waits for a quiet period during which the
-voltage is held as a user specified value. The quiet period is defined by the
-*quietTime* and *quietValue* parameters.  Immediately following the end of the
-quiet period the triangle waveform output begins.  The seven parameters used to
-define the cyclic voltammetry test are test are summarized in the table below.
+waveform output, the  test procedure waits for a (optional) quiet period during
+which the voltage is held as a user specified value. The quiet period is
+defined by the *quietTime* and *quietValue* parameters.  Immediately following
+the end of the quiet period the triangle waveform output begins.  The seven
+parameters used to define the cyclic voltammetry test are test are summarized
+in the table below.
 
 ================= ========================================= =========== ========== 
  parameter         description                               units       type     
@@ -35,7 +36,7 @@ define the cyclic voltammetry test are test are summarized in the table below.
   shift            unitless phase shift for waveform            NA        float    
 ================= ========================================= =========== ========== 
 
-The parameters are set in the Rodeostat's firmware using the
+The parameters can be set in the Rodeostat's firmware using the
 :meth:`~potentiostat.Potentiostat.set_param` method and are passed as a
 dictionary.  An example dictionary containing the parameters for the cyclic
 voltammetry is shown below.
@@ -83,6 +84,14 @@ of the shift parameter is shown below.
     * maximum voltage = offset + amplitude
     * minimum voltage = offset - amplitude
 
+    or alternatively
+
+    * amplitude = 0.5 x ( (maximum voltage) - (minimum voltage) )
+    * offset    = 0.5 x ( (maximum voltage) + (minimum voltage) )
+    * period    = 4 x amplitude / (scan rate)
+
+    where period has units of (s) and scan rate has units of (V/s)
+
 More information on cyclic voltammetry can be found here `https://en.wikipedia.org/wiki/Cyclic_voltammetry`_
 
 ************************
@@ -93,7 +102,7 @@ In linear sweep voltammetry current is measured while the potential between the
 working and reference electrode sweeps linearly over a some range.  The range
 is specified by a starting value, *startValue*, a final value, *finalValue*,
 and a *duration*.  Prior to beginning the linear sweep, the test
-procedure waits for a quiet period during which the voltage is held as a user
+procedure waits for a (optional) quiet period during which the voltage is held as a user
 specified value.  The quiet period is specified by the quietTime and quietValue
 parameters. The five parameters used to define the linear sweep voltammetry
 test are test are summarized in the table below.
@@ -110,7 +119,7 @@ test are test are summarized in the table below.
 ================= ========================================= =========== ========== 
 
 
-The parameters are set in the Rodeostat's firmware using the
+The parameters can be set in the Rodeostat's firmware using the
 :meth:`~potentiostat.Potentiostat.set_param` method and are passed as a
 dictionary.  An example dictionary containing the five parameters for the
 linear sweep voltammetry is shown below. 
@@ -131,13 +140,29 @@ these parameters.
 .. figure:: _static/linear_sweep_fig.png
    :align:  center
 
+.. note::
+
+    The *scan rate* (V/s) can be found from the *startValue*, *finalValue* and *duration* 
+    as follows:
+
+    * scan rate = abs(finalValue - startValue)/duration
+
+    where duration has units of (s). 
 
 Additional information on linear sweep voltammetry can be found here 
 `https://en.wikipedia.org/wiki/Linear_sweep_voltammetry`_
 
+
 *****************
 Constant voltage
 *****************
+
+The constant voltage test measures the current while the potential between the
+working and reference electrode is held constant.  Like the other tests the
+constant voltage test includes an optional quiet period where the output
+voltage is held and constant value (quietValue) for a fixed duration
+(quietTime) prior to the start of the test.  The four parameters which specify the 
+voltage output for the constant voltage test are summarized in the table below.
 
 ================= ========================================= =========== ========== 
  parameter         description                               units       type     
@@ -148,16 +173,25 @@ Constant voltage
   duration         duration of the test period                  ms        integer
 ================= ========================================= =========== ========== 
 
-| 
+The parameters can be set in the Rodeostat's firmware using the
+:meth:`~potentiostat.Potentiostat.set_param` method and are passed as a
+dictionary.  An example dictionary containing the four parameters for the
+constant voltage test is shown below. 
 
 .. code-block:: python 
 
     {
         'quietValue' : 0.0,
-        'quietTime'  : 1000,
-        'value'      : 1.0,
-        'duration'   : 5000,
+        'quietTime'  : 2000,
+        'value'      : 0.7,
+        'duration'   : 8000,
     }
+
+The following figure illustrates the output voltage of the potentiostat with
+these parameters. 
+
+.. figure:: _static/const_voltage_fig.png
+   :align:  center
 
 
 **********************

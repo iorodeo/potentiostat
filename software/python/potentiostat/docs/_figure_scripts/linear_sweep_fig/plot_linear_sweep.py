@@ -15,6 +15,9 @@ v = data[:,1]
 fig = plt.figure(1,figsize=figsize)
 plt.plot(t,v,'b',linewidth=linewidth)
 
+# Plot quietTime fill 
+plt.fill([0.0,2.0,2.0,0.0],[-1.0, -1.0, 1.3, 1.3], color=(0.3,0.3,0.3), alpha=0.1)
+
 # Plot quietTime label
 plt.text(1,0.1,'quietTime',ha='center',va='center')
 plt.plot([2.0, 2.0], [0.03, 0.15], 'k', linewidth=linewidth)
