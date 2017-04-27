@@ -1,12 +1,13 @@
 """
-    potentiostat.py
-    ~~~~~~~~~~~~~~~
+============
+potentiostat
+============
 
-    This module implements a serial interface to IO Rodeo's 
+    This module implements the serial interface to the Rodeostat open source 
     Potentiostat Shield.
 
     :copyright: (c) 2017 by IO Rodeo 
-    :license: MIT, see LICENSE.tst for more details.
+    :license: MIT, see LICENSE.txt for more details.
 """
 from __future__ import print_function
 import serial
@@ -84,8 +85,11 @@ TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
 
 class Potentiostat(serial.Serial):
 
-    """The Potetentiostat object provides a high level interface for performing 
-    serial communications with IO Rodeo's Potentiostat Shield.
+    """Provides a high level interface  performing serial communications with the Rodeostat. 
+
+    :param str port: serial port associated with the Rodeostat, e.g. /dev/ttyACM0, COM1, etc.
+
+    :Keyword Arguments:
 
 
     """
