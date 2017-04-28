@@ -24,7 +24,7 @@ In the following example we demonstate how perform a `cyclic voltammetry`_ test 
 * Transistions at a rate of 50 mV/s (-50 mV/s) from the minimum (maximum) to the maximum (minimum) voltage.
 * Performs a single cycle i.e., transistions from minimum to maximum and back to minimum exactly once.
 
-As the test is run the data are saved to a file named *test_data.txt*. The data
+As the test is run the data are saved to a file named *data.txt*. The data
 in the file consist of comma separated values of time, voltage and current.
 After the test is complete two figures are created to display the data. The
 first figure shows plots of the voltage (potential) and current vs time. The

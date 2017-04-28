@@ -17,7 +17,7 @@ IO Rodeo's Rodeostat is an open source potentiostat for performing
 electrochemical measurments which is designed to work with the `teensy 3.2
 development board <https://www.pjrc.com/teensy/teensy31.html>`_. 
 The **iorodeo-potentiostat** library provides a simple highlevel intreface for
-controlling the potentiostat shield allowing users to easily:  
+controlling the Rodeostat allowing users to easily:  
 
 * set/get the parameters used for the voltammetric tests
 * run voltammetric tests and collect data from the device (time, voltage, current)
