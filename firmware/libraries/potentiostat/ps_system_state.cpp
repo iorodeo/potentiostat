@@ -87,14 +87,23 @@ namespace ps
             return status;
         }
 
-        if (!jsonMsg[VoltKey].is<float>())
+        if ( !(jsonMsg[VoltKey].is<float>() || jsonMsg[VoltKey].is<long>()) )
         {
             status.success = false;
             status.message = String("unable to convert volt to float");
             return status;
         }
 
-        float volt = jsonMsg.get<float>(VoltKey);
+        float volt = 0.0;
+        if (jsonMsg[VoltKey].is<float>())
+        { 
+            volt = jsonMsg.get<float>(VoltKey);
+        }
+        else 
+        {
+            volt = float(jsonMsg.get<long>(VoltKey));
+        }
+
         analogSubsystem_.setVolt(volt);
         volt = analogSubsystem_.getVolt();
         jsonDat.set(VoltKey,volt,JsonFloatDecimals);

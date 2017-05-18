@@ -156,6 +156,11 @@ namespace ps
                 setQuietValue(jsonMsgPrm.get<float>(QuietValueKey));
                 jsonDatPrm.set(QuietValueKey,getQuietValue(),JsonFloatDecimals);
             }
+            else if (jsonMsgPrm[QuietValueKey].is<long>())
+            {
+                setQuietValue(float(jsonMsgPrm.get<long>(QuietValueKey)));
+                jsonDatPrm.set(QuietValueKey,getQuietValue(),JsonFloatDecimals);
+            }
             else
             {
                 status.success = false;

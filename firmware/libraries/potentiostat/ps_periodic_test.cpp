@@ -180,6 +180,11 @@ namespace ps
                 setAmplitude(jsonMsgPrm.get<float>(AmplitudeKey));
                 jsonDatPrm.set(AmplitudeKey,getAmplitude(),JsonFloatDecimals);
             }
+            else if (jsonMsgPrm[AmplitudeKey].is<long>()) 
+            {
+                setAmplitude(float(jsonMsgPrm.get<long>(AmplitudeKey)));
+                jsonDatPrm.set(AmplitudeKey,getAmplitude(),JsonFloatDecimals);
+            }
             else
             {
                 status.success = false;
@@ -197,6 +202,11 @@ namespace ps
             if (jsonMsgPrm[OffsetKey].is<float>())
             {
                 setOffset(jsonMsgPrm.get<float>(OffsetKey));
+                jsonDatPrm.set(OffsetKey,getOffset(),JsonFloatDecimals);
+            }
+            else if (jsonMsgPrm[OffsetKey].is<long>())
+            {
+                setOffset(float(jsonMsgPrm.get<long>(OffsetKey)));
                 jsonDatPrm.set(OffsetKey,getOffset(),JsonFloatDecimals);
             }
             else
@@ -251,9 +261,18 @@ namespace ps
     {
         if (jsonMsgPrm.containsKey(ShiftKey))
         {
-            if (jsonMsgPrm[ShiftKey].is<float>())
+            if (jsonMsgPrm[ShiftKey].is<float>() || jsonMsgPrm[ShiftKey].is<long>())
             {
-                float shiftTmp = jsonMsgPrm.get<float>(ShiftKey);
+                float shiftTmp = 0.0;
+                if (jsonMsgPrm[ShiftKey].is<float>())
+                { 
+                    shiftTmp = jsonMsgPrm.get<float>(ShiftKey);
+                }
+                else
+                { 
+                    shiftTmp = float(jsonMsgPrm.get<long>(ShiftKey));
+                }
+
                 if ((shiftTmp >= 0.0) || (shiftTmp <= 1.0))
                 {
                     setShift(shiftTmp);

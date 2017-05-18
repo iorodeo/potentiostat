@@ -145,6 +145,11 @@ namespace ps
                 setStartValue(jsonMsgPrm.get<float>(StartValueKey));
                 jsonDatPrm.set(StartValueKey,getStartValue(),JsonFloatDecimals);
             }
+            else if (jsonMsgPrm[StartValueKey].is<long>())
+            {
+                setStartValue(float(jsonMsgPrm.get<long>(StartValueKey)));
+                jsonDatPrm.set(StartValueKey,getStartValue(),JsonFloatDecimals);
+            }
             else
             {
                 status.success = false;
@@ -162,6 +167,11 @@ namespace ps
             if (jsonMsgPrm[FinalValueKey].is<float>())
             {
                 setFinalValue(jsonMsgPrm.get<float>(FinalValueKey));
+                jsonDatPrm.set(FinalValueKey,getFinalValue(),JsonFloatDecimals);
+            }
+            else if (jsonMsgPrm[FinalValueKey].is<long>())
+            {
+                setFinalValue(float(jsonMsgPrm.get<long>(FinalValueKey)));
                 jsonDatPrm.set(FinalValueKey,getFinalValue(),JsonFloatDecimals);
             }
             else

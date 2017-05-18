@@ -124,6 +124,11 @@ namespace ps
                 setValue(jsonMsgPrm.get<float>(ValueKey));
                 jsonDatPrm.set(ValueKey,getValue(),JsonFloatDecimals);
             }
+            else if (jsonMsgPrm[ValueKey].is<long>())
+            {
+                setValue(float(jsonMsgPrm.get<long>(ValueKey)));
+                jsonDatPrm.set(ValueKey,getValue(),JsonFloatDecimals);
+            }
             else
             {
                 status.success = false;
