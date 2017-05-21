@@ -63,96 +63,65 @@ var millisecondToSecond = (val) => {
 class Potentiostat {
 
   constructor(port, callback) {
-
     this.hardwareVariant = null;
-
-    let deviceOptions = {buadRate: BAUDRATE};
-    let onDeviceOpen = (err) => { 
-      if (err) { 
-        if (callback) callback(err);
-        return;
-      }  
-      this.getHardwareVariant((err, hardwareVariant) => { 
-        if (!err) {
-          this.hardwareVariant = hardwareVariant;
-        } 
-        if (callback) callback(err);
-      });
-    }
-
-    this.device = new SerialDevice(port, deviceOptions, onDeviceOpen); 
+    this.device = new SerialDevice(port, {buadRate: BAUDRATE}, (err) => {
+      this._onDeviceOpen(err,callback);
+    }); 
   }
 
-
   getHardwareVariant(callback) {
-    let cmdName = 'getVariant';
-    let cmd = {command: cmdName};
-    this._sendCmd(cmd, (err, msg) =>  {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'getVariant'};
+    this._sendCmdGetRsp(cmd, (err, rsp) =>  {
       if (callback) callback(rsp.err, rsp.data.variant); 
     });
   }
 
   getVolt(callback) {
-    let cmdName = 'getVolt';
-    let cmd = {command: cmdName};
-    this._sendCmd(cmd, (err, msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
-      if (callback) callback(rsp.err, rsp.data.v); 
+    let cmd = {command: 'getVolt'};
+    this._sendCmdGetRsp(cmd, (err,rsp) => {
+      if (callback) callback(rsp.err, rsp.data.v);
     });
   }
 
   setVolt(volt, callback) {
-    let cmdName = 'setVolt';
-    let cmd = {command: cmdName, v: volt};
-    this._sendCmd(cmd, (err, msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'setVolt', v: volt};
+    this._sendCmdGetRsp(cmd, (err, rsp) => {
       if (callback) callback(rsp.err, rsp.data.v);
     });
   }
 
   getCurr(callback) {
-    let cmdName = 'getCurr';
-    let cmd = {command: cmdName};
-    this._sendCmd(cmd, (err, msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'getCurr'};
+    this._sendCmdGetRsp(cmd, (err, rsp) => {
       if (callback) callback(rsp.err, rsp.data.i); 
     });
   }
 
   getParam(testName, callback) {
-    let cmdName = 'getParam';
-    let cmd = {command: cmdName, test: testName};
-    this._sendCmd(cmd, (err, msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'getParam', test: testName};
+    this._sendCmdGetRsp(cmd, (err, rsp) => {
       if (callback) callback(rsp.err, rsp.data.param);
     });
   }
 
   setParam(testName, param, callback) {
-    let cmdName = 'setParam';
-    let cmd = {command: cmdName, test: testName, param: param};
-    this._sendCmd(cmd, (err,msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'setParam', test: testName, param: param};
+    this._sendCmdGetRsp(cmd, (err,rsp) => {
       if (callback) callback(rsp.err, rsp.data.param);
     });
   }
 
   getVoltRange(callback) {
-    let cmdName = 'getVoltRange';
-    let cmd = {command: cmdName};
-    this._sendCmd(cmd, (err, msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'getVoltRange'};
+    this._sendCmdGetRsp(cmd, (err, rsp) => {
       if (callback) callback(rsp.err, rsp.data.voltRange);
     });
   }
 
   setVoltRange(voltRange,callback) {
     if (VOLT_RANGE_LIST.includes(voltRange))  {
-      let cmdName = 'setVoltRange';
-      let cmd = {command: cmdName, voltRange: voltRange};
-      this._sendCmd(cmd, (err, msg) => {
-        let rsp = this._getCmdRsp(err, msg, cmdName);
+      let cmd = {command: 'setVoltRange', voltRange: voltRange};
+      this._sendCmdGetRsp(cmd, (err, rsp) => {
         if (callback) callback(rsp.err, rsp.data.voltRange);
       });
     } else {
@@ -166,10 +135,8 @@ class Potentiostat {
   }
 
   getCurrRange(callback) {
-    let cmdName = 'getCurrRange';
-    let cmd = {command: cmdName};
-    this._sendCmd(cmd, (err, msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'getCurrRange'};
+    this._sendCmdGetRsp(cmd, (err, rsp) => {
       if (callback) callback(rsp.err,rsp.data.currRange);
     });
   }
@@ -181,10 +148,8 @@ class Potentiostat {
   setCurrRange(currRange, callback) { 
     let currRangeList = this.getAllCurrRange();
     if (currRangeList.includes(currRange)) { 
-      let cmdName = 'setCurrRange'; 
-      let cmd = {command: cmdName, currRange: currRange}; 
-      this._sendCmd(cmd, (err, msg) => { 
-        let rsp = this._getCmdRsp(err, msg, cmdName); 
+      let cmd = {command: 'setCurrRange', currRange: currRange}; 
+      this._sendCmdGetRsp(cmd, (err, rsp) => { 
         if (callback) callback(rsp.err, rsp.data.currRange); 
       }); 
     } else { 
@@ -194,37 +159,29 @@ class Potentiostat {
   }
 
   getDeviceId(callback) {
-    let cmdName = 'getDeviceId';
-    let cmd = {command: cmdName};
-    this._sendCmd(cmd, (err, msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'getDeviceId'};
+    this._sendCmdGetRsp(cmd, (err, rsp) => {
       if (callback) callback(rsp.err, rsp.data.deviceId);
     });
   }
 
   setDeviceId(id, callback) {
-    let cmdName = 'setDeviceId';
-    let cmd = {command: cmdName, deviceId: id};
-    this._sendCmd(cmd, (err,msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'setDeviceId', deviceId: id};
+    this._sendCmdGetRsp(cmd, (err,rsp) => {
       if (callback) callback(rsp.err, rsp.data.deviceId);
     });
   }
 
   getSamplePeriod(callback) {
-    let cmdName = 'getSamplePeriod';
-    let cmd = {command: cmdName};
-    this._sendCmd(cmd, (err, msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'getSamplePeriod'};
+    this._sendCmdGetRsp(cmd, (err, rsp) => {
       if (callback) callback(rsp.err, rsp.data.samplePeriod);
     });
   }
 
   setSamplePeriod(samplePeriod, callback) {
-    let cmdName = 'setSamplePeriod';
-    let cmd = {command: cmdName, samplePeriod: samplePeriod};
-    this._sendCmd(cmd, (err, msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'setSamplePeriod', samplePeriod: samplePeriod};
+    this._sendCmdGetRsp(cmd, (err, rsp) => {
       if (callback) callback(rsp.err, rsp.data.samplePeriod);
     });
   }
@@ -249,36 +206,29 @@ class Potentiostat {
   }
 
   getTestDoneTime(testName, callback) {
-    let cmdName = 'getTestDoneTime';
-    let cmd = {command: cmdName, test: testName};
-    this._sendCmd(cmd, (err, msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'getTestDoneTime', test: testName};
+    this._sendCmdGetRsp(cmd, (err, rsp) => {
       if (callback) callback(rsp.err, rsp.data.testDoneTime);
     });
   }
 
   getTestNames(callback) {
-    let cmdName = 'getTestNames';
-    let cmd = {command: cmdName};
-    this._sendCmd(cmd, (err, msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'getTestNames'};
+    this._sendCmdGetRsp(cmd, (err, rsp) => {
       if (callback) callback(rsp.err, rsp.data.testNames);
     });
   }
 
   getFirmwareVersion(callback) {
-    let cmdName = 'getVersion';
-    let cmd = {command: cmdName};
-    this._sendCmd(cmd, (err, msg) => {
-      let rsp = this._getCmdRsp(err, msg, cmdName);
+    let cmd = {command: 'getVersion'};
+    this._sendCmdGetRsp(cmd, (err, rsp) => {
       if (callback) callback(rsp.err, rsp.data.version);
     });
   }
 
   stopTest(callback) {
-    let cmdName = 'stopTest';
-    let cmd = {command: cmdName};
-    this._sendCmd(cmd, (err,msg) => {
+    let cmd = {command: 'stopTest'};
+    this._sendCmdGetRsp(cmd, (err,rsp) => {
       if (callback) callback(err);
     });
   }
@@ -296,7 +246,7 @@ class Potentiostat {
     //----------------------------------------------------------------------
 
     // Called after setting parameters if parameters defined
-    let setParamCallback = (err,testParam) => {
+    let runTestAfterSetParam = (err,testParam) => {
       if (err) {
         if (options.initCallback) options.initCallback(err,null);
         if (options.doneCallback) options.doneCallback(err,null);
@@ -309,7 +259,7 @@ class Potentiostat {
     };
 
     // Called after getting the total time required by the test
-    let getTestDoneTimeCallback = (err, testDoneTime) => {
+    let setupAndRunTest = (err, testDoneTime) => {
       if (err) {
         if (options.initCallback) options.initCallback(err,null);
         if (options.doneCallback) options.doneCallback(err,null);
@@ -319,8 +269,7 @@ class Potentiostat {
       let tsecArray = [];
       let voltArray = [];
       let currArray = [];
-      let cmdName = 'runTest';
-      let cmd = {command: cmdName, test: testName};
+      let cmd = {command: 'runTest', test: testName};
       let testDoneTimeSec = millisecondToSecond(testDoneTime);
      
       // Setup progress bar
@@ -342,8 +291,8 @@ class Potentiostat {
         wstream = fs.createWriteStream(options.fileName);
       }
 
-      // Callback function for sendCmd. Receives initial response to 
-      // command and handles subsequent stream data stream.
+      // Callback function for sendCmd. Receives initial response to command 
+      // and handles subsequent data stream until run is complete.
       let sendCmdCallback = (err, msg) => { 
         if (err) {
           if (options.initCallback) options.initCallback(err,null); 
@@ -395,18 +344,32 @@ class Potentiostat {
       // Send command to start running test.
       this._sendCmd(cmd, sendCmdCallback); 
 
-    }; //  let getTestDoneTimeCallback = 
+    }; //  let setupAndRunTest = 
 
     if (options.testParam) { 
       // set test parameters, then recall with param undefined
-      this.setParam(testName,options.testParam,setParamCallback);       
+      this.setParam(testName,options.testParam,runTestAfterSetParam);       
       return;
     } 
 
     // Get total time required to complete the test and then run test.
-    this.getTestDoneTime(testName, getTestDoneTimeCallback);
+    this.getTestDoneTime(testName, setupAndRunTest);
 
   } // runTest()
+
+
+  _onDeviceOpen(err,callback) {
+    if (err) { 
+      if (callback) callback(err);
+      return;
+    }  
+    this.getHardwareVariant((err, hardwareVariant) => { 
+      if (!err) {
+        this.hardwareVariant = hardwareVariant;
+      } 
+      if (callback) callback(err);
+    });
+  }
 
   _getCmdRsp(err, msg, cmdName) {
     let rspData = {};
@@ -433,6 +396,14 @@ class Potentiostat {
     this.device.sendCmd(JSON.stringify(cmd), callback);
   };
 
+  _sendCmdGetRsp(cmd, callback) {
+    var wrappedCallback = (err,msg) => {
+      let rsp = this._getCmdRsp(err, msg, cmd.command);
+      callback(err,rsp);
+    };
+    this._sendCmd(cmd, wrappedCallback);
+  };
+
   _forceTimeValsToInt(cmd) {
     for (let key of Object.keys(cmd)) {
       if (typeof cmd[key] === 'object') {
@@ -446,7 +417,7 @@ class Potentiostat {
     return cmd;
   }
 
-};
+}; // class Potentiostat
 
 
 module.exports = Potentiostat;

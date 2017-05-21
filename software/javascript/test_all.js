@@ -232,13 +232,13 @@ let pstat = new Potentiostat('/dev/ttyACM0', (err) => {
 
     let testOptions; 
 
-    testOptions = {
-      testParam: testParam, 
-      initCallback: initCb, 
-      doneCallback: doneCb,
-      dataCallback: dataCb,
-    };
-    pstat.runTest('linearSweep',testOptions);
+    //testOptions = {
+    //  testParam: testParam, 
+    //  initCallback: initCb, 
+    //  doneCallback: doneCb,
+    //  dataCallback: dataCb,
+    //};
+    //pstat.runTest('linearSweep',testOptions);
     
     testOptions = {
       testParam: testParam, 
@@ -249,19 +249,19 @@ let pstat = new Potentiostat('/dev/ttyACM0', (err) => {
     };
     pstat.runTest('linearSweep',testOptions);
 
-    testOptions = {
-      testParam: testParam, 
-      initCallback: initCb, 
-      dataCallback: dataCb,
-    };
-    pstat.runTest('linearSweep',testOptions);
+    //testOptions = {
+    //  testParam: testParam, 
+    //  initCallback: initCb, 
+    //  dataCallback: dataCb,
+    //};
+    //pstat.runTest('linearSweep',testOptions);
 
-    testOptions = {
-      testParam: testParam, 
-      dataCallback: dataCb,
-      doneCallback: doneCb,
-    };
-    pstat.runTest('linearSweep',testOptions);
+    //testOptions = {
+    //  testParam: testParam, 
+    //  dataCallback: dataCb,
+    //  doneCallback: doneCb,
+    //};
+    //pstat.runTest('linearSweep',testOptions);
 
   }
 }); 
