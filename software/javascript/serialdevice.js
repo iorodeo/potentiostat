@@ -6,33 +6,36 @@ let SerialPort = require('serialport');
 class SerialDevice {
 
   constructor(port, options, openCallback) {
+
     this.busy = false;
     this.cmdQueue = [];
     this.cmdCurrent = null;
-    
+
     let serialOptions = options;
     if (!('parser' in options)) {
-        serialOptions.parser = SerialPort.parsers.readline('\n');
+      serialOptions.parser = SerialPort.parsers.readline('\n');
     }
     this.serial = new SerialPort(port,serialOptions);
 
-    let device = this;
-
-    this.serial.on('data', function(data) {
-      if (!device.cmdCurrent) {
+    let onDataCallback = (data) => {
+      if (!this.cmdCurrent) {
         return;
       }
-      let moreDataFlag = device.cmdCurrent.callback(null,data)
-      if (moreDataFlag) {
-        device.cmdQueue.unshift({
+      let moreFlag = false;
+      if (this.cmdCurrent.callback) { 
+        moreFlag = this.cmdCurrent.callback(null,data)
+      }
+      if (moreFlag) {
+        this.cmdQueue.unshift({
           message: null, 
-          callback: device.cmdCurrent.callback
+          callback: this.cmdCurrent.callback
         });
       } 
-      device.processQueue();
-    });
+      this.processQueue();
+    };
 
     this.serial.on('open', openCallback);
+    this.serial.on('data', onDataCallback); 
   }
 
   sendCmd(data,callback) {
@@ -54,9 +57,9 @@ class SerialDevice {
     this.cmdCurrent = cmdNext;
     if (cmdNext.message) {
       this.serial.write(cmdNext.message + '\n', (err) =>  {
-          if (err) {
-          cmdNext.callback(err,null);
-          }
+        if (err) {
+          if (cmdNext.callback) cmdNext.callback(err,null);
+        }
       });
     }
   }
