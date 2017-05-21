@@ -53,41 +53,38 @@ class Potentiostat {
   constructor(port, callback) {
     this.deviceOptions = {buadrate: 115200};
     this.hardwareVariant = null;
-    let _this = this;
     this.device = new SerialDevice(port, {baudRate: BAUDRATE}, (err) => {
       if (err) { 
         callback(err);
-      } else { 
-        _this.getHardwareVariant((err, hardwareVariant) => { 
-          if (!err) {
-            _this.hardwareVariant = hardwareVariant;
-          } 
-          callback(err);
-        });
-      }
+        return;
+      }  
+      this.getHardwareVariant((err, hardwareVariant) => { 
+        if (!err) {
+          this.hardwareVariant = hardwareVariant;
+        } 
+        callback(err);
+      });
     });   
   }
 
   _getCmdRsp(err, msg, cmdName) {
-    //console.log(msg);
+    let rspData = {};
     if (err) {
-      return {data: {}, err: err};
-    } else {
-      let rspData = {};
-      let rspErr = null;
-      let msgObj = JSON.parse(msg);
-      if (msgObj.success) {
-        if (msgObj.response.command == cmdName) {
-          rspData = msgObj.response;
-          delete rspData.command;
-        } else {
-          rspErr = new Error('command received does not match');
-        }
-      } else {
-        rspErr = new Error(msgObj.message);
-      }
+      return {data: rspData, err: err};
+    } 
+    let rspErr = null;
+    let msgObj = JSON.parse(msg);
+    if (!msgObj.success) {
+      rspErr = new Error(msgObj.message);
       return {data: rspData, err: rspErr};
-    }
+    } 
+    if (msgObj.response.command != cmdName) {
+      rspErr = new Error('command received does not match');
+      return {data: rspData, err: rspErr};
+    } 
+    rspData = msgObj.response;
+    delete rspData.command;
+    return {data: rspData, err: rspErr};
   }
 
   _sendCmd(cmd, callback) {
@@ -305,7 +302,78 @@ class Potentiostat {
     this._sendCmd(cmd, (err,msg) => {
       callback(err);
     });
-  };
+  }
+
+  runTest(testName, initCallback, doneCallback, dataCallback, param) {
+    // Set parameters and run
+    if (param) { 
+      this.setParam(testName,param,(err,param) => {
+        if (err) {
+          initCallback(err,null);
+          doneCallback(err,null);
+          return;
+        } 
+      this.runTest(testName, initCallback, doneCallback, dataCallback);
+      });
+      return;
+    } 
+
+    // Get time required to complete the test and run test.
+    this.getTestDoneTime(testName, (err, testDoneTime) => {
+      if (err) {
+        initCallback(err,null);
+        doneCallback(err,null);
+        return;
+      }
+
+      let tsecArray = [];
+      let voltArray = [];
+      let currArray = [];
+
+      let cmdName = 'runTest';
+      let cmd = {command: cmdName, test: testName};
+      let testDoneTimeSec = millisecondToSecond(testDoneTime);
+
+      // Send command to start running test.
+      this._sendCmd(cmd, (err, msg) => { 
+        if (err) {
+          initCallback(err,null); 
+          doneCallback(err,null);
+          return;
+        }
+        let msgObj = JSON.parse(msg);
+        if ('success' in msgObj) { 
+          // The msgObj is the response to the initial runTest command
+          if (msgObj.success) { 
+            let initInfo = {tDoneSec: testDoneTimeSec};
+            initCallback(null,initInfo); 
+            return true;  // true => callback will be called again on next readline
+          } else {
+            let err = new Error(msgObj.message); 
+            initCallback(err,null); 
+            doneCallback(err,null); 
+            return;
+           }
+        } else {
+          // The msgObj is a data point 
+          if (!empty(msgObj)) {
+            let tsec = millisecondToSecond(msgObj.t);
+            tsecArray.push(tsec);
+            voltArray.push(msgObj.v);
+            currArray.push(msgObj.i);
+            let dataInfo = {tsec:tsec, volt:msgObj.v, curr:msgObj.i, tDoneSec: testDoneTimeSec}
+            dataCallback(null,dataInfo);
+            return true; // true => callback will be called again on next readline
+          } else { 
+            let doneInfo= {tsec: tsecArray, volt: voltArray, curr: currArray};
+            doneCallback(null,doneInfo);
+            return;
+          }
+        }
+      });// this._sendCmd
+    });// this.getTestDoneTime 
+
+  }// runTest
 
 };
 
