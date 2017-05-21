@@ -100,14 +100,14 @@ let pstat = new Potentiostat('/dev/ttyACM0', (err) => {
     });
     pstat.getCurrRange(); 
 
-    pstat.setCurrRange('10uA', (err,currRange) => {
+    pstat.setCurrRange('100uA', (err,currRange) => {
       if (err) {
         console.log(err);
       } else {
         console.log('currRange: ' + currRange);
       }
     });
-    pstat.setCurrRange('10uA');
+    pstat.setCurrRange('100uA');
 
     pstat.getDeviceId( (err,deviceId) => {
       if (err) {
@@ -192,17 +192,17 @@ let pstat = new Potentiostat('/dev/ttyACM0', (err) => {
 
     let testParam = { 
       quietTime: 1000,
-      quietValue: -0.1,
+      quietValue: -0.5,
       startValue: -0.5,
       finalValue: 0.6,
-      duration: 3000,
+      duration: 2000,
     };
 
     let initCb = (err,data) => { 
       if (err) { 
         console.log(err);
       } else {
-        //console.log('initCallback, total time = ' + data.tDoneSec + ' (sec)');
+        console.log('initCallback, total time = ' + data.tDoneSec + ' (sec)');
       }
     }; 
 
@@ -210,11 +210,11 @@ let pstat = new Potentiostat('/dev/ttyACM0', (err) => {
       if (err) {
         console.log(err);
       } else {
-        //console.log('doneCallback');
+        console.log('doneCallback');
         //console.log('tsec.length = ' + data.tsec.length);
         //console.log('volt.length = ' + data.volt.length);
         //console.log('curr.length = ' + data.curr.length);
-        process.exit(0);
+        //process.exit(0);
       }
     };
 
@@ -229,10 +229,39 @@ let pstat = new Potentiostat('/dev/ttyACM0', (err) => {
         console.log(tsec,volt,curr);
       }
     };
-    //pstat.runTest('linearSweep',initCb, doneCb, dataCb, testParam);
-    pstat.runTest('linearSweep',initCb, doneCb, null,   testParam, true);
-    //pstat.runTest('linearSweep',initCb, null,   dataCb, testParam);
-    //pstat.runTest('linearSweep',null,   doneCb, dataCb, testParam);
+
+    let testOptions; 
+
+    testOptions = {
+      testParam: testParam, 
+      initCallback: initCb, 
+      doneCallback: doneCb,
+      dataCallback: dataCb,
+    };
+    pstat.runTest('linearSweep',testOptions);
+    
+    testOptions = {
+      testParam: testParam, 
+      initCallback: initCb, 
+      doneCallback: doneCb,
+      progressBar: true,
+      fileName: 'data.txt',
+    };
+    pstat.runTest('linearSweep',testOptions);
+
+    testOptions = {
+      testParam: testParam, 
+      initCallback: initCb, 
+      dataCallback: dataCb,
+    };
+    pstat.runTest('linearSweep',testOptions);
+
+    testOptions = {
+      testParam: testParam, 
+      dataCallback: dataCb,
+      doneCallback: doneCb,
+    };
+    pstat.runTest('linearSweep',testOptions);
 
   }
 }); 

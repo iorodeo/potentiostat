@@ -1,11 +1,14 @@
 "use strict";
 
+let os = require('os');
+let fs = require('fs');
 let empty = require('is-empty');
 let ProgressBar = require('progress');
 let SerialDevice = require('./serialdevice');
 
 // Constants
 const BAUDRATE = 115200;
+const DATA_FILE_PRECISION = 10;
 
 const VOLT_RANGE_LIST = [
   '1V', 
@@ -275,23 +278,36 @@ class Potentiostat {
     });
   }
 
-  runTest(testName, initCallback, doneCallback, dataCallback, param, pbar) {
-    
+  runTest(testName, options) { 
+    // options  
+    // ---------------------------------------------------------------------
+    //   testParam:     optional test parameters set prior to running test, 
+    //   initCallback:  function called on start of test,
+    //   doneCallback:  function called at end of test, 
+    //   dataCallback:  function called with each acquired data point, 
+    //   progressBar:   show progress bar during test (true/false)
+    //   fileName:      name of output file for saving data
+    //
+    //----------------------------------------------------------------------
+
     // Called after setting parameters if parameters defined
-    let setParamCallback = (err,param) => {
+    let setParamCallback = (err,testParam) => {
       if (err) {
-        if (initCallback) initCallback(err,null);
-        if (doneCallback) doneCallback(err,null);
+        if (options.initCallback) options.initCallback(err,null);
+        if (options.doneCallback) options.doneCallback(err,null);
         return;
       } 
-      this.runTest(testName, initCallback, doneCallback, dataCallback, null, pbar);
+      let optionsMinusParam = {};
+      Object.assign(optionsMinusParam,options);
+      delete optionsMinusParam.testParam;
+      this.runTest(testName, optionsMinusParam);    
     };
 
     // Called after getting the total time required by the test
     let getTestDoneTimeCallback = (err, testDoneTime) => {
       if (err) {
-        if (initCallback) initCallback(err,null);
-        if (doneCallback) doneCallback(err,null);
+        if (options.initCallback) options.initCallback(err,null);
+        if (options.doneCallback) options.doneCallback(err,null);
         return;
       }
 
@@ -305,7 +321,7 @@ class Potentiostat {
       // Setup progress bar
       let progressBar = null;
       let tsecLast = null;
-      if (pbar) {
+      if (options.progressBar) {
         progressBar = new ProgressBar('running test [:bar] :percent :etas', {
           complete: '=',
           incomplete: ' ',
@@ -315,12 +331,18 @@ class Potentiostat {
         tsecLast = 0.0;
       }
 
+      // Setup output file
+      let wstream = null;
+      if (options.fileName) {
+        wstream = fs.createWriteStream(options.fileName);
+      }
+
       // Callback function for sendCmd. Receives initial response to 
       // command and handles subsequent stream data stream.
       let sendCmdCallback = (err, msg) => { 
         if (err) {
-          if (initCallback) initCallback(err,null); 
-          if (doneCallback) doneCallback(err,null);
+          if (options.initCallback) options.initCallback(err,null); 
+          if (options.doneCallback) options.doneCallback(err,null);
           return;
         }
         let msgObj = JSON.parse(msg);
@@ -328,12 +350,12 @@ class Potentiostat {
           // The msgObj is the response to the initial runTest command
           if (msgObj.success) { 
             let initResult = {tDoneSec: testDoneTimeSec};
-            if (initCallback) initCallback(null,initResult); 
+            if (options.initCallback) options.initCallback(null,initResult); 
             return true;  // true => callback will be called again on next serial readline
           } else {
             let err = new Error(msgObj.message); 
-            if (initCallback) initCallback(err,null); 
-            if (doneCallback) doneCallback(err,null); 
+            if (options.initCallback) options.initCallback(err,null); 
+            if (options.doneCallback) options.doneCallback(err,null); 
             return;
           }
         } else {
@@ -344,8 +366,13 @@ class Potentiostat {
             voltArray.push(msgObj.v);
             currArray.push(msgObj.i);
             let dataResult = {tsec:tsec, volt:msgObj.v, curr:msgObj.i, tDoneSec: testDoneTimeSec}
-            if (dataCallback) dataCallback(null,dataResult);
-            if (pbar) {
+            if (options.dataCallback) options.dataCallback(null,dataResult);
+            if (options.fileName) { 
+              wstream.write(tsec.toPrecision(DATA_FILE_PRECISION) + ', '); 
+              wstream.write(msgObj.v.toPrecision(DATA_FILE_PRECISION) + ', '); 
+              wstream.write(msgObj.i.toPrecision(DATA_FILE_PRECISION) + os.EOL); 
+            }
+            if (options.progressBar) {
               let dt = tsec - tsecLast;
               tsecLast = tsec;
               progressBar.tick(dt);
@@ -353,7 +380,8 @@ class Potentiostat {
             return true; // true => callback will be called again on next serial readline
           } else { 
             let doneResult= {tsec: tsecArray, volt: voltArray, curr: currArray};
-            if (doneCallback) doneCallback(null,doneResult);
+            if (options.fileName) wstream.end(); 
+            if (options.doneCallback) options.doneCallback(null,doneResult);
             return;
           }
         }
@@ -364,9 +392,9 @@ class Potentiostat {
 
     }; //  let getTestDoneTimeCallback = 
 
-    if (param) { 
+    if (options.testParam) { 
       // set test parameters, then recall with param undefined
-      this.setParam(testName,param,setParamCallback);       
+      this.setParam(testName,options.testParam,setParamCallback);       
       return;
     } 
 
