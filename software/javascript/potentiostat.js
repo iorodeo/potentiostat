@@ -63,9 +63,11 @@ var millisecondToSecond = (val) => {
 class Potentiostat {
 
   constructor(port, callback) {
-    this.deviceOptions = {buadrate: 115200};
+
     this.hardwareVariant = null;
-    this.device = new SerialDevice(port, {baudRate: BAUDRATE}, (err) => {
+
+    let deviceOptions = {buadRate: BAUDRATE};
+    let onDeviceOpen = (err) => { 
       if (err) { 
         if (callback) callback(err);
         return;
@@ -76,8 +78,11 @@ class Potentiostat {
         } 
         if (callback) callback(err);
       });
-    });   
+    }
+
+    this.device = new SerialDevice(port, deviceOptions, onDeviceOpen); 
   }
+
 
   getHardwareVariant(callback) {
     let cmdName = 'getVariant';
