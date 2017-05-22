@@ -83,6 +83,19 @@ class Potentiostat {
     });
   }
 
+  getVoltPromise() {
+    return new Promise( (resolve,reject) => {
+      let cmd = {command: 'getVolt'};
+      this._sendCmdGetRsp(cmd, (err,rsp) => {
+        if (err) { 
+          reject(err);
+        } else {
+          resolve(rsp.data.v);
+        }
+      });
+    });
+  }
+
   setVolt(volt, callback) {
     let cmd = {command: 'setVolt', v: volt};
     this._sendCmdGetRsp(cmd, (err, rsp) => {

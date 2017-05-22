@@ -26,6 +26,12 @@ let pstat = new Potentiostat('/dev/ttyACM0', (err) => {
     });
     pstat.getVolt();
 
+    pstat.getVoltPromise().then( function(response) {
+      console.log('volt promise: ' + response);
+    }, function(error) {
+      console.log(error);
+    });
+
     pstat.setVolt(0.9, (err, volt) => {
       if (err) {
         console.log(err);
