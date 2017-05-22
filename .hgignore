@@ -11,3 +11,4 @@ syntax: glob
 __pycache__
 build
 _build
+node_modules
