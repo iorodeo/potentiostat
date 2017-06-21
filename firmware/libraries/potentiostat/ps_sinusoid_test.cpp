@@ -35,7 +35,7 @@ namespace ps
         else
         {
             uint64_t tmod = (t - quietTime_ + shiftInUs_)%period_;
-            float pos =  float(tmod*LookupTableSize)/float(period_);
+            float pos =  float(tmod*(LookupTableSize-1))/float(period_);
             value = lookupTable_.getValue(pos);
         }
         return value;
@@ -46,7 +46,7 @@ namespace ps
     {
         for (uint32_t i=0; i<LookupTableSize; i++)
         {
-            float s = float(i)/float(LookupTableSize);
+            float s = float(i)/float(LookupTableSize-1);
             lookupTable_[i] = amplitude_*sin(2.0*M_PI*s) + offset_;
         }
 

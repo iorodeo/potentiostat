@@ -8,6 +8,7 @@ syntax: glob
 *.egg-info
 *.egg
 *.tar.gz
+data.txt
 __pycache__
 build
 _build
