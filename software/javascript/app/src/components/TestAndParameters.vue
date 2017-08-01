@@ -17,29 +17,29 @@
               v-bind:value="key" 
               v-bind:key="value.id" 
               >  
-              {{value.dispName}}  
+              {{value.name}}  
             </md-option>
           </md-select>
         </md-input-container>
       </md-layout>
 
       <md-layout md-row 
-        v-for="(paramInfo,paramName) in testParamDefs[currentTest].paramInfo"
-        v-bind:key="paramInfo.id"
+        v-for="(paramDef,paramName) in testParamDefs[currentTest].defs"
+        v-bind:key="paramDef.id"
         class="row-with-margin"
         md-align="left" 
         >
-        <div v-if="paramInfo.type ==='number'">
+        <div v-if="paramDef.type ==='number'">
           <md-input-container 
              v-bind:class="{'fixed-width-container':true, 'md-input-invalid':testParamErrs[currentTest][paramName].flag}" 
             >
-            <label> {{paramInfo.name}} ({{paramInfo.unit}})  </label>
+            <label> {{paramDef.name}} ({{paramDef.unit}})  </label>
             <md-input 
               type="number" 
               v-model="testParamVals[currentTest][paramName]"
-              v-bind:step="testParamDefs[currentTest].paramInfo[paramName].step"
-              v-bind:max="testParamDefs[currentTest].paramInfo[paramName].maxVal"
-              v-bind:min="testParamDefs[currentTest].paramInfo[paramName].minVal"
+              v-bind:step="testParamDefs[currentTest].defs[paramName].step"
+              v-bind:max="testParamDefs[currentTest].defs[paramName].maxVal"
+              v-bind:min="testParamDefs[currentTest].defs[paramName].minVal"
               @change="onNumberChange(paramName, $event)"
               >
             </md-input> 
@@ -48,7 +48,7 @@
             </span>
           </md-input-container>
           <md-tooltip md-direction="right"> 
-            min = {{paramInfo.minVal}}, max = {{paramInfo.maxVal}}
+            min = {{paramDef.minVal}}, max = {{paramDef.maxVal}}
           </md-tooltip>
         </div>
       </md-layout>
@@ -70,18 +70,19 @@
 
 <script>
 
-import { TEST_DEFS } from './test_defs'
+//import { TEST_DEFS } from '../test_defs'
 
 
 export default {
   name: 'TestAndParameters',
-  props: ['selectedTest'],
+  props: ['selectedTest', 'testDefs', 'testVals', 'testErrs'],
   data () {
     return {
-      currentTest: this.selectedTest,
-      testParamDefs: TEST_DEFS,
-      testParamVals: this.initParamValsFromDefs(TEST_DEFS),
-      testParamErrs: this.initParamErrsFromDefs(TEST_DEFS),
+      currentTest:   this.selectedTest,
+      testParamVals: this.testVals,
+      testParamDefs: this.testDefs,
+      testParamErrs: this.testErrs,
+      //testParamErrs: this.initParamErrsFromDefs(this.testDefs),
     }
   },
   methods: {
@@ -94,53 +95,43 @@ export default {
       this.$emit('test-change', testName)
     },
     onNumberChange(paramName, newValue) {
-      console.log('onNumberChange ' + newValue);
-      let paramInfo = this.testParamDefs[this.currentTest].paramInfo[paramName];
+      this.checkParamForErrs(this.currentTest,paramName,newValue);
+      this.$emit('param-change', this.testParamVals);
+    },
+    checkParamForErrs(testName, paramName, value) {
+      let defs = this.testParamDefs[testName].defs[paramName];
       let flag = false;
       let message = '';
-      if (!newValue) { 
+      if (value==="") { 
         flag = true;
         message =  'value must be a valid number'; 
       }
-      else if (newValue > paramInfo.maxVal) {
+      else if (value > defs.maxVal) {
         flag = true;
-        message = 'value is > than maximum allowed, ' + paramInfo.maxVal;
+        message = 'value is > than maximum allowed, ' + defs.maxVal;
       }
-      else if (newValue < paramInfo.minVal) {
+      else if (value < defs.minVal) {
         flag = true;
-        message = 'value is < than minimum allowed, ' + paramInfo.minVal;
+        message = 'value is < than minimum allowed, ' + defs.minVal;
       }
-      this.testParamErrs[this.currentTest][paramName].flag = flag;
-      this.testParamErrs[this.currentTest][paramName].message = message;
+      this.testParamErrs[testName][paramName].flag = flag;
+      this.testParamErrs[testName][paramName].message = message;
+      if (flag) {
+        this.$emit('param-errs-change', this.testParamErrs);
+      }
+      return flag;
     },
-    initParamValsFromDefs(testParamDefs) {
-      let testParamVals = {}
-      for (let name in testParamDefs) {
-        testParamVals[name] = {}
-        for (let param in testParamDefs[name].paramInfo) {
-          testParamVals[name][param] = testParamDefs[name].paramInfo[param].defVal 
+    checkAllParamForErrs() {
+      for (let testName in this.testParamVals) {
+        for (let paramName in this.testParamVals[testName]) {
+          let paramValue = this.testParamVals[testName][paramName];
+          this.checkParamForErrs(testName,paramName,paramValue);
         }
       }
-      return testParamVals
     },
-    initParamErrsFromDefs(testParamDefs) {
-      let testParamErrs = {}
-      for (let name in testParamDefs) {
-        testParamErrs[name] = {}
-        for (let param in testParamDefs[name].paramInfo) {
-          testParamErrs[name][param] = {flag: false, message: 'none'} 
-        }
-      }
-      
-      return testParamErrs;
-    }
   },
   mounted() {
-    //for (let name in this.testParamVals) {
-    //  for (let test in this.testParamVals[name]) {
-    //    console.log(name + ' ' + test + ' ' + this.testParamVals[name][test])
-    //  }
-    //}
+    this.checkAllParamForErrs();
   }
 }
 
