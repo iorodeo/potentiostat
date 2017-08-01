@@ -9,7 +9,7 @@ const SAMPLE_RATE_PARAM_DEF = {
   type: 'number',
   minVal: 10.0,
   maxVal: 100.0,
-  defVal: 100.0,
+  defaultVal: 100.0,
   step:  10.0,
   scale: 1.0,
   converter: converters.identity,
@@ -21,7 +21,7 @@ const QUIET_TIME_PARAM_DEF = {
   type: 'number',
   minVal: 0.0,
   maxVal: 60*60*1,
-  defVal: 0.0,
+  defaultVal: 0.0,
   step:  1.0, 
   scale: 1000.0,
   converter: converters.secondToMillisecond,
@@ -33,7 +33,7 @@ const VOLT_VALUE_PARAM_DEF = {
   type: 'number',
   minVal: -10.0,
   maxVal: 10.0,
-  defVal: 0.0,
+  defaultVal: 0.0,
   step:  0.1,
   scale: 1.0,
   converter: converters.identity,
@@ -50,7 +50,7 @@ const TIME_VALUE_PARAM_DEF = {
   type: 'number',
   minVal: 0.0,
   maxVal: 60*60*24*2,
-  defVal: 10.0,
+  defaultVal: 10.0,
   step: 1,
   scale: 1000,
   converter: converters.secondToMillisecond,
@@ -60,11 +60,33 @@ const SCAN_RATE_PARAM_DEF = {
   name: 'scan rate',
   unit: 'V/s',
   type: 'number',
-  minVal: 0.0,
+  minVal: 0.001,
   maxVal: 50.000,
-  defVal: 0.01,
-  step: 0.01,
+  defaultVal: 0.01,
+  step: 0.001,
   scale: 1.0,
+  converter: converters.identity,
+};
+
+const SHIFT_PARAM_DEF = {
+  name: 'shift',
+  unit: '',
+  type: 'number',
+  minVal: 0.0,
+  maxVal: 1.0,
+  defaultVal: 0.0,
+  step: 0.1,
+  scale: 1.0,
+  converter: converters.identity,
+};
+
+const START_HILO_RADIO_PARAM_DEF = {
+  type: 'radio',
+  defaultVal: 'startMin',
+  options: {
+    startMin: 'start minimum',
+    startMax: 'start maximum',
+  },
   converter: converters.identity,
 };
 
@@ -98,6 +120,7 @@ const CYCLIC_TEST_DEFS = {
   minValue: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'min value'}),
   maxValue: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'max value'}),
   scanRate: SCAN_RATE_PARAM_DEF,
+  startOption: START_HILO_RADIO_PARAM_DEF,
 };
 
 // Parameter defs for linear sweep test
@@ -122,6 +145,10 @@ const SINUSOID_TEST_DEFS = {
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
+  amplitude: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'amplitude'}),
+  offset: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'offset'}),
+  period: Object.assign({},TIME_VALUE_PARAM_DEF,{name:'period'}),
+  shift: SHIFT_PARAM_DEF,
 };
 
 // Collection of all test definitions
@@ -148,7 +175,7 @@ export const TEST_DEFS = {
   },
   sinusoid: { 
     name: 'sinusoid',
-    defs: MULTISTEP_TEST_DEFS,
+    defs: SINUSOID_TEST_DEFS,
   },
 };
 

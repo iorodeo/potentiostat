@@ -71,8 +71,8 @@ export default {
       let testParamVals = {};
       for (let name in testParamDefs) {
         testParamVals[name] = {};
-        for (let param in testParamDefs[name].defs) {
-          testParamVals[name][param] = testParamDefs[name].defs[param].defVal;
+        for (let param in testParamDefs[name].defs) { 
+          testParamVals[name][param] = testParamDefs[name].defs[param].defaultVal; 
         }
       }
       return testParamVals;

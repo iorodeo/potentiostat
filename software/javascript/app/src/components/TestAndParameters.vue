@@ -51,6 +51,19 @@
             min = {{paramDef.minVal}}, max = {{paramDef.maxVal}}
           </md-tooltip>
         </div>
+
+        <div v-if="paramDef.type === 'radio'"> 
+          <md-radio 
+             v-for="(optionStr,optionKey) in testParamDefs[currentTest].defs[paramName].options"
+             v-model="testParamVals[currentTest][paramName]"
+             v-bind:key="optionStr.id"
+             v-bind:md-value="optionKey" 
+             class="md-primary"
+             >
+             {{optionStr}}
+          </md-radio>
+        </div>
+
       </md-layout>
 
       <md-layout md-row class="row-with-margin">
@@ -82,6 +95,7 @@ export default {
       testParamVals: this.testVals,
       testParamDefs: this.testDefs,
       testParamErrs: this.testErrs,
+      temp: 'startMin',
       //testParamErrs: this.initParamErrsFromDefs(this.testDefs),
     }
   },
