@@ -38,6 +38,7 @@ namespace ps
     extern const String TimeKey;
     extern const String VoltKey;
     extern const String CurrKey;
+    extern const String RefVoltKey;
     extern const String ParamKey;
     extern const String VoltRangeKey;
     extern const String CurrRangeKey;
@@ -66,6 +67,7 @@ namespace ps
     extern const String GetVoltCmd;
     extern const String SetVoltCmd;
     extern const String GetCurrCmd;
+    extern const String GetRefVoltCmd;
     extern const String SetParamCmd;
     extern const String GetParamCmd;
     extern const String SetVoltRangeCmd;
@@ -86,6 +88,9 @@ namespace ps
     extern const VoltRange VoltRange2V; 
     extern const VoltRange VoltRange5V; 
     extern const VoltRange VoltRange10V; 
+
+    // Range for reference electrode analog input
+    extern const VoltRange VoltRangeAin10V;
 
     const uint8_t NumVoltRange = 4;
     extern Array<VoltRange,NumVoltRange> VoltRangeArray;

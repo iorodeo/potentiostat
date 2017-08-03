@@ -69,7 +69,7 @@ namespace ps
     float AnalogSubsystem::getRefElectVolt() const   
     {
         // Get measurement of reference electrode voltage (primarily for debugging)
-        return VoltRange10V.intToValue(getRefElectAin());
+        return VoltRangeAin10V.intToValue(getRefElectAin());
     }
 
 

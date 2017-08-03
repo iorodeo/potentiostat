@@ -26,6 +26,7 @@ namespace ps
         commandTable_.registerMethod(CommandKey,   GetVoltCmd,          &SystemState::onCommandGetVolt);
         commandTable_.registerMethod(CommandKey,   SetVoltCmd,          &SystemState::onCommandSetVolt);
         commandTable_.registerMethod(CommandKey,   GetCurrCmd,          &SystemState::onCommandGetCurr);
+        commandTable_.registerMethod(CommandKey,   GetRefVoltCmd,       &SystemState::onCommandGetRefVolt);
         commandTable_.registerMethod(CommandKey,   SetParamCmd,         &SystemState::onCommandSetTestParam);
         commandTable_.registerMethod(CommandKey,   GetParamCmd,         &SystemState::onCommandGetTestParam);
         commandTable_.registerMethod(CommandKey,   SetVoltRangeCmd,     &SystemState::onCommandSetVoltRange);
@@ -116,6 +117,15 @@ namespace ps
         ReturnStatus status;
         float curr = analogSubsystem_.getCurr();
         jsonDat.set(CurrKey,curr,JsonFloatDecimals);
+        return status;
+    }
+
+
+    ReturnStatus SystemState::onCommandGetRefVolt(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        float refVolt = analogSubsystem_.getRefElectVolt();
+        jsonDat.set(RefVoltKey,refVolt,JsonFloatDecimals);
         return status;
     }
 

@@ -36,6 +36,7 @@ namespace ps
             ReturnStatus onCommandGetVolt(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandSetVolt(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetCurr(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetRefVolt(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandSetTestParam(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetTestParam(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandSetVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat);

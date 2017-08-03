@@ -4,7 +4,7 @@
 
 namespace ps
 { 
-    const String FirmwareVersion = String("0.0.2");
+    const String FirmwareVersion = String("0.0.3");
 
     // Serial parameters
     const uint32_t UsbSerialBaudrate = 115200;
@@ -21,6 +21,7 @@ namespace ps
     const String TimeKey = String("t");
     const String VoltKey = String("v");
     const String CurrKey = String("i");
+    const String RefVoltKey = String("r");
     const String ParamKey = String("param");
     const String VoltRangeKey = String("voltRange");
     const String CurrRangeKey = String("currRange");
@@ -49,6 +50,7 @@ namespace ps
     const String GetVoltCmd = String("getVolt");
     const String SetVoltCmd = String("setVolt");
     const String GetCurrCmd = String("getCurr");
+    const String GetRefVoltCmd = String("getRefVolt");
     const String SetParamCmd = String("setParam");
     const String GetParamCmd = String("getParam");
     const String SetVoltRangeCmd = String("setVoltRange");
@@ -73,6 +75,9 @@ namespace ps
     VoltRange voltRangeArrayTmp[NumVoltRange] = {VoltRange1V, VoltRange2V, VoltRange5V, VoltRange10V};
     Array<VoltRange,NumVoltRange> VoltRangeArray(voltRangeArrayTmp);
     const float SignDac = -1.0; 
+
+    // Range for reference electrode analog input
+    const VoltRange VoltRangeAin10V(String("Ain10V"), -10.0, 10.0, VoltGain10X, AnalogSubsystem::MaxValueAin);
 
     // Ranges for input current
 #ifdef HARDWARE_VARIANT_NANO_AMP

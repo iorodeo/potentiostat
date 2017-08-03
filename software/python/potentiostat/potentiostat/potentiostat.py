@@ -28,6 +28,7 @@ ParamKey = 'param'
 TimeKey = 't'
 VoltKey = 'v'
 CurrKey = 'i'
+RefVoltKey = 'r'
 VoltRangeKey = 'voltRange'
 CurrRangeKey = 'currRange'
 DeviceIdKey = 'deviceId'
@@ -44,6 +45,7 @@ StopTestCmd = 'stopTest'
 GetVoltCmd = 'getVolt'
 SetVoltCmd = 'setVolt'
 GetCurrCmd = 'getCurr'
+GetRefVoltCmd = 'getRefVolt'
 GetParamCmd = 'getParam'
 SetParamCmd = 'setParam'
 GetVoltRangeCmd = 'getVoltRange'
@@ -156,6 +158,16 @@ class Potentiostat(serial.Serial):
         msg_dict = self.send_cmd(cmd_dict)
         curr = msg_dict[ResponseKey][CurrKey]
         return curr
+
+
+    def get_ref_volt(self):
+        """Returns the the current measurement of the potential between the working and reference electrode. 
+
+        """
+        cmd_dict = {CommandKey: GetRefVoltCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        volt = msg_dict[ResponseKey][RefVoltKey]
+        return volt
 
 
     def get_param(self,testname):
