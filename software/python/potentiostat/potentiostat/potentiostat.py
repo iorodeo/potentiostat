@@ -161,7 +161,7 @@ class Potentiostat(serial.Serial):
 
 
     def get_ref_volt(self):
-        """Returns the the current measurement of the potential between the working and reference electrode. 
+        """Returns the measurement of the potential between the working and reference electrode. 
 
         """
         cmd_dict = {CommandKey: GetRefVoltCmd}
