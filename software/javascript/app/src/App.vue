@@ -7,8 +7,9 @@
 
       <device-connection 
         v-bind:is-connected="serialBridgeConnected"
-        v-on:bridge-connect="onSerialPortBridgeConnect"
-        v-on:bridge-disconnect="onSerialPortBridgeDisconnect"
+        v-bind:serial-port-array="serialPortArray"
+        v-on:bridge-connect-request="connectToSerialPortBridge"
+        v-on:bridge-disconnect-request="disconnectFromSerialPortBridge"
         v-show="currentOption === 'DeviceConnection'"
         > 
       </device-connection>
@@ -69,10 +70,12 @@ export default {
       testParamErrs: this.initParamErrsFromDefs(TEST_DEFS),
       serialBridge: null,
       serialBridgeConnected: false,
+      serialPortArray: [],
       enableUnloadDialog: false,
     }
   },
   methods: { 
+
     initParamValsFromDefs(testParamDefs) {
       let testParamVals = {};
       for (let name in testParamDefs) {
@@ -83,6 +86,7 @@ export default {
       }
       return testParamVals;
     },
+
     initParamErrsFromDefs(testParamDefs) {
       let testParamErrs = {}
       for (let name in testParamDefs) {
@@ -93,39 +97,63 @@ export default {
       }
       return testParamErrs;
     },
+
     onOptionChange(newOptionName) {
       this.currentOption = newOptionName;
     },
+
     onTestChange(newTestName) {
       this.currentTest = newTestName;
     },
+
     onParamChange(newTestParamVals) {
       this.testParamVals = newTestParamVals;
     },
+
     onParamErrsChange(newTestParamErrs) {
       this.testParamErrs = newTestParamErrs;
     },
-    onSerialPortBridgeConnect(address) {
+
+    connectToSerialPortBridge(address) {
       console.log('on serialport-bridge connect');
       console.log(address)
+
       this.serialBridge = new SerialBridge(address);
       this.serialBridge.connect();
-      this.serialBridgeConnected = true; // Maybe move to the on 'connect' callback
+
+      this.serialBridge.on('connect', () => {
+        this.serialBridgeConnected = true;
+        this.serialBridge.listPorts();
+      });
+
+      this.serialBridge.on('disconnect', () => {
+        this.serialBridgeConnected = false;
+      });
+      this.serialBridge.on('listPortsRsp', (rsp) => {
+        if (rsp.success) {
+          this.serialPortArray = rsp.ports;
+          console.log(JSON.stringify(this.serialPortArray));
+        }
+      });
+
     },
-    onSerialPortBridgeDisconnect() {
+
+    disconnectFromSerialPortBridge() {
       console.log('on serialport-bridge disconnect');
       this.serialBridge.disconnect();
-      this.serialBridgeConnected = false;
     },
+
     beforeunload() {
       if (this.enableUnloadDialog) {
         return 'Warning: reloading page may cause data loss in the Rodeostat application';
       } 
     }
   },
+
   created() {
     window.onbeforeunload = this.beforeunload
   },
+
 }
 
 </script>

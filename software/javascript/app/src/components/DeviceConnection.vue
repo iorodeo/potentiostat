@@ -31,11 +31,13 @@
             v-bind:disabled="!isConnected"
             v-model="serialPortName"
             >
-            <md-option value="/dev/ttyACM0"> /dev/ttyACM0 </md-option>
-            <md-option value="/dev/ttyACM1"> /dev/ttyACM1 </md-option>
-            <md-option value="/dev/ttyACM2"> /dev/ttyACM2 </md-option>
-            <md-option value="/dev/ttyUSB0"> /dev/ttyUSB0 </md-option>
-            <md-option value="/dev/ttyUSB1"> /dev/ttyUSB1 </md-option>
+            <md-option 
+              v-for="item in serialPortArray"
+              v-bind:key="item.id"
+              v-bind:value="item.device"
+              > 
+              {{item.device}}
+            </md-option>
           </md-select>
         </md-input-container>
       </md-layout>
@@ -67,6 +69,12 @@ export default {
       type: Boolean,
       default: false,
     },
+    serialPortArray: {
+      type: Array,
+      default: function() {
+        return [];
+      },
+    },
   },
   data () {
     return {
@@ -77,13 +85,14 @@ export default {
   methods: {
     onBridgeConnectChange(value) {
       if (value) { 
-        this.$emit('bridge-connect',this.serialBridgeAddress);
+        this.$emit('bridge-connect-request',this.serialBridgeAddress);
       } else {
-        this.$emit('bridge-disconnect');
+        this.$emit('bridge-disconnect-request');
       }
     },
     onSerialPortOpenChange(value) {
       console.log('serial port open change: ' + value);
+      console.log(this.serialPortName);
     },
   }
 }
