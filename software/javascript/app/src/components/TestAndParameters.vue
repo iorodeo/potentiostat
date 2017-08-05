@@ -83,8 +83,6 @@
 
 <script>
 
-//import { TEST_DEFS } from '../test_defs'
-
 
 export default {
   name: 'TestAndParameters',
@@ -95,18 +93,16 @@ export default {
       testParamVals: this.testVals,
       testParamDefs: this.testDefs,
       testParamErrs: this.testErrs,
-      temp: 'startMin',
-      //testParamErrs: this.initParamErrsFromDefs(this.testDefs),
     }
   },
   methods: {
     onDebugClick() {
       console.log('onDebugClick');
-      //this.testParamVals[this.currentTest]['quietTime'] = 20;
+      console.log(JSON.stringify(this.testVals));
     },
     onTestChange(testName) {
-      this.currentTest = testName
-      this.$emit('test-change', testName)
+      this.currentTest = testName;
+      this.$emit('test-change', testName);
     },
     onNumberChange(paramName, newValue) {
       this.checkParamForErrs(this.currentTest,paramName,newValue);

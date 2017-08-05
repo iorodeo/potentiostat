@@ -6,6 +6,9 @@
       <md-layout md-row>
 
       <device-connection 
+        v-bind:is-connected="serialBridgeConnected"
+        v-on:bridge-connect="onSerialPortBridgeConnect"
+        v-on:bridge-disconnect="onSerialPortBridgeDisconnect"
         v-show="currentOption === 'DeviceConnection'"
         > 
       </device-connection>
@@ -45,7 +48,8 @@ import DeviceConnection from './components/DeviceConnection'
 import TestAndParameters from './components/TestAndParameters'
 import CollectData from './components/CollectData'
 import ExportData from './components/ExportData'
-import { TEST_DEFS } from './test_defs'
+import { TEST_DEFS } from './test_definitions'
+import { SerialBridge } from './serial_bridge'
 
 export default {
   name: 'app',
@@ -58,11 +62,13 @@ export default {
   },
   data: function() {
     return {
-      currentOption: 'TestAndParameters',
+      currentOption: 'DeviceConnection',
       currentTest: 'cyclic',
       testParamDefs: TEST_DEFS,
       testParamVals: this.initParamValsFromDefs(TEST_DEFS),
       testParamErrs: this.initParamErrsFromDefs(TEST_DEFS),
+      serialBridge: null,
+      serialBridgeConnected: false,
       enableUnloadDialog: false,
     }
   },
@@ -98,6 +104,18 @@ export default {
     },
     onParamErrsChange(newTestParamErrs) {
       this.testParamErrs = newTestParamErrs;
+    },
+    onSerialPortBridgeConnect(address) {
+      console.log('on serialport-bridge connect');
+      console.log(address)
+      this.serialBridge = new SerialBridge(address);
+      this.serialBridge.connect();
+      this.serialBridgeConnected = true; // Maybe move to the on 'connect' callback
+    },
+    onSerialPortBridgeDisconnect() {
+      console.log('on serialport-bridge disconnect');
+      this.serialBridge.disconnect();
+      this.serialBridgeConnected = false;
     },
     beforeunload() {
       if (this.enableUnloadDialog) {
