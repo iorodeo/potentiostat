@@ -69,7 +69,8 @@
       <md-layout md-row class="row-with-margin">
         <md-button 
           class="md-primary md-raised" 
-          @click=onDebugClick
+          v-on:click=onDebugClick
+          v-if="showDebugButton"
           > 
           Debug 
         </md-button>
@@ -93,6 +94,7 @@ export default {
       testParamVals: this.testVals,
       testParamDefs: this.testDefs,
       testParamErrs: this.testErrs,
+      showDebugButton: false,
     }
   },
   methods: {

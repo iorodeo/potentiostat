@@ -1,6 +1,7 @@
 "use strict";
 import io from 'socket.io-client'
 
+//export class SerialBridge {
 export class SerialBridge {
 
   constructor(url) {
@@ -48,4 +49,7 @@ export class SerialBridge {
     this.socket.on(eventName,callback);
   }
 }
+
+
+
 

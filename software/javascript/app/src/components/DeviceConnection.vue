@@ -28,7 +28,7 @@
         <md-input-container class="fixed-width-container">
           <label> serial port </label>
           <md-select 
-            v-bind:disabled="!isConnected"
+            v-bind:disabled="serialPortSelectDisabled"
             v-model="serialPortName"
             v-on:change="onPortSelectChange"
             >
@@ -37,7 +37,7 @@
               v-bind:key="item.id"
               v-bind:value="item.device"
               > 
-              {{item.device}}
+              {{item.device}} ({{item.product}})
             </md-option>
           </md-select>
         </md-input-container>
@@ -46,11 +46,22 @@
       <md-layout md-row md-align="left" class="row-with-margin">
         <md-switch 
           class="md-primary" 
-          v-bind:disabled="serialPortOpenSwitchDisabled"
+          v-model="serialPortSwitch"
+          v-bind:disabled="serialPortSwitchDisabled"
           v-on:change="onSerialPortOpenChange"
           > 
           open serial port
         </md-switch> 
+      </md-layout>
+
+      <md-layout md-row class="row-with-margin">
+        <md-button 
+          class="md-primary md-raised" 
+          v-on:click=onDebugClick
+          v-if="showDebugButton"
+          > 
+          Debug 
+        </md-button>
       </md-layout>
 
     </md-layout>
@@ -80,14 +91,31 @@ export default {
       type: Boolean,
       default: false,
     },
+    serialPort: {
+      type: String,
+      default: '',
+    }
   },
   data () {
     return {
       serialBridgeAddress: 'http://localhost:5000',
-      serialPortName: null,
+      serialPortName: this.serialPort,
+      serialPortSwitch: this.isSerialPortOpen,
+      showDebugButton: false,
     }
   },
+  watch: {
+    serialPort: function() {
+      this.serialPortName = this.serialPort;
+    },
+    isSerialPortOpen: function() {
+      this.serialPortSwitch = this.isSerialPortOpen;
+    },
+  },
   methods: {
+    onDebugClick() {
+      console.log('debug');
+    },
     onBridgeConnectChange(value) {
       if (value) { 
         this.$emit('bridge-connect-request',this.serialBridgeAddress);
@@ -110,10 +138,16 @@ export default {
       console.log(value);
       this.$emit('serialport-change',value);
     },
+
   },
 
   computed: {
-    serialPortOpenSwitchDisabled() {
+
+    serialPortSelectDisabled() {
+      return (!this.isConnected) || this.serialPortSwitch;
+    },
+
+    serialPortSwitchDisabled() {
       return ((!this.isConnected) || (!this.serialPortName));
     },
   }

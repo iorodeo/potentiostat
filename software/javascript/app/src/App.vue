@@ -9,6 +9,7 @@
         v-bind:is-connected="serialBridgeConnected"
         v-bind:serial-port-array="serialPortArray"
         v-bind:is-serial-port-open="serialPortOpen"
+        v-bind:serial-port="serialPortName"
         v-on:bridge-connect-request="connectSerialBridgeReq"
         v-on:bridge-disconnect-request="disconnectSerialBridgeReq"
         v-on:serialport-open-request="openSerialPortReq"
@@ -138,17 +139,25 @@ export default {
 
       this.serialBridge.on('disconnect', () => {
         this.serialBridgeConnected = false;
+        this.serialPortName = null;
+        this.serialPortArray = [];
       });
 
       this.serialBridge.on('listPortsRsp', (rsp) => {
+        console.log('listPortsRsp: ' + JSON.stringify(rsp));
         if (rsp.success) {
           this.serialPortArray = rsp.ports;
-          console.log(JSON.stringify(this.serialPortArray));
         }
       });
 
       this.serialBridge.on('openRsp', (rsp) => {
-        this.serialPortOpen = true;
+        console.log('openRsp: ' + JSON.stringify(rsp));
+        if (rsp.success) {
+          this.serialPortOpen = true;
+          this.serialPortName = rsp.serialPortInfo.portName;
+          console.log('serialPortOpen: ' + this.serialPortOpen);
+          console.log('serialPortName: ' + this.serialPortName);
+        }
       });
 
       this.serialBridge.on('closeRsp', (rsp) => {
