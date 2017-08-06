@@ -80,6 +80,18 @@ const SHIFT_PARAM_DEF = {
   converter: converters.identity,
 };
 
+const NUM_CYCLES_PARAM_DEF = {
+  name: 'cycles',
+  unit: '#',
+  type: 'number',
+  minVal: 1,
+  maxVal: 10000,
+  defaultVal: 1,
+  step: 1,
+  scale: 1,
+  converter: converters.identity,
+};
+
 const START_HILO_RADIO_PARAM_DEF = {
   type: 'radio',
   defaultVal: 'startMin',
@@ -117,9 +129,10 @@ const CYCLIC_TEST_DEFS = {
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
-  minValue: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'min value'}),
-  maxValue: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'max value'}),
+  minValue: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'min value',defaultVal: -1.0}),
+  maxValue: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'max value',defaultVal:  1.0}),
   scanRate: SCAN_RATE_PARAM_DEF,
+  numCycles: NUM_CYCLES_PARAM_DEF,
   startOption: START_HILO_RADIO_PARAM_DEF,
 };
 
@@ -128,8 +141,8 @@ const LINEARSWEEP_TEST_DEFS = {
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
-  startValue: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'start value'}),
-  finalValue: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'final value'}),
+  startValue: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'start value',defaultVal: -1.0}),
+  finalValue: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'final value',defaultVal:  1.0}),
   scanRate: SCAN_RATE_PARAM_DEF,
 };
 
@@ -145,9 +158,10 @@ const SINUSOID_TEST_DEFS = {
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
-  amplitude: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'amplitude'}),
+  amplitude: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'amplitude',minVal: 0.0, defaultVal: 1.0}),
   offset: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'offset'}),
   period: Object.assign({},TIME_VALUE_PARAM_DEF,{name:'period'}),
+  numCycles: NUM_CYCLES_PARAM_DEF,
   shift: SHIFT_PARAM_DEF,
 };
 

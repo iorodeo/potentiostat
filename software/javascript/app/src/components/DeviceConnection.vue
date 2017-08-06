@@ -30,6 +30,7 @@
           <md-select 
             v-bind:disabled="!isConnected"
             v-model="serialPortName"
+            v-on:change="onPortSelectChange"
             >
             <md-option 
               v-for="item in serialPortArray"
@@ -45,7 +46,7 @@
       <md-layout md-row md-align="left" class="row-with-margin">
         <md-switch 
           class="md-primary" 
-          v-bind:disabled="!isConnected"
+          v-bind:disabled="serialPortOpenSwitchDisabled"
           v-on:change="onSerialPortOpenChange"
           > 
           open serial port
@@ -75,6 +76,10 @@ export default {
         return [];
       },
     },
+    isSerialPortOpen: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     return {
@@ -88,13 +93,31 @@ export default {
         this.$emit('bridge-connect-request',this.serialBridgeAddress);
       } else {
         this.$emit('bridge-disconnect-request');
+        this.$emit('serialport-change', null);
+        this.serialPortName = null;
       }
     },
     onSerialPortOpenChange(value) {
       console.log('serial port open change: ' + value);
       console.log(this.serialPortName);
+      if (value) {
+        this.$emit('serialport-open-request');
+      } else {
+        this.$emit('serialport-close-request');
+      }
+    },
+    onPortSelectChange(value) {
+      console.log(value);
+      this.$emit('serialport-change',value);
+    },
+  },
+
+  computed: {
+    serialPortOpenSwitchDisabled() {
+      return ((!this.isConnected) || (!this.serialPortName));
     },
   }
+
 }
 </script>
 

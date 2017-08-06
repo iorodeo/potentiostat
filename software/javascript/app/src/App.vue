@@ -8,8 +8,12 @@
       <device-connection 
         v-bind:is-connected="serialBridgeConnected"
         v-bind:serial-port-array="serialPortArray"
-        v-on:bridge-connect-request="connectToSerialPortBridge"
-        v-on:bridge-disconnect-request="disconnectFromSerialPortBridge"
+        v-bind:is-serial-port-open="serialPortOpen"
+        v-on:bridge-connect-request="connectSerialBridgeReq"
+        v-on:bridge-disconnect-request="disconnectSerialBridgeReq"
+        v-on:serialport-open-request="openSerialPortReq"
+        v-on:serialport-close-request="closeSerialPortReq"
+        v-on:serialport-change="onSerialPortChange"
         v-show="currentOption === 'DeviceConnection'"
         > 
       </device-connection>
@@ -71,6 +75,12 @@ export default {
       serialBridge: null,
       serialBridgeConnected: false,
       serialPortArray: [],
+      serialPortName: null,
+      serialPortOpen: false,
+      serialPortParam: {
+        baudrate: 115200,
+        timeout: 10.0,
+      },
       enableUnloadDialog: false,
     }
   },
@@ -114,7 +124,7 @@ export default {
       this.testParamErrs = newTestParamErrs;
     },
 
-    connectToSerialPortBridge(address) {
+    connectSerialBridgeReq(address) {
       console.log('on serialport-bridge connect');
       console.log(address)
 
@@ -129,6 +139,7 @@ export default {
       this.serialBridge.on('disconnect', () => {
         this.serialBridgeConnected = false;
       });
+
       this.serialBridge.on('listPortsRsp', (rsp) => {
         if (rsp.success) {
           this.serialPortArray = rsp.ports;
@@ -136,11 +147,36 @@ export default {
         }
       });
 
+      this.serialBridge.on('openRsp', (rsp) => {
+        this.serialPortOpen = true;
+      });
+
+      this.serialBridge.on('closeRsp', (rsp) => {
+        this.serialPortOpen = false;
+      });
+
     },
 
-    disconnectFromSerialPortBridge() {
+    disconnectSerialBridgeReq() {
       console.log('on serialport-bridge disconnect');
       this.serialBridge.disconnect();
+    },
+
+    openSerialPortReq() {
+      console.log('openSerialPortReq');
+      if (this.serialPortName) {
+        this.serialBridge.open(this.serialPortName,this.serialPortParam);
+      }
+    },
+
+    closeSerialPortReq() {
+      console.log('closeSerialPortReq');
+      this.serialBridge.close();
+    },
+
+    onSerialPortChange(newName) {
+      console.log('onSerialPortChange');
+      this.serialPortName = newName;
     },
 
     beforeunload() {
