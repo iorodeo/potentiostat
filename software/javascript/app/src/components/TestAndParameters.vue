@@ -84,6 +84,7 @@
 
 <script>
 
+import {paramValsToNumber} from '../test_converters.js'
 
 export default {
   name: 'TestAndParameters',
@@ -94,13 +95,20 @@ export default {
       testParamVals: this.testVals,
       testParamDefs: this.testDefs,
       testParamErrs: this.testErrs,
-      showDebugButton: false,
+      showDebugButton: true,
     }
   },
   methods: {
     onDebugClick() {
       console.log('onDebugClick');
-      console.log(JSON.stringify(this.testVals));
+      console.log('------------');
+      let testVals = paramValsToNumber(this.testVals,this.testDefs);
+      let testName = this.currentTest;
+      let convfunc = this.testDefs[testName].defs['converter'];
+      let origVals = testVals[testName];
+      let convVals = convfunc(origVals,this.testDefs[testName].defs);
+      console.log(JSON.stringify(origVals));
+      console.log(JSON.stringify(convVals));
     },
     onTestChange(testName) {
       this.currentTest = testName;
@@ -111,18 +119,19 @@ export default {
       this.$emit('param-change', this.testParamVals);
     },
     checkParamForErrs(testName, paramName, value) {
+      let valueNum = Number(value);
       let defs = this.testParamDefs[testName].defs[paramName];
       let flag = false;
       let message = '';
-      if (value==="") { 
+      if (valueNum === "") { 
         flag = true;
         message =  'value must be a valid number'; 
       }
-      else if (value > defs.maxVal) {
+      else if (valueNum > defs.maxVal) {
         flag = true;
         message = 'value is > than maximum allowed, ' + defs.maxVal;
       }
-      else if (value < defs.minVal) {
+      else if (valueNum < defs.minVal) {
         flag = true;
         message = 'value is < than minimum allowed, ' + defs.minVal;
       }

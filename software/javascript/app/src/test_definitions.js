@@ -134,6 +134,7 @@ const CYCLIC_TEST_DEFS = {
   scanRate: SCAN_RATE_PARAM_DEF,
   numCycles: NUM_CYCLES_PARAM_DEF,
   startOption: START_HILO_RADIO_PARAM_DEF,
+  converter: converters.cyclicParam,
 };
 
 // Parameter defs for linear sweep test
@@ -144,6 +145,7 @@ const LINEARSWEEP_TEST_DEFS = {
   startValue: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'start value',defaultVal: -1.0}),
   finalValue: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'final value',defaultVal:  1.0}),
   scanRate: SCAN_RATE_PARAM_DEF,
+  converter: converters.linearSweepParam,
 };
 
 // Parameter defs for multistep test
@@ -151,6 +153,7 @@ const MULTISTEP_TEST_DEFS = {
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
+  converter: converters.multiStepParam,
 };
 
 // Parameter defs for sinudoid test
@@ -163,6 +166,7 @@ const SINUSOID_TEST_DEFS = {
   period: Object.assign({},TIME_VALUE_PARAM_DEF,{name:'period'}),
   numCycles: NUM_CYCLES_PARAM_DEF,
   shift: SHIFT_PARAM_DEF,
+  converter: converters.sinusoidParam,
 };
 
 // Collection of all test definitions

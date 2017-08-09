@@ -68,7 +68,7 @@ export default {
   },
   data: function() {
     return {
-      currentOption: 'DeviceConnection',
+      currentOption: 'TestAndParameters',
       currentTest: 'cyclic',
       testParamDefs: TEST_DEFS,
       testParamVals: this.initParamValsFromDefs(TEST_DEFS),
@@ -92,6 +92,9 @@ export default {
       for (let name in testParamDefs) {
         testParamVals[name] = {};
         for (let param in testParamDefs[name].defs) { 
+          if (param === 'converter') {
+            continue;
+          }
           testParamVals[name][param] = testParamDefs[name].defs[param].defaultVal; 
         }
       }
@@ -103,6 +106,9 @@ export default {
       for (let name in testParamDefs) {
         testParamErrs[name] = {}
         for (let param in testParamDefs[name].defs) {
+          if (param === 'converter') {
+            continue;
+          }
           testParamErrs[name][param] = {flag: false, message: 'none'} 
         }
       }
