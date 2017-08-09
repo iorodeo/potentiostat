@@ -5,7 +5,7 @@
     <md-layout md-column>
 
       <md-layout md-row md-align="left" class="row-with-margin">
-        <h3 class="md-title"> Collect Data </h3>
+        <h3 class="md-title"> Data Acquisition </h3>
       </md-layout>
 
     </md-layout>

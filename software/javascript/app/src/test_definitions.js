@@ -2,7 +2,8 @@
 import * as converters from './test_converters.js'
 
 
-// Generic parameter info objects
+// Definitions for individual parameters
+// ----------------------------------------------------------------------------
 const SAMPLE_RATE_PARAM_DEF = { 
   name: 'sample rate',
   unit: 'Hz',
@@ -14,6 +15,7 @@ const SAMPLE_RATE_PARAM_DEF = {
   scale: 1.0,
   converter: converters.identity,
 } 
+
 
 const QUIET_TIME_PARAM_DEF = {
   name: 'quiet time',
@@ -27,6 +29,7 @@ const QUIET_TIME_PARAM_DEF = {
   converter: converters.secondToMillisecond,
 }
 
+
 const VOLT_VALUE_PARAM_DEF = {
   name: 'value',
   unit: 'V',
@@ -38,11 +41,10 @@ const VOLT_VALUE_PARAM_DEF = {
   scale: 1.0,
   converter: converters.identity,
 }
-const QUIET_VALUE_PARAM_DEF = Object.assign(
-  {},
-  VOLT_VALUE_PARAM_DEF,
-  {name:'quiet value'}
-)
+
+
+const QUIET_VALUE_PARAM_DEF = Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'quiet value'})
+
 
 const TIME_VALUE_PARAM_DEF = {
   name: 'time',
@@ -56,17 +58,20 @@ const TIME_VALUE_PARAM_DEF = {
   converter: converters.secondToMillisecond,
 }
 
+
 const SCAN_RATE_PARAM_DEF = {
   name: 'scan rate',
   unit: 'V/s',
   type: 'number',
-  minVal: 0.001,
+  minVal: 0.0,
   maxVal: 50.000,
+  boundType: ['open','closed'],
   defaultVal: 0.01,
   step: 0.001,
   scale: 1.0,
   converter: converters.identity,
 };
+
 
 const SHIFT_PARAM_DEF = {
   name: 'shift',
@@ -92,7 +97,23 @@ const NUM_CYCLES_PARAM_DEF = {
   converter: converters.identity,
 };
 
+
+const NUM_STEPS_PARAM_DEF = {
+  name: 'steps',
+  unit: '#',
+  type: 'number',
+  minVal: 1,
+  maxVal: 50,
+  defaultVal: 5,
+  step: 1,
+  scale: 1,
+  converter: converters.identity,
+};
+
+
 const START_HILO_RADIO_PARAM_DEF = {
+  name: '',
+  unit: '',
   type: 'radio',
   defaultVal: 'startMin',
   options: {
@@ -102,7 +123,17 @@ const START_HILO_RADIO_PARAM_DEF = {
   converter: converters.identity,
 };
 
-// Parameters defs for constant voltage test
+
+const TIME_VOLT_ARRAY_PARAM_DEF = {
+  type: 'timeVoltArray',
+  timeValDefs: TIME_VALUE_PARAM_DEF,
+  voltValDefs: VOLT_VALUE_PARAM_DEF,
+};
+
+
+// Definitions for voltametric tests
+// ----------------------------------------------------------------------------
+
 const CONSTANT_TEST_DEFS = {
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
@@ -112,7 +143,7 @@ const CONSTANT_TEST_DEFS = {
   converter: converters.constantParam,
 };
 
-// Parameter defs for chronoamp test
+
 const CHRONOAMP_TEST_DEFS = {
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
@@ -124,7 +155,7 @@ const CHRONOAMP_TEST_DEFS = {
   converter: converters.chronoampParam,
 };
 
-// Parameter defs for cyclic voltammetry test
+
 const CYCLIC_TEST_DEFS = {
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
@@ -137,7 +168,7 @@ const CYCLIC_TEST_DEFS = {
   converter: converters.cyclicParam,
 };
 
-// Parameter defs for linear sweep test
+
 const LINEARSWEEP_TEST_DEFS = {
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
@@ -148,15 +179,16 @@ const LINEARSWEEP_TEST_DEFS = {
   converter: converters.linearSweepParam,
 };
 
-// Parameter defs for multistep test
+
 const MULTISTEP_TEST_DEFS = {
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
+  numSteps: NUM_STEPS_PARAM_DEF,
   converter: converters.multiStepParam,
 };
 
-// Parameter defs for sinudoid test
+
 const SINUSOID_TEST_DEFS = {
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
@@ -169,7 +201,10 @@ const SINUSOID_TEST_DEFS = {
   converter: converters.sinusoidParam,
 };
 
-// Collection of all test definitions
+
+// Collections of all test definitions
+// ----------------------------------------------------------------------------
+
 export const TEST_DEFS = {
   constant: {
     name: 'constant voltage',

@@ -35,10 +35,12 @@
         > 
       </collect-data>
 
+      <!--
       <export-data 
         v-show="currentOption === 'ExportData'"
         > 
       </export-data>
+      -->
 
       </md-layout>
     </md-layout>
@@ -69,7 +71,7 @@ export default {
   data: function() {
     return {
       currentOption: 'TestAndParameters',
-      currentTest: 'cyclic',
+      currentTest: 'linearSweep',
       testParamDefs: TEST_DEFS,
       testParamVals: this.initParamValsFromDefs(TEST_DEFS),
       testParamErrs: this.initParamErrsFromDefs(TEST_DEFS),

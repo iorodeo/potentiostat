@@ -85,10 +85,14 @@
 <script>
 
 import {paramValsToNumber} from '../test_converters.js'
+import  _ from 'lodash';
 
 export default {
+
   name: 'TestAndParameters',
+
   props: ['selectedTest', 'testDefs', 'testVals', 'testErrs'],
+
   data () {
     return {
       currentTest:   this.selectedTest,
@@ -98,7 +102,9 @@ export default {
       showDebugButton: true,
     }
   },
+
   methods: {
+
     onDebugClick() {
       console.log('onDebugClick');
       console.log('------------');
@@ -110,30 +116,51 @@ export default {
       console.log(JSON.stringify(origVals));
       console.log(JSON.stringify(convVals));
     },
+
     onTestChange(testName) {
       this.currentTest = testName;
       this.$emit('test-change', testName);
     },
+
     onNumberChange(paramName, newValue) {
       this.checkParamForErrs(this.currentTest,paramName,newValue);
       this.$emit('param-change', this.testParamVals);
     },
+
     checkParamForErrs(testName, paramName, value) {
       let valueNum = Number(value);
       let defs = this.testParamDefs[testName].defs[paramName];
+      let boundType = _.get(defs, ['boundType'], ['closed','closed']);
       let flag = false;
       let message = '';
       if (valueNum === "") { 
         flag = true;
         message =  'value must be a valid number'; 
-      }
-      else if (valueNum > defs.maxVal) {
-        flag = true;
-        message = 'value is > than maximum allowed, ' + defs.maxVal;
-      }
-      else if (valueNum < defs.minVal) {
-        flag = true;
-        message = 'value is < than minimum allowed, ' + defs.minVal;
+      } else {
+        let maxType = boundType[1];
+        let minType = boundType[0];
+        if (maxType === 'closed') {
+          if (valueNum > defs.maxVal) {
+            flag = true;
+            message = 'value is > than maximum allowed, ' + defs.maxVal;
+          }
+        } else {
+          if (valueNum >= defs.maxVal) {
+            flag = true;
+            message = 'value is >= than maximum allowed, ' + defs.maxVal;
+          }
+        }
+        if (minType === 'closed') {
+          if (valueNum < defs.minVal) {
+            flag = true;
+            message = 'value is < than minimum allowed, ' + defs.minVal;
+          }
+        } else {
+          if (valueNum <= defs.minVal) {
+            flag = true;
+            message = 'value is <= than minimum allowed, ' + defs.minVal;
+          }
+        }
       }
       this.testParamErrs[testName][paramName].flag = flag;
       this.testParamErrs[testName][paramName].message = message;
@@ -142,6 +169,7 @@ export default {
       }
       return flag;
     },
+
     checkAllParamForErrs() {
       for (let testName in this.testParamVals) {
         for (let paramName in this.testParamVals[testName]) {
@@ -150,7 +178,9 @@ export default {
         }
       }
     },
+    
   },
+
   mounted() {
     this.checkAllParamForErrs();
   }

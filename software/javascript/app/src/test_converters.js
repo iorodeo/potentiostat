@@ -1,4 +1,6 @@
 "use strict";
+import _ from 'lodash';
+
 
 // Converters for parameter values
 // -----------------------------------------------------------------------------
@@ -49,11 +51,8 @@ export function constantParam(paramVals, paramDefs) {
 
 export function chronoampParam(paramVals, paramDefs) {
   let paramValsTmp = applyValueConverters(paramVals, paramDefs);
-  let paramValsCon = Object.assign({}, paramValsTmp);
-  delete paramValsCon.duration1;
-  delete paramValsCon.duration2;
-  delete paramValsCon.value1;
-  delete paramValsCon.value2;
+  let valsToOmit= ['step1Duration', 'step2Duration', 'step1Value', 'step2Value'];
+  let paramValsCon = _.omit(paramValsTmp,valsToOmit);
   paramValsCon['step'] = [
     [paramValsTmp.step1Duration, paramValsTmp.step1Value],
     [paramValsTmp.step2Duration, paramValsTmp.step2Value],
@@ -64,14 +63,11 @@ export function chronoampParam(paramVals, paramDefs) {
 
 export function cyclicParam(paramVals, paramDefs) {
   let paramValsTmp = applyValueConverters(paramVals, paramDefs);
-  let paramValsCon = Object.assign({}, paramValsTmp);
-  delete paramValsCon.scanRate;
-  delete paramValsCon.minValue;
-  delete paramValsCon.maxValue;
-  delete paramValsCon.startOption;
+  let valsToOmit = ['scanRate', 'minValue', 'maxValue', 'startOption'];
+  let paramValsCon = _.omit(paramValsTmp, valsToOmit);
   paramValsCon.amplitude = 0.5*Math.abs(paramValsTmp.maxValue - paramValsTmp.minValue);
   paramValsCon.offset = 0.5*(paramValsTmp.maxValue + paramValsTmp.minValue); 
-  paramValsCon.period = (1000*4*paramValsCon.amplitude/paramValsTmp.scanRate).toFixed(0);
+  paramValsCon.period = secondToMillisecond(4*paramValsCon.amplitude/paramValsTmp.scanRate).toFixed(0);
   if (paramValsTmp.startOption === 'startMin') {
     paramValsCon.shift = 0.0;
   } else {
@@ -81,11 +77,23 @@ export function cyclicParam(paramVals, paramDefs) {
 }
 
 export function linearSweepParam(paramVals, paramDefs) {
+  let paramValsTmp = applyValueConverters(paramVals, paramDefs);
+  let paramValsCon = _.omit(paramValsTmp,['scanRate']);
+  let deltaVolt = Math.abs(paramValsTmp.startValue - paramValsTmp.finalValue);
+  paramValsCon.duration = secondToMillisecond(deltaVolt/paramValsTmp.scanRate).toFixed(0);
+  return paramValsCon;
 }
 
 export function multiStepParam(paramVals, paramDefs) {
+  let paramValsTmp = applyValueConverters(paramVals, paramDefs);
+  let paramValsCon = _.omit(paramValsTmp,['numSteps']);
+  // --------------------------------------------------
+  // TODO 
+  // ---------------------------------------------------
+  return paramValsCon;
 }
 
-export function sinusoidParam(paramsVals, paramsDefs) {
-
+export function sinusoidParam(paramVals, paramDefs) {
+  let paramValsCon = applyValueConverters(paramVals, paramDefs);
+  return paramValsCon;
 }

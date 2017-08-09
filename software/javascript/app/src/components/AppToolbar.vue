@@ -26,11 +26,13 @@
             <md-button @click="onSideNavOptionClick('TestAndParameters')"> Test & Parameters </md-button>
           </md-list-item>
           <md-list-item>
-            <md-button @click="onSideNavOptionClick('CollectData')"> Collect Data </md-button>
+            <md-button @click="onSideNavOptionClick('CollectData')"> Data Acquisition </md-button>
           </md-list-item>
+          <!-- 
           <md-list-item>
             <md-button @click="onSideNavOptionClick('ExportData')"> Export Data </md-button>
           </md-list-item>
+          -->
         </md-list>
       </div>
     </md-sidenav>
