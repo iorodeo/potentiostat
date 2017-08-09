@@ -51,13 +51,14 @@
 
 <script>
 
-import AppToolbar from './components/AppToolbar'
-import DeviceConnection from './components/DeviceConnection'
-import TestAndParameters from './components/TestAndParameters'
-import CollectData from './components/CollectData'
-import ExportData from './components/ExportData'
-import { TEST_DEFS } from './test_definitions'
-import { SerialBridge } from './serial_bridge'
+import AppToolbar from './components/AppToolbar';
+import DeviceConnection from './components/DeviceConnection';
+import TestAndParameters from './components/TestAndParameters';
+import CollectData from './components/CollectData';
+import ExportData from './components/ExportData';
+import {TEST_DEFS} from './test_definitions';
+import {SerialBridge} from './serial_bridge';
+import {initParamValsFromDefs, initParamErrsFromDefs} from './test_utils.js';
 
 export default {
   name: 'app',
@@ -73,8 +74,8 @@ export default {
       currentOption: 'TestAndParameters',
       currentTest: 'linearSweep',
       testParamDefs: TEST_DEFS,
-      testParamVals: this.initParamValsFromDefs(TEST_DEFS),
-      testParamErrs: this.initParamErrsFromDefs(TEST_DEFS),
+      testParamVals: initParamValsFromDefs(TEST_DEFS),
+      testParamErrs: initParamErrsFromDefs(TEST_DEFS),
       serialBridge: null,
       serialBridgeConnected: false,
       serialPortArray: [],
@@ -88,34 +89,6 @@ export default {
     }
   },
   methods: { 
-
-    initParamValsFromDefs(testParamDefs) {
-      let testParamVals = {};
-      for (let name in testParamDefs) {
-        testParamVals[name] = {};
-        for (let param in testParamDefs[name].defs) { 
-          if (param === 'converter') {
-            continue;
-          }
-          testParamVals[name][param] = testParamDefs[name].defs[param].defaultVal; 
-        }
-      }
-      return testParamVals;
-    },
-
-    initParamErrsFromDefs(testParamDefs) {
-      let testParamErrs = {}
-      for (let name in testParamDefs) {
-        testParamErrs[name] = {}
-        for (let param in testParamDefs[name].defs) {
-          if (param === 'converter') {
-            continue;
-          }
-          testParamErrs[name][param] = {flag: false, message: 'none'} 
-        }
-      }
-      return testParamErrs;
-    },
 
     onOptionChange(newOptionName) {
       this.currentOption = newOptionName;
@@ -207,7 +180,7 @@ export default {
     window.onbeforeunload = this.beforeunload
   },
 
-}
+};
 
 </script>
 

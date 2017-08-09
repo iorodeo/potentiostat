@@ -1,5 +1,5 @@
 "use strict";
-import * as converters from './test_converters.js'
+import * as converters from './test_converters.js';
 
 
 // Definitions for individual parameters
@@ -14,7 +14,7 @@ const SAMPLE_RATE_PARAM_DEF = {
   step:  10.0,
   scale: 1.0,
   converter: converters.identity,
-} 
+};
 
 
 const QUIET_TIME_PARAM_DEF = {
@@ -27,7 +27,7 @@ const QUIET_TIME_PARAM_DEF = {
   step:  1.0, 
   scale: 1000.0,
   converter: converters.secondToMillisecond,
-}
+};
 
 
 const VOLT_VALUE_PARAM_DEF = {
@@ -40,10 +40,10 @@ const VOLT_VALUE_PARAM_DEF = {
   step:  0.1,
   scale: 1.0,
   converter: converters.identity,
-}
+};
 
 
-const QUIET_VALUE_PARAM_DEF = Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'quiet value'})
+const QUIET_VALUE_PARAM_DEF = Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'quiet value'});
 
 
 const TIME_VALUE_PARAM_DEF = {
@@ -56,7 +56,7 @@ const TIME_VALUE_PARAM_DEF = {
   step: 1,
   scale: 1000,
   converter: converters.secondToMillisecond,
-}
+};
 
 
 const SCAN_RATE_PARAM_DEF = {
@@ -141,6 +141,7 @@ const CONSTANT_TEST_DEFS = {
   value: VOLT_VALUE_PARAM_DEF, 
   duration: Object.assign({},TIME_VALUE_PARAM_DEF,{name:'duration'}),
   converter: converters.constantParam,
+  plotTypes: ['currVsTime'],
 };
 
 
@@ -153,6 +154,7 @@ const CHRONOAMP_TEST_DEFS = {
   step2Duration: Object.assign({},TIME_VALUE_PARAM_DEF,{name:'step 2 duration'}),
   step2Value: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'step 2 value'}),
   converter: converters.chronoampParam,
+  plotTypes: ['voltVsTime', 'currVsTime'],
 };
 
 
@@ -166,6 +168,7 @@ const CYCLIC_TEST_DEFS = {
   numCycles: NUM_CYCLES_PARAM_DEF,
   startOption: START_HILO_RADIO_PARAM_DEF,
   converter: converters.cyclicParam,
+  plotTypes: ['voltVsTime', 'currVsTime', 'currVsVolt'],
 };
 
 
@@ -177,6 +180,7 @@ const LINEARSWEEP_TEST_DEFS = {
   finalValue: Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'final value',defaultVal:  1.0}),
   scanRate: SCAN_RATE_PARAM_DEF,
   converter: converters.linearSweepParam,
+  plotTypes: ['voltVsTime', 'currVsTime', 'currVsVolt'],
 };
 
 
@@ -186,6 +190,7 @@ const MULTISTEP_TEST_DEFS = {
   quietValue: QUIET_VALUE_PARAM_DEF,
   numSteps: NUM_STEPS_PARAM_DEF,
   converter: converters.multiStepParam,
+  plotTypes: ['voltVsTime', 'currVsTime'],
 };
 
 
@@ -199,7 +204,11 @@ const SINUSOID_TEST_DEFS = {
   numCycles: NUM_CYCLES_PARAM_DEF,
   shift: SHIFT_PARAM_DEF,
   converter: converters.sinusoidParam,
+  plotTypes: ['voltVsTime', 'currVsTime', 'currVsVolt'],
 };
+
+
+export const NONVALUE_TEST_PARAMS = ['converter', 'plotTypes'];
 
 
 // Collections of all test definitions
