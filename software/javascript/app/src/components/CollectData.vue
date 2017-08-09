@@ -15,6 +15,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'CollectData',
   data () {
@@ -23,6 +24,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style scoped>
