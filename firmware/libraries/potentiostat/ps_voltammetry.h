@@ -9,6 +9,7 @@
 #include "ps_constant_test.h"
 #include "ps_linearsweep_test.h"
 #include "ps_multistep_test.h"
+#include "ps_squarewave_test.h"
 
 #include "third-party/ArduinoJson/ArduinoJson.h"
 #include "third-party/Array/Array.h"

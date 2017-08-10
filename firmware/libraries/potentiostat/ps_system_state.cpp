@@ -386,10 +386,19 @@ namespace ps
             float curr = analogSubsystem_.getCurr();
             currLowPass_.update(curr,LowPassDtSec);
 
-            if ((timerCnt_ > 0) && (timerCnt_%sampleModulus_ == 0))
+            if (timerCnt_ > 0)
             {
-                Sample sample = {t, volt, currLowPass_.value()};
-                dataBuffer_.push_back(sample);
+                // ----------------------------------------------------------------------
+                // TODO
+                // ----------------------------------------------------------------------
+                // Modify this to handle custom sampling ... e.g. squarewave voltammetry, 
+                // differential pulse, etc.
+                // ----------------------------------------------------------------------
+                if (timerCnt_%sampleModulus_ == 0)
+                {
+                    Sample sample = {t, volt, currLowPass_.value()};
+                    dataBuffer_.push_back(sample);
+                }
             }
             done = test_ -> isDone(t);
             timerCnt_++;

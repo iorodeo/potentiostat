@@ -48,6 +48,7 @@ namespace ps
     extern const String ValueKey;
     extern const String StartValueKey;
     extern const String FinalValueKey;
+    extern const String StepValueKey;
     extern const String AmplitudeKey;
     extern const String OffsetKey;
     extern const String PeriodKey;

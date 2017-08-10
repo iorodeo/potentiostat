@@ -31,6 +31,7 @@ namespace ps
     const String ValueKey = String("value");
     const String StartValueKey = String("startValue");
     const String FinalValueKey = String("finalValue");
+    const String StepValueKey = String("stepValue");
     const String AmplitudeKey = String("amplitude");
     const String OffsetKey = String("offset");
     const String PeriodKey = String("period");

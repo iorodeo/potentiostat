@@ -1,5 +1,5 @@
 #include "ps_sinusoid_test.h"
-#include <cmath>
+#include <math.h>
 
 namespace ps
 { 
