@@ -31,9 +31,11 @@ namespace ps
             virtual void setQuietValueToStart();
             virtual float getQuietValue() const;
 
+            virtual void setSamplePeriod(uint64_t samplePeriod);
+            virtual uint64_t getSamplePeriod() const;
+
             virtual void setName(String name);
             virtual String getName();
-
 
             virtual void getParam(JsonObject &jsonDat);
             virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
@@ -42,7 +44,9 @@ namespace ps
 
             uint64_t quietTime_ = 0;
             float quietValue_ = 0.0;
+            uint64_t samplePeriod_ = 10000;
             String name_ = String("base");
+
 
             JsonObject &getParamJsonObject(JsonObject &json, ReturnStatus &status);
             void setQuietValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);

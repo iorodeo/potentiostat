@@ -85,6 +85,18 @@ namespace ps
         return quietValue_;
     }
 
+    void BaseTest::setSamplePeriod(uint64_t samplePeriod)
+    {
+        samplePeriod_ = samplePeriod;
+    }
+
+
+    uint64_t BaseTest::getSamplePeriod() const
+    {
+        return samplePeriod_;
+    }
+
+
     void BaseTest::setName(String name)
     {
         name_ = name;

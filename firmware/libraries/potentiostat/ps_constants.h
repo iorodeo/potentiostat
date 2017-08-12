@@ -15,7 +15,7 @@ namespace ps
     extern const String HardwareVariant;
 
     // Command tabe parameters
-    const uint32_t CommandTableMaxSize = 20;
+    const uint32_t CommandTableMaxSize = 25;
     
     // Buffer parameters
     const uint32_t DataBufferSize = 1000;

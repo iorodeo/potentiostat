@@ -32,10 +32,13 @@ namespace ps
             ReturnStatus getTestDoneTime(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus getTestNames(JsonObject &jsonMsg, JsonObject &jsonDat);
 
+            void setSamplePeriod(uint32_t samplePeriod);
+
             BaseTest baseTest;
             CyclicTest cyclicTest;
             SinusoidTest sinusoidTest;
             ConstantTest constantTest;
+            SquareWaveTest squareWaveTest;
             LinearSweepTest linearSweepTest;
             MultiStepTest<2> chronoampTest;
             MultiStepTest<MultiStepMaxSize> multiStepTest;

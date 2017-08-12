@@ -440,6 +440,7 @@ namespace ps
     {
         samplePeriod_ = constrain(samplePeriod, MinimumSamplePeriod, MaximumSamplePeriod);
         updateSampleModulus();
+        voltammetry_.setSamplePeriod(uint64_t(samplePeriod_));
     }
 
 

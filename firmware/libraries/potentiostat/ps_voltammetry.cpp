@@ -14,6 +14,7 @@ namespace ps
         availableTests_.push_back(&cyclicTest);
         availableTests_.push_back(&sinusoidTest);
         availableTests_.push_back(&constantTest);
+        availableTests_.push_back(&squareWaveTest);
         availableTests_.push_back(&linearSweepTest);
         availableTests_.push_back(&chronoampTest);
         availableTests_.push_back(&multiStepTest);
@@ -148,6 +149,14 @@ namespace ps
             jsonNameArray.add(availableTests_[i] -> getName());
         }
         return status;
+    }
+
+    void Voltammetry::setSamplePeriod(uint32_t samplePeriod)
+    {
+        for (size_t i=0; i<availableTests_.size(); i++)
+        {
+            availableTests_[i] -> setSamplePeriod(samplePeriod);
+        }
     }
 
 

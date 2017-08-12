@@ -11,12 +11,14 @@ namespace ps
     { 
         setName("squareWave");
         updateDoneTime();
+        updateMaxMinValues();
     };
 
     void SquareWaveTest::setStartValue(float value)
     {
         startValue_ = value;
         updateDoneTime();
+        updateMaxMinValues();
     }
 
 
@@ -30,6 +32,7 @@ namespace ps
     {
         finalValue_ = value;
         updateDoneTime();
+        updateMaxMinValues();
     }
 
 
@@ -64,19 +67,6 @@ namespace ps
     }
 
 
-    void SquareWaveTest::setPeriod(uint64_t period)
-    {
-        period_ = period;
-        updateDoneTime();
-    }
-
-
-    uint64_t SquareWaveTest::getPeriod()
-    {
-        return period_;
-    }
-
-
     float SquareWaveTest::getMaxValue() const 
     {
         float maxValue = max(startValue_, finalValue_) + amplitude_;
@@ -90,6 +80,12 @@ namespace ps
         return min(minValue, quietValue_);
     }
 
+
+    void SquareWaveTest::setSamplePeriod(uint64_t samplePeriod)
+    {
+        samplePeriod_ = samplePeriod;
+        halfSamplePeriod_ = samplePeriod >> 1;
+    }
 
     bool SquareWaveTest::isDone(uint64_t t) const 
     {
@@ -111,9 +107,38 @@ namespace ps
     }
 
 
-    //float SquareWaveTest::getValue(uint64_t t) const 
-    //{
-    //}
+    float SquareWaveTest::getValue(uint64_t t) const 
+    {
+        float value = 0.0;
+        if ( t < quietTime_)
+        {
+            value = quietValue_;
+        }
+        else
+        {
+            // Get test time, staircase step count, and
+            // fraction of current test completed.
+            uint64_t tTest = t - quietTime_;
+            uint64_t stepCount = tTest/samplePeriod_;
+            uint64_t stepFraction = tTest%samplePeriod_;
+
+            // Get staircase value
+            float stairValue = startValue_  + stepCount*stepValue_;
+            stairValue = max(stairValue, minValue_);
+            stairValue = min(stairValue, maxValue_);
+
+            // Add squarewave component
+            if (stepFraction <= halfSamplePeriod_)
+            {
+                value = stairValue + amplitude_;
+            }
+            else
+            {
+                value = stairValue - amplitude_;
+            }
+        }
+        return value;
+    }
 
 
     void SquareWaveTest::getParam(JsonObject &jsonDat)
@@ -129,7 +154,6 @@ namespace ps
             jsonDatPrm.set(FinalValueKey, finalValue_, JsonFloatDecimals);
             jsonDatPrm.set(StepValueKey, stepValue_, JsonFloatDecimals);
             jsonDatPrm.set(AmplitudeKey, amplitude_, JsonFloatDecimals);
-            jsonDatPrm.set(PeriodKey, convertUsToMs(period_));
         }
     }
 
@@ -157,7 +181,6 @@ namespace ps
         setFinalValueFromJson(jsonMsgPrm,jsonDatPrm,status);
         setStepValueFromJson(jsonMsgPrm,jsonDatPrm,status);
         setAmplitudeFromJson(jsonMsgPrm,jsonDatPrm,status);
-        setPeriodFromJson(jsonMsgPrm,jsonDatPrm,status);
         return status;
     }
 
@@ -168,14 +191,21 @@ namespace ps
     {
         if (stepValue_ > 0.0) 
         {
-            uint64_t numSteps = uint64_t(ceil((finalValue_ - startValue_)/stepValue_));
-            uint64_t testDuration = numSteps*period_;
+            uint64_t numSteps_ = uint64_t(ceil(fabs(finalValue_ - startValue_)/stepValue_) + 1);
+            uint64_t testDuration = numSteps_*uint64_t(samplePeriod_);
             doneTime_ = quietTime_ + testDuration;
         }
         else
         {
+            numSteps_ = 0;
             doneTime_ = quietTime_;
         }
+    }
+
+    void SquareWaveTest::updateMaxMinValues()
+    {
+        maxValue_ = max(startValue_,finalValue_);
+        minValue_ = min(startValue_,finalValue_);
     }
 
     void SquareWaveTest::setStartValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
@@ -267,25 +297,6 @@ namespace ps
             {
                 status.success = false;
                 String errorMsg = AmplitudeKey + String(" not a float");
-                status.appendToMessage(errorMsg);
-            }
-        }
-    }
-
-
-    void SquareWaveTest::setPeriodFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
-    {
-        if (jsonMsgPrm.containsKey(PeriodKey))
-        {
-            if (jsonMsgPrm[PeriodKey].is<unsigned long>())
-            {
-                setPeriod(convertMsToUs(jsonMsgPrm.get<unsigned long>(PeriodKey)));
-                jsonDatPrm.set(PeriodKey,convertUsToMs(getPeriod()));
-            }
-            else
-            {
-                status.success = false;
-                String errorMsg = PeriodKey + String(" not uint32");
                 status.appendToMessage(errorMsg);
             }
         }
