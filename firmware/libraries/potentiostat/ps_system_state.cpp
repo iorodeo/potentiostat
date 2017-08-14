@@ -390,7 +390,7 @@ namespace ps
             {
                 if (test_ -> getSampleMethod() == SampleGeneric)
                 {
-                    // Send sample for tests without generic sampling 
+                    // Send sample data for tests which use generic sampling 
                     if (timerCnt_%sampleModulus_ == 0)
                     {
                         Sample sample = {t, volt, currLowPass_.value()};
@@ -399,9 +399,9 @@ namespace ps
                 }
                 else
                 {
-                    // Send sample for tests with custom sampling methods.
-                    Sample sampleRaw  = {t, volt, currLowPass_.value()}; // Raw samples
-                    Sample sampleTest = {0, 0.0, 0.0};                   // Test custom samples
+                    // Send sample for tests which use custom sampling methods
+                    Sample sampleRaw  = {t, volt, currLowPass_.value()}; // Raw sample data
+                    Sample sampleTest = {0, 0.0, 0.0}; // Custom sample data (set in updateSample)
                     if (test_ -> updateSample(sampleRaw, sampleTest))
                     {
                         dataBuffer_.push_back(sampleTest);
