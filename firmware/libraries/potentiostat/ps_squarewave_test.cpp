@@ -10,6 +10,7 @@ namespace ps
     SquareWaveTest::SquareWaveTest()
     { 
         setName("squareWave");
+        setSampleMethod(SampleCustom);
         updateDoneTime();
         updateMaxMinValues();
     };
@@ -67,6 +68,21 @@ namespace ps
     }
 
 
+    void SquareWaveTest::setWindow(float value)
+    {
+        window_ = value;
+        window_ = max(0.0, window_);
+        window_ = min(1.0, window_);
+        updateWindowLenUs();
+    }
+
+
+    float SquareWaveTest::getWindow()
+    {
+        return window_;
+    }
+
+
     float SquareWaveTest::getMaxValue() const 
     {
         float maxValue = max(startValue_, finalValue_) + amplitude_;
@@ -83,8 +99,9 @@ namespace ps
 
     void SquareWaveTest::setSamplePeriod(uint64_t samplePeriod)
     {
-        samplePeriod_ = samplePeriod;
+        BaseTest::setSamplePeriod(samplePeriod);
         halfSamplePeriod_ = samplePeriod >> 1;
+        updateWindowLenUs();
     }
 
     bool SquareWaveTest::isDone(uint64_t t) const 
@@ -106,6 +123,16 @@ namespace ps
 
     }
 
+    void SquareWaveTest::reset()
+    {
+        numForward_ = 0;
+        numReverse_ = 0;
+        currForward_ = 0.0;
+        currReverse_ = 0.0;
+        testCnt_ = 0;
+        isFirst_ = true;
+    }
+
 
     float SquareWaveTest::getValue(uint64_t t) const 
     {
@@ -116,19 +143,9 @@ namespace ps
         }
         else
         {
-            // Get test time, staircase step count, and
-            // fraction of current test completed.
-            uint64_t tTest = t - quietTime_;
-            uint64_t stepCount = tTest/samplePeriod_;
-            uint64_t stepFraction = tTest%samplePeriod_;
-
-            // Get staircase value
-            float stairValue = startValue_  + stepCount*stepValue_;
-            stairValue = max(stairValue, minValue_);
-            stairValue = min(stairValue, maxValue_);
-
-            // Add squarewave component
-            if (stepFraction <= halfSamplePeriod_)
+            uint64_t stepModPos = (t - quietTime_)%samplePeriod_;
+            float stairValue = getStairValue(t);
+            if (stepModPos < halfSamplePeriod_)
             {
                 value = stairValue + amplitude_;
             }
@@ -138,6 +155,80 @@ namespace ps
             }
         }
         return value;
+    }
+
+    float SquareWaveTest::getStairValue(uint64_t t) const
+    {
+        // Get staircase value
+        uint64_t tTest = t - quietTime_;
+        uint64_t stepCount = tTest/samplePeriod_;
+        float stairValue = startValue_  + stepCount*stepValue_;
+        stairValue = max(stairValue, minValue_);
+        stairValue = min(stairValue, maxValue_);
+        return stairValue;
+    }
+
+
+    bool SquareWaveTest::updateSample(Sample sampleRaw, Sample &sampleTest) 
+    {
+        bool newSample = false;
+
+        if (sampleRaw.t < quietTime_)
+        {
+            if ((testCnt_ > 0) && (testCnt_%sampleModulus_==0))
+            {
+                sampleTest.t = sampleRaw.t;
+                sampleTest.volt = quietValue_;
+                sampleTest.curr =  0.0;
+                newSample = true;
+            }
+            testCnt_++;
+        }
+        else 
+        {
+            if (isFirst_)
+            {
+                isFirst_ = false;
+                testCnt_ = 0;
+            }
+
+            uint64_t tTest = (sampleRaw.t - quietTime_);
+            uint64_t stepModPos = tTest%samplePeriod_;
+
+            if (stepModPos < halfSamplePeriod_)
+            {
+                // forward step
+                if ((halfSamplePeriod_ - stepModPos - 1) < windowLenUs_)
+                {
+                    numForward_++;
+                    currForward_ += sampleRaw.curr;
+                }
+            }
+            else
+            {
+                // reverse step
+                if ((samplePeriod_ - stepModPos - 1) < windowLenUs_)
+                {
+                    numReverse_++;
+                    currReverse_ += sampleRaw.curr;
+                }
+            }
+
+            if ((testCnt_ > 0) && (testCnt_%sampleModulus_==0))
+            {
+                sampleTest.t = sampleRaw.t;
+                sampleTest.volt = getStairValue(sampleRaw.t);
+                sampleTest.curr = currForward_/numForward_ - currReverse_/numReverse_;
+                numForward_ = 0;
+                numReverse_ = 0;
+                currForward_ = 0.0;
+                currReverse_ = 0.0;
+                newSample = true;
+            }
+            testCnt_++;
+        }
+
+        return newSample; 
     }
 
 
@@ -154,6 +245,7 @@ namespace ps
             jsonDatPrm.set(FinalValueKey, finalValue_, JsonFloatDecimals);
             jsonDatPrm.set(StepValueKey, stepValue_, JsonFloatDecimals);
             jsonDatPrm.set(AmplitudeKey, amplitude_, JsonFloatDecimals);
+            jsonDatPrm.set(WindowKey, window_, JsonFloatDecimals);
         }
     }
 
@@ -181,17 +273,18 @@ namespace ps
         setFinalValueFromJson(jsonMsgPrm,jsonDatPrm,status);
         setStepValueFromJson(jsonMsgPrm,jsonDatPrm,status);
         setAmplitudeFromJson(jsonMsgPrm,jsonDatPrm,status);
+        setWindowFromJson(jsonMsgPrm,jsonDatPrm,status);
         return status;
     }
 
     // Protected methods
     // --------------------------------------------------------------------------------------------
-    
+   
     void SquareWaveTest::updateDoneTime()
     {
         if (stepValue_ > 0.0) 
         {
-            uint64_t numSteps_ = uint64_t(ceil(fabs(finalValue_ - startValue_)/stepValue_) + 1);
+            uint64_t numSteps_ = uint64_t(floor(fabs(finalValue_ - startValue_)/stepValue_));
             uint64_t testDuration = numSteps_*uint64_t(samplePeriod_);
             doneTime_ = quietTime_ + testDuration;
         }
@@ -202,11 +295,21 @@ namespace ps
         }
     }
 
+
     void SquareWaveTest::updateMaxMinValues()
     {
         maxValue_ = max(startValue_,finalValue_);
         minValue_ = min(startValue_,finalValue_);
     }
+
+
+    void SquareWaveTest::updateWindowLenUs()
+    {
+        windowLenUs_ = uint64_t((halfSamplePeriod_- 1)*window_);
+        windowLenUs_ = min(halfSamplePeriod_- 1, windowLenUs_);
+        windowLenUs_ = max(uint64_t(1), windowLenUs_);
+    }
+
 
     void SquareWaveTest::setStartValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
@@ -297,6 +400,29 @@ namespace ps
             {
                 status.success = false;
                 String errorMsg = AmplitudeKey + String(" not a float");
+                status.appendToMessage(errorMsg);
+            }
+        }
+    }
+
+    void SquareWaveTest::setWindowFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
+    {
+        if (jsonMsgPrm.containsKey(WindowKey))
+        {
+            if (jsonMsgPrm[WindowKey].is<float>())
+            {
+                setWindow(jsonMsgPrm.get<float>(WindowKey));
+                jsonDatPrm.set(WindowKey,getWindow(),JsonFloatDecimals);
+            }
+            else if (jsonMsgPrm[WindowKey].is<long>()) 
+            {
+                setWindow(float(jsonMsgPrm.get<long>(WindowKey)));
+                jsonDatPrm.set(WindowKey,getWindow(),JsonFloatDecimals);
+            }
+            else
+            {
+                status.success = false;
+                String errorMsg = WindowKey + String(" not a float");
                 status.appendToMessage(errorMsg);
             }
         }

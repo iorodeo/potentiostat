@@ -388,16 +388,24 @@ namespace ps
 
             if (timerCnt_ > 0)
             {
-                // ----------------------------------------------------------------------
-                // TODO
-                // ----------------------------------------------------------------------
-                // Modify this to handle custom sampling ... e.g. squarewave voltammetry, 
-                // differential pulse, etc.
-                // ----------------------------------------------------------------------
-                if (timerCnt_%sampleModulus_ == 0)
+                if (test_ -> getSampleMethod() == SampleGeneric)
                 {
-                    Sample sample = {t, volt, currLowPass_.value()};
-                    dataBuffer_.push_back(sample);
+                    // Send sample for tests without generic sampling 
+                    if (timerCnt_%sampleModulus_ == 0)
+                    {
+                        Sample sample = {t, volt, currLowPass_.value()};
+                        dataBuffer_.push_back(sample);
+                    }
+                }
+                else
+                {
+                    // Send sample for tests with custom sampling methods.
+                    Sample sampleRaw  = {t, volt, currLowPass_.value()}; // Raw samples
+                    Sample sampleTest = {0, 0.0, 0.0};                   // Test custom samples
+                    if (test_ -> updateSample(sampleRaw, sampleTest))
+                    {
+                        dataBuffer_.push_back(sampleTest);
+                    }
                 }
             }
             done = test_ -> isDone(t);

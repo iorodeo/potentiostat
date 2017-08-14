@@ -151,13 +151,12 @@ namespace ps
         return status;
     }
 
-    void Voltammetry::setSamplePeriod(uint32_t samplePeriod)
+    void Voltammetry::setSamplePeriod(uint64_t samplePeriod)
     {
         for (size_t i=0; i<availableTests_.size(); i++)
         {
             availableTests_[i] -> setSamplePeriod(samplePeriod);
         }
     }
-
 
 } // namespace ps

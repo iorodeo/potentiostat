@@ -32,7 +32,7 @@ namespace ps
             ReturnStatus getTestDoneTime(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus getTestNames(JsonObject &jsonMsg, JsonObject &jsonDat);
 
-            void setSamplePeriod(uint32_t samplePeriod);
+            void setSamplePeriod(uint64_t samplePeriod);
 
             BaseTest baseTest;
             CyclicTest cyclicTest;

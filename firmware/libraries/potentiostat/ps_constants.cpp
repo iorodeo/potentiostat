@@ -37,6 +37,7 @@ namespace ps
     const String PeriodKey = String("period");
     const String NumCyclesKey = String("numCycles");
     const String ShiftKey = String("shift");
+    const String WindowKey = String("window");
     const String DeviceIdKey = String("deviceId");
     const String SamplePeriodKey = String("samplePeriod");
     const String TestDoneTimeKey = String("testDoneTime");
@@ -107,6 +108,5 @@ namespace ps
     // Low pass filter params for current samples
     const LowPassParam CurrLowPassParam = {200.0, 0.0, 2}; // cutoff freq (Hz), initial value, order
     const float LowPassDtSec = 1.0e-6*TestTimerPeriod;    // (s)
-
 
 } // namespace ps

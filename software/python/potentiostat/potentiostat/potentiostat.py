@@ -98,12 +98,11 @@ class Potentiostat(serial.Serial):
     
     ResetSleepDt = 0.0
     Baudrate = 115200
-    Timeout = 2.0
 
     def __init__(self, port, timeout=10.0, debug=False):
         """ Constructor
         """
-        params = {'baudrate': self.Baudrate, 'timeout': self.Timeout}
+        params = {'baudrate': self.Baudrate, 'timeout': timeout}
         super(Potentiostat,self).__init__(port,**params)
         time.sleep(self.ResetSleepDt)
         atexit.register(self.atexit_cleanup)

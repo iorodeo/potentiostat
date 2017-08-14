@@ -88,6 +88,7 @@ namespace ps
     void BaseTest::setSamplePeriod(uint64_t samplePeriod)
     {
         samplePeriod_ = samplePeriod;
+        sampleModulus_ = samplePeriod_/TestTimerPeriod;
     }
 
 
@@ -106,6 +107,25 @@ namespace ps
     String BaseTest::getName()
     {
         return name_;
+    }
+
+
+    void BaseTest::setSampleMethod(SampleMethod sampleMethod) 
+    {
+        sampleMethod_ = sampleMethod;
+    }
+
+
+    SampleMethod BaseTest::getSampleMethod() const
+    {
+        return sampleMethod_;
+    }
+
+
+    bool BaseTest::updateSample(Sample sampleRaw, Sample &sampleTest)
+    {
+        // Only for tests with custom sampling 
+        return false;
     }
 
 

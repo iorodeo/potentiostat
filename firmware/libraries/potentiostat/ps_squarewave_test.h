@@ -22,26 +22,33 @@ namespace ps
             void setAmplitude(float value);
             float getAmplitude();
 
+            void setWindow(float value);
+            float getWindow();
+
             virtual bool isDone(uint64_t t) const override; 
             virtual uint64_t getDoneTime() const override;
+            virtual void reset();
 
             virtual float getValue(uint64_t t) const override; 
+            virtual float getStairValue(uint64_t t) const;
             
             virtual float getMaxValue() const override; 
             virtual float getMinValue() const override; 
 
             virtual void setSamplePeriod(uint64_t samplePeriod) override;
 
+            virtual bool updateSample(Sample sampleRaw, Sample &sampleTest); 
+
             virtual void getParam(JsonObject &jsonDat) override;
             virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat) override;
             
-
         protected:
 
             float startValue_ = -0.5;
             float finalValue_ = 0.5;
             float stepValue_ = 0.005;
             float amplitude_ = 0.025;
+            float window_ = 0.2;
 
             uint64_t numSteps_ = 0;
             uint64_t doneTime_ = 0;
@@ -50,17 +57,28 @@ namespace ps
             float minValue_ = 0.0;
 
             uint64_t halfSamplePeriod_ = 0;
+            uint64_t windowLenUs_ = 0; 
+
+            bool isFirst_ = true;
+            uint64_t testCnt_ = 0;
+
+            uint64_t numForward_ = 0;
+            uint64_t numReverse_ = 0;
+
+            float currForward_ = 0.0;
+            float currReverse_ = 0.0;
 
             void updateDoneTime();
             void updateMaxMinValues();
-
-
+            void updateWindowLenUs();
 
             void setStartValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
             void setFinalValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
             void setStepValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
             void setAmplitudeFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
+            void setWindowFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
     };
+
 
 } // namespace ps
 

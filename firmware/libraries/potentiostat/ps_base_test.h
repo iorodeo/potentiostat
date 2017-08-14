@@ -2,6 +2,8 @@
 #define PS_BASE_TEST_H
 
 #include <Arduino.h>
+#include "ps_sample.h"
+#include "ps_constants.h"
 #include "ps_return_status.h"
 
 #include "third-party/ArduinoJson/ArduinoJson.h"
@@ -37,6 +39,10 @@ namespace ps
             virtual void setName(String name);
             virtual String getName();
 
+            virtual void setSampleMethod(SampleMethod sampleMethod);
+            virtual SampleMethod getSampleMethod() const;
+            virtual bool updateSample(Sample sampleRaw, Sample &sampleTest); 
+
             virtual void getParam(JsonObject &jsonDat);
             virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
 
@@ -44,9 +50,10 @@ namespace ps
 
             uint64_t quietTime_ = 0;
             float quietValue_ = 0.0;
-            uint64_t samplePeriod_ = 10000;
+            uint64_t samplePeriod_ = 0;
+            uint32_t sampleModulus_ = 0;
             String name_ = String("base");
-
+            SampleMethod sampleMethod_ = SampleGeneric;
 
             JsonObject &getParamJsonObject(JsonObject &json, ReturnStatus &status);
             void setQuietValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);

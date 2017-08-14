@@ -54,6 +54,7 @@ namespace ps
     extern const String PeriodKey;
     extern const String NumCyclesKey;
     extern const String ShiftKey;
+    extern const String WindowKey;
     extern const String DeviceIdKey;
     extern const String SamplePeriodKey;
     extern const String TestDoneTimeKey;
@@ -119,6 +120,8 @@ namespace ps
     // Test parameters
     const uint32_t AvailableTestsMaxSize = 20;
     const uint32_t MultiStepMaxSize = 50;
+
+    enum SampleMethod {SampleGeneric, SampleCustom};
 
 
 } // namespace ps
