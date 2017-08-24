@@ -159,6 +159,11 @@ namespace ps
 
     float SquareWaveTest::getStairValue(uint64_t t) const
     {
+        // DEBUG
+        // -----------------------------------------------------
+        // Possible issue when startValue > finalValue.  
+        // Need to adjust sign of step. 
+        // -----------------------------------------------------
         // Get staircase value
         uint64_t tTest = t - quietTime_;
         uint64_t stepCount = tTest/samplePeriod_;
@@ -282,6 +287,10 @@ namespace ps
    
     void SquareWaveTest::updateDoneTime()
     {
+        // DEBUG
+        // -----------------------------------------------------------------------------------------
+        // Check this - is duration correct?
+        // -----------------------------------------------------------------------------------------
         if (stepValue_ > 0.0) 
         {
             uint64_t numSteps_ = uint64_t(floor(fabs(finalValue_ - startValue_)/stepValue_));
