@@ -13,6 +13,7 @@ namespace ps
         setSampleMethod(SampleCustom);
         updateDoneTime();
         updateMaxMinValues();
+        updateStepSign();
     };
 
     void SquareWaveTest::setStartValue(float value)
@@ -20,6 +21,7 @@ namespace ps
         startValue_ = value;
         updateDoneTime();
         updateMaxMinValues();
+        updateStepSign();
     }
 
 
@@ -34,6 +36,7 @@ namespace ps
         finalValue_ = value;
         updateDoneTime();
         updateMaxMinValues();
+        updateStepSign();
     }
 
 
@@ -45,7 +48,7 @@ namespace ps
 
     void SquareWaveTest::setStepValue(float value)
     {
-        stepValue_ = value;
+        stepValue_ = fabs(value);
         updateDoneTime();
     }
 
@@ -58,7 +61,7 @@ namespace ps
 
     void SquareWaveTest::setAmplitude(float value)
     {
-        amplitude_ = value;
+        amplitude_ = fabs(value);
     }
 
 
@@ -70,7 +73,7 @@ namespace ps
 
     void SquareWaveTest::setWindow(float value)
     {
-        window_ = value;
+        window_ = fabs(value);
         window_ = max(0.0, window_);
         window_ = min(1.0, window_);
         updateWindowLenUs();
@@ -101,6 +104,7 @@ namespace ps
     {
         BaseTest::setSamplePeriod(samplePeriod);
         halfSamplePeriod_ = samplePeriod >> 1;
+        updateDoneTime();
         updateWindowLenUs();
     }
 
@@ -157,19 +161,22 @@ namespace ps
         return value;
     }
 
+
     float SquareWaveTest::getStairValue(uint64_t t) const
     {
-        // DEBUG
-        // -----------------------------------------------------
-        // Possible issue when startValue > finalValue.  
-        // Need to adjust sign of step. 
-        // -----------------------------------------------------
-        // Get staircase value
-        uint64_t tTest = t - quietTime_;
-        uint64_t stepCount = tTest/samplePeriod_;
-        float stairValue = startValue_  + stepCount*stepValue_;
-        stairValue = max(stairValue, minValue_);
-        stairValue = min(stairValue, maxValue_);
+        float stairValue = 0.0;
+        if (t < quietTime_)
+        {
+            stairValue = quietValue_;
+        }
+        else
+        {
+            uint64_t tTest = t - quietTime_;
+            uint64_t stepCount = tTest/samplePeriod_;
+            stairValue = startValue_ + stepCount*stepSign_*stepValue_;
+            stairValue = max(stairValue, minValue_);
+            stairValue = min(stairValue, maxValue_);
+        }
         return stairValue;
     }
 
@@ -287,19 +294,14 @@ namespace ps
    
     void SquareWaveTest::updateDoneTime()
     {
-        // DEBUG
-        // -----------------------------------------------------------------------------------------
-        // Check this - is duration correct?
-        // -----------------------------------------------------------------------------------------
         if (stepValue_ > 0.0) 
         {
-            uint64_t numSteps_ = uint64_t(floor(fabs(finalValue_ - startValue_)/stepValue_));
+            uint64_t numSteps_ = uint64_t(ceil(fabs(finalValue_ - startValue_)/stepValue_))+1;
             uint64_t testDuration = numSteps_*uint64_t(samplePeriod_);
             doneTime_ = quietTime_ + testDuration;
         }
         else
         {
-            numSteps_ = 0;
             doneTime_ = quietTime_;
         }
     }
@@ -317,6 +319,12 @@ namespace ps
         windowLenUs_ = uint64_t((halfSamplePeriod_- 1)*window_);
         windowLenUs_ = min(halfSamplePeriod_- 1, windowLenUs_);
         windowLenUs_ = max(uint64_t(1), windowLenUs_);
+    }
+
+
+    void SquareWaveTest::updateStepSign()
+    {
+        stepSign_ = (startValue_ <= finalValue_) ? 1.0 : -1.0;
     }
 
 

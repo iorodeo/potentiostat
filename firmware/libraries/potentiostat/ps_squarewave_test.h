@@ -50,12 +50,11 @@ namespace ps
             float amplitude_ = 0.025;
             float window_ = 0.2;
 
-            uint64_t numSteps_ = 0;
-            uint64_t doneTime_ = 0;
-
             float maxValue_ = 0.0;
             float minValue_ = 0.0;
+            float stepSign_ = 1.0;
 
+            uint64_t doneTime_ = 0;
             uint64_t halfSamplePeriod_ = 0;
             uint64_t windowLenUs_ = 0; 
 
@@ -71,6 +70,7 @@ namespace ps
             void updateDoneTime();
             void updateMaxMinValues();
             void updateWindowLenUs();
+            void updateStepSign();
 
             void setStartValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
             void setFinalValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
