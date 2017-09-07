@@ -224,6 +224,45 @@ Sinusoidal voltammetry
         'shift'      : 0.0,
     }
 
+
+************************
+Square wave voltammetry
+************************
+
+
+================= =========================================== =========== ========== 
+ parameter         description                                  units       type     
+================= =========================================== =========== ========== 
+  quietValue       output value during the quiet period           V         float    
+  quietTime        duration of quiet period                       ms        integer   
+  amplitude        amplitude of square wave                       V         float    
+  startValue       start voltage for staircase                    V         float
+  finalValue       final voltage for staircase                    V         float
+  stepValue        step voltage for stair case                    V         float
+  window           [0,1] value size of averaging window           NA        float
+================= =========================================== =========== ========== 
+
+|
+
+* The output waveform is the sum of a staircase and a square wave. 
+* The period of the square wave is 1.0/sample_rate.
+* The window parameter, a unitless number in [0,1],  sets the size of the averaging window used for sampling at the end of each half cycle. The value specifies the fraction of the half cycle used - starting from the end.  
+
+|
+
+.. code-block:: python
+
+    {
+        'quietValue' : -0.6, 
+        'qietTime'   : 1000, 
+        'startValue' : -0.6
+        'finalValue' : 0.4, 
+        'stepValue'  : 0.005, 
+        'amplitde'   : 0.05, 
+        'window'     : 0.2, 
+    }
+
+
 *****************
 Chronoamperometry
 *****************
