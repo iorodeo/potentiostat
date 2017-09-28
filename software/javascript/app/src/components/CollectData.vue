@@ -16,6 +16,8 @@
 
 <script>
 
+import Dygraph from 'dygraphs';
+
 export default {
   name: 'CollectData',
   data () {

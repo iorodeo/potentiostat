@@ -308,9 +308,12 @@ namespace ps
             String message = messageReceiver_.next();
             JsonObject &jsonMsg = messageParser_.parse(message);
 
+            // ArduinoJson upgrade
+            // ----------------------------------------------
+            //commandRespJsonBuffer_.clear();
+            // ----------------------------------------------
             commandRespJsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>();
             JsonObject &jsonDat = commandRespJsonBuffer_.createObject();
-
             if (jsonMsg.success())
             {
                 status = commandTable_.apply(CommandKey,jsonMsg,jsonDat);
@@ -320,7 +323,6 @@ namespace ps
                 status.success = false;
                 status.message = "unable to parse json";
             }
-
             messageSender_.sendCommandResponse(status,jsonDat);
         }
     }

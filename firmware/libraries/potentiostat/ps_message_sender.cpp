@@ -7,9 +7,12 @@ namespace ps
     MessageSender::MessageSender()
     {}
 
-
     void MessageSender::sendCommandResponse(ReturnStatus status, JsonObject &jsonDat)
     {
+        // ArduinoJson upgrade
+        // ----------------------------------------------------
+        //jsonBuffer_.clear(); 
+        // ----------------------------------------------------
         jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
         JsonObject &jsonMsg = jsonBuffer_.createObject();
 
@@ -26,9 +29,12 @@ namespace ps
 
     }
 
-
     void MessageSender::sendSample(Sample sample)
     {
+        // ArduinoJson upgrade
+        // ----------------------------------------------------
+        //jsonBuffer_.clear(); 
+        // ----------------------------------------------------
         jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
         JsonObject &jsonSample = jsonBuffer_.createObject();
 
@@ -42,12 +48,15 @@ namespace ps
 
     void MessageSender::sendSampleEnd()
     {
+        // ArduinoJson upgrade
+        // ----------------------------------------------------
+        //jsonBuffer_.clear(); 
+        // ----------------------------------------------------
         jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
         JsonObject &jsonSample = jsonBuffer_.createObject();
         jsonSample.printTo(Serial);
         Serial.println();
     }
-
 
 } // namespace ps
 
