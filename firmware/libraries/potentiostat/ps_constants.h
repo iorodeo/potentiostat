@@ -8,7 +8,7 @@
 #include "third-party/Array/Array.h"
 
 //#define HARDWARE_VARIANT_NANO_AMP
-#define HARDWARE_VARIANT_MILL_AMP
+//#define HARDWARE_VARIANT_MILL_AMP
 
 namespace ps
 {
