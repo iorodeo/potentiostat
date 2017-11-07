@@ -75,12 +75,16 @@ CurrRange1uA = '1uA'
 CurrRange10uA = '10uA'
 CurrRange100uA = '100uA'
 CurrRange1000uA = '1000uA'
+CurrRange12000uA = '12000uA'
+CurrRange40000uA = '40000uA'
 
 CurrRangeListNanoAmp = [CurrRange1uA, CurrRange10uA, CurrRange100nA, CurrRange60nA]
 CurrRangeListMicroAmp = [CurrRange1uA, CurrRange10uA, CurrRange100uA, CurrRange1000uA]
+CurrRangeListMilliAmp = [CurrRange100uA, CurrRange1000uA, CurrRange12000uA, CurrRange40000uA]
 HwVariantToCurrRangeList = {
+        'nanoAmpV0.1'  :  CurrRangeListNanoAmp,
         'microAmpV0.1' :  CurrRangeListMicroAmp, 
-        'nanoAmpV0.1'  :  CurrRangeListNanoAmp
+        'milliAmpV0.1' :  CurrRangeListMilliAmp,
         }
 
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
