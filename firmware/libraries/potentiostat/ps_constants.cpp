@@ -91,11 +91,11 @@ namespace ps
     CurrRange currRangeArrayTmp[NumCurrRange] = {CurrRange1uA, CurrRange10uA, CurrRange60nA, CurrRange100nA};
 #elif defined HARDWARE_VARIANT_MILL_AMP
     const String HardwareVariant = String("milliAmpV0.1");
-    const CurrRange CurrRange1uA("12000uA", -12024.0, 12024.0, CurrGainPathIn1, AnalogSubsystem::MaxValueAin); 
-    const CurrRange CurrRange10uA("40000uA", -40000.0, 40000.0, CurrGainPathIn2, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange100uA("100uA", -100.0, 100.0, CurrGainPathIn3, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange1000uA("1000uA", -1000.0, 1000.0, CurrGainPathIn4, AnalogSubsystem::MaxValueAin); 
-    CurrRange currRangeArrayTmp[NumCurrRange] = {CurrRange1uA, CurrRange10uA, CurrRange100uA, CurrRange1000uA};
+    const CurrRange CurrRange12000uA("12000uA", -12024.0, 12024.0, CurrGainPathIn1, AnalogSubsystem::MaxValueAin); 
+    const CurrRange CurrRange24000uA("24000uA", -24048.0, 24048.0, CurrGainPathIn2, AnalogSubsystem::MaxValueAin); 
+    CurrRange currRangeArrayTmp[NumCurrRange] = {CurrRange100uA, CurrRange1000uA, CurrRange12000uA, CurrRange24000uA};
 #else
     const String HardwareVariant = String("microAmpV0.1");
     const CurrRange CurrRange1uA("1uA", -1.0, 1.0, CurrGainPathIn1, AnalogSubsystem::MaxValueAin); 

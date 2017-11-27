@@ -31,7 +31,11 @@ namespace ps
 
         // Set to voltage and current range to defaults
         setVoltRange(VoltRange1V);
+#if defined HARDWARE_VARIANT_MILL_AMP
+        setCurrRange(CurrRange1000uA);
+#else
         setCurrRange(CurrRange10uA);
+#endif
 
         // Initialize analog input/output subsystem
         analogWriteResolution(DefaultAnalogWriteResolution);

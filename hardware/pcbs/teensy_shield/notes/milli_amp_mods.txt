@@ -10,6 +10,8 @@
 +/- 40mA range:
 ----------------
 
+    Not used - only works from -20mA to +20mA
+
     R7 -> 15 Ohm, Digikey A103157CT-ND
     
     OK between about -20mA and 20mA.  Fails outside of this range.  Issues
