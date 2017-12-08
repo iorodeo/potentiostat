@@ -59,7 +59,7 @@ export default {
     },
     onSideNavOptionClick(optionName) {
       this.$refs.sideNav.toggle()
-      this.$emit('option-change', optionName)
+      this.$store.commit('setCurrentOption', optionName);
     },
   }
 }

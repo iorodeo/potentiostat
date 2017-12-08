@@ -11,7 +11,7 @@
       <md-layout md-row md-align="left" class="row-with-margin">
         <md-input-container class="fixed-width-container">
           <label> voltammetric test </label>
-          <md-select v-model="currentTest" v-bind:placeholder="currentTest" @change="onTestChange">
+          <md-select v-bind:placeholder="currentTest" @change="onTestChange">
             <md-option 
               v-for="(value,key) in testParamDefs" 
               v-bind:value="key" 
@@ -36,7 +36,7 @@
             <label> {{paramDef.name}} ({{paramDef.unit}})  </label>
             <md-input 
               type="number" 
-              v-model="testParamVals[currentTest][paramName]"
+              v-bind:value="testParamVals[currentTest][paramName]"
               v-bind:step="testParamDefs[currentTest].defs[paramName].step"
               v-bind:max="testParamDefs[currentTest].defs[paramName].maxVal"
               v-bind:min="testParamDefs[currentTest].defs[paramName].minVal"
@@ -52,12 +52,13 @@
           </md-tooltip>
         </div>
 
-        <div v-if="paramDef.type === 'radio'"> 
+        <div v-if="paramDef.type === 'radio'">  
           <md-radio 
              v-for="(optionStr,optionKey) in testParamDefs[currentTest].defs[paramName].options"
-             v-model="testParamVals[currentTest][paramName]"
+             v-bind:value="testParamVals[currentTest][paramName]"
              v-bind:key="optionStr.id"
              v-bind:md-value="optionKey" 
+             @change="onRadioChange(paramName,$event)"
              class="md-primary"
              >
              {{optionStr}}
@@ -84,50 +85,64 @@
 
 <script>
 
-import {paramValsToNumber} from '../test_converters.js'
+import {mapState} from 'vuex';
+import {paramValsToNumber} from '../test_converters.js';
 import  _ from 'lodash';
 
 export default {
 
   name: 'TestAndParameters',
 
-  props: ['selectedTest', 'testDefs', 'testVals', 'testErrs'],
-
   data () {
     return {
-      currentTest:   this.selectedTest,
-      testParamVals: this.testVals,
-      testParamDefs: this.testDefs,
-      testParamErrs: this.testErrs,
       showDebugButton: true,
     }
   },
+
+  computed: mapState([ 
+    'currentTest', 
+    'testParamDefs',
+    'testParamVals',
+    'testParamErrs',
+  ]),
 
   methods: {
 
     onDebugClick() {
       console.log('onDebugClick');
       console.log('------------');
-      let testVals = paramValsToNumber(this.testVals,this.testDefs);
+      let testParamVals = paramValsToNumber(this.$store.state.testParamVals,this.$store.state.testParamDefs);
       let testName = this.currentTest;
-      let convfunc = this.testDefs[testName].defs['converter'];
-      let origVals = testVals[testName];
-      let convVals = convfunc(origVals,this.testDefs[testName].defs);
+      let convfunc = this.$store.state.testParamDefs[testName].defs['converter'];
+      let origVals = testParamVals[testName];
+      let convVals = convfunc(origVals,this.$store.state.testParamDefs[testName].defs);
       console.log(JSON.stringify(origVals));
       console.log(JSON.stringify(convVals));
     },
 
     onTestChange(testName) {
-      this.currentTest = testName;
-      this.$emit('test-change', testName);
+      this.$store.commit('setCurrentTest', testName);
     },
+
 
     onNumberChange(paramName, newValue) {
-      this.checkParamForErrs(this.currentTest,paramName,newValue);
-      this.$emit('param-change', this.testParamVals);
+      this.checkNumberForErrs(this.currentTest,paramName,newValue);
+      this.$store.commit('setTestParamValsByTest', {
+        test: this.currentTest,
+        name: paramName,
+        value: Number(newValue),
+      });
     },
 
-    checkParamForErrs(testName, paramName, value) {
+    onRadioChange(paramName, newValue) {
+      this.$store.commit('setTestParamValsByTest', {
+        test: this.currentTest,
+        name: paramName,
+        value: newValue,
+      });
+    },
+
+    checkNumberForErrs(testName, paramName, value) {
       let valueNum = Number(value);
       let defs = this.testParamDefs[testName].defs[paramName];
       let boundType = _.get(defs, ['boundType'], ['closed','closed']);
@@ -162,11 +177,13 @@ export default {
           }
         }
       }
-      this.testParamErrs[testName][paramName].flag = flag;
-      this.testParamErrs[testName][paramName].message = message;
-      if (flag) {
-        this.$emit('param-errs-change', this.testParamErrs);
-      }
+
+      this.$store.commit('setTestParamErrsByTest', {
+        test: testName,
+        name: paramName,
+        flag: flag,
+        message: message,
+      });
       return flag;
     },
 
@@ -174,7 +191,10 @@ export default {
       for (let testName in this.testParamVals) {
         for (let paramName in this.testParamVals[testName]) {
           let paramValue = this.testParamVals[testName][paramName];
-          this.checkParamForErrs(testName,paramName,paramValue);
+          let paramType = this.testParamDefs[testName].defs[paramName].type;
+          if (paramType  === 'number') {
+            this.checkNumberForErrs(testName,paramName,paramValue);
+          }
         }
       }
     },

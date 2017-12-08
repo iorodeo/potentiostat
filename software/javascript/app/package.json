@@ -14,7 +14,8 @@
     "lodash": "^4.17.4",
     "socket.io": "^2.0.3",
     "vue": "^2.3.3",
-    "vue-material": "^0.7.4"
+    "vue-material": "^0.7.4",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
