@@ -50,12 +50,33 @@
       <md-layout md-row md-align="left" class="row-with-margin">
         <md-switch 
           class="md-primary" 
-          v-bind:value="serialPortSwitch"
+          v-bind:value="serialPortOpen"
           v-bind:disabled="serialPortSwitchDisabled"
           v-on:change="onSerialPortOpenChange"
           > 
           open serial port
         </md-switch> 
+      </md-layout>
+
+      <md-layout md-row md-align="left" class="row-with-margin" v-if="showDeviceInfo">
+        <md-table>
+          <md-table-header>
+            <md-table-row>
+              <md-table-head> Device Information </md-table-head>
+              <md-table-head> </md-table-head>
+            </md-table-row>
+          </md-table-header>
+          <md-table-body>
+            <md-table-row>
+              <md-table-cell> Firmware Version </md-table-cell>
+              <md-table-cell> {{deviceFirmwareVersion}} </md-table-cell>
+            </md-table-row>
+            <md-table-row>
+              <md-table-cell> Hardware Variant </md-table-cell>
+              <md-table-cell> {{deviceHardwareVariant}} </md-table-cell>
+            </md-table-row>
+          </md-table-body>
+        </md-table>
       </md-layout>
 
       <md-layout md-row class="row-with-margin">
@@ -86,7 +107,7 @@ export default {
 
   data () {
     return {
-      showDebugButton: true,
+      showDebugButton: false,
     }
   },
 
@@ -99,6 +120,10 @@ export default {
     serialPortSwitchDisabled() {
       return ((!this.$store.state.serialBridgeConnected) || (!this.$store.state.serialPortName));
     },
+
+    showDeviceInfo() {
+      return this.$store.state.deviceFirmwareVersion && this.$store.state.deviceHardwareVariant;
+    },
     ...mapState([ 
       'serialBridgeAddress',
       'serialBridgeConnected',
@@ -107,20 +132,19 @@ export default {
       'serialPortName',
       'serialPortOpen',
       'serialPortParam',
+      'deviceFirmwareVersion',
+      'deviceHardwareVariant',
     ]),
   },
 
   methods: {
     onDebugClick() {
       console.log('debug');
-      console.log(JSON.stringify(this.$store.state.serialPortArray));
     },
     onSerialBridgeAddressChange(value) {
-      console.log('onSerialBridgeAddressChange: ' + value);
       this.$store.commit('setSerialBridgeAddress', value);
     },
     onSerialBridgeConnectChange(value) {
-      console.log('onSerialBridgeConnectChange: ' + value);
       if (value) {
         this.connectSerialBridge();
       } else {
@@ -128,7 +152,6 @@ export default {
       }
     },
     onSerialPortOpenChange(value) {
-      console.log('serialPortOpenChange: ' + value);
       if (value) {
         this.openSerialPort();
       } else {
@@ -136,12 +159,10 @@ export default {
       }
     },
     onPortSelectChange(value) {
-      console.log('onPortSelectChange: ' + value);
       this.$store.commit('setSerialPortName', value);
     },
 
     connectSerialBridge() {
-      console.log('connectSerialBridge');
       this.$store.commit('setSerialPortName', null);
       this.$store.commit('setSerialPortArray', []);
 
@@ -157,42 +178,92 @@ export default {
       });
 
       this.$store.state.serialBridge.on('disconnect', () => {
-        console.log('serialBridge.on.disconnect')
         this.$store.commit('setSerialBridgeConnected',false);
         this.$store.commit('setSerialPortName', null);
         this.$store.commit('setSerialPortArray', []);
+        this.$store.commit('setSerialPortOpen', false);
+        this.$store.commit('setDeviceFirmwareVersion', null);
+        this.$store.commit('setDeviceHardwareVariant', null);
       });
 
       this.$store.state.serialBridge.on('listPortsRsp', (rsp) => {
-        console.log('listPortsRsp: ' + JSON.stringify(rsp));
         if (rsp.success) {
-          console.log('storing serialPortArray');
           this.$store.commit('setSerialPortArray', rsp.ports);
         }
       });
 
       this.$store.state.serialBridge.on('openRsp', (rsp) => {
-        console.log('openRsp: ' + JSON.stringify(rsp));
         if (rsp.success) {
           this.$store.commit('setSerialPortOpen', true);
           this.$store.commit('setSerialPortName', rsp.serialPortInfo.portName);
-          console.log('serialPortOpen: ' + this.$store.state.serialPortOpen);
-          console.log('serialPortName: ' + this.$store.state.serialPortName);
+          let command = JSON.stringify({command: 'getVersion'});
+          this.$store.state.serialBridge.writeReadLine('getVersion',command)
         }
       });
 
       this.$store.state.serialBridge.on('closeRsp', (rsp) => {
         this.$store.commit('setSerialPortOpen', false);
+        this.$store.commit('setDeviceFirmwareVersion', null);
+        this.$store.commit('setDeviceHardwareVariant', null);
       });
+
+      this.$store.state.serialBridge.on('readLineRsp', (rsp) => { 
+
+        // If rsp.success then this just indicates a successful write to the
+        // serial port, but it is not yet the response to our a command. 
+        if (rsp.success) { 
+          return; 
+        } 
+
+        // If rsp.tag then this is a response to a command sent to the serial
+        // device.  Handle the response based on the tag in the rsp.
+        switch (rsp.tag) { 
+          case 'getVersion': 
+            this.onSerialPortGetVersionRsp(rsp.line);
+            break; 
+
+          case 'getVariant':
+            this.onSerialPortGetVariantRsp(rsp.line);
+            break;
+
+          default:
+            console.log('unknown tag: ' + rsp.tag); 
+        }
+      });
+      
     },
 
+    onSerialPortGetVersionRsp(rspJson) {
+      console.log('onSerialPortGetVersionRsp');
+      console.log(rspJson);
+      let rspObj = JSON.parse(rspJson);
+      if (rspObj.success) {
+        this.$store.commit('setDeviceFirmwareVersion', rspObj.response.version);
+      } else {
+        this.$store.commit('setDeviceFirmwareVersion', null);
+      }
+      let command = JSON.stringify({command: 'getVariant'});
+      this.$store.state.serialBridge.writeReadLine('getVariant', command); 
+    },
+
+    onSerialPortGetVariantRsp(rspJson) {
+      console.log('onSerialPortGetVariantRsp');
+      console.log(rspJson);
+      let rspObj = JSON.parse(rspJson);
+      if (rspObj.success) {
+        this.$store.commit('setDeviceHardwareVariant', rspObj.response.variant);
+      }
+      else {
+        this.$store.commit('setDeviceHardwareVariant', null);
+      }
+    },
+    
+
     disconnectSerialBridge() {
-      console.log('disconnectSerialBridge');
       this.$store.state.serialBridge.disconnect();
     },
 
     openSerialPort() {
-      console.log('openSerialPort');
       if (this.serialPortName) {
         this.$store.state.serialBridge.open(
           this.$store.state.serialPortName,
@@ -202,7 +273,6 @@ export default {
     },
 
     closeSerialPort() {
-      console.log('closeSerialPort');
       this.$store.state.serialBridge.close();
     },
 
@@ -217,4 +287,5 @@ export default {
 .fixed-width-container {
   width: 250px;
 }
+
 </style> 

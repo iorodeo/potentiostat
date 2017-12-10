@@ -95,7 +95,7 @@ export default {
 
   data () {
     return {
-      showDebugButton: true,
+      showDebugButton: false,
     }
   },
 

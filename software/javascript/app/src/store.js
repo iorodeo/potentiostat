@@ -22,6 +22,8 @@ export const store = new Vuex.Store({
       baudrate: 115200,
       timeout: 10.0,
     },
+    deviceFirmwareVersion: null,
+    deviceHardwareVariant: null,
   },
   mutations: {
     setCurrentOption(state, option) {
@@ -60,6 +62,12 @@ export const store = new Vuex.Store({
     },
     setSerialPortOpen(state, portOpen) {
       state.serialPortOpen = portOpen;
+    },
+    setDeviceFirmwareVersion(state,value) {
+      state.deviceFirmwareVersion = value;
+    },
+    setDeviceHardwareVariant(state, value) {
+      state.deviceHardwareVariant = value;
     }
   },
   getters: {
