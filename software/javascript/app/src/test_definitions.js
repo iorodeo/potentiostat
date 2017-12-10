@@ -4,6 +4,20 @@ import * as converters from './test_converters.js';
 
 // Definitions for individual parameters
 // ----------------------------------------------------------------------------
+const CURRENT_RANGE_PARAM_DEF = {
+  name: 'current range',
+  unit: 'uA', 
+  type: 'list',
+  defaultVal: '100uA',
+  options: {
+    '1uA': 1,
+    '10uA': 10,
+    '100uA': 100,
+    '1000uA': 1000,
+  },
+  converter: converters.identity,
+};
+
 const SAMPLE_RATE_PARAM_DEF = { 
   name: 'sample rate',
   unit: 'Hz',
@@ -135,6 +149,7 @@ const TIME_VOLT_ARRAY_PARAM_DEF = {
 // ----------------------------------------------------------------------------
 
 const CONSTANT_TEST_DEFS = {
+  currentRange: CURRENT_RANGE_PARAM_DEF,
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
@@ -146,6 +161,7 @@ const CONSTANT_TEST_DEFS = {
 
 
 const CHRONOAMP_TEST_DEFS = {
+  currentRange: CURRENT_RANGE_PARAM_DEF,
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
@@ -159,6 +175,7 @@ const CHRONOAMP_TEST_DEFS = {
 
 
 const CYCLIC_TEST_DEFS = {
+  currentRange: CURRENT_RANGE_PARAM_DEF,
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
@@ -173,6 +190,7 @@ const CYCLIC_TEST_DEFS = {
 
 
 const LINEARSWEEP_TEST_DEFS = {
+  currentRange: CURRENT_RANGE_PARAM_DEF,
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
@@ -185,6 +203,7 @@ const LINEARSWEEP_TEST_DEFS = {
 
 
 const MULTISTEP_TEST_DEFS = {
+  currentRange: CURRENT_RANGE_PARAM_DEF,
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
@@ -195,6 +214,7 @@ const MULTISTEP_TEST_DEFS = {
 
 
 const SINUSOID_TEST_DEFS = {
+  currentRange: CURRENT_RANGE_PARAM_DEF,
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
