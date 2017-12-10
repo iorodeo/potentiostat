@@ -66,7 +66,7 @@ const SCAN_RATE_PARAM_DEF = {
   minVal: 0.0,
   maxVal: 50.000,
   boundType: ['open','closed'],
-  defaultVal: 0.01,
+  defaultVal: 0.5,
   step: 0.001,
   scale: 1.0,
   converter: converters.identity,

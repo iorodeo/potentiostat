@@ -114,15 +114,15 @@ export default {
   computed: {
 
     serialPortSelectDisabled() {
-      return ((!this.$store.state.serialBridgeConnected) || this.$store.state.serialPortOpen);
+      return ((!this.serialBridgeConnected) || this.serialPortOpen);
     },
 
     serialPortSwitchDisabled() {
-      return ((!this.$store.state.serialBridgeConnected) || (!this.$store.state.serialPortName));
+      return ((!this.serialBridgeConnected) || (!this.serialPortName));
     },
 
     showDeviceInfo() {
-      return this.$store.state.deviceFirmwareVersion && this.$store.state.deviceHardwareVariant;
+      return this.deviceFirmwareVersion && this.deviceHardwareVariant;
     },
     ...mapState([ 
       'serialBridgeAddress',
@@ -139,7 +139,8 @@ export default {
 
   methods: {
     onDebugClick() {
-      console.log('debug');
+      console.log('onDebugClick');
+      console.log('------------');
     },
     onSerialBridgeAddressChange(value) {
       this.$store.commit('setSerialBridgeAddress', value);
@@ -168,16 +169,16 @@ export default {
 
       this.$store.commit(
         'setSerialBridge', 
-        new SerialBridge(this.$store.state.serialBridgeAddress)
+        new SerialBridge(this.serialBridgeAddress)
       );
-      this.$store.state.serialBridge.connect();
+      this.serialBridge.connect();
 
-      this.$store.state.serialBridge.on('connect', () => {
+      this.serialBridge.on('connect', () => {
         this.$store.commit('setSerialBridgeConnected', true);
-        this.$store.state.serialBridge.listPorts();
+        this.serialBridge.listPorts();
       });
 
-      this.$store.state.serialBridge.on('disconnect', () => {
+      this.serialBridge.on('disconnect', () => {
         this.$store.commit('setSerialBridgeConnected',false);
         this.$store.commit('setSerialPortName', null);
         this.$store.commit('setSerialPortArray', []);
@@ -186,32 +187,33 @@ export default {
         this.$store.commit('setDeviceHardwareVariant', null);
       });
 
-      this.$store.state.serialBridge.on('listPortsRsp', (rsp) => {
+      this.serialBridge.on('listPortsRsp', (rsp) => {
         if (rsp.success) {
           this.$store.commit('setSerialPortArray', rsp.ports);
         }
       });
 
-      this.$store.state.serialBridge.on('openRsp', (rsp) => {
+      this.serialBridge.on('openRsp', (rsp) => {
         if (rsp.success) {
           this.$store.commit('setSerialPortOpen', true);
           this.$store.commit('setSerialPortName', rsp.serialPortInfo.portName);
           let command = JSON.stringify({command: 'getVersion'});
-          this.$store.state.serialBridge.writeReadLine('getVersion',command)
+          this.serialBridge.writeReadLine('getVersion',command)
         }
       });
 
-      this.$store.state.serialBridge.on('closeRsp', (rsp) => {
+      this.serialBridge.on('closeRsp', (rsp) => {
         this.$store.commit('setSerialPortOpen', false);
         this.$store.commit('setDeviceFirmwareVersion', null);
         this.$store.commit('setDeviceHardwareVariant', null);
       });
 
-      this.$store.state.serialBridge.on('readLineRsp', (rsp) => { 
+      this.serialBridge.on('readLineRsp', (rsp) => { 
 
         // If rsp.success then this just indicates a successful write to the
         // serial port, but it is not yet the response to our a command. 
         if (rsp.success) { 
+          console.log(JSON.stringify(rsp));
           return; 
         } 
 
@@ -243,7 +245,7 @@ export default {
         this.$store.commit('setDeviceFirmwareVersion', null);
       }
       let command = JSON.stringify({command: 'getVariant'});
-      this.$store.state.serialBridge.writeReadLine('getVariant', command); 
+      this.serialBridge.writeReadLine('getVariant', command); 
     },
 
     onSerialPortGetVariantRsp(rspJson) {
@@ -260,20 +262,17 @@ export default {
     
 
     disconnectSerialBridge() {
-      this.$store.state.serialBridge.disconnect();
+      this.serialBridge.disconnect();
     },
 
     openSerialPort() {
       if (this.serialPortName) {
-        this.$store.state.serialBridge.open(
-          this.$store.state.serialPortName,
-          this.$store.state.serialPortParam
-        );
+        this.serialBridge.open(this.serialPortName, this.serialPortParam);
       }
     },
 
     closeSerialPort() {
-      this.$store.state.serialBridge.close();
+      this.serialBridge.close();
     },
 
   },

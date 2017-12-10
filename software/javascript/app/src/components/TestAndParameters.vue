@@ -111,11 +111,11 @@ export default {
     onDebugClick() {
       console.log('onDebugClick');
       console.log('------------');
-      let testParamVals = paramValsToNumber(this.$store.state.testParamVals,this.$store.state.testParamDefs);
+      let testParamVals = paramValsToNumber(this.testParamVals,this.testParamDefs);
       let testName = this.currentTest;
-      let convfunc = this.$store.state.testParamDefs[testName].defs['converter'];
+      let convfunc = this.testParamDefs[testName].defs['converter'];
       let origVals = testParamVals[testName];
-      let convVals = convfunc(origVals,this.$store.state.testParamDefs[testName].defs);
+      let convVals = convfunc(origVals,this.testParamDefs[testName].defs);
       console.log(JSON.stringify(origVals));
       console.log(JSON.stringify(convVals));
     },

@@ -8,6 +8,16 @@
         <h3 class="md-title"> Data Acquisition </h3>
       </md-layout>
 
+      <md-layout md-row class="row-with-margin">
+        <md-button 
+          class="md-primary md-raised" 
+          v-on:click=onDebugClick
+          v-if="showDebugButton"
+          > 
+          Debug 
+        </md-button>
+      </md-layout>
+
     </md-layout>
 
   </div>
@@ -16,15 +26,68 @@
 
 <script>
 
+import {mapState} from 'vuex';
+import {mapGetters} from 'vuex';
+import {applyValueConverters} from '../test_converters'
 import Dygraph from 'dygraphs';
 
 export default {
+
   name: 'CollectData',
+
   data () {
     return {
-      dummy: "dummy",
+      showDebugButton: true,
     }
-  }
+  },
+
+  computed: {
+
+    isReady() {
+      return this.serialBridgeConnected && this.serialPortOpen;
+    },
+    ...mapState([ 
+      'currentTest', 
+      'testParamDefs',
+      'testParamVals',
+      'testParamErrs',
+      'serialBridgeConnected',
+      'serialBridge',
+      'serialPortOpen', 
+    ]),
+    ...mapGetters([
+      'currentTestParamVals',
+      'currentTestParamDefs',
+      'convertedTestParamVals',
+    ]),
+  },
+
+  methods: {
+
+    onDebugClick() {
+      console.log(' ');
+      console.log('onDebugClick');
+      console.log('------------');
+      console.log('currentTest: ' + this.currentTest);
+      console.log('orig ------------');
+      for (let name in this.currentTestParamVals) {
+        console.log(name + ': ' + this.currentTestParamVals[name]);
+      }
+
+      let testParamValsConv = this.currentTestParamDefs.converter(this.currentTestParamVals,this.currentTestParamDefs);
+
+
+      console.log('conv ------------');
+      for (let name in this.convertedTestParamVals) {
+        console.log(name + ': ' + this.convertedTestParamVals[name]);
+      }
+
+      // Set params, run test
+
+
+    },
+
+  },
 }
 
 </script>
