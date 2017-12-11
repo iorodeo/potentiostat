@@ -80,7 +80,7 @@ export function linearSweepParam(paramVals, paramDefs) {
   let paramValsTmp = applyValueConverters(paramVals, paramDefs);
   let paramValsCon = _.omit(paramValsTmp,['scanRate']);
   let deltaVolt = Math.abs(paramValsTmp.startValue - paramValsTmp.finalValue);
-  paramValsCon.duration = secondToMillisecond(deltaVolt/paramValsTmp.scanRate).toFixed(0);
+  paramValsCon.duration = Number(secondToMillisecond(deltaVolt/paramValsTmp.scanRate).toFixed(0));
   return paramValsCon;
 }
 

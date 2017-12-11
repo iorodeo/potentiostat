@@ -98,6 +98,7 @@
 
 <script>
 
+import _ from 'lodash';
 import {mapState} from 'vuex';
 import {mapGetters} from 'vuex';
 import {SerialBridge} from '../serial_bridge';
@@ -136,6 +137,7 @@ export default {
       'serialPortParam',
       'deviceFirmwareVersion',
       'deviceHardwareVariant',
+      'data',
     ]),
     ...mapGetters([
       'currentTestParamVals',
@@ -219,7 +221,7 @@ export default {
         // If rsp.success then this just indicates a successful write to the
         // serial port, but it is not yet the response to our a command. 
         if (rsp.success) { 
-          console.log(JSON.stringify(rsp));
+          //console.log(JSON.stringify(rsp));
           return; 
         } 
 
@@ -255,8 +257,7 @@ export default {
             break;
 
           case null:
-            console.log('tag: ' + rsp.tag);
-            console.log(JSON.stringify(rsp));
+            this.onSerialPortNewTestData(rsp.line);
             break;
 
           default:
@@ -290,8 +291,8 @@ export default {
 
     onSerialPortSetCurrRangeRsp(rspJson) {
       // Response from step one when running a test
-      console.log('onSerialPortSetCurrRangeRsp');
-      console.log(rspJson);
+      //console.log('onSerialPortSetCurrRangeRsp');
+      //console.log(rspJson);
       let samplePeriod = 1000.0/this.convertedTestParamVals.sampleRate;
       let command = JSON.stringify({
         command: 'setSamplePeriod', 
@@ -302,8 +303,8 @@ export default {
 
     onSerialPortSetSamplePeriodRsp(rspJson) {
       // Response from step two when running a test
-      console.log('onSerialPortSetSamplePeriodRsp');
-      console.log(rspJson);
+      //console.log('onSerialPortSetSamplePeriodRsp');
+      //console.log(rspJson);
       let {sampleRate, currRange, ...paramVals} = this.convertedTestParamVals;
       
       let command = JSON.stringify({ 
@@ -311,13 +312,15 @@ export default {
         test: this.currentTest, 
         param: paramVals
       });
+
+      //console.log('command: ' + command);
       this.serialBridge.writeReadLine('setParam', command);
     },
 
     onSerialPortSetParamRsp(rspJson) {
       // Response from step three when running a test
-      console.log('onSerialPortSetParamRsp');
-      console.log(rspJson);
+      //console.log('onSerialPortSetParamRsp');
+      //console.log(rspJson);
       let command = JSON.stringify({
         command: 'runTest',
         test: this.currentTest,
@@ -327,9 +330,19 @@ export default {
 
     onSerialPortRunTestRsp(rspJson) {
       // Response from step three when running a test
-      console.log('onSerialPortRunTestRsp');
-      console.log(rspJson);
+      //console.log('onSerialPortRunTestRsp');
+      //console.log(rspJson);
     }, 
+
+    onSerialPortNewTestData(newDataJson) {
+      let newData = JSON.parse(newDataJson);
+      if (!_.isEmpty(newData)) {
+        this.$store.commit('appendData',newData);
+      } else {
+        console.log('data collection done');
+        console.log('length: ' + this.data.raw.time.length);
+      }
+    },
 
     disconnectSerialBridge() {
       this.serialBridge.disconnect();

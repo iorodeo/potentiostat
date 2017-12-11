@@ -25,6 +25,18 @@ export const store = new Vuex.Store({
     },
     deviceFirmwareVersion: null,
     deviceHardwareVariant: null,
+    data: {
+      raw: { 
+        time: [],
+        volt: [],
+        curr: [],
+      },
+      plot: {
+        timeAndVolt: [],
+        timeAndCurr: [],
+        voltAndCurr: [],
+      },
+    }
   },
 
   mutations: {
@@ -84,9 +96,27 @@ export const store = new Vuex.Store({
 
     setDeviceHardwareVariant(state, value) {
       state.deviceHardwareVariant = value;
-    }
+    },
 
+    appendData(state, payload) {
+      state.data.raw.time.push(payload.t);
+      state.data.raw.volt.push(payload.v);
+      state.data.raw.curr.push(payload.i);
+      state.data.plot.timeAndVolt.push([payload.t, payload.v]);
+      state.data.plot.timeAndCurr.push([payload.t, payload.i]);
+      state.data.plot.voltAndCurr.push([payload.v, payload.i]);
+    },
+
+    clearData(state) {
+      state.data.raw.time = [];
+      state.data.raw.volt = [];
+      state.data.raw.curr = [];
+      state.data.plot.timeAndVolt = [];
+      state.data.plot.timeAndCurr = [];
+      state.data.plot.voltAndCurr = [];
+    },
   },
+
   getters: {
 
     testParamDefsByTest: (state, getters) => (test,name) => {
@@ -124,7 +154,8 @@ export const store = new Vuex.Store({
     convertedTestParamVals: (state,getters) => {
       let currVals = getters.currentTestParamVals;
       let currDefs = getters.currentTestParamDefs;
-      return currDefs.converter(currVals,currDefs); 
+      let convertedVals =  currDefs.converter(currVals,currDefs); 
+      return convertedVals;
     },
 
     testParamErrsByTest: (state, getters) => (test,name) => {

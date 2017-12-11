@@ -54,6 +54,7 @@ export default {
       'serialBridgeConnected',
       'serialBridge',
       'serialPortOpen', 
+      'data',
     ]),
     ...mapGetters([
       'currentTestParamVals',
@@ -69,17 +70,20 @@ export default {
       console.log('onDebugClick');
       console.log('------------');
       console.log('currentTest: ' + this.currentTest);
-      console.log('orig ------------');
+
+      console.log('original -------------');
       for (let name in this.currentTestParamVals) {
         console.log(name + ': ' + this.currentTestParamVals[name]);
       }
 
       let testParamValsConv = this.currentTestParamDefs.converter(this.currentTestParamVals,this.currentTestParamDefs);
 
-      console.log('conv ------------');
+      console.log('converted ------------');
       for (let name in this.convertedTestParamVals) {
         console.log(name + ': ' + this.convertedTestParamVals[name]);
       }
+
+      this.$store.commit('clearData');
 
       let command = JSON.stringify({
         command: 'setCurrRange', 
