@@ -90,7 +90,10 @@ export default {
         currRange: this.convertedTestParamVals.currRange
       });
       this.serialBridge.writeReadLine('setCurrRange',command);
-
+      this.$store.commit('startPlotTimer', () => {
+        console.log('hello');
+      });
+      
     },
 
   },

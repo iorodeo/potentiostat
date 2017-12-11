@@ -25,6 +25,9 @@ export const store = new Vuex.Store({
     },
     deviceFirmwareVersion: null,
     deviceHardwareVariant: null,
+    testRunning: false,
+    plotTimer: null,
+    plotTimerInterval: 100, 
     data: {
       raw: { 
         time: [],
@@ -36,7 +39,7 @@ export const store = new Vuex.Store({
         timeAndCurr: [],
         voltAndCurr: [],
       },
-    }
+    },
   },
 
   mutations: {
@@ -96,6 +99,19 @@ export const store = new Vuex.Store({
 
     setDeviceHardwareVariant(state, value) {
       state.deviceHardwareVariant = value;
+    },
+
+    setTestRunning(state,value) {
+      state.testRunning = value;
+    },
+
+    startPlotTimer(state, callback) { 
+      state.plotTimer = setInterval(callback, state.plotTimerInterval);
+    },
+
+    clearPlotTimer(state) {
+      clearInterval(state.plotTimer);
+      state.plotTimer = null;
     },
 
     appendData(state, payload) {

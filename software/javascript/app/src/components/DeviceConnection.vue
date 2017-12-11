@@ -341,6 +341,7 @@ export default {
       } else {
         console.log('data collection done');
         console.log('length: ' + this.data.raw.time.length);
+        this.$store.commit('clearPlotTimer');
       }
     },
 
