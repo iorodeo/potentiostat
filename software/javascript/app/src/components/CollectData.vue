@@ -76,13 +76,16 @@ export default {
 
       let testParamValsConv = this.currentTestParamDefs.converter(this.currentTestParamVals,this.currentTestParamDefs);
 
-
       console.log('conv ------------');
       for (let name in this.convertedTestParamVals) {
         console.log(name + ': ' + this.convertedTestParamVals[name]);
       }
 
-      // Set params, run test
+      let command = JSON.stringify({
+        command: 'setCurrRange', 
+        currRange: this.convertedTestParamVals.currRange
+      });
+      this.serialBridge.writeReadLine('setCurrRange',command);
 
     },
 

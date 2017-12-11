@@ -149,7 +149,7 @@ const TIME_VOLT_ARRAY_PARAM_DEF = {
 // ----------------------------------------------------------------------------
 
 const CONSTANT_TEST_DEFS = {
-  currentRange: CURRENT_RANGE_PARAM_DEF,
+  currRange: CURRENT_RANGE_PARAM_DEF,
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
@@ -161,7 +161,7 @@ const CONSTANT_TEST_DEFS = {
 
 
 const CHRONOAMP_TEST_DEFS = {
-  currentRange: CURRENT_RANGE_PARAM_DEF,
+  currRange: CURRENT_RANGE_PARAM_DEF,
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
@@ -175,7 +175,7 @@ const CHRONOAMP_TEST_DEFS = {
 
 
 const CYCLIC_TEST_DEFS = {
-  currentRange: CURRENT_RANGE_PARAM_DEF,
+  currRange: CURRENT_RANGE_PARAM_DEF,
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
@@ -190,7 +190,7 @@ const CYCLIC_TEST_DEFS = {
 
 
 const LINEARSWEEP_TEST_DEFS = {
-  currentRange: CURRENT_RANGE_PARAM_DEF,
+  currRange: CURRENT_RANGE_PARAM_DEF,
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
@@ -203,7 +203,7 @@ const LINEARSWEEP_TEST_DEFS = {
 
 
 const MULTISTEP_TEST_DEFS = {
-  currentRange: CURRENT_RANGE_PARAM_DEF,
+  currRange: CURRENT_RANGE_PARAM_DEF,
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,
@@ -214,7 +214,7 @@ const MULTISTEP_TEST_DEFS = {
 
 
 const SINUSOID_TEST_DEFS = {
-  currentRange: CURRENT_RANGE_PARAM_DEF,
+  currRange: CURRENT_RANGE_PARAM_DEF,
   sampleRate: SAMPLE_RATE_PARAM_DEF, 
   quietTime:  QUIET_TIME_PARAM_DEF,
   quietValue: QUIET_VALUE_PARAM_DEF,

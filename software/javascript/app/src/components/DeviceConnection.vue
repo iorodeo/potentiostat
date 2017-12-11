@@ -99,6 +99,7 @@
 <script>
 
 import {mapState} from 'vuex';
+import {mapGetters} from 'vuex';
 import {SerialBridge} from '../serial_bridge';
 
 export default {
@@ -125,6 +126,7 @@ export default {
       return this.deviceFirmwareVersion && this.deviceHardwareVariant;
     },
     ...mapState([ 
+      'currentTest', 
       'serialBridgeAddress',
       'serialBridgeConnected',
       'serialBridge',
@@ -134,6 +136,10 @@ export default {
       'serialPortParam',
       'deviceFirmwareVersion',
       'deviceHardwareVariant',
+    ]),
+    ...mapGetters([
+      'currentTestParamVals',
+      'convertedTestParamVals',
     ]),
   },
 
@@ -228,7 +234,33 @@ export default {
             this.onSerialPortGetVariantRsp(rsp.line);
             break;
 
+          case 'setCurrRange':
+            // Step one when running a test
+            this.onSerialPortSetCurrRangeRsp(rsp.line);
+            break;
+
+          case 'setSamplePeriod':
+            // Step two when running a test
+            this.onSerialPortSetSamplePeriodRsp(rsp.line);
+            break;
+
+          case 'setParam':
+            // Step three when running a test
+            this.onSerialPortSetParamRsp(rsp.line);
+            break;
+
+          case 'runTest':
+            // Step four when running a test
+            this.onSerialPortRunTestRsp(rsp.line);
+            break;
+
+          case null:
+            console.log('tag: ' + rsp.tag);
+            console.log(JSON.stringify(rsp));
+            break;
+
           default:
+            // Incoming data
             console.log('unknown tag: ' + rsp.tag); 
         }
       });
@@ -236,8 +268,6 @@ export default {
     },
 
     onSerialPortGetVersionRsp(rspJson) {
-      console.log('onSerialPortGetVersionRsp');
-      console.log(rspJson);
       let rspObj = JSON.parse(rspJson);
       if (rspObj.success) {
         this.$store.commit('setDeviceFirmwareVersion', rspObj.response.version);
@@ -249,8 +279,6 @@ export default {
     },
 
     onSerialPortGetVariantRsp(rspJson) {
-      console.log('onSerialPortGetVariantRsp');
-      console.log(rspJson);
       let rspObj = JSON.parse(rspJson);
       if (rspObj.success) {
         this.$store.commit('setDeviceHardwareVariant', rspObj.response.variant);
@@ -259,7 +287,49 @@ export default {
         this.$store.commit('setDeviceHardwareVariant', null);
       }
     },
-    
+
+    onSerialPortSetCurrRangeRsp(rspJson) {
+      // Response from step one when running a test
+      console.log('onSerialPortSetCurrRangeRsp');
+      console.log(rspJson);
+      let samplePeriod = 1000.0/this.convertedTestParamVals.sampleRate;
+      let command = JSON.stringify({
+        command: 'setSamplePeriod', 
+        samplePeriod: samplePeriod,
+      });
+      this.serialBridge.writeReadLine('setSamplePeriod', command);
+    },
+
+    onSerialPortSetSamplePeriodRsp(rspJson) {
+      // Response from step two when running a test
+      console.log('onSerialPortSetSamplePeriodRsp');
+      console.log(rspJson);
+      let {sampleRate, currRange, ...paramVals} = this.convertedTestParamVals;
+      
+      let command = JSON.stringify({ 
+        command: 'setParam', 
+        test: this.currentTest, 
+        param: paramVals
+      });
+      this.serialBridge.writeReadLine('setParam', command);
+    },
+
+    onSerialPortSetParamRsp(rspJson) {
+      // Response from step three when running a test
+      console.log('onSerialPortSetParamRsp');
+      console.log(rspJson);
+      let command = JSON.stringify({
+        command: 'runTest',
+        test: this.currentTest,
+      });
+      this.serialBridge.writeReadLine('runTest', command);
+    },
+
+    onSerialPortRunTestRsp(rspJson) {
+      // Response from step three when running a test
+      console.log('onSerialPortRunTestRsp');
+      console.log(rspJson);
+    }, 
 
     disconnectSerialBridge() {
       this.serialBridge.disconnect();
