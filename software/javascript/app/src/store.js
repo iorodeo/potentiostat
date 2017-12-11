@@ -115,11 +115,11 @@ export const store = new Vuex.Store({
     },
 
     appendData(state, payload) {
-      state.data.raw.time.push(payload.t);
+      state.data.raw.time.push(1.0e-3*payload.t);
       state.data.raw.volt.push(payload.v);
       state.data.raw.curr.push(payload.i);
-      state.data.plot.timeAndVolt.push([payload.t, payload.v]);
-      state.data.plot.timeAndCurr.push([payload.t, payload.i]);
+      state.data.plot.timeAndVolt.push([1.0e-3*payload.t, payload.v]);
+      state.data.plot.timeAndCurr.push([1.0e-3*payload.t, payload.i]);
       state.data.plot.voltAndCurr.push([payload.v, payload.i]);
     },
 
@@ -131,6 +131,7 @@ export const store = new Vuex.Store({
       state.data.plot.timeAndCurr = [];
       state.data.plot.voltAndCurr = [];
     },
+
   },
 
   getters: {

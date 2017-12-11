@@ -45,6 +45,10 @@
           </md-input-container>
         </div>
         
+        <!-- Broken on md-input number ???
+          v-bind:max="testParamDefs[currentTest].defs[paramName].maxVal"
+          v-bind:min="testParamDefs[currentTest].defs[paramName].minVal"
+        -->
 
         <div v-if="paramDef.type ==='number'">
           <md-input-container v-bind:class="{'fixed-width-container':true, 'md-input-invalid':testParamErrs[currentTest][paramName].flag}" >
@@ -53,8 +57,6 @@
               type="number" 
               v-bind:value="testParamVals[currentTest][paramName]"
               v-bind:step="testParamDefs[currentTest].defs[paramName].step"
-              v-bind:max="testParamDefs[currentTest].defs[paramName].maxVal"
-              v-bind:min="testParamDefs[currentTest].defs[paramName].minVal"
               @change="onNumberChange(paramName, $event)"
               >
             </md-input> 

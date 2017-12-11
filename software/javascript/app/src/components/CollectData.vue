@@ -1,6 +1,6 @@
 <template>
 
-  <div class="CollectData">
+  <div class="CollectData" style="width:100%;">
 
     <md-layout md-column>
 
@@ -16,6 +16,10 @@
           > 
           Debug 
         </md-button>
+      </md-layout>
+
+      <md-layout md-row md-align="center">
+        <div ref="volt_vs_time_plot" style="width:95%;height;margin-top:50px;margin-bottom:50px;" > </div> 
       </md-layout>
 
     </md-layout>
@@ -38,6 +42,7 @@ export default {
   data () {
     return {
       showDebugButton: true,
+      plotVoltVsTime: null,
     }
   },
 
@@ -68,34 +73,94 @@ export default {
     onDebugClick() {
       console.log(' ');
       console.log('onDebugClick');
-      console.log('------------');
       console.log('currentTest: ' + this.currentTest);
 
-      console.log('original -------------');
-      for (let name in this.currentTestParamVals) {
-        console.log(name + ': ' + this.currentTestParamVals[name]);
-      }
+      //console.log('original -------------');
+      //for (let name in this.currentTestParamVals) {
+      //  console.log(name + ': ' + this.currentTestParamVals[name]);
+      //}
+      //console.log('converted ------------');
+      //for (let name in this.convertedTestParamVals) {
+      //  console.log(name + ': ' + this.convertedTestParamVals[name]);
+      //}
 
-      let testParamValsConv = this.currentTestParamDefs.converter(this.currentTestParamVals,this.currentTestParamDefs);
-
-      console.log('converted ------------');
-      for (let name in this.convertedTestParamVals) {
-        console.log(name + ': ' + this.convertedTestParamVals[name]);
-      }
-
+      // Run Test  
+      // ------------------------------------------------------------------
       this.$store.commit('clearData');
+      this.createPlot();
 
       let command = JSON.stringify({
         command: 'setCurrRange', 
         currRange: this.convertedTestParamVals.currRange
       });
       this.serialBridge.writeReadLine('setCurrRange',command);
-      this.$store.commit('startPlotTimer', () => {
-        console.log('hello');
-      });
+
+      this.$store.commit('startPlotTimer', this.updatePlot); 
+      // ------------------------------------------------------------------
       
     },
 
+    updatePlot() { 
+      let n = this.data.plot.timeAndVolt.length;
+      console.log('t = ' + this.data.plot.timeAndVolt[n-1]); 
+      console.log('len = ' + n);
+      if (this.data.plot.timeAndVolt.length > 0) {
+        this.graph.updateOptions({file: this.data.plot.timeAndVolt});
+      }
+    },
+
+    createPlot() {
+      let dummyPts = [[0.0, 0.0], [1.0, 0.0]];  
+      this.graph = new Dygraph( this.$refs.volt_vs_time_plot, dummyPts, {
+        labels: ['x', 'y'],
+        xlabel: "time (s)",
+        ylabel: "position (m)",
+        dateWindow: this.getXLim(),
+        axes : {
+          x: {
+            dateWindow: this.getXLim(),
+            drawGrid: true,
+            independentTicks: true,
+          },
+          y: {
+            valueRange: this.getYLim(),
+            drawGrid: true,
+            independentTicks: true,
+          },
+        },
+        strokeWidth: 1.75,
+        height: 400,
+        showLabelsOnHighlight: false,
+        interactionModel: {},
+        colors: ["rgb(255,0,0)"],
+      });
+    },
+
+    getXLim() { 
+      let xlim = [0, 1.0e-3*this.convertedTestParamVals.duration];
+      console.log(xlim);
+      return xlim;
+    },
+
+    getYLim() {
+      let ylim = [-1000, 1000];
+      switch (this.convertedTestParamVals.currRange) {
+        case '1uA':
+          ylim = [-1, 1.01];
+          break;
+        case '10uA':
+          ylim = [-10, 10.1];
+          break;
+        case '100uA':
+          ylim = [-100, 101];
+          break;
+        case '1000uA':
+          ylim = [-1000, 1010];
+          break;
+      }
+      return ylim;
+    }
+            
   },
 }
 
