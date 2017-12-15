@@ -8,19 +8,57 @@
         <h3 class="md-title"> Data Acquisition </h3>
       </md-layout>
 
+
+      <md-layout md-row class="row-with-margin">
+        <md-layout md-col>
+        <div style="width:90%;height:30px;">
+          <md-progress v-bind:md-progress="progressValue"> </md-progress>
+        </div>
+        </md-layout>
+      </md-layout>
+
+      <md-layout md-row class="row-with-margin"> 
+        <md-button class="md-primary md-raised" v-on:click=onRunClick > 
+          Run Test
+        </md-button>
+      </md-layout>
+
+
       <md-layout md-row class="row-with-margin">
         <md-button 
           class="md-primary md-raised" 
           v-on:click=onDebugClick
           v-if="showDebugButton"
           > 
-          Debug 
+          Debug
         </md-button>
       </md-layout>
 
       <md-layout md-row md-align="center">
+        <div ref="volt_vs_time_plot" > </div> 
+      </md-layout>
+
+      <md-layout md-row md-align="center">
+        <div ref="curr_vs_time_plot"> </div> 
+      </md-layout>
+
+      <md-layout md-row md-align="center">
+        <div ref="volt_vs_curr_plot" > </div> 
+      </md-layout>
+
+      <!--
+      <md-layout md-row md-align="center">
         <div ref="volt_vs_time_plot" style="width:95%;height;margin-top:50px;margin-bottom:50px;" > </div> 
       </md-layout>
+
+      <md-layout md-row md-align="center">
+        <div ref="curr_vs_time_plot" style="width:95%;height;margin-top:50px;margin-bottom:50px;" > </div> 
+      </md-layout>
+
+      <md-layout md-row md-align="center">
+        <div ref="volt_vs_curr_plot" style="width:95%;height;margin-top:50px;margin-bottom:50px;" > </div> 
+      </md-layout>
+      -->
 
     </md-layout>
 
@@ -33,7 +71,7 @@
 import {mapState} from 'vuex';
 import {mapGetters} from 'vuex';
 import {applyValueConverters} from '../test_converters'
-import Dygraph from 'dygraphs';
+//import Dygraph from 'dygraphs';
 
 export default {
 
@@ -41,8 +79,39 @@ export default {
 
   data () {
     return {
-      showDebugButton: true,
+      progressValue: 0,
+      showDebugButton: false,
       plotVoltVsTime: null,
+      voltVsTimeLayout: { 
+        xaxis: { 
+          title: 'time (sec)', 
+          zeroline: true, 
+        }, 
+        yaxis: { 
+          title: 'potential (V)', 
+          zeroline: true,
+        },
+      },
+      currVsTimeLayout: { 
+        xaxis: { 
+          title: 'time (sec)', 
+          zeroline: true, 
+        }, 
+        yaxis: { 
+          title: 'current (uA)', 
+          zeroline: true,
+        },
+      },
+      currVsVoltLayout: { 
+        xaxis: { 
+          title: 'potential (V)', 
+          zeroline: true, 
+        }, 
+        yaxis: { 
+          title: 'current (uA)', 
+          zeroline: true,
+        },
+      },
     }
   },
 
@@ -65,103 +134,97 @@ export default {
       'currentTestParamVals',
       'currentTestParamDefs',
       'convertedTestParamVals',
+      'dataLength',
+      'runProgress',
     ]),
   },
 
   methods: {
 
-    onDebugClick() {
-      console.log(' ');
-      console.log('onDebugClick');
-      console.log('currentTest: ' + this.currentTest);
+    onRunClick() {
+      console.log('onRunClick');
+      console.log('currentTest = ' + this.currentTest);
+      console.log(JSON.stringify(this.currentTestParamVals))
 
-      //console.log('original -------------');
-      //for (let name in this.currentTestParamVals) {
-      //  console.log(name + ': ' + this.currentTestParamVals[name]);
-      //}
-      //console.log('converted ------------');
-      //for (let name in this.convertedTestParamVals) {
-      //  console.log(name + ': ' + this.convertedTestParamVals[name]);
-      //}
+      this.progressValue = 0;
+      this.clearPlots();
 
-      // Run Test  
-      // ------------------------------------------------------------------
       this.$store.commit('clearData');
-      this.createPlot();
 
       let command = JSON.stringify({
         command: 'setCurrRange', 
         currRange: this.convertedTestParamVals.currRange
       });
       this.serialBridge.writeReadLine('setCurrRange',command);
+      this.$store.commit('setTestDoneCallback', this.testDoneCallback);
+      this.$store.commit('startProgressTimer', this.updateProgressBar); 
+    },
 
-      this.$store.commit('startPlotTimer', this.updatePlot); 
-      // ------------------------------------------------------------------
+    onDebugClick() {
+      console.log(' ');
+      console.log('onDebugClick');
       
     },
 
-    updatePlot() { 
-      let n = this.data.plot.timeAndVolt.length;
-      console.log('t = ' + this.data.plot.timeAndVolt[n-1]); 
-      console.log('len = ' + n);
-      if (this.data.plot.timeAndVolt.length > 0) {
-        this.graph.updateOptions({file: this.data.plot.timeAndVolt});
-      }
+    updateProgressBar() { 
+      this.progressValue = this.runProgress;
+      console.log(this.runProgress);
     },
 
-    createPlot() {
-      let dummyPts = [[0.0, 0.0], [1.0, 0.0]];  
-      this.graph = new Dygraph( this.$refs.volt_vs_time_plot, dummyPts, {
-        labels: ['x', 'y'],
-        xlabel: "time (s)",
-        ylabel: "position (m)",
-        dateWindow: this.getXLim(),
-        axes : {
-          x: {
-            dateWindow: this.getXLim(),
-            drawGrid: true,
-            independentTicks: true,
-          },
-          y: {
-            valueRange: this.getYLim(),
-            drawGrid: true,
-            independentTicks: true,
-          },
-        },
-        strokeWidth: 1.75,
-        height: 400,
-        showLabelsOnHighlight: false,
-        interactionModel: {},
-        colors: ["rgb(255,0,0)"],
-      });
+    testDoneCallback() {
+      this.updateProgressBar();
+
+      let voltVsTimeData = {
+        x: this.data.time,
+        y: this.data.volt,
+        mode: 'lines',
+        visible: true,
+      };
+
+      Plotly.plot(this.$refs.volt_vs_time_plot, [voltVsTimeData], this.voltVsTimeLayout);
+
+      let currVsTimeData = {
+        x: this.data.time, 
+        y: this.data.curr, 
+        mode: 'lines', 
+        visible: true,
+      };
+
+      Plotly.plot(this.$refs.curr_vs_time_plot, [currVsTimeData], this.currVsTimeLayout);
+
+      let currVsVoltData = {
+        x: this.data.volt, 
+        y: this.data.curr, 
+        mode: 'lines', 
+        visible: true,
+      };
+
+      Plotly.plot(this.$refs.volt_vs_curr_plot, [currVsVoltData], this.currVsVoltLayout);
     },
 
-    getXLim() { 
-      let xlim = [0, 1.0e-3*this.convertedTestParamVals.duration];
-      console.log(xlim);
-      return xlim;
+    clearPlots() {
+      Plotly.deleteTraces(this.$refs.volt_vs_time_plot,0); 
+      Plotly.deleteTraces(this.$refs.curr_vs_time_plot,0); 
+      Plotly.deleteTraces(this.$refs.volt_vs_curr_plot,0); 
     },
-
-    getYLim() {
-      let ylim = [-1000, 1000];
-      switch (this.convertedTestParamVals.currRange) {
-        case '1uA':
-          ylim = [-1, 1.01];
-          break;
-        case '10uA':
-          ylim = [-10, 10.1];
-          break;
-        case '100uA':
-          ylim = [-100, 101];
-          break;
-        case '1000uA':
-          ylim = [-1000, 1010];
-          break;
-      }
-      return ylim;
-    }
             
+  }, 
+
+  mounted() { 
+
+    let data = {
+      x: [ 0 ,1],
+      y: [-1, 1],
+      mode: 'lines',
+      visible: false,
+    }
+
+    Plotly.plot(this.$refs.volt_vs_time_plot, [data], this.voltVsTimeLayout);
+    Plotly.plot(this.$refs.curr_vs_time_plot, [data], this.currVsTimeLayout);
+    Plotly.plot(this.$refs.volt_vs_curr_plot, [data], this.currVsVoltLayout);
+
   },
+
 }
 
 </script>

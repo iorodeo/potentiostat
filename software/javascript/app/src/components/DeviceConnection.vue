@@ -137,6 +137,7 @@ export default {
       'serialPortParam',
       'deviceFirmwareVersion',
       'deviceHardwareVariant',
+      'testDoneCallback',
       'data',
     ]),
     ...mapGetters([
@@ -251,8 +252,13 @@ export default {
             this.onSerialPortSetParamRsp(rsp.line);
             break;
 
-          case 'runTest':
+          case 'getTestDoneTime':
             // Step four when running a test
+            this.onSerialPortGetTestDoneTime(rsp.line);
+            break;
+
+          case 'runTest':
+            // Step five when running a test
             this.onSerialPortRunTestRsp(rsp.line);
             break;
 
@@ -291,7 +297,7 @@ export default {
 
     onSerialPortSetCurrRangeRsp(rspJson) {
       // Response from step one when running a test
-      //console.log('onSerialPortSetCurrRangeRsp');
+      console.log('onSerialPortSetCurrRangeRsp');
       //console.log(rspJson);
       let samplePeriod = 1000.0/this.convertedTestParamVals.sampleRate;
       let command = JSON.stringify({
@@ -303,7 +309,7 @@ export default {
 
     onSerialPortSetSamplePeriodRsp(rspJson) {
       // Response from step two when running a test
-      //console.log('onSerialPortSetSamplePeriodRsp');
+      console.log('onSerialPortSetSamplePeriodRsp');
       //console.log(rspJson);
       let {sampleRate, currRange, ...paramVals} = this.convertedTestParamVals;
       
@@ -319,8 +325,22 @@ export default {
 
     onSerialPortSetParamRsp(rspJson) {
       // Response from step three when running a test
-      //console.log('onSerialPortSetParamRsp');
+      console.log('onSerialPortSetParamRsp');
       //console.log(rspJson);
+      let command = JSON.stringify({
+        command: 'getTestDoneTime',
+        test: this.currentTest,
+      });
+      this.serialBridge.writeReadLine('getTestDoneTime', command);
+    },
+
+    onSerialPortGetTestDoneTime(rspJson) {
+      // Response from step four when running a test
+      console.log('onSerialPortGetTestDoneTime');
+      //console.log(rspJson);
+      let rspObj = JSON.parse(rspJson);
+      this.$store.commit('setTestDoneTime', 1.0e-3*rspObj.response.testDoneTime);
+
       let command = JSON.stringify({
         command: 'runTest',
         test: this.currentTest,
@@ -329,19 +349,21 @@ export default {
     },
 
     onSerialPortRunTestRsp(rspJson) {
-      // Response from step three when running a test
-      //console.log('onSerialPortRunTestRsp');
+      // Response from step five when running a test
+      console.log('onSerialPortRunTestRsp');
       //console.log(rspJson);
     }, 
 
     onSerialPortNewTestData(newDataJson) {
       let newData = JSON.parse(newDataJson);
       if (!_.isEmpty(newData)) {
+        newData.t = 1.0e-3*newData.t
         this.$store.commit('appendData',newData);
       } else {
-        console.log('data collection done');
-        console.log('length: ' + this.data.raw.time.length);
-        this.$store.commit('clearPlotTimer');
+        //console.log('data collection done');
+        //console.log('length: ' + this.data.time.length);
+        this.$store.commit('clearProgressTimer');
+        this.testDoneCallback();
       }
     },
 

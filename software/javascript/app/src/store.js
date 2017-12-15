@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {TEST_DEFS} from './test_definitions';
 import {initParamValsFromDefs, initParamErrsFromDefs} from './test_utils';
+import _ from 'lodash';
 
 Vue.use(Vuex)
 
@@ -26,19 +27,14 @@ export const store = new Vuex.Store({
     deviceFirmwareVersion: null,
     deviceHardwareVariant: null,
     testRunning: false,
-    plotTimer: null,
-    plotTimerInterval: 100, 
-    data: {
-      raw: { 
-        time: [],
-        volt: [],
-        curr: [],
-      },
-      plot: {
-        timeAndVolt: [],
-        timeAndCurr: [],
-        voltAndCurr: [],
-      },
+    progressTimer: null,
+    progressTimerInterval: 100, 
+    testDoneTime: null,
+    testDoneCallback: null,
+    data: { 
+      time: [], 
+      volt: [], 
+      curr: [],
     },
   },
 
@@ -105,31 +101,33 @@ export const store = new Vuex.Store({
       state.testRunning = value;
     },
 
-    startPlotTimer(state, callback) { 
-      state.plotTimer = setInterval(callback, state.plotTimerInterval);
+    startProgressTimer(state, callback) { 
+      state.progressTimer = setInterval(callback, state.progressTimerInterval);
     },
 
-    clearPlotTimer(state) {
-      clearInterval(state.plotTimer);
-      state.plotTimer = null;
+    clearProgressTimer(state) {
+      clearInterval(state.progressTimer);
+      state.progressTimer = null;
     },
+
+    setTestDoneTime(state, value) {
+      state.testDoneTime = value;
+    },
+
+    setTestDoneCallback(state, cb) {
+      state.testDoneCallback = cb;
+    }, 
 
     appendData(state, payload) {
-      state.data.raw.time.push(1.0e-3*payload.t);
-      state.data.raw.volt.push(payload.v);
-      state.data.raw.curr.push(payload.i);
-      state.data.plot.timeAndVolt.push([1.0e-3*payload.t, payload.v]);
-      state.data.plot.timeAndCurr.push([1.0e-3*payload.t, payload.i]);
-      state.data.plot.voltAndCurr.push([payload.v, payload.i]);
+      state.data.time.push(payload.t);
+      state.data.volt.push(payload.v);
+      state.data.curr.push(payload.i);
     },
 
     clearData(state) {
-      state.data.raw.time = [];
-      state.data.raw.volt = [];
-      state.data.raw.curr = [];
-      state.data.plot.timeAndVolt = [];
-      state.data.plot.timeAndCurr = [];
-      state.data.plot.voltAndCurr = [];
+      state.data.time = [];
+      state.data.volt = [];
+      state.data.curr = [];
     },
 
   },
@@ -189,7 +187,28 @@ export const store = new Vuex.Store({
 
     paramNameArray: (state, getters) => (test) => {
       return Object.keys(state.testParamVals[test]);
-    }
+    },
+
+    dataLength: (state, getters) => {
+      let len = 0;
+      if (state.data.time !== undefined) {
+        len = state.data.time.length;
+      }
+      return len;
+    },
+
+    runProgress: (state, getters) => {
+      let value = 0;
+      if (getters.dataLength  !== 0) {
+        if (state.testDoneTime !== null) {
+          let t = state.data.time[getters.dataLength-1];
+          value = t/state.testDoneTime; 
+          value = _.clamp(value,0,1);
+          value = 100*value;
+        }
+      } 
+      return value;
+    },
 
   }
 })
