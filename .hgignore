@@ -11,5 +11,6 @@ syntax: glob
 data.txt
 __pycache__
 software/python/potentiostat/build
+software/javascript/app/dist
 _build
 node_modules
