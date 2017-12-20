@@ -10,7 +10,7 @@ export const store = new Vuex.Store({
 
   state: { 
     currentOption: 'DeviceConnection',
-    currentTest: 'linearSweep',
+    currentTest: 'cyclic',
     testParamDefs: TEST_DEFS,
     testParamVals: initParamValsFromDefs(TEST_DEFS), 
     testParamErrs: initParamErrsFromDefs(TEST_DEFS),
