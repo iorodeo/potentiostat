@@ -51,8 +51,8 @@
               v-bind:step="testParamDefs[currentTest].defs[paramName].step"
         -->
 
-        <div v-if="paramDef.type ==='number'">
-          <md-input-container v-bind:class="{'fixed-width-container':true, 'md-input-invalid':testParamErrs[currentTest][paramName].flag}" >
+        <div v-if="paramDef.type ==='number'"> 
+          <md-input-container v-bind:class="{'fixed-width-container':true, 'md-input-invalid':testParamErrs[currentTest][paramName].flag}"> 
             <label> {{paramDef.name}} ({{paramDef.unit}})  </label>
             <md-input 
               type="number" 
@@ -136,7 +136,8 @@ export default {
     onDebugClick() {
       console.log('onDebugClick');
       console.log('------------');
-      console.log(JSON.stringify(this.currentTestParamDefs.currentRange.options))
+      console.log(JSON.stringify(this.currentTestParamDefs));
+      console.log(JSON.stringify(this.testParamErrs[this.currentTest]));
     },
 
     onTestChange(testName) {
