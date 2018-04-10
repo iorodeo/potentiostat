@@ -297,7 +297,7 @@ export default {
 
     onSerialPortSetCurrRangeRsp(rspJson) {
       // Response from step one when running a test
-      console.log('onSerialPortSetCurrRangeRsp');
+      //console.log('onSerialPortSetCurrRangeRsp');
       //console.log(rspJson);
       let samplePeriod = 1000.0/this.convertedTestParamVals.sampleRate;
       let command = JSON.stringify({
@@ -309,7 +309,7 @@ export default {
 
     onSerialPortSetSamplePeriodRsp(rspJson) {
       // Response from step two when running a test
-      console.log('onSerialPortSetSamplePeriodRsp');
+      //console.log('onSerialPortSetSamplePeriodRsp');
       //console.log(rspJson);
       let {sampleRate, currRange, ...paramVals} = this.convertedTestParamVals;
       
@@ -325,7 +325,7 @@ export default {
 
     onSerialPortSetParamRsp(rspJson) {
       // Response from step three when running a test
-      console.log('onSerialPortSetParamRsp');
+      //console.log('onSerialPortSetParamRsp');
       //console.log(rspJson);
       let command = JSON.stringify({
         command: 'getTestDoneTime',
@@ -336,7 +336,7 @@ export default {
 
     onSerialPortGetTestDoneTime(rspJson) {
       // Response from step four when running a test
-      console.log('onSerialPortGetTestDoneTime');
+      //console.log('onSerialPortGetTestDoneTime');
       //console.log(rspJson);
       let rspObj = JSON.parse(rspJson);
       this.$store.commit('setTestDoneTime', 1.0e-3*rspObj.response.testDoneTime);
@@ -350,7 +350,7 @@ export default {
 
     onSerialPortRunTestRsp(rspJson) {
       // Response from step five when running a test
-      console.log('onSerialPortRunTestRsp');
+      //console.log('onSerialPortRunTestRsp');
       //console.log(rspJson);
     }, 
 

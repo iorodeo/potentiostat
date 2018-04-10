@@ -137,8 +137,10 @@ export default {
     onDebugClick() {
       console.log('onDebugClick');
       console.log('------------');
-      console.log(JSON.stringify(this.currentTestParamDefs));
-      console.log(JSON.stringify(this.testParamErrs[this.currentTest]));
+      //console.log(JSON.stringify(this.currentTestParamDefs));
+      //console.log(JSON.stringify(this.testParamErrs[this.currentTest]));
+      console.log(JSON.stringify(this.testParamVals[this.currentTest]));
+      console.log(JSON.stringify(this.convertedTestParamVals));
     },
 
     onTestChange(testName) {

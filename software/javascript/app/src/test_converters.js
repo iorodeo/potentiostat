@@ -67,7 +67,7 @@ export function cyclicParam(paramVals, paramDefs) {
   let paramValsCon = _.omit(paramValsTmp, valsToOmit);
   paramValsCon.amplitude = 0.5*Math.abs(paramValsTmp.maxValue - paramValsTmp.minValue);
   paramValsCon.offset = 0.5*(paramValsTmp.maxValue + paramValsTmp.minValue); 
-  paramValsCon.period = secondToMillisecond(4*paramValsCon.amplitude/paramValsTmp.scanRate).toFixed(0);
+  paramValsCon.period = Number(secondToMillisecond(4*paramValsCon.amplitude/paramValsTmp.scanRate).toFixed(0));
   if (paramValsTmp.startOption === 'startMin') {
     paramValsCon.shift = 0.0;
   } else {
