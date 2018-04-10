@@ -25,7 +25,7 @@ const SAMPLE_RATE_PARAM_DEF = {
   minVal: 10.0,
   maxVal: 200.0,
   defaultVal: 100.0,
-  step:  10.0,
+  step:  1.0,
   scale: 1.0,
   converter: converters.identity,
 };
@@ -38,7 +38,7 @@ const QUIET_TIME_PARAM_DEF = {
   minVal: 0.0,
   maxVal: 60*60*1,
   defaultVal: 0.0,
-  step:  1.0, 
+  step:  0.01, 
   scale: 1000.0,
   converter: converters.secondToMillisecond,
 };
@@ -51,7 +51,7 @@ const VOLT_VALUE_PARAM_DEF = {
   minVal: -10.0,
   maxVal: 10.0,
   defaultVal: 0.0,
-  step:  0.1,
+  step:  0.01,
   scale: 1.0,
   converter: converters.identity,
 };
@@ -67,7 +67,7 @@ const TIME_VALUE_PARAM_DEF = {
   minVal: 0.0,
   maxVal: 60*60*24*2,
   defaultVal: 10.0,
-  step: 1,
+  step: 0.1,
   scale: 1000,
   converter: converters.secondToMillisecond,
 };
@@ -80,7 +80,7 @@ const SCAN_RATE_PARAM_DEF = {
   minVal: 0.0,
   maxVal: 50.0,
   defaultVal: 0.5,
-  step: 0.001,
+  step: 0.01,
   scale: 1.0,
   converter: converters.identity,
 };
@@ -93,7 +93,7 @@ const SHIFT_PARAM_DEF = {
   minVal: 0.0,
   maxVal: 1.0,
   defaultVal: 0.0,
-  step: 0.1,
+  step: 0.01,
   scale: 1.0,
   converter: converters.identity,
 };

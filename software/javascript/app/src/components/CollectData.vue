@@ -5,7 +5,7 @@
     <md-layout md-column>
 
       <md-layout md-row md-align="left" class="row-with-margin">
-        <h3 class="md-title"> Data Collection: test = {{testParamDefs[currentTest].name}}</h3>
+        <h3 class="md-title"> Data Acquisition: test = {{testParamDefs[currentTest].name}}</h3>
       </md-layout>
 
 
