@@ -9,7 +9,7 @@ curr_range = '10uA'         # The name of the current range [-100uA, +100uA]
 sample_rate = 10.0          # The number of samples/second to collect
 
 
-# Create dictionary of waveform parameters for cyclic voltammetry test
+# Create dictionary of waveform parameters squarewave annodic stripping
 test_param = {
         'quietValue' : -0.4,
         'quietTime'  :  500,

@@ -64,9 +64,17 @@ class Potentiostat {
 
   constructor(port, callback) {
     this.hardwareVariant = null;
+
     this.device = new SerialDevice(port, {buadRate: BAUDRATE}, (err) => {
       this._onDeviceOpen(err,callback);
     }); 
+
+    //const promise = new Promise( (resolve,reject) => {
+    //  this.device = new SerialDevice(port, {buadRate: BAUDRATE}, (err) => {
+    //    this._onDeviceOpen(err,callback);
+    //  }); 
+    //});
+
   }
 
   getHardwareVariant(callback) {
