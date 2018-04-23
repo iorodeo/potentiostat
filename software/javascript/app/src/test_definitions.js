@@ -49,7 +49,7 @@ const VOLT_VALUE_PARAM_DEF = {
   unit: 'V',
   type: 'number',
   minVal: -10.0,
-  maxVal: 10.0,
+  maxVal:  10.0,
   defaultVal: 0.0,
   step:  0.01,
   scale: 1.0,
@@ -58,7 +58,6 @@ const VOLT_VALUE_PARAM_DEF = {
 
 
 const QUIET_VALUE_PARAM_DEF = Object.assign({},VOLT_VALUE_PARAM_DEF,{name:'quiet value'});
-
 
 const TIME_VALUE_PARAM_DEF = {
   name: 'time',
@@ -93,6 +92,19 @@ const SHIFT_PARAM_DEF = {
   minVal: 0.0,
   maxVal: 1.0,
   defaultVal: 0.0,
+  step: 0.01,
+  scale: 1.0,
+  converter: converters.identity,
+};
+
+
+const SAMPLE_WINDOW_PARAM_DEF = {
+  name: 'sample window', 
+  unit: 'fraction of pulse',
+  type: 'number',
+  minVal: 0.0, 
+  maxVal: 1.0,
+  defaultVal: 0.2,
   step: 0.01,
   scale: 1.0,
   converter: converters.identity,
@@ -227,6 +239,27 @@ const SINUSOID_TEST_DEFS = {
 };
 
 
+const SQUAREWAVE_TEST_DEFS = {
+  currRange: CURRENT_RANGE_PARAM_DEF,
+  sampleRate: SAMPLE_RATE_PARAM_DEF,
+  quietTime:  QUIET_TIME_PARAM_DEF,
+  quietValue: QUIET_VALUE_PARAM_DEF,
+  amplitude:  Object.assign({},VOLT_VALUE_PARAM_DEF, {name:'amplitude',minVal: 0.0, defaultVal: 0.05}),
+  startValue: Object.assign({},VOLT_VALUE_PARAM_DEF, {name:'start value',defaultVal: -0.5}),
+  finalValue: Object.assign({},VOLT_VALUE_PARAM_DEF, {name:'final value',defaultVal:  0.5}),
+  stepValue:  Object.assign({},VOLT_VALUE_PARAM_DEF, { 
+    name:'step value', 
+    step: 0.001, 
+    minVal:  0.001, 
+    maxVal:  2.0, 
+    defaultVal: 0.020 
+  }),
+  sampleWindow: SAMPLE_WINDOW_PARAM_DEF,
+  converter: converters.squareWaveParam,
+  plotTypes: ['voltVsTime', 'currVsTime', 'currVsVolt'],
+};
+
+
 export const NONVALUE_TEST_PARAMS = ['converter', 'plotTypes'];
 
 
@@ -250,13 +283,17 @@ export const TEST_DEFS = {
     name: 'linear sweep',
     defs: LINEARSWEEP_TEST_DEFS,
   },
-  multiStep: {
-    name: 'multistep',
-    defs: MULTISTEP_TEST_DEFS,
-  },
+  //multiStep: {
+  //  name: 'multistep',
+  //  defs: MULTISTEP_TEST_DEFS,
+  //},
   sinusoid: { 
     name: 'sinusoid',
     defs: SINUSOID_TEST_DEFS,
   },
+  squareWave: {
+    name: 'square wave',
+    defs: SQUAREWAVE_TEST_DEFS,
+  }
 };
 

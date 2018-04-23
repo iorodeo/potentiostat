@@ -97,3 +97,8 @@ export function sinusoidParam(paramVals, paramDefs) {
   let paramValsCon = applyValueConverters(paramVals, paramDefs);
   return paramValsCon;
 }
+
+export function squareWaveParam(paramVals, paramDefs) {
+  let paramValsCon = applyValueConverters(paramVals, paramDefs);
+  return paramValsCon;
+}
