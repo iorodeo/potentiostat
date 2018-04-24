@@ -22,7 +22,7 @@ const SAMPLE_RATE_PARAM_DEF = {
   name: 'sample rate',
   unit: 'Hz',
   type: 'number',
-  minVal: 10.0,
+  minVal: 0.1,
   maxVal: 200.0,
   defaultVal: 100.0,
   step:  1.0,
