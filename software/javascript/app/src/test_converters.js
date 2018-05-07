@@ -10,8 +10,13 @@ export function identity(value) {
 }
 
 
+export function number(value) {
+  return Number(value);
+}
+
+
 export function secondToMillisecond(value) {
-  return 1000.0*value;
+  return 1000.0*Number(value);
 }
 
 
@@ -24,20 +29,20 @@ export function applyValueConverters(paramVals, paramDefs) {
 }
 
 
-export function paramValsToNumber(paramVals, paramDefs) {
-  let paramValsCon = {};
-  for (let testName in paramVals) {
-    paramValsCon[testName] = {};
-    for (let paramName in paramVals[testName]) {
-      let val = paramVals[testName][paramName];
-      if (paramDefs[testName].defs[paramName].type === 'number') {
-        val = Number(paramVals[testName][paramName]);
-      } 
-      paramValsCon[testName][paramName] = val;
-    }
-  }
-  return paramValsCon;
-}
+//export function paramValsToNumber(paramVals, paramDefs) {
+//  let paramValsCon = {};
+//  for (let testName in paramVals) {
+//    paramValsCon[testName] = {};
+//    for (let paramName in paramVals[testName]) {
+//      let val = paramVals[testName][paramName];
+//      if (paramDefs[testName].defs[paramName].type === 'number') {
+//        val = Number(paramVals[testName][paramName]);
+//      } 
+//      paramValsCon[testName][paramName] = val;
+//    }
+//  }
+//  return paramValsCon;
+//}
 
 
 // Converters for Tests

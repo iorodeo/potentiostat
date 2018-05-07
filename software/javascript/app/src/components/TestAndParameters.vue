@@ -105,7 +105,6 @@
 
 import {mapState} from 'vuex';
 import {mapGetters} from 'vuex';
-import {paramValsToNumber} from '../test_converters.js';
 import  _ from 'lodash';
 
 export default {
@@ -149,16 +148,19 @@ export default {
 
 
     onNumberChange(paramName, newValue) {
-      this.checkNumberForErrs(this.currentTest,paramName,newValue);
-      this.$store.commit('setTestParamValsByTest', {
-        test: this.currentTest,
-        name: paramName,
-        value: Number(newValue),
-      });
+      let hasErr = this.checkNumberForErrs(this.currentTest,paramName,newValue);
+      if (!hasErr) {
+        this.$store.commit('setTestParamValsByTest', {
+          test: this.currentTest,
+          name: paramName,
+          //value: Number(newValue),
+          value: newValue,
+        });
+      }
     },
 
     onListChange(paramName, newValue) {
-      console.log('onListChange: ' + paramName + ', ' + newValue);
+      //console.log('onListChange: ' + paramName + ', ' + newValue);
       this.$store.commit('setTestParamValsByTest', {
         test: this.currentTest,
         name: paramName, 
@@ -175,15 +177,15 @@ export default {
     },
 
     checkNumberForErrs(testName, paramName, value) {
-      let valueNum = Number(value);
       let defs = this.testParamDefs[testName].defs[paramName];
       let boundType = _.get(defs, ['boundType'], ['closed','closed']);
       let flag = false;
       let message = '';
-      if (valueNum === "") { 
+      if (value.length == 0) { 
         flag = true;
         message =  'value must be a valid number'; 
       } else {
+        let valueNum = Number(value);
         let maxType = boundType[1];
         let minType = boundType[0];
         if (maxType === 'closed') {

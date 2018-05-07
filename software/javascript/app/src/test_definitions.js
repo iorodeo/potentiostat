@@ -27,7 +27,8 @@ const SAMPLE_RATE_PARAM_DEF = {
   defaultVal: 100.0,
   step:  1.0,
   scale: 1.0,
-  converter: converters.identity,
+  //converter: converters.identity,
+  converter: converters.number,
 };
 
 
@@ -51,9 +52,10 @@ const VOLT_VALUE_PARAM_DEF = {
   minVal: -10.0,
   maxVal:  10.0,
   defaultVal: 0.0,
-  step:  0.01,
+  step:  0.1,
   scale: 1.0,
-  converter: converters.identity,
+  //converter: converters.identity,
+  converter: converters.number,
 };
 
 
@@ -81,7 +83,8 @@ const SCAN_RATE_PARAM_DEF = {
   defaultVal: 0.5,
   step: 0.01,
   scale: 1.0,
-  converter: converters.identity,
+  //converter: converters.identity,
+  converter: converters.number,
 };
 
 
@@ -94,7 +97,8 @@ const SHIFT_PARAM_DEF = {
   defaultVal: 0.0,
   step: 0.01,
   scale: 1.0,
-  converter: converters.identity,
+  //converter: converters.identity,
+  converter: converters.number,
 };
 
 
@@ -107,7 +111,8 @@ const SAMPLE_WINDOW_PARAM_DEF = {
   defaultVal: 0.2,
   step: 0.01,
   scale: 1.0,
-  converter: converters.identity,
+  //converter: converters.identity,
+  converter: converters.number,
 };
 
 const NUM_CYCLES_PARAM_DEF = {
@@ -119,7 +124,8 @@ const NUM_CYCLES_PARAM_DEF = {
   defaultVal: 1,
   step: 1,
   scale: 1,
-  converter: converters.identity,
+  //converter: converters.identity,
+  converter: converters.number,
 };
 
 
@@ -132,7 +138,8 @@ const NUM_STEPS_PARAM_DEF = {
   defaultVal: 5,
   step: 1,
   scale: 1,
-  converter: converters.identity,
+  //converter: converters.identity,
+  converter: converters.number,
 };
 
 
