@@ -295,7 +295,7 @@ Multistep voltammetry
 ================= ================================================= =============== ====================== 
   quietValue       output value during the quiet period                  V             float    
   quietTime        duration of quiet period                              ms            integer   
-  step             list (len=<50) of (duration,value) tuples             (ms, V)         (integer, float)
+  step             list (len=<50) of (duration,value) tuples             (ms, V)      (integer, float)
 ================= ================================================= =============== ====================== 
 
 |
@@ -307,6 +307,38 @@ Multistep voltammetry
         'quietTime'  : 1000,
         'step'       : [(1000,-0.5), (1000,-0.2), (1000,-0.3), (1000,-0.0), (1000,-0.1), (1000,0.3), (1000,0.2), (1000, 0.5)],
     }
+
+
+**********************
+Squarewave voltammetry
+**********************
+
+================= ================================================= =============== ====================== 
+ parameter         description                                         units           type     
+================= ================================================= =============== ====================== 
+  quietValue       output value during the quiet period                  V             float    
+  quietTime        duration of quiet period                              ms            integer   
+  amplitude        amplitude of the squarewave                           V             float
+  startValue       starting value of linear sweep                        V             float 
+  finalValue       final value of linear sweep                           V             float
+  stepValue        step in voltage for each cycle                        V             float
+  window           fraction of half cycle used for sample                NA            float 
+================= ================================================= =============== ====================== 
+
+|
+
+.. code-block:: python 
+
+    {
+        'quietValue' : -0.4,
+        'quietTime'  :  500,
+        'amplitude'  :  0.05,
+        'startValue' : -0.4,
+        'finalValue' :  0.2,
+        'stepValue'  :  0.005,
+        'window'     :  0.2,
+    }
+
 
 **********
 References
