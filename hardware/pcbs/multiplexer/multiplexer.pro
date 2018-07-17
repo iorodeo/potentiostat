@@ -1,4 +1,4 @@
-update=Sun 15 Jul 2018 04:47:17 PM PDT
+update=Tue 17 Jul 2018 10:05:21 AM PDT
 version=1
 last_client=pcbnew
 [cvpcb]
@@ -65,8 +65,8 @@ ModuleTextSizeThickness="    0.150000"
 SolderMaskClearance="    0.000000"
 SolderMaskMinWidth="    0.000000"
 DrawSegmentWidth="    0.200000"
-BoardOutlineThickness="    0.100000"
-ModuleOutlineThickness="    0.150000"
+BoardOutlineThickness="    0.200000"
+ModuleOutlineThickness="    0.250000"
 [pcbnew/libraries]
 LibDir=
 LibName1=sockets
@@ -88,3 +88,4 @@ LibName16=valves
 LibName17=16-SOIC-0154
 LibName18=5X2_SHRD_HEADER
 LibName19=OST_CONNBLOCKS
+LibName20=4-40

@@ -706,10 +706,10 @@ Text Label 9050 6350 2    60   ~ 0
 WRK_6
 Text Label 9050 6450 2    60   ~ 0
 WRK_7
-Text Notes 2700 1400 2    60   ~ 0
-Electrodes to rodeostat PCB
-Text Notes 2350 2750 2    60   ~ 0
-Power input
+Text Notes 3100 1400 2    60   ~ 0
+Electrode connections to rodeostat PCB
+Text Notes 2650 2750 2    60   ~ 0
+Power input for switches
 Text Notes 2800 4900 2    60   ~ 0
 Connections from UEXT header
 Text Notes 2700 3950 2    60   ~ 0
