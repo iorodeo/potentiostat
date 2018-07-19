@@ -55,7 +55,7 @@
     )
     (via "Via[0-1]_889:635_um" "Via[0-1]_889:0_um")
     (rule
-      (width 254)
+      (width 381)
       (clearance 203.3)
       (clearance 203.3 (type default_smd))
       (clearance 50.8 (type smd_smd))
@@ -364,7 +364,7 @@
         (use_via Via[0-1]_889:635_um)
       )
       (rule
-        (width 254)
+        (width 381)
         (clearance 203.3)
       )
     )
@@ -373,7 +373,7 @@
         (use_via Via[0-1]_889:635_um)
       )
       (rule
-        (width 508)
+        (width 381)
         (clearance 203.3)
       )
     )

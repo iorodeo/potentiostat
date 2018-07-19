@@ -37,7 +37,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "16 jul 2018"
+Date "19 jul 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -766,4 +766,6 @@ Text Label 2200 5800 3    60   ~ 0
 -15V
 Text Label 2600 5800 3    60   ~ 0
 GND
+Text Notes 2050 750  0    60   ~ 0
+	S5478-ND
 $EndSCHEMATC
