@@ -124,6 +124,9 @@ namespace ps
 
     enum SampleMethod {SampleGeneric, SampleCustom};
 
+    // Multiplexer Parameters
+    const uint8_t NumMuxChan = 7;
+
 
 } // namespace ps
 
