@@ -2,6 +2,7 @@
 #define PS_MULTIPLEXER_H
 
 #include "ps_pin_map.h"
+#include "ps_constants.h"
 
 namespace ps
 {
@@ -10,10 +11,15 @@ namespace ps
     {
         public:
 
+            static const int MuxSwitchPin[NumMuxPin]; 
+            static const int MuxToWrkPin[NumMuxChan];
+            static const int MuxToGndPin[NumMuxChan];
+
             Multiplexer();
 
-            void setIOPinMode();
-            void clearIOPinMode();
+            void setupSwitchPins();
+            void clearSwitchPins();
+            void setAllChanToGnd();
 
         protected:
 

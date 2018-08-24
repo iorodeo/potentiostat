@@ -126,7 +126,7 @@ namespace ps
 
     // Multiplexer Parameters
     const uint8_t NumMuxChan = 7;
-
+    const uint8_t NumMuxPin = 16;
 
 } // namespace ps
 
