@@ -3,32 +3,32 @@
 namespace ps
 {
     const int Multiplexer::MuxSwitchPin[NumMuxPin] = { 
-        MUX_WRK1_TO_WRK,
+        MUX_WRK1_TO_TIA,
         MUX_WRK1_TO_GND,
-        MUX_WRK2_TO_WRK,
+        MUX_WRK2_TO_TIA,
         MUX_WRK2_TO_GND,
-        MUX_WRK3_TO_WRK,
+        MUX_WRK3_TO_TIA,
         MUX_WRK3_TO_GND,
-        MUX_WRK4_TO_WRK,
+        MUX_WRK4_TO_TIA,
         MUX_WRK4_TO_GND,
-        MUX_WRK5_TO_WRK,
+        MUX_WRK5_TO_TIA,
         MUX_WRK5_TO_GND,
-        MUX_WRK6_TO_WRK,
+        MUX_WRK6_TO_TIA,
         MUX_WRK6_TO_GND,
-        MUX_WRK7_TO_WRK,
+        MUX_WRK7_TO_TIA,
         MUX_WRK7_TO_GND,
         MUX_CTR_CONN,
         MUX_REF_CONN,
     }; 
 
-    const int Multiplexer::MuxToWrkPin[NumMuxChan] = {
-        MUX_WRK1_TO_WRK,
-        MUX_WRK2_TO_WRK,
-        MUX_WRK3_TO_WRK,
-        MUX_WRK4_TO_WRK,
-        MUX_WRK5_TO_WRK,
-        MUX_WRK6_TO_WRK,
-        MUX_WRK7_TO_WRK,
+    const int Multiplexer::MuxToTiaPin[NumMuxChan] = {
+        MUX_WRK1_TO_TIA,
+        MUX_WRK2_TO_TIA,
+        MUX_WRK3_TO_TIA,
+        MUX_WRK4_TO_TIA,
+        MUX_WRK5_TO_TIA,
+        MUX_WRK6_TO_TIA,
+        MUX_WRK7_TO_TIA,
     };
 
     const int Multiplexer::MuxToGndPin[NumMuxChan] = {
@@ -41,6 +41,9 @@ namespace ps
         MUX_WRK7_TO_GND,
     };
 
+    // Public methods
+    // -------------------------------------------------------------------
+
     Multiplexer::Multiplexer() 
     { }
 
@@ -51,6 +54,8 @@ namespace ps
         {
             pinMode(MuxSwitchPin[i], OUTPUT);
         }
+        disconnectCtrElect();
+        disconnectRefElect();
         setAllChanToGnd();
     }
 
@@ -63,15 +68,124 @@ namespace ps
         }
     }
 
+
+    void Multiplexer::connectCtrElect()
+    {
+        digitalWrite(MUX_CTR_CONN, HIGH);
+    }
+
+
+    void Multiplexer::disconnectCtrElect()
+    {
+        digitalWrite(MUX_CTR_CONN, LOW);
+    }
+
+
+    void Multiplexer::connectRefElect()
+    {
+        digitalWrite(MUX_REF_CONN, HIGH);
+    }
+
+
+    void Multiplexer::disconnectRefElect()
+    {
+        digitalWrite(MUX_REF_CONN, LOW);
+    }
+
+
+    void Multiplexer::connectWrkElect(int electNum)
+    {
+        // Connects working electrode (electNum) to the transimpedance amplifier
+        // using 'make-before-break' method 
+        
+        if ((electNum > 0) && (electNum < NumMuxChan))
+        {
+            // Disconnect current mux chan (if any) from TIA 
+            disconnectWrkElect();
+
+            // Make connection between electNum mux chan and TIA 
+            digitalWrite(MuxToTiaPin[electNum], HIGH);
+
+            // Break connection between electNum mux chan and ground
+            digitalWrite(MuxToGndPin[electNum], LOW);
+
+            currWrkElect_ = electNum;
+        }
+    }
+
+    void Multiplexer::disconnectWrkElect()
+    {
+        // Disconnected working electrode from transimpedance amplifier
+        // using 'make-before-break' method.
+        
+        if (currWrkElect_ != NotConnected) 
+        {
+            // Make connection between electNum mux chan and ground
+            digitalWrite(MuxToGndPin[currWrkElect_], HIGH);
+
+            // Break connection between electNum mux chan and TIA
+            digitalWrite(MuxToTiaPin[currWrkElect_], LOW);
+
+            currWrkElect_ = NotConnected;
+        }
+    }
+
+
+    int Multiplexer::currentWrkElect()
+    {
+        return currWrkElect_;
+    }
+
+
+    bool Multiplexer::isConnectedWrk()
+    {
+        if (currWrkElect_ == NotConnected)
+        {
+            return false;
+        }
+        else 
+        {
+            return true;
+        }
+    }
+
+
+    bool Multiplexer::isConnectedCtr()
+    {
+        if (digitalRead(MUX_CTR_CONN)) 
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
+
+
+    bool Multiplexer::isConnectedRef()
+    {
+        if (digitalRead(MUX_REF_CONN))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    // Protected methods
+    // ------------------------------------------------------------------------
+    
     void Multiplexer::setAllChanToGnd()
     {
         for (int i=0; i<NumMuxChan; i++)
         {
             digitalWrite(MuxToGndPin[i], HIGH);
-        }
-        for (int i=0; i<NumMuxChan; i++)
-        {
-            digitalWrite(MuxToWrkPin[i], LOW);
+            digitalWrite(MuxToTiaPin[i], LOW);
         }
     }
+    
 }

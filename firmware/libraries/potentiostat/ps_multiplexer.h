@@ -12,16 +12,33 @@ namespace ps
         public:
 
             static const int MuxSwitchPin[NumMuxPin]; 
-            static const int MuxToWrkPin[NumMuxChan];
+            static const int MuxToTiaPin[NumMuxChan];
             static const int MuxToGndPin[NumMuxChan];
+            static const int NotConnected = -1;
 
             Multiplexer();
 
             void setupSwitchPins();
             void clearSwitchPins();
-            void setAllChanToGnd();
+
+            void connectCtrElect();
+            void disconnectCtrElect();
+
+            void connectRefElect();
+            void disconnectRefElect();
+
+            void connectWrkElect(int electNum);
+            void disconnectWrkElect();
+
+            int currentWrkElect();
+            bool isConnectedWrk();
+            bool isConnectedCtr();
+            bool isConnectedRef();
 
         protected:
+
+            int currWrkElect_ = NotConnected;
+            void setAllChanToGnd();
 
     };
 
