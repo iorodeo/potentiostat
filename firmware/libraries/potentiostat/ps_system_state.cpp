@@ -306,19 +306,17 @@ namespace ps
 
     void SystemState::processMessages()
     {
+
         if (messageReceiver_.available())
         {
             ReturnStatus status;
+            StaticJsonBuffer<JsonMessageBufferSize> messageJsonBuffer;
+            StaticJsonBuffer<JsonMessageBufferSize> commandRespJsonBuffer;
 
             String message = messageReceiver_.next();
-            JsonObject &jsonMsg = messageParser_.parse(message);
+            JsonObject &jsonMsg = messageParser_.parse(message,messageJsonBuffer);
 
-            // ArduinoJson upgrade
-            // ----------------------------------------------
-            //commandRespJsonBuffer_.clear();
-            // ----------------------------------------------
-            commandRespJsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>();
-            JsonObject &jsonDat = commandRespJsonBuffer_.createObject();
+            JsonObject &jsonDat = commandRespJsonBuffer.createObject();
             if (jsonMsg.success())
             {
                 status = commandTable_.apply(CommandKey,jsonMsg,jsonDat);

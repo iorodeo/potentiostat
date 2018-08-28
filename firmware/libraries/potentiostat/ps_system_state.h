@@ -76,7 +76,6 @@ namespace ps
             MessageSender messageSender_;
 
             CommandTable<SystemState,CommandTableMaxSize> commandTable_;
-            StaticJsonBuffer<JsonMessageBufferSize> commandRespJsonBuffer_;
 
             CircularBuffer<Sample,DataBufferSize> dataBuffer_;
             Voltammetry voltammetry_;
