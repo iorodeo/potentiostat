@@ -71,25 +71,25 @@ namespace ps
 
     void Multiplexer::connectCtrElect()
     {
-        digitalWrite(MUX_CTR_CONN, HIGH);
+        digitalWrite(MUX_CTR_CONN, LOW);
     }
 
 
     void Multiplexer::disconnectCtrElect()
     {
-        digitalWrite(MUX_CTR_CONN, LOW);
+        digitalWrite(MUX_CTR_CONN, HIGH);
     }
 
 
     void Multiplexer::connectRefElect()
     {
-        digitalWrite(MUX_REF_CONN, HIGH);
+        digitalWrite(MUX_REF_CONN, LOW);
     }
 
 
     void Multiplexer::disconnectRefElect()
     {
-        digitalWrite(MUX_REF_CONN, LOW);
+        digitalWrite(MUX_REF_CONN, HIGH);
     }
 
 
@@ -106,10 +106,10 @@ namespace ps
             disconnectWrkElect();
 
             // Make connection between electNum mux chan and TIA 
-            digitalWrite(MuxToTiaPin[index], HIGH);
+            digitalWrite(MuxToTiaPin[index], LOW);
 
             // Break connection between electNum mux chan and ground
-            digitalWrite(MuxToGndPin[index], LOW);
+            digitalWrite(MuxToGndPin[index], HIGH);
 
             currWrkElect_ = electNum;
         }
@@ -125,10 +125,10 @@ namespace ps
         if ( (currWrkElect_ != NotConnected)  && (index >=0) && (index < NumMuxChan))
         {
             // Make connection between electNum mux chan and ground
-            digitalWrite(MuxToGndPin[index], HIGH);
+            digitalWrite(MuxToGndPin[index], LOW);
 
             // Break connection between electNum mux chan and TIA
-            digitalWrite(MuxToTiaPin[index], LOW);
+            digitalWrite(MuxToTiaPin[index], HIGH);
 
             currWrkElect_ = NotConnected;
         }
@@ -187,8 +187,8 @@ namespace ps
     {
         for (int i=0; i<NumMuxChan; i++)
         {
-            digitalWrite(MuxToGndPin[i], HIGH);
-            digitalWrite(MuxToTiaPin[i], LOW);
+            digitalWrite(MuxToGndPin[i], LOW);
+            digitalWrite(MuxToTiaPin[i], HIGH);
         }
     }
 
