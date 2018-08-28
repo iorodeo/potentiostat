@@ -38,7 +38,9 @@ namespace ps
         protected:
 
             int currWrkElect_ = NotConnected;
+
             void setAllChanToGnd();
+            int electNumToIndex(int electNum);
 
     };
 

@@ -103,11 +103,13 @@ namespace ps
             // Disconnect current mux chan (if any) from TIA 
             disconnectWrkElect();
 
+            int index = electNumToIndex(electNum);
+
             // Make connection between electNum mux chan and TIA 
-            digitalWrite(MuxToTiaPin[electNum], HIGH);
+            digitalWrite(MuxToTiaPin[index], HIGH);
 
             // Break connection between electNum mux chan and ground
-            digitalWrite(MuxToGndPin[electNum], LOW);
+            digitalWrite(MuxToGndPin[index], LOW);
 
             currWrkElect_ = electNum;
         }
@@ -120,11 +122,13 @@ namespace ps
         
         if (currWrkElect_ != NotConnected) 
         {
+            int index = electNumToIndex(currWrkElect_);
+
             // Make connection between electNum mux chan and ground
-            digitalWrite(MuxToGndPin[currWrkElect_], HIGH);
+            digitalWrite(MuxToGndPin[index], HIGH);
 
             // Break connection between electNum mux chan and TIA
-            digitalWrite(MuxToTiaPin[currWrkElect_], LOW);
+            digitalWrite(MuxToTiaPin[index], LOW);
 
             currWrkElect_ = NotConnected;
         }
@@ -186,6 +190,11 @@ namespace ps
             digitalWrite(MuxToGndPin[i], HIGH);
             digitalWrite(MuxToTiaPin[i], LOW);
         }
+    }
+
+    int Multiplexer::electNumToIndex(int electNum)
+    {
+        return electNum - 1;
     }
     
 }
