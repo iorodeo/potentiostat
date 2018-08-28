@@ -15,6 +15,7 @@
 #include "ps_filter.h"
 #include "ps_multiplexer.h"
 
+#define ARDUINOJSON_USE_DOUBLE 0
 #include "third-party/ArduinoJson/ArduinoJson.h"
 
 namespace ps

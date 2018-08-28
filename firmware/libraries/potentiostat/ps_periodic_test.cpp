@@ -131,11 +131,11 @@ namespace ps
 
         if (status.success)
         {
-            jsonDatPrm.set(AmplitudeKey, amplitude_, JsonFloatDecimals);
-            jsonDatPrm.set(OffsetKey, offset_, JsonFloatDecimals);
+            jsonDatPrm.set(AmplitudeKey, amplitude_);
+            jsonDatPrm.set(OffsetKey, offset_);
             jsonDatPrm.set(PeriodKey, convertUsToMs(period_));
             jsonDatPrm.set(NumCyclesKey, numCycles_);
-            jsonDatPrm.set(ShiftKey, shift_, JsonFloatDecimals);
+            jsonDatPrm.set(ShiftKey, shift_);
         }
     }
 
@@ -178,12 +178,12 @@ namespace ps
             if (jsonMsgPrm[AmplitudeKey].is<float>())
             {
                 setAmplitude(jsonMsgPrm.get<float>(AmplitudeKey));
-                jsonDatPrm.set(AmplitudeKey,getAmplitude(),JsonFloatDecimals);
+                jsonDatPrm.set(AmplitudeKey,getAmplitude());
             }
             else if (jsonMsgPrm[AmplitudeKey].is<long>()) 
             {
                 setAmplitude(float(jsonMsgPrm.get<long>(AmplitudeKey)));
-                jsonDatPrm.set(AmplitudeKey,getAmplitude(),JsonFloatDecimals);
+                jsonDatPrm.set(AmplitudeKey,getAmplitude());
             }
             else
             {
@@ -202,12 +202,12 @@ namespace ps
             if (jsonMsgPrm[OffsetKey].is<float>())
             {
                 setOffset(jsonMsgPrm.get<float>(OffsetKey));
-                jsonDatPrm.set(OffsetKey,getOffset(),JsonFloatDecimals);
+                jsonDatPrm.set(OffsetKey,getOffset());
             }
             else if (jsonMsgPrm[OffsetKey].is<long>())
             {
                 setOffset(float(jsonMsgPrm.get<long>(OffsetKey)));
-                jsonDatPrm.set(OffsetKey,getOffset(),JsonFloatDecimals);
+                jsonDatPrm.set(OffsetKey,getOffset());
             }
             else
             {
@@ -276,7 +276,7 @@ namespace ps
                 if ((shiftTmp >= 0.0) || (shiftTmp <= 1.0))
                 {
                     setShift(shiftTmp);
-                    jsonDatPrm.set(ShiftKey,getShift(),JsonFloatDecimals);
+                    jsonDatPrm.set(ShiftKey,getShift());
                 }
                 else
                 {

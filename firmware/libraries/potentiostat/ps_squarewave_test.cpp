@@ -253,11 +253,11 @@ namespace ps
 
         if (status.success)
         {
-            jsonDatPrm.set(StartValueKey, startValue_, JsonFloatDecimals);
-            jsonDatPrm.set(FinalValueKey, finalValue_, JsonFloatDecimals);
-            jsonDatPrm.set(StepValueKey, stepValue_, JsonFloatDecimals);
-            jsonDatPrm.set(AmplitudeKey, amplitude_, JsonFloatDecimals);
-            jsonDatPrm.set(WindowKey, window_, JsonFloatDecimals);
+            jsonDatPrm.set(StartValueKey, startValue_);
+            jsonDatPrm.set(FinalValueKey, finalValue_);
+            jsonDatPrm.set(StepValueKey, stepValue_);
+            jsonDatPrm.set(AmplitudeKey, amplitude_);
+            jsonDatPrm.set(WindowKey, window_);
         }
     }
 
@@ -335,12 +335,12 @@ namespace ps
             if (jsonMsgPrm[StartValueKey].is<float>())
             {
                 setStartValue(jsonMsgPrm.get<float>(StartValueKey));
-                jsonDatPrm.set(StartValueKey,getStartValue(),JsonFloatDecimals);
+                jsonDatPrm.set(StartValueKey,getStartValue());
             }
             else if (jsonMsgPrm[StartValueKey].is<long>())
             {
                 setStartValue(float(jsonMsgPrm.get<long>(StartValueKey)));
-                jsonDatPrm.set(StartValueKey,getStartValue(),JsonFloatDecimals);
+                jsonDatPrm.set(StartValueKey,getStartValue());
             }
             else
             {
@@ -359,12 +359,12 @@ namespace ps
             if (jsonMsgPrm[FinalValueKey].is<float>())
             {
                 setFinalValue(jsonMsgPrm.get<float>(FinalValueKey));
-                jsonDatPrm.set(FinalValueKey,getFinalValue(),JsonFloatDecimals);
+                jsonDatPrm.set(FinalValueKey,getFinalValue());
             }
             else if (jsonMsgPrm[FinalValueKey].is<long>())
             {
                 setFinalValue(float(jsonMsgPrm.get<long>(FinalValueKey)));
-                jsonDatPrm.set(FinalValueKey,getFinalValue(),JsonFloatDecimals);
+                jsonDatPrm.set(FinalValueKey,getFinalValue());
             }
             else
             {
@@ -382,12 +382,12 @@ namespace ps
             if (jsonMsgPrm[StepValueKey].is<float>())
             {
                 setStepValue(jsonMsgPrm.get<float>(StepValueKey));
-                jsonDatPrm.set(StepValueKey,getStepValue(),JsonFloatDecimals);
+                jsonDatPrm.set(StepValueKey,getStepValue());
             }
             else if (jsonMsgPrm[StepValueKey].is<long>())
             {
                 setStepValue(float(jsonMsgPrm.get<long>(StepValueKey)));
-                jsonDatPrm.set(StepValueKey,getStepValue(),JsonFloatDecimals);
+                jsonDatPrm.set(StepValueKey,getStepValue());
             }
             else
             {
@@ -406,12 +406,12 @@ namespace ps
             if (jsonMsgPrm[AmplitudeKey].is<float>())
             {
                 setAmplitude(jsonMsgPrm.get<float>(AmplitudeKey));
-                jsonDatPrm.set(AmplitudeKey,getAmplitude(),JsonFloatDecimals);
+                jsonDatPrm.set(AmplitudeKey,getAmplitude());
             }
             else if (jsonMsgPrm[AmplitudeKey].is<long>()) 
             {
                 setAmplitude(float(jsonMsgPrm.get<long>(AmplitudeKey)));
-                jsonDatPrm.set(AmplitudeKey,getAmplitude(),JsonFloatDecimals);
+                jsonDatPrm.set(AmplitudeKey,getAmplitude());
             }
             else
             {
@@ -429,12 +429,12 @@ namespace ps
             if (jsonMsgPrm[WindowKey].is<float>())
             {
                 setWindow(jsonMsgPrm.get<float>(WindowKey));
-                jsonDatPrm.set(WindowKey,getWindow(),JsonFloatDecimals);
+                jsonDatPrm.set(WindowKey,getWindow());
             }
             else if (jsonMsgPrm[WindowKey].is<long>()) 
             {
                 setWindow(float(jsonMsgPrm.get<long>(WindowKey)));
-                jsonDatPrm.set(WindowKey,getWindow(),JsonFloatDecimals);
+                jsonDatPrm.set(WindowKey,getWindow());
             }
             else
             {

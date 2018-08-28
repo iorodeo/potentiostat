@@ -132,7 +132,7 @@ namespace ps
     void BaseTest::getParam(JsonObject &jsonDat)
     {
         JsonObject &jsonDatPrm = jsonDat.createNestedObject(ParamKey);
-        jsonDatPrm.set(QuietValueKey, quietValue_, JsonFloatDecimals);
+        jsonDatPrm.set(QuietValueKey, quietValue_);
         jsonDatPrm.set(QuietTimeKey, convertUsToMs(quietTime_));
     }
 
@@ -186,12 +186,12 @@ namespace ps
             if (jsonMsgPrm[QuietValueKey].is<float>())
             {
                 setQuietValue(jsonMsgPrm.get<float>(QuietValueKey));
-                jsonDatPrm.set(QuietValueKey,getQuietValue(),JsonFloatDecimals);
+                jsonDatPrm.set(QuietValueKey,getQuietValue());
             }
             else if (jsonMsgPrm[QuietValueKey].is<long>())
             {
                 setQuietValue(float(jsonMsgPrm.get<long>(QuietValueKey)));
-                jsonDatPrm.set(QuietValueKey,getQuietValue(),JsonFloatDecimals);
+                jsonDatPrm.set(QuietValueKey,getQuietValue());
             }
             else
             {

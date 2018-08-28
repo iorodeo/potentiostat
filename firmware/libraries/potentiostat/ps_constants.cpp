@@ -4,11 +4,10 @@
 
 namespace ps
 { 
-    const String FirmwareVersion = String("0.0.4");
+    const String FirmwareVersion = String("0.0.5");
 
     // Serial parameters
     const uint32_t UsbSerialBaudrate = 115200;
-    const uint32_t JsonFloatDecimals = 5;
 
     // Device ID EEPROM address
     extern const uint32_t EEPROM_DeviceIdAddress = 0;

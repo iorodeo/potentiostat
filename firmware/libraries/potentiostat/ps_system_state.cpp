@@ -78,7 +78,7 @@ namespace ps
     {
         ReturnStatus status;
         float volt = analogSubsystem_.getVolt();
-        jsonDat.set(VoltKey,volt,JsonFloatDecimals);
+        jsonDat.set(VoltKey,volt);
         return status;
     }
 
@@ -112,7 +112,7 @@ namespace ps
 
         analogSubsystem_.setVolt(volt);
         volt = analogSubsystem_.getVolt();
-        jsonDat.set(VoltKey,volt,JsonFloatDecimals);
+        jsonDat.set(VoltKey,volt);
         return status;
     }
 
@@ -121,7 +121,7 @@ namespace ps
     {
         ReturnStatus status;
         float curr = analogSubsystem_.getCurr();
-        jsonDat.set(CurrKey,curr,JsonFloatDecimals);
+        jsonDat.set(CurrKey,curr);
         return status;
     }
 
@@ -130,7 +130,7 @@ namespace ps
     {
         ReturnStatus status;
         float refVolt = analogSubsystem_.getRefElectVolt();
-        jsonDat.set(RefVoltKey,refVolt,JsonFloatDecimals);
+        jsonDat.set(RefVoltKey,refVolt);
         return status;
     }
 

@@ -26,8 +26,8 @@ namespace ps
         StaticJsonBuffer<JsonMessageBufferSize> jsonBuffer;
         JsonObject &jsonSample = jsonBuffer.createObject();
         jsonSample.set(TimeKey, convertUsToMs(sample.t)); 
-        jsonSample.set(VoltKey, sample.volt,JsonFloatDecimals);
-        jsonSample.set(CurrKey, sample.curr,JsonFloatDecimals);
+        jsonSample.set(VoltKey, sample.volt);
+        jsonSample.set(CurrKey, sample.curr);
         jsonSample.printTo(Serial);
         Serial.println();
     }

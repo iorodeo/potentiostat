@@ -29,7 +29,6 @@ namespace ps
 
     // Serial parameters
     extern const uint32_t UsbSerialBaudrate;
-    extern const uint32_t JsonFloatDecimals;
 
     // Json message keys 
     extern const String CommandKey;
