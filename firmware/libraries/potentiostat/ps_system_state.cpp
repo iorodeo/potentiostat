@@ -45,6 +45,12 @@ namespace ps
         analogSubsystem_.initialize();
         analogSubsystem_.setVolt(0.0);
         messageReceiver_.reset();
+
+        Multiplexer multiplexer_;
+        multiplexer_.setupSwitchPins();
+        multiplexer_.connectCtrElect();
+        multiplexer_.connectRefElect();
+        multiplexer_.connectWrkElect(1);
     }
 
 

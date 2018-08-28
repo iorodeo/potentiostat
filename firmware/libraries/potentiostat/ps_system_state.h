@@ -13,6 +13,7 @@
 #include "ps_voltammetry.h"
 #include "ps_sample.h"
 #include "ps_filter.h"
+#include "ps_multiplexer.h"
 
 #include "third-party/ArduinoJson/ArduinoJson.h"
 
@@ -68,6 +69,7 @@ namespace ps
             volatile bool lastSampleFlag_;
 
             AnalogSubsystem analogSubsystem_;
+            Multiplexer multiplexer_;
 
             MessageReceiver messageReceiver_;
             MessageParser messageParser_;

@@ -98,12 +98,12 @@ namespace ps
         // Connects working electrode (electNum) to the transimpedance amplifier
         // using 'make-before-break' method 
         
-        if ((electNum > 0) && (electNum < NumMuxChan))
+        int index = electNumToIndex(electNum);
+
+        if ((index >= 0) && (index < NumMuxChan))
         {
             // Disconnect current mux chan (if any) from TIA 
             disconnectWrkElect();
-
-            int index = electNumToIndex(electNum);
 
             // Make connection between electNum mux chan and TIA 
             digitalWrite(MuxToTiaPin[index], HIGH);
@@ -120,10 +120,10 @@ namespace ps
         // Disconnected working electrode from transimpedance amplifier
         // using 'make-before-break' method.
         
-        if (currWrkElect_ != NotConnected) 
-        {
-            int index = electNumToIndex(currWrkElect_);
+        int index = electNumToIndex(currWrkElect_);
 
+        if ( (currWrkElect_ != NotConnected)  && (index >=0) && (index < NumMuxChan))
+        {
             // Make connection between electNum mux chan and ground
             digitalWrite(MuxToGndPin[index], HIGH);
 
