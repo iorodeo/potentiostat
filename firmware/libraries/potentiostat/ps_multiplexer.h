@@ -3,6 +3,7 @@
 
 #include "ps_pin_map.h"
 #include "ps_constants.h"
+#include "third-party/Array/Array.h"
 
 namespace ps
 {
@@ -35,13 +36,23 @@ namespace ps
             bool isConnectedCtr();
             bool isConnectedRef();
 
+            // TODO
+            // -------------------------------------------------------------------
+            bool isRunning();
+            void enableWrkElect(int electNum);
+            void disableWrkElect(int electNum);
+            void disableAllWrkElect();
+            Array<int,NumMuxChan> getEnabledWrkElect();
+            // -------------------------------------------------------------------
+
         protected:
 
+            bool running_ = false;
             int currWrkElect_ = NotConnected;
+            Array<int,NumMuxChan> enabledWrkElect_;
 
             void setAllChanToGnd();
             int electNumToIndex(int electNum);
-
     };
 
 }
