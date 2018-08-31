@@ -45,7 +45,9 @@ namespace ps
     // -------------------------------------------------------------------
 
     Multiplexer::Multiplexer() 
-    { }
+    { 
+        enableAllWrkElect();
+    }
 
 
     void Multiplexer::setupSwitchPins()
@@ -95,8 +97,8 @@ namespace ps
 
     void Multiplexer::connectWrkElect(int electNum)
     {
-        // Connects working electrode (electNum) to the transimpedance amplifier
-        // using 'make-before-break' method 
+        // Connects working electrode (electNum) to the transimpedance 
+        // amplifier using 'make-before-break' method 
         
         int index = electNumToIndex(electNum);
 
@@ -180,6 +182,116 @@ namespace ps
     }
 
 
+    void Multiplexer::connectFirstEnabledWrkElect()
+    {
+        if (numEnabledWrkElect() > 0)
+        {
+            currWrkElect_ = enabledWrkElectArray_[0];
+        }
+    }
+
+
+    void Multiplexer::connectNextEnabledWrkElect()   
+    {                                                
+    }
+
+
+    void Multiplexer::start()
+    {
+        running_ = true;
+    }
+
+
+    void Multiplexer::stop()
+    {
+        running_ = false;
+    }
+
+
+    bool Multiplexer::isRunning()
+    {
+        return running_;
+    }
+
+
+    void Multiplexer::enableWrkElect(int electNum)
+    {
+        if ((electNum <= 0) || (electNum > NumMuxChan))
+        {
+            return;
+        }
+
+        Array<int,NumMuxChan> newEnabledArray;
+        bool electAdded = false;
+
+        for (size_t i=0; i<enabledWrkElectArray_.size(); i++)
+        {
+            if ((electNum < enabledWrkElectArray_[i]) && !electAdded)
+            {
+                newEnabledArray.push_back(electNum);
+                electAdded = true;
+            }
+            newEnabledArray.push_back(enabledWrkElectArray_[i]);
+        }
+        if (!electAdded)
+        {
+            newEnabledArray.push_back(electNum);
+        }
+        enabledWrkElectArray_ = newEnabledArray;
+    }
+
+
+    void Multiplexer::disableWrkElect(int electNum)
+    {
+        if ((electNum <= 0) || (electNum > NumMuxChan))
+        {
+            return;
+        }
+
+        Array<int,NumMuxChan> newEnabledArray;
+        for (size_t i=0; i<enabledWrkElectArray_.size(); i++)
+        {
+            if (enabledWrkElectArray_[i] != electNum)
+            {
+                newEnabledArray.push_back(enabledWrkElectArray_[i]);
+            }
+        }
+    }
+
+    void Multiplexer::enableAllWrkElect()
+    {
+        for (int i=0; i<NumMuxChan; i++) 
+        {
+            int electNum = indexToElectNum(i);
+            enabledWrkElectArray_.push_back(electNum);
+        }
+    }
+
+
+    void Multiplexer::disableAllWrkElect()
+    {
+        enabledWrkElectArray_.clear();
+    }
+
+
+    void Multiplexer::setEnabledWrkElect(Array<int,NumMuxChan> enabledArray)
+    {
+        enabledWrkElectArray_ = enabledArray;
+    }
+
+
+    Array<int,NumMuxChan> Multiplexer::getEnabledWrkElect()
+    {
+        return enabledWrkElectArray_;
+    }
+
+    int Multiplexer::numEnabledWrkElect()
+    {
+        return enabledWrkElectArray_.size();
+    }
+
+
+
     // Protected methods
     // ------------------------------------------------------------------------
     
@@ -195,6 +307,11 @@ namespace ps
     int Multiplexer::electNumToIndex(int electNum)
     {
         return electNum - 1;
+    }
+
+    int Multiplexer::indexToElectNum(int index)
+    {
+        return index + 1;
     }
     
 }

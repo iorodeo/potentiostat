@@ -3,6 +3,7 @@
 
 #include "ps_pin_map.h"
 #include "ps_constants.h"
+#include "ps_return_status.h"
 #include "third-party/Array/Array.h"
 
 namespace ps
@@ -38,21 +39,36 @@ namespace ps
 
             // TODO
             // -------------------------------------------------------------------
+
+            void connectFirstEnabledWrkElect();
+            void connectNextEnabledWrkElect();   
+
+            void start();  
+            void stop();
             bool isRunning();
+
             void enableWrkElect(int electNum);
             void disableWrkElect(int electNum);
+
+            void enableAllWrkElect();
             void disableAllWrkElect();
+
+            void setEnabledWrkElect(Array<int,NumMuxChan> enabledArray);
             Array<int,NumMuxChan> getEnabledWrkElect();
+
+            int numEnabledWrkElect();
+
             // -------------------------------------------------------------------
 
         protected:
 
             bool running_ = false;
             int currWrkElect_ = NotConnected;
-            Array<int,NumMuxChan> enabledWrkElect_;
+            Array<int,NumMuxChan> enabledWrkElectArray_;
 
             void setAllChanToGnd();
             int electNumToIndex(int electNum);
+            int indexToElectNum(int index);
     };
 
 }
