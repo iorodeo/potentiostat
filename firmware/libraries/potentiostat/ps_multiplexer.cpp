@@ -182,6 +182,9 @@ namespace ps
     }
 
 
+    // TODO
+    // -------------------------------------------------------------------------
+
     void Multiplexer::connectFirstEnabledWrkElect()
     {
         if (numEnabledWrkElect() > 0)
@@ -289,6 +292,9 @@ namespace ps
     {
         return enabledWrkElectArray_.size();
     }
+
+
+    // ------------------------------------------------------------------------
 
 
 

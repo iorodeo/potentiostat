@@ -65,6 +65,7 @@ namespace ps
             bool running_ = false;
             int currWrkElect_ = NotConnected;
             Array<int,NumMuxChan> enabledWrkElectArray_;
+            //Array<int,NumMuxChan> wrkElectEnabledTable_;
 
             void setAllChanToGnd();
             int electNumToIndex(int electNum);
