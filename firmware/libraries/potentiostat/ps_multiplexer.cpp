@@ -46,7 +46,7 @@ namespace ps
 
     Multiplexer::Multiplexer() 
     { 
-        enableAllWrkElect();
+        initializeEnabledTable(true);
     }
 
 
@@ -187,9 +187,14 @@ namespace ps
 
     void Multiplexer::connectFirstEnabledWrkElect()
     {
-        if (numEnabledWrkElect() > 0)
+        currWrkElect_ = NotConnected; 
+        for (int i=0; i<NumMuxChan; i++) 
         {
-            currWrkElect_ = enabledWrkElectArray_[0];
+            if (enabledTable_[i])
+            {
+                currWrkElect_ = indexToElectNum(i);
+                break;
+            }
         }
     }
 
@@ -224,23 +229,8 @@ namespace ps
             return;
         }
 
-        Array<int,NumMuxChan> newEnabledArray;
-        bool electAdded = false;
-
-        for (size_t i=0; i<enabledWrkElectArray_.size(); i++)
-        {
-            if ((electNum < enabledWrkElectArray_[i]) && !electAdded)
-            {
-                newEnabledArray.push_back(electNum);
-                electAdded = true;
-            }
-            newEnabledArray.push_back(enabledWrkElectArray_[i]);
-        }
-        if (!electAdded)
-        {
-            newEnabledArray.push_back(electNum);
-        }
-        enabledWrkElectArray_ = newEnabledArray;
+        int electIndex = electNumToIndex(electNum);
+        enabledTable_[electIndex] = true;
     }
 
 
@@ -250,47 +240,68 @@ namespace ps
         {
             return;
         }
-
-        Array<int,NumMuxChan> newEnabledArray;
-        for (size_t i=0; i<enabledWrkElectArray_.size(); i++)
-        {
-            if (enabledWrkElectArray_[i] != electNum)
-            {
-                newEnabledArray.push_back(enabledWrkElectArray_[i]);
-            }
-        }
+        int electIndex = electNumToIndex(electNum);
+        enabledTable_[electIndex] = false;
     }
 
     void Multiplexer::enableAllWrkElect()
     {
         for (int i=0; i<NumMuxChan; i++) 
         {
-            int electNum = indexToElectNum(i);
-            enabledWrkElectArray_.push_back(electNum);
+            enabledTable_[i] = true;
         }
     }
 
 
     void Multiplexer::disableAllWrkElect()
     {
-        enabledWrkElectArray_.clear();
+        for (int i=0; i<NumMuxChan; i++)
+        {
+            enabledTable_[i] = false;
+        }
     }
 
 
     void Multiplexer::setEnabledWrkElect(Array<int,NumMuxChan> enabledArray)
     {
-        enabledWrkElectArray_ = enabledArray;
+        disableAllWrkElect();
+
+        for (int i=0; i<int(enabledArray.size()); i++)
+        {
+            int electIndex = electNumToIndex(enabledArray[i]);
+            if ((electIndex >= 0) && (electIndex < NumMuxChan))
+            {
+                enabledTable_[electIndex] = true;
+            }
+        }
     }
 
 
     Array<int,NumMuxChan> Multiplexer::getEnabledWrkElect()
     {
-        return enabledWrkElectArray_;
+        Array<int,NumMuxChan> enabledArray;
+        for (int i=0; i<NumMuxChan; i++)
+        {
+            if (enabledTable_[i])
+            {
+                int electNum = indexToElectNum(i);
+                enabledArray.push_back(electNum);
+            }
+        }
+        return enabledArray;
     }
 
     int Multiplexer::numEnabledWrkElect()
     {
-        return enabledWrkElectArray_.size();
+        int count = 0;
+        for (int i=0; i<NumMuxChan; i++)
+        {
+            if (enabledTable_[i])
+            {
+                count++;
+            }
+        }
+        return count;
     }
 
 
@@ -300,7 +311,15 @@ namespace ps
 
     // Protected methods
     // ------------------------------------------------------------------------
-    
+
+    void Multiplexer::initializeEnabledTable(bool value)
+    {
+        for (int i=0; i<NumMuxChan; i++)
+        {
+            enabledTable_.push_back(value);
+        }
+    }
+
     void Multiplexer::setAllChanToGnd()
     {
         for (int i=0; i<NumMuxChan; i++)

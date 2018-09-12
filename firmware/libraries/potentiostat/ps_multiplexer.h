@@ -64,12 +64,14 @@ namespace ps
 
             bool running_ = false;
             int currWrkElect_ = NotConnected;
-            Array<int,NumMuxChan> enabledWrkElectArray_;
-            //Array<int,NumMuxChan> wrkElectEnabledTable_;
+            Array<bool,NumMuxChan> enabledTable_;
 
             void setAllChanToGnd();
+            void initializeEnabledTable(bool value);
+
             int electNumToIndex(int electNum);
             int indexToElectNum(int index);
+
     };
 
 }
