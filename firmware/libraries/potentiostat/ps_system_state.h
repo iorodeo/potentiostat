@@ -54,6 +54,14 @@ namespace ps
             ReturnStatus onCommandGetVersion(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetVariant(JsonObject &jsonMsg, JsonObject &jsonDat);
 
+            // DEVELOP
+            // ----------------------------------------------------------------------------------
+            ReturnStatus onCommandEnableMux(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandDisableMux(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat);
+            // ----------------------------------------------------------------------------------
+
             void startTest();
             void stopTest();
 

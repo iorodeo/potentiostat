@@ -45,6 +45,8 @@ namespace ps
     const String VersionKey = String("version");
     const String VariantKey = String("variant");
 
+    const String MuxChannelKey = String("muxChannel");
+
     // Json command strings
     const String RunTestCmd = String("runTest");
     const String StopTestCmd = String("stopTest");
@@ -67,13 +69,10 @@ namespace ps
     const String GetVersionCmd = String("getVersion");
     const String GetVariantCmd = String("getVariant");
 
-    // TODO
-    // ---------------------------------------------------------------
     const String EnableMuxCmd = String("enableMux");
     const String DisableMuxCmd = String("disableMux");
     const String SetEnabledMuxChanCmd = String("setEnabledMuxChan");
     const String GetEnabledMuxChanCmd = String("getEnabledMuxChan");
-    // ----------------------------------------------------------------
 
     // Ranges for output voltage
     const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);

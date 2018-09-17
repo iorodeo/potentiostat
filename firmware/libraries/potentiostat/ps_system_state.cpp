@@ -21,35 +21,39 @@ namespace ps
     void SystemState::initialize()
     {
         commandTable_.setClient(this);
-        commandTable_.registerMethod(CommandKey,   RunTestCmd,          &SystemState::onCommandRunTest);
-        commandTable_.registerMethod(CommandKey,   StopTestCmd,         &SystemState::onCommandStopTest);
-        commandTable_.registerMethod(CommandKey,   GetVoltCmd,          &SystemState::onCommandGetVolt);
-        commandTable_.registerMethod(CommandKey,   SetVoltCmd,          &SystemState::onCommandSetVolt);
-        commandTable_.registerMethod(CommandKey,   GetCurrCmd,          &SystemState::onCommandGetCurr);
-        commandTable_.registerMethod(CommandKey,   GetRefVoltCmd,       &SystemState::onCommandGetRefVolt);
-        commandTable_.registerMethod(CommandKey,   SetParamCmd,         &SystemState::onCommandSetTestParam);
-        commandTable_.registerMethod(CommandKey,   GetParamCmd,         &SystemState::onCommandGetTestParam);
-        commandTable_.registerMethod(CommandKey,   SetVoltRangeCmd,     &SystemState::onCommandSetVoltRange);
-        commandTable_.registerMethod(CommandKey,   GetVoltRangeCmd,     &SystemState::onCommandGetVoltRange);
-        commandTable_.registerMethod(CommandKey,   SetCurrRangeCmd,     &SystemState::onCommandSetCurrRange);
-        commandTable_.registerMethod(CommandKey,   GetCurrRangeCmd,     &SystemState::onCommandGetCurrRange);
-        commandTable_.registerMethod(CommandKey,   SetDeviceIdCmd,      &SystemState::onCommandSetDeviceId);
-        commandTable_.registerMethod(CommandKey,   GetDeviceIdCmd,      &SystemState::onCommandGetDeviceId);
-        commandTable_.registerMethod(CommandKey,   SetSamplePeriodCmd,  &SystemState::onCommandSetSamplePeriod);
-        commandTable_.registerMethod(CommandKey,   GetSamplePeriodCmd,  &SystemState::onCommandGetSamplePeriod);
-        commandTable_.registerMethod(CommandKey,   GetTestDoneTimeCmd,  &SystemState::onCommandGetTestDoneTime);
-        commandTable_.registerMethod(CommandKey,   GetTestNamesCmd,     &SystemState::onCommandGetTestNames);
-        commandTable_.registerMethod(CommandKey,   GetVersionCmd,       &SystemState::onCommandGetVersion);
-        commandTable_.registerMethod(CommandKey,   GetVariantCmd,       &SystemState::onCommandGetVariant);
+        commandTable_.registerMethod(CommandKey,   RunTestCmd,            &SystemState::onCommandRunTest);
+        commandTable_.registerMethod(CommandKey,   StopTestCmd,           &SystemState::onCommandStopTest);
+        commandTable_.registerMethod(CommandKey,   GetVoltCmd,            &SystemState::onCommandGetVolt);
+        commandTable_.registerMethod(CommandKey,   SetVoltCmd,            &SystemState::onCommandSetVolt);
+        commandTable_.registerMethod(CommandKey,   GetCurrCmd,            &SystemState::onCommandGetCurr);
+        commandTable_.registerMethod(CommandKey,   GetRefVoltCmd,         &SystemState::onCommandGetRefVolt);
+        commandTable_.registerMethod(CommandKey,   SetParamCmd,           &SystemState::onCommandSetTestParam);
+        commandTable_.registerMethod(CommandKey,   GetParamCmd,           &SystemState::onCommandGetTestParam);
+        commandTable_.registerMethod(CommandKey,   SetVoltRangeCmd,       &SystemState::onCommandSetVoltRange);
+        commandTable_.registerMethod(CommandKey,   GetVoltRangeCmd,       &SystemState::onCommandGetVoltRange);
+        commandTable_.registerMethod(CommandKey,   SetCurrRangeCmd,       &SystemState::onCommandSetCurrRange);
+        commandTable_.registerMethod(CommandKey,   GetCurrRangeCmd,       &SystemState::onCommandGetCurrRange);
+        commandTable_.registerMethod(CommandKey,   SetDeviceIdCmd,        &SystemState::onCommandSetDeviceId);
+        commandTable_.registerMethod(CommandKey,   GetDeviceIdCmd,        &SystemState::onCommandGetDeviceId);
+        commandTable_.registerMethod(CommandKey,   SetSamplePeriodCmd,    &SystemState::onCommandSetSamplePeriod);
+        commandTable_.registerMethod(CommandKey,   GetSamplePeriodCmd,    &SystemState::onCommandGetSamplePeriod);
+        commandTable_.registerMethod(CommandKey,   GetTestDoneTimeCmd,    &SystemState::onCommandGetTestDoneTime);
+        commandTable_.registerMethod(CommandKey,   GetTestNamesCmd,       &SystemState::onCommandGetTestNames);
+        commandTable_.registerMethod(CommandKey,   GetVersionCmd,         &SystemState::onCommandGetVersion);
+        commandTable_.registerMethod(CommandKey,   GetVariantCmd,         &SystemState::onCommandGetVariant);
+
+        // DEVELOP
+        // ---------------------------------------------------------------------------------------------------------
+        commandTable_.registerMethod(CommandKey,   EnableMuxCmd,          &SystemState::onCommandEnableMux);
+        commandTable_.registerMethod(CommandKey,   DisableMuxCmd,         &SystemState::onCommandDisableMux);
+        commandTable_.registerMethod(CommandKey,   SetEnabledMuxChanCmd,  &SystemState::onCommandSetEnabledMuxChan);
+        commandTable_.registerMethod(CommandKey,   GetEnabledMuxChanCmd,  &SystemState::onCommandGetEnabledMuxChan);
+        // ----------------------------------------------------------------------------------------------------------
 
         analogSubsystem_.initialize();
         analogSubsystem_.setVolt(0.0);
         messageReceiver_.reset();
 
-        multiplexer_.setupSwitchPins();
-        multiplexer_.connectCtrElect();
-        multiplexer_.connectRefElect();
-        multiplexer_.connectFirstEnabledWrkElect();
     }
 
 
@@ -296,6 +300,64 @@ namespace ps
         jsonDat.set(VariantKey,HardwareVariant);
         return status;
     }
+
+    // Develop
+    // ------------------------------------------------------------------------------------------
+    ReturnStatus SystemState::onCommandEnableMux(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        multiplexer_.setupSwitchPins();
+        multiplexer_.connectCtrElect();
+        multiplexer_.connectRefElect();
+        multiplexer_.connectFirstEnabledWrkElect();
+        if (multiplexer_.numEnabledWrkElect() == 0)
+        {
+            status.success = false;
+            status.message = String("no working electrode channels are enabled");
+            multiplexer_.stop();
+        }
+        else
+        {
+            multiplexer_.start();
+        }
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandDisableMux(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        multiplexer_.stop();
+        multiplexer_.disconnectWrkElect();
+        multiplexer_.disconnectRefElect();
+        multiplexer_.disconnectCtrElect();
+        multiplexer_.clearSwitchPins();
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandSetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(MuxChannelKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + MuxChannelKey;
+        }
+        else
+        {
+            // ---------------------
+            // TODO
+            // ---------------------
+
+        }
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandGetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        return status;
+    }
+    // ------------------------------------------------------------------------------------------
 
 
     void SystemState::updateMessageData()
