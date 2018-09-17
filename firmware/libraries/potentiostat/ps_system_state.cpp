@@ -341,20 +341,43 @@ namespace ps
         {
             status.success = false;
             status.message = String("json does not contain key: ") + MuxChannelKey;
+            return status;
         }
-        else
+        if (!jsonMsg[MuxChannelKey].is<JsonArray&>()) 
         {
-            // ---------------------
-            // TODO
-            // ---------------------
-
+            status.success = false;
+            status.message = MuxChannelKey + String(" not a JsonArray");
+            return status;
         }
+
+        JsonArray &jsonMuxChannelArray = jsonMsg[MuxChannelKey];
+        if (jsonMuxChannelArray.size() > NumMuxChan)
+        {
+            status.success = false;
+            status.message = MuxChannelKey + String(" array too large");
+            return status;
+        }
+
+        Array<int,NumMuxChan> enabledWrkElect;
+        for (size_t i=0; i<jsonMuxChannelArray.size(); i++)
+        {
+            // -------------------------------------------------
+            // TODO
+            // -------------------------------------------------
+        }
+
         return status;
     }
 
     ReturnStatus SystemState::onCommandGetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+        Array<int,NumMuxChan> enabledWrkElect = multiplexer_.getEnabledWrkElect();
+        JsonArray &jsonEnabledArray = jsonDat.createNestedArray(MuxChannelKey);
+        for (size_t i=0; i<enabledWrkElect.size(); i++)
+        {
+            jsonEnabledArray.add(enabledWrkElect[i]);
+        }
         return status;
     }
     // ------------------------------------------------------------------------------------------
