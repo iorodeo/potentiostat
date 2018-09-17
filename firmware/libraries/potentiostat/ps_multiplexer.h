@@ -37,9 +37,6 @@ namespace ps
             bool isConnectedCtr();
             bool isConnectedRef();
 
-            // TODO
-            // -------------------------------------------------------------------
-
             void connectFirstEnabledWrkElect();
             void connectNextEnabledWrkElect();   
 
@@ -57,8 +54,6 @@ namespace ps
             Array<int,NumMuxChan> getEnabledWrkElect();
 
             int numEnabledWrkElect();
-
-            // -------------------------------------------------------------------
 
         protected:
 

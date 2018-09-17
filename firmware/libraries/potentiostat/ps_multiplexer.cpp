@@ -182,9 +182,6 @@ namespace ps
     }
 
 
-    // TODO
-    // -------------------------------------------------------------------------
-
     void Multiplexer::connectFirstEnabledWrkElect()
     {
         currWrkElect_ = NotConnected; 
@@ -193,6 +190,7 @@ namespace ps
             if (enabledTable_[i])
             {
                 currWrkElect_ = indexToElectNum(i);
+                connectWrkElect(currWrkElect_);
                 break;
             }
         }
@@ -201,6 +199,17 @@ namespace ps
 
     void Multiplexer::connectNextEnabledWrkElect()   
     {                                                
+        int startIndex = (electNumToIndex(currWrkElect_) + 1) % NumMuxChan; 
+        for (int i=0; i<NumMuxChan; i++)
+        {
+            int nextIndex = (startIndex  + i) % NumMuxChan;
+            if (enabledTable_[nextIndex])
+            {
+                currWrkElect_ = indexToElectNum(nextIndex);
+                connectWrkElect(currWrkElect_);
+                break;
+            }
+        }
     }
 
 
@@ -224,24 +233,21 @@ namespace ps
 
     void Multiplexer::enableWrkElect(int electNum)
     {
-        if ((electNum <= 0) || (electNum > NumMuxChan))
+        if ((electNum > 0) && (electNum <= NumMuxChan))
         {
-            return;
+            int electIndex = electNumToIndex(electNum);
+            enabledTable_[electIndex] = true;
         }
-
-        int electIndex = electNumToIndex(electNum);
-        enabledTable_[electIndex] = true;
     }
 
 
     void Multiplexer::disableWrkElect(int electNum)
     {
-        if ((electNum <= 0) || (electNum > NumMuxChan))
+        if ((electNum > 0) && (electNum <= NumMuxChan))
         {
-            return;
+            int electIndex = electNumToIndex(electNum);
+            enabledTable_[electIndex] = false;
         }
-        int electIndex = electNumToIndex(electNum);
-        enabledTable_[electIndex] = false;
     }
 
     void Multiplexer::enableAllWrkElect()
@@ -303,10 +309,6 @@ namespace ps
         }
         return count;
     }
-
-
-    // ------------------------------------------------------------------------
-
 
 
     // Protected methods
