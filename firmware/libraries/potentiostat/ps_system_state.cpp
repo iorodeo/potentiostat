@@ -41,14 +41,10 @@ namespace ps
         commandTable_.registerMethod(CommandKey,   GetTestNamesCmd,       &SystemState::onCommandGetTestNames);
         commandTable_.registerMethod(CommandKey,   GetVersionCmd,         &SystemState::onCommandGetVersion);
         commandTable_.registerMethod(CommandKey,   GetVariantCmd,         &SystemState::onCommandGetVariant);
-
-        // DEVELOP
-        // ---------------------------------------------------------------------------------------------------------
         commandTable_.registerMethod(CommandKey,   EnableMuxCmd,          &SystemState::onCommandEnableMux);
         commandTable_.registerMethod(CommandKey,   DisableMuxCmd,         &SystemState::onCommandDisableMux);
         commandTable_.registerMethod(CommandKey,   SetEnabledMuxChanCmd,  &SystemState::onCommandSetEnabledMuxChan);
         commandTable_.registerMethod(CommandKey,   GetEnabledMuxChanCmd,  &SystemState::onCommandGetEnabledMuxChan);
-        // ----------------------------------------------------------------------------------------------------------
 
         analogSubsystem_.initialize();
         analogSubsystem_.setVolt(0.0);
@@ -337,6 +333,8 @@ namespace ps
     ReturnStatus SystemState::onCommandSetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+        status.success = true;
+
         if (!jsonMsg.containsKey(MuxChannelKey))
         {
             status.success = false;
@@ -361,11 +359,32 @@ namespace ps
         Array<int,NumMuxChan> enabledWrkElect;
         for (size_t i=0; i<jsonMuxChannelArray.size(); i++)
         {
-            // -------------------------------------------------
-            // TODO
-            // -------------------------------------------------
+            if (jsonMuxChannelArray[i].is<int>())
+            {
+                int channel = jsonMuxChannelArray.get<int>(i);
+                if ((channel > 0) && (channel <= NumMuxChan))
+                {
+                    enabledWrkElect.push_back(channel);
+                }
+                else
+                {
+                    status.success = false;
+                    status.message = MuxChannelKey + String(" element out of range");
+                    break;
+                }
+            }
+            else
+            {
+                status.success = false;
+                status.message = MuxChannelKey + String(" element not an int");
+                break;
+            }
         }
 
+        if (status.success)
+        {
+            multiplexer_.setEnabledWrkElect(enabledWrkElect);
+        }
         return status;
     }
 

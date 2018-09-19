@@ -59,6 +59,8 @@ namespace ps
 
             bool running_ = false;
             int currWrkElect_ = NotConnected;
+
+            int numEnabled_ = 0;
             Array<bool,NumMuxChan> enabledTable_;
 
             void setAllChanToGnd();
@@ -66,6 +68,7 @@ namespace ps
 
             int electNumToIndex(int electNum);
             int indexToElectNum(int index);
+            int countNumEnabled();
 
     };
 

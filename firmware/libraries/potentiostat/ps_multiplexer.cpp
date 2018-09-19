@@ -238,6 +238,7 @@ namespace ps
             int electIndex = electNumToIndex(electNum);
             enabledTable_[electIndex] = true;
         }
+        numEnabled_ = countNumEnabled();
     }
 
 
@@ -248,6 +249,7 @@ namespace ps
             int electIndex = electNumToIndex(electNum);
             enabledTable_[electIndex] = false;
         }
+        numEnabled_ = countNumEnabled();
     }
 
     void Multiplexer::enableAllWrkElect()
@@ -256,6 +258,7 @@ namespace ps
         {
             enabledTable_[i] = true;
         }
+        numEnabled_ = NumMuxChan;
     }
 
 
@@ -265,6 +268,7 @@ namespace ps
         {
             enabledTable_[i] = false;
         }
+        numEnabled_ = 0;
     }
 
 
@@ -280,6 +284,7 @@ namespace ps
                 enabledTable_[electIndex] = true;
             }
         }
+        numEnabled_ = countNumEnabled();
     }
 
 
@@ -299,15 +304,7 @@ namespace ps
 
     int Multiplexer::numEnabledWrkElect()
     {
-        int count = 0;
-        for (int i=0; i<NumMuxChan; i++)
-        {
-            if (enabledTable_[i])
-            {
-                count++;
-            }
-        }
-        return count;
+        return numEnabled_;
     }
 
 
@@ -320,6 +317,7 @@ namespace ps
         {
             enabledTable_.push_back(value);
         }
+        numEnabled_ = countNumEnabled();
     }
 
     void Multiplexer::setAllChanToGnd()
@@ -339,6 +337,19 @@ namespace ps
     int Multiplexer::indexToElectNum(int index)
     {
         return index + 1;
+    }
+
+    int Multiplexer::countNumEnabled()
+    {
+        int count = 0;
+        for (int i=0; i<NumMuxChan; i++)
+        {
+            if (enabledTable_[i])
+            {
+                count++;
+            }
+        }
+        return count;
     }
     
 }
