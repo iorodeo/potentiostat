@@ -275,7 +275,7 @@ export default {
     },
 
     onSerialPortGetVersionRsp(rspJson) {
-      let rspObj = JSON.parse(rspJson);
+      let rspObj = this.convertDataToObject(rspJson);
       if (rspObj.success) {
         this.$store.commit('setDeviceFirmwareVersion', rspObj.response.version);
       } else {
@@ -286,7 +286,7 @@ export default {
     },
 
     onSerialPortGetVariantRsp(rspJson) {
-      let rspObj = JSON.parse(rspJson);
+      let rspObj = this.convertDataToObject(rspJson);
       if (rspObj.success) {
         this.$store.commit('setDeviceHardwareVariant', rspObj.response.variant);
       }
@@ -297,8 +297,6 @@ export default {
 
     onSerialPortSetCurrRangeRsp(rspJson) {
       // Response from step one when running a test
-      //console.log('onSerialPortSetCurrRangeRsp');
-      //console.log(rspJson);
       let samplePeriod = 1000.0/this.convertedTestParamVals.sampleRate;
       let command = JSON.stringify({
         command: 'setSamplePeriod', 
@@ -309,24 +307,17 @@ export default {
 
     onSerialPortSetSamplePeriodRsp(rspJson) {
       // Response from step two when running a test
-      //console.log('onSerialPortSetSamplePeriodRsp');
-      //console.log(rspJson);
       let {sampleRate, currRange, ...paramVals} = this.convertedTestParamVals;
-      
       let command = JSON.stringify({ 
         command: 'setParam', 
         test: this.currentTest, 
         param: paramVals
       });
-
-      //console.log('command: ' + command);
       this.serialBridge.writeReadLine('setParam', command);
     },
 
     onSerialPortSetParamRsp(rspJson) {
       // Response from step three when running a test
-      //console.log('onSerialPortSetParamRsp');
-      //console.log(rspJson);
       let command = JSON.stringify({
         command: 'getTestDoneTime',
         test: this.currentTest,
@@ -336,11 +327,8 @@ export default {
 
     onSerialPortGetTestDoneTime(rspJson) {
       // Response from step four when running a test
-      //console.log('onSerialPortGetTestDoneTime');
-      //console.log(rspJson);
-      let rspObj = JSON.parse(rspJson);
+      let rspObj = this.convertDataToObject(rspJson);
       this.$store.commit('setTestDoneTime', 1.0e-3*rspObj.response.testDoneTime);
-
       let command = JSON.stringify({
         command: 'runTest',
         test: this.currentTest,
@@ -355,7 +343,7 @@ export default {
     }, 
 
     onSerialPortNewTestData(newDataJson) {
-      let newData = JSON.parse(newDataJson);
+      let newData = this.convertDataToObject(newDataJson);
       if (!_.isEmpty(newData)) {
         newData.t = 1.0e-3*newData.t
         this.$store.commit('appendData',newData);
@@ -379,6 +367,16 @@ export default {
 
     closeSerialPort() {
       this.serialBridge.close();
+    },
+
+    convertDataToObject(data) {
+      let dataObj = null;
+      if (typeof(data) === 'object') {
+        dataObj = data;
+      } else {
+        dataObj = JSON.parse(data);
+      }
+      return dataObj;
     },
 
   },
