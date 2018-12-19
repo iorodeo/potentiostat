@@ -47,7 +47,7 @@ $Descr User 17000 16500
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "7 jan 2017"
+Date "19 dec 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -146,13 +146,13 @@ DAC_GAIN_A0
 Text Label 2975 8050 2    60   ~ 0
 DAC_GAIN_A1
 Text Label 2975 7850 2    60   ~ 0
--15V
+-12V
 Text Label 4375 7850 0    60   ~ 0
-+15V
++12V
 Text Label 4250 1150 0    60   ~ 0
 GND
 Text Label 4375 8050 0    60   ~ 0
--15V
+-12V
 Text Label 4375 7950 0    60   ~ 0
 DAC_BIP_NX
 Text Label 2975 7750 2    60   ~ 0
@@ -210,11 +210,11 @@ $EndComp
 Text Label 900  5300 1    60   ~ 0
 AGND
 Text Label 900  6300 3    60   ~ 0
--15V
+-12V
 Text Label 1625 6300 3    60   ~ 0
 AGND
 Text Label 1625 5300 1    60   ~ 0
-+15V
++12V
 Text Notes 550  6950 0    60   ~ 0
 Scale bipolar DAC (DAC_BIP) by gain N=1,2,5, or 10 to get DAC_BIP_NX. Gain is selected using 
 Text Notes 550  7100 0    60   ~ 0
@@ -231,9 +231,9 @@ F 3 "~" H 3350 5700 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 2650 5800 2    60   ~ 0
--15V
+-12V
 Text Label 4350 5800 0    60   ~ 0
-+15V
++12V
 Text Label 2650 5900 2    60   ~ 0
 AGND
 Text Label 2650 5500 2    60   ~ 0
@@ -289,11 +289,11 @@ $EndComp
 Text Label 11575 7425 1    60   ~ 0
 AGND
 Text Label 11575 8425 3    60   ~ 0
--15V
+-12V
 Text Label 12300 8425 3    60   ~ 0
 AGND
 Text Label 12300 7425 1    60   ~ 0
-+15V
++12V
 Text Notes 550  4950 0    60   ~ 0
 Amplifier Gain=1.67
 $Comp
@@ -310,15 +310,15 @@ $EndComp
 Text Label 8200 15125 0    60   ~ 0
 GND
 Text Label 8200 15025 0    60   ~ 0
--15V
+-12V
 Text Label 8200 15225 0    60   ~ 0
-+15V
++12V
 Text Label 1800 3650 2    60   ~ 0
 5V
 Text Label 8200 14725 0    60   ~ 0
 5V
 Text Notes 7000 14150 0    60   ~ 0
-+/- 15V Supply for OPAMPs
++/- 12V Supply for OPAMPs
 $Comp
 L OPA129 U8
 U 1 1 5736D1BA
@@ -556,9 +556,9 @@ Wire Wire Line
 Wire Wire Line
 	9950 8100 10250 8100
 Text Label 10250 7900 0    60   ~ 0
-+15V
++12V
 Text Label 10250 8100 0    60   ~ 0
--15V
+-12V
 Text Notes 6500 6950 0    60   ~ 0
 Uniy Gain Buffer for Reference Electrode 
 $Comp
@@ -608,11 +608,11 @@ $EndComp
 Text Label 925  7525 1    60   ~ 0
 AGND
 Text Label 925  8525 3    60   ~ 0
--15V
+-12V
 Text Label 1650 8525 3    60   ~ 0
 AGND
 Text Label 1650 7525 1    60   ~ 0
-+15V
++12V
 Wire Wire Line
 	1075 8325 1075 8225
 Wire Wire Line
@@ -702,11 +702,11 @@ Wire Wire Line
 Wire Wire Line
 	9900 10500 9700 10500
 Text Label 9700 10500 2    60   ~ 0
--15V
+-12V
 Wire Wire Line
 	10800 10300 11000 10300
 Text Label 11000 10300 0    60   ~ 0
-+15V
++12V
 Text Label 11000 10400 0    60   ~ 0
 CTR_ELECT
 NoConn ~ 10800 10500
@@ -759,11 +759,11 @@ $EndComp
 Text Label 12225 9825 1    60   ~ 0
 AGND
 Text Label 12225 10825 3    60   ~ 0
--15V
+-12V
 Text Label 12950 10825 3    60   ~ 0
 AGND
 Text Label 12950 9825 1    60   ~ 0
-+15V
++12V
 Wire Wire Line
 	12375 10625 12375 10525
 Wire Wire Line
@@ -824,9 +824,9 @@ CTR_ELECT
 Text Label 1950 15400 2    60   ~ 0
 WRK_ELECT
 Text Label 11050 4450 0    60   ~ 0
--15V
+-12V
 Text Label 11050 4350 0    60   ~ 0
-+15V
++12V
 Text Label 11050 4550 0    60   ~ 0
 AGND
 Text Label 12200 4350 2    60   ~ 0
@@ -852,9 +852,9 @@ Wire Wire Line
 Wire Wire Line
 	8450 4300 8650 4300
 Text Label 8650 4100 0    60   ~ 0
-+15V
++12V
 Text Label 8650 4300 0    60   ~ 0
--15V
+-12V
 Wire Wire Line
 	7350 1550 7350 4100
 $Comp
@@ -1087,9 +1087,9 @@ Wire Wire Line
 Wire Wire Line
 	11450 1550 9650 1550
 Text Label 13600 4450 0    60   ~ 0
--15V
+-12V
 Text Label 13600 4350 0    60   ~ 0
-+15V
++12V
 Text Label 13600 4550 0    60   ~ 0
 AGND
 Wire Wire Line
@@ -1298,9 +1298,9 @@ F 3 "~" H 12750 2850 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 12250 2950 2    60   ~ 0
--15V
+-12V
 Text Label 13650 2950 0    60   ~ 0
-+15V
++12V
 Text Label 12250 2650 2    60   ~ 0
 REF_0V6
 Wire Wire Line
@@ -1403,11 +1403,11 @@ $EndComp
 Text Label 12550 900  1    60   ~ 0
 AGND
 Text Label 12550 1900 3    60   ~ 0
--15V
+-12V
 Text Label 13275 1900 3    60   ~ 0
 AGND
 Text Label 13275 900  1    60   ~ 0
-+15V
++12V
 Wire Wire Line
 	12700 1700 12700 1600
 Wire Wire Line
@@ -1491,11 +1491,11 @@ $EndComp
 Text Label 7625 5325 1    60   ~ 0
 AGND
 Text Label 7625 6325 3    60   ~ 0
--15V
+-12V
 Text Label 8350 6325 3    60   ~ 0
 AGND
 Text Label 8350 5325 1    60   ~ 0
-+15V
++12V
 Wire Wire Line
 	7775 6125 7775 6025
 Wire Wire Line
@@ -1565,9 +1565,9 @@ Wire Wire Line
 Text Label 10150 5350 1    60   ~ 0
 AGND
 Text Label 10150 6200 3    60   ~ 0
--15V
+-12V
 Text Label 10500 5350 1    60   ~ 0
-+15V
++12V
 Text Label 10500 6200 3    60   ~ 0
 AGND
 $Comp
@@ -1603,9 +1603,9 @@ Wire Wire Line
 Text Label 12750 5400 1    60   ~ 0
 AGND
 Text Label 12750 6250 3    60   ~ 0
--15V
+-12V
 Text Label 13100 5400 1    60   ~ 0
-+15V
++12V
 Text Label 13100 6250 3    60   ~ 0
 AGND
 $Comp
@@ -1816,7 +1816,7 @@ Wire Wire Line
 	9250 14850 9250 14750
 Connection ~ 9050 14850
 Text Label 8800 14850 2    60   ~ 0
--15V
+-12V
 $Comp
 L CONN_2 P12
 U 1 1 57EC2AC0
@@ -1836,9 +1836,9 @@ Wire Wire Line
 	9250 15600 9250 15500
 Connection ~ 9050 15600
 Text Label 8800 15600 2    60   ~ 0
-+15V
++12V
 Text Notes 8100 15850 0    60   ~ 0
-+/- 15V supply test points
++/- 12V supply test points
 $Comp
 L CONN_2 P19
 U 1 1 57EC3038
@@ -1961,7 +1961,7 @@ NoConn ~ 3850 12750
 Text Notes 600  11650 0    60   ~ 0
 10V Reference voltage. 
 Text Label 2750 12550 2    60   ~ 0
-+15V
++12V
 Text Label 2750 12750 2    60   ~ 0
 GND
 Text Label 4050 12650 0    60   ~ 0
@@ -2127,9 +2127,9 @@ Wire Wire Line
 Wire Wire Line
 	7450 12450 7450 12200
 Text Label 7050 12200 1    60   ~ 0
-+15V
++12V
 Text Label 7450 12200 1    60   ~ 0
--15V
+-12V
 $Comp
 L R R4
 U 1 1 57ED96F5
@@ -2182,9 +2182,9 @@ Wire Wire Line
 Wire Wire Line
 	11650 12750 11900 12750
 Text Label 11900 12750 0    60   ~ 0
-+15V
++12V
 Text Label 10400 12950 2    60   ~ 0
--15V
+-12V
 Wire Wire Line
 	10050 12650 10050 13050
 Connection ~ 10050 12850
@@ -2252,7 +2252,7 @@ Wire Wire Line
 Text Label 1900 13050 3    60   ~ 0
 GND
 Text Label 1900 12150 1    60   ~ 0
-+15V
++12V
 $Comp
 L CONN_2 P1
 U 1 1 57EDDD81

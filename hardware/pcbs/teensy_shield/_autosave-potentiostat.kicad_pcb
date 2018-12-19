@@ -83,7 +83,7 @@
       (mirror false)
       (drillshape 0)
       (scaleselection 1)
-      (outputdirectory gerber_v0p1_r2/))
+      (outputdirectory gerber_v0p1_r3/))
   )
 
   (net 0 "")

@@ -47,7 +47,7 @@ $Descr User 17000 16500
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "3 jan 2017"
+Date "7 jan 2017"
 Rev ""
 Comp ""
 Comment1 ""
@@ -2554,8 +2554,6 @@ Text Label 4150 15150 2    60   ~ 0
 WRK_ELECT
 Text Notes 11150 4900 0    60   ~ 0
 Use ADG441
-Entry Wire Line
-	2900 8300 3000 8400
 $Comp
 L C C39
 U 1 1 585C345D
