@@ -305,6 +305,7 @@
     (at 163.195 92.075 180)
     (tags SOT23)
     (path /573A0A9F)
+    (attr smd)
     (fp_text reference D2 (at -2.413 -0.254 180) (layer F.SilkS)
       (effects (font (size 0.635 0.635) (thickness 0.127)))
     )
