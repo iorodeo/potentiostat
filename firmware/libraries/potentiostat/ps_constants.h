@@ -62,6 +62,7 @@ namespace ps
     extern const String TestNameArrayKey;
     extern const String VersionKey;
     extern const String VariantKey;
+    extern const String MuxEnabledKey;
     extern const String MuxChannelKey;
 
     // Json command strings
@@ -85,8 +86,8 @@ namespace ps
     extern const String GetTestNamesCmd;
     extern const String GetVersionCmd;
     extern const String GetVariantCmd;
-    extern const String EnableMuxCmd;
-    extern const String DisableMuxCmd;
+    extern const String SetMuxEnabledCmd;
+    extern const String GetMuxEnabledCmd;
     extern const String SetEnabledMuxChanCmd;
     extern const String GetEnabledMuxChanCmd;
 

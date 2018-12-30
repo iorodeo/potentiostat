@@ -44,6 +44,7 @@ namespace ps
     const String TestNameArrayKey = String("testNames");
     const String VersionKey = String("version");
     const String VariantKey = String("variant");
+    const String MuxEnabledKey = String("muxEnabled");
     const String MuxChannelKey = String("muxChannels");
 
     // Json command strings
@@ -67,8 +68,8 @@ namespace ps
     const String GetTestNamesCmd = String("getTestNames");
     const String GetVersionCmd = String("getVersion");
     const String GetVariantCmd = String("getVariant");
-    const String EnableMuxCmd = String("enableMux");
-    const String DisableMuxCmd = String("disableMux");
+    const String SetMuxEnabledCmd = String("setMuxEnabled");
+    const String GetMuxEnabledCmd = String("getMuxEnabled");
     const String SetEnabledMuxChanCmd = String("setEnabledMuxChannels");
     const String GetEnabledMuxChanCmd = String("getEnabledMuxChannels");
 

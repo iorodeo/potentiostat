@@ -26,13 +26,13 @@ namespace ps
 
             BaseTest *getTest(String name);
             ReturnStatus getTest(JsonObject &jsonMsg, JsonObject &jsonDat, BaseTest* &testPtr);
-
             ReturnStatus getParam(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus getTestDoneTime(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus getTestNames(JsonObject &jsonMsg, JsonObject &jsonDat);
 
             void setSamplePeriod(uint64_t samplePeriod);
+            bool isTestMuxCompatible(String name);
 
             BaseTest baseTest;
             CyclicTest cyclicTest;

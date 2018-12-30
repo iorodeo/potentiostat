@@ -41,8 +41,8 @@ namespace ps
         commandTable_.registerMethod(CommandKey,   GetTestNamesCmd,       &SystemState::onCommandGetTestNames);
         commandTable_.registerMethod(CommandKey,   GetVersionCmd,         &SystemState::onCommandGetVersion);
         commandTable_.registerMethod(CommandKey,   GetVariantCmd,         &SystemState::onCommandGetVariant);
-        commandTable_.registerMethod(CommandKey,   EnableMuxCmd,          &SystemState::onCommandEnableMux);
-        commandTable_.registerMethod(CommandKey,   DisableMuxCmd,         &SystemState::onCommandDisableMux);
+        commandTable_.registerMethod(CommandKey,   SetMuxEnabledCmd,      &SystemState::onCommandSetMuxEnabled);
+        commandTable_.registerMethod(CommandKey,   GetMuxEnabledCmd,      &SystemState::onCommandGetMuxEnabled);
         commandTable_.registerMethod(CommandKey,   SetEnabledMuxChanCmd,  &SystemState::onCommandSetEnabledMuxChan);
         commandTable_.registerMethod(CommandKey,   GetEnabledMuxChanCmd,  &SystemState::onCommandGetEnabledMuxChan);
 
@@ -57,6 +57,31 @@ namespace ps
     {
         ReturnStatus status;
         status = voltammetry_.getTest(jsonMsg,jsonDat,test_);
+
+        if (multiplexer_.isRunning())
+        {
+            // -------------------------------------------------------------------------------------
+            // TODO
+            // -------------------------------------------------------------------------------------
+            // Make sure test is compatible with multiplexer 
+            //
+            // check via voltammetry_.isTestMuxCompatible (note test must be non null)
+            // -------------------------------------------------------------------------------------
+            
+            // Make sure at least one mux channel is enabled
+            if (multiplexer_.numEnabledWrkElect() <= 0)
+            {
+                status.success = false;
+                status.message = String("mux running, but no enabled working electrode channels");
+                return status;
+            }
+            else
+            {
+                multiplexer_.connectCtrElect();
+                multiplexer_.connectRefElect();
+                multiplexer_.connectFirstEnabledWrkElect();
+            }
+        }
 
         if ((status.success) && (test_ != nullptr))
         {
@@ -299,34 +324,44 @@ namespace ps
 
     // Develop
     // ------------------------------------------------------------------------------------------
-    ReturnStatus SystemState::onCommandEnableMux(JsonObject &jsonMsg, JsonObject &jsonDat)
+
+    ReturnStatus SystemState::onCommandSetMuxEnabled(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-        multiplexer_.setupSwitchPins();
-        multiplexer_.connectCtrElect();
-        multiplexer_.connectRefElect();
-        multiplexer_.connectFirstEnabledWrkElect();
-        if (multiplexer_.numEnabledWrkElect() == 0)
+        if (!jsonMsg.containsKey(MuxEnabledKey))
         {
             status.success = false;
-            status.message = String("no working electrode channels are enabled");
-            multiplexer_.stop();
+            status.message = String("json does not contain key: ") + MuxEnabledKey;
+            return status;
+        }
+
+        if ( !(jsonMsg[MuxEnabledKey].is<bool>()) )
+        {
+            status.success = false;
+            status.message = String("unable to convert muxEnabled to bool");
+            return status;
+        }
+
+        if (jsonMsg.get<bool>(MuxEnabledKey))
+        {
+            multiplexer_.setupSwitchPins();
+            multiplexer_.start();
         }
         else
         {
-            multiplexer_.start();
+            multiplexer_.stop();
+            multiplexer_.disconnectWrkElect();
+            multiplexer_.disconnectRefElect();
+            multiplexer_.disconnectCtrElect();
+            multiplexer_.clearSwitchPins();
         }
         return status;
     }
 
-    ReturnStatus SystemState::onCommandDisableMux(JsonObject &jsonMsg, JsonObject &jsonDat)
+    ReturnStatus SystemState::onCommandGetMuxEnabled(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-        multiplexer_.stop();
-        multiplexer_.disconnectWrkElect();
-        multiplexer_.disconnectRefElect();
-        multiplexer_.disconnectCtrElect();
-        multiplexer_.clearSwitchPins();
+        jsonDat.set(MuxEnabledKey,multiplexer_.isRunning());
         return status;
     }
 
@@ -550,6 +585,13 @@ namespace ps
         testInProgress_ = false;
         lastSampleFlag_ = true;
         analogSubsystem_.setVolt(0.0);
+
+        if (multiplexer_.isRunning())
+        {
+            multiplexer_.disconnectWrkElect();
+            multiplexer_.disconnectRefElect();
+            multiplexer_.disconnectCtrElect();
+        }
     }
 
 

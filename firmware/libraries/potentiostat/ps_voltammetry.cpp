@@ -159,4 +159,26 @@ namespace ps
         }
     }
 
+    bool Voltammetry::isTestMuxCompatible(String name)
+    {
+        bool isCompatible = false;
+
+        for (size_t i=0; i<availableTests_.size(); i++)
+        {
+            String currName = (availableTests_[i] -> getName()).trim();
+            if (name.equals(currName))
+            {
+                // -----------------------------------------------------------------------
+                // TODO
+                // -----------------------------------------------------------------------
+                // Test for mux compatibility
+                //
+                // Added method to base test  e.g bool isMuxCompatible()
+                // -----------------------------------------------------------------------
+            }
+        }
+        return isCompatible;
+    }
+
+
 } // namespace ps
