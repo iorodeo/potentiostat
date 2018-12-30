@@ -10,6 +10,7 @@ namespace ps
     SquareWaveTest::SquareWaveTest()
     { 
         setName("squareWave");
+        setMuxCompatible(false);
         setSampleMethod(SampleCustom);
         updateDoneTime();
         updateMaxMinValues();

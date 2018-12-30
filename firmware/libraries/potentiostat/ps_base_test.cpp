@@ -156,6 +156,16 @@ namespace ps
         return status;
     }
 
+    bool BaseTest::isMuxCompatible()
+    {
+        return muxCompatible_;
+    }
+
+    void BaseTest::setMuxCompatible(bool value)
+    {
+        muxCompatible_ = value;
+    }
+
     // Protected Methods
     // ----------------------------------------------------------------------------------
 

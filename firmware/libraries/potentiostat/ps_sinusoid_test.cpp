@@ -8,6 +8,7 @@ namespace ps
     {
         updateLookupTable();
         setName("sinusoid");
+        setMuxCompatible(true);
     }
 
 

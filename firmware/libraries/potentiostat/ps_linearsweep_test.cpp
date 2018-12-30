@@ -8,6 +8,7 @@ namespace ps
     LinearSweepTest::LinearSweepTest()
     { 
         setName("linearSweep");
+        setMuxCompatible(true);
     }
 
 

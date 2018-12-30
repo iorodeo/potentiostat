@@ -8,6 +8,7 @@ namespace ps
     ConstantTest::ConstantTest() 
     { 
         setName("constant");
+        setMuxCompatible(true);
     } 
 
 
