@@ -13,7 +13,11 @@ namespace ps
         timerCnt_ = 0;
         test_ = nullptr;
 
-        currLowPass_.setParam(CurrLowPassParam);
+        //currLowPass_.setParam(CurrLowPassParam);
+        for (int i=0; i<NumMuxChan; i++)
+        {
+            currLowPass_.push_back(LowPass(CurrLowPassParam));
+        }
         setSamplePeriod(DefaultSamplePeriod);
     }
 
@@ -540,7 +544,8 @@ namespace ps
             analogSubsystem_.setVolt(volt);
 
             float curr = analogSubsystem_.getCurr();
-            currLowPass_.update(curr,LowPassDtSec);
+            //currLowPass_.update(curr,LowPassDtSec);
+            currLowPass_[0].update(curr,LowPassDtSec);
 
             if (timerCnt_ > 0)
             {
@@ -549,14 +554,16 @@ namespace ps
                     // Send sample data for tests which use generic sampling 
                     if (timerCnt_%sampleModulus_ == 0)
                     {
-                        Sample sample = {t, volt, currLowPass_.value()};
+                        //Sample sample = {t, volt, currLowPass_.value()};
+                        Sample sample = {t, volt, currLowPass_[0].value()};
                         dataBuffer_.push_back(sample);
                     }
                 }
                 else
                 {
                     // Send sample for tests which use custom sampling methods
-                    Sample sampleRaw  = {t, volt, currLowPass_.value()}; // Raw sample data
+                    //Sample sampleRaw  = {t, volt, currLowPass_.value()}; // Raw sample data
+                    Sample sampleRaw  = {t, volt, currLowPass_[0].value()}; // Raw sample data
                     Sample sampleTest = {0, 0.0, 0.0}; // Custom sample data (set in updateSample)
                     if (test_ -> updateSample(sampleRaw, sampleTest))
                     {
@@ -583,7 +590,8 @@ namespace ps
             analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
 
             test_ -> reset();
-            currLowPass_.reset();
+            //currLowPass_.reset();
+            currLowPass_[0].reset();
 
             testInProgress_ = true;
             testTimer_.begin(testTimerCallback_, TestTimerPeriod);

@@ -14,7 +14,7 @@
 #include "ps_sample.h"
 #include "ps_filter.h"
 #include "ps_multiplexer.h"
-
+#include "third-party/Array/Array.h"
 #define ARDUINOJSON_USE_DOUBLE 0
 #include "third-party/ArduinoJson/ArduinoJson.h"
 
@@ -93,7 +93,8 @@ namespace ps
             uint32_t sampleModulus_;  
             uint64_t timerCnt_;
 
-            LowPass currLowPass_;
+            Array<LowPass,NumMuxChan> currLowPass_;
+            //LowPass currLowPass_;
             BaseTest *test_;
 
             static void dummyTimerCallback() {};
