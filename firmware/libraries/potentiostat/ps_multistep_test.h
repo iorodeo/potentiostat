@@ -63,6 +63,7 @@ namespace ps
         durationArray_.fill(0);
         setNumStep(numStep);
         setName("multiStep");
+        setMuxCompatible(true);
     }
 
 

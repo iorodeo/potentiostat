@@ -30,9 +30,9 @@ namespace ps
             ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus getTestDoneTime(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus getTestNames(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus getMuxTestNames(JsonObject &jsonMsg, JsonObject &jsonDat);
 
             void setSamplePeriod(uint64_t samplePeriod);
-            bool isTestMuxCompatible(String name);
 
             BaseTest baseTest;
             CyclicTest cyclicTest;

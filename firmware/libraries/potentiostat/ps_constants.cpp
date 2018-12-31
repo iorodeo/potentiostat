@@ -72,6 +72,7 @@ namespace ps
     const String GetMuxEnabledCmd = String("getMuxEnabled");
     const String SetEnabledMuxChanCmd = String("setEnabledMuxChannels");
     const String GetEnabledMuxChanCmd = String("getEnabledMuxChannels");
+    const String GetMuxTestNamesCmd = String("getMuxTestNames");
 
     // Ranges for output voltage
     const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);

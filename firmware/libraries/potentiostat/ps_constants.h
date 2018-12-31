@@ -90,6 +90,7 @@ namespace ps
     extern const String GetMuxEnabledCmd;
     extern const String SetEnabledMuxChanCmd;
     extern const String GetEnabledMuxChanCmd;
+    extern const String GetMuxTestNamesCmd;
 
     // Ranges for output voltage
     extern const VoltRange VoltRange1V; 

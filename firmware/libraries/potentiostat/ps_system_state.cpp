@@ -45,6 +45,7 @@ namespace ps
         commandTable_.registerMethod(CommandKey,   GetMuxEnabledCmd,      &SystemState::onCommandGetMuxEnabled);
         commandTable_.registerMethod(CommandKey,   SetEnabledMuxChanCmd,  &SystemState::onCommandSetEnabledMuxChan);
         commandTable_.registerMethod(CommandKey,   GetEnabledMuxChanCmd,  &SystemState::onCommandGetEnabledMuxChan);
+        commandTable_.registerMethod(CommandKey,   GetMuxTestNamesCmd,    &SystemState::onCommandGetMuxTestNames);
 
         analogSubsystem_.initialize();
         analogSubsystem_.setVolt(0.0);
@@ -55,20 +56,27 @@ namespace ps
 
     ReturnStatus SystemState::onCommandRunTest(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
-        ReturnStatus status;
-        status = voltammetry_.getTest(jsonMsg,jsonDat,test_);
+        ReturnStatus status = voltammetry_.getTest(jsonMsg,jsonDat,test_);
+        if (!status.success)
+        {
+            return status;
+        }
+
+        if (test_ == nullptr)
+        {
+            status.success = false;
+            status.message = String("something is wrong, test_ == nullptr");
+            return status;
+        }
 
         if (multiplexer_.isRunning())
         {
-            // -------------------------------------------------------------------------------------
-            // TODO
-            // -------------------------------------------------------------------------------------
-            // Make sure test is compatible with multiplexer 
-            //
-            // check via voltammetry_.isTestMuxCompatible (note test must be non null)
-            // -------------------------------------------------------------------------------------
-            
-            // Make sure at least one mux channel is enabled
+            if (!(test_ -> isMuxCompatible()))
+            {
+                status.success = false;
+                status.message = String("test, ") + (test_ -> getName()) + String(", is not mux compatible");
+                return status;
+            }
             if (multiplexer_.numEnabledWrkElect() <= 0)
             {
                 status.success = false;
@@ -83,10 +91,7 @@ namespace ps
             }
         }
 
-        if ((status.success) && (test_ != nullptr))
-        {
-            startTest();
-        }
+        startTest();
         return status;
     }
 
@@ -432,6 +437,13 @@ namespace ps
         {
             jsonEnabledArray.add(enabledWrkElect[i]);
         }
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandGetMuxTestNames(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        status = voltammetry_.getMuxTestNames(jsonMsg, jsonDat);
         return status;
     }
     // ------------------------------------------------------------------------------------------
