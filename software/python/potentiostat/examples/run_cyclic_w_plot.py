@@ -10,7 +10,8 @@ sample_rate = 100.0         # The number of samples/second to collect
 
 volt_min = -0.1             # The minimum voltage in the waveform (V)
 volt_max =  1.0             # The maximum voltage in the waveform (V)
-volt_per_sec = 0.050        # The rate at which to transition from volt_min to volt_max (V/s)
+#volt_per_sec = 0.050        # The rate at which to transition from volt_min to volt_max (V/s)
+volt_per_sec = 1.00         # The rate at which to transition from volt_min to volt_max (V/s)
 num_cycles = 1              # The number of cycle in the waveform
 
 # Convert parameters to amplitude, offset, period, phase shift for triangle waveform
@@ -38,7 +39,8 @@ dev.set_sample_rate(sample_rate)
 dev.set_param(test_name,test_param)
 
 # Run cyclic voltammetry test
-t,volt,curr = dev.run_test(test_name,display='pbar',filename=datafile)
+#t,volt,curr = dev.run_test(test_name,display='pbar',filename=datafile)
+t,volt,curr = dev.run_test(test_name,display='data',filename=datafile)
 
 # plot results using matplotlib
 plt.figure(1)

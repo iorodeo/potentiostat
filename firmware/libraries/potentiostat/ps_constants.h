@@ -38,6 +38,7 @@ namespace ps
     extern const String TimeKey;
     extern const String VoltKey;
     extern const String CurrKey;
+    extern const String ChanKey;
     extern const String RefVoltKey;
     extern const String ParamKey;
     extern const String VoltRangeKey;
@@ -63,7 +64,7 @@ namespace ps
     extern const String VersionKey;
     extern const String VariantKey;
     extern const String MuxEnabledKey;
-    extern const String MuxChannelKey;
+    extern const String MuxChannelsKey;
 
     // Json command strings
     extern const String RunTestCmd;
@@ -122,7 +123,6 @@ namespace ps
 
     // Low pass filter params for current samples
     extern const LowPassParam CurrLowPassParam;
-    extern const float LowPassDtSec; 
 
     // Test parameters
     const uint32_t AvailableTestsMaxSize = 20;

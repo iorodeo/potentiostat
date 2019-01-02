@@ -225,12 +225,6 @@ namespace ps
     }
 
 
-    bool Multiplexer::isRunning()
-    {
-        return running_;
-    }
-
-
     void Multiplexer::enableWrkElect(int electNum)
     {
         if ((electNum > 0) && (electNum <= NumMuxChan))
@@ -251,6 +245,7 @@ namespace ps
         }
         numEnabled_ = countNumEnabled();
     }
+
 
     void Multiplexer::enableAllWrkElect()
     {
@@ -302,11 +297,6 @@ namespace ps
         return enabledArray;
     }
 
-    int Multiplexer::numEnabledWrkElect()
-    {
-        return numEnabled_;
-    }
-
 
     // Protected methods
     // ------------------------------------------------------------------------
@@ -329,15 +319,6 @@ namespace ps
         }
     }
 
-    int Multiplexer::electNumToIndex(int electNum)
-    {
-        return electNum - 1;
-    }
-
-    int Multiplexer::indexToElectNum(int index)
-    {
-        return index + 1;
-    }
 
     int Multiplexer::countNumEnabled()
     {

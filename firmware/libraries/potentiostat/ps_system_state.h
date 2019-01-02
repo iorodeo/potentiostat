@@ -88,13 +88,12 @@ namespace ps
 
             IntervalTimer testTimer_;
             void (*testTimerCallback_)() = dummyTimerCallback;
-
+            volatile uint64_t timerCnt_;
             uint32_t samplePeriod_; 
             uint32_t sampleModulus_;  
-            uint64_t timerCnt_;
 
             Array<LowPass,NumMuxChan> currLowPass_;
-            //LowPass currLowPass_;
+            float lowPassDtSec_;
             BaseTest *test_;
 
             static void dummyTimerCallback() {};

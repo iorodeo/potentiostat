@@ -20,6 +20,7 @@ namespace ps
     const String TimeKey = String("t");
     const String VoltKey = String("v");
     const String CurrKey = String("i");
+    const String ChanKey = String("n");
     const String RefVoltKey = String("r");
     const String ParamKey = String("param");
     const String VoltRangeKey = String("voltRange");
@@ -45,7 +46,7 @@ namespace ps
     const String VersionKey = String("version");
     const String VariantKey = String("variant");
     const String MuxEnabledKey = String("muxEnabled");
-    const String MuxChannelKey = String("muxChannels");
+    const String MuxChannelsKey = String("muxChannels");
 
     // Json command strings
     const String RunTestCmd = String("runTest");
@@ -120,6 +121,5 @@ namespace ps
 
     // Low pass filter params for current samples
     const LowPassParam CurrLowPassParam = {200.0, 0.0, 2}; // cutoff freq (Hz), initial value, order
-    const float LowPassDtSec = 1.0e-6*TestTimerPeriod;    // (s)
 
 } // namespace ps

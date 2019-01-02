@@ -54,11 +54,13 @@ namespace ps
             Array<int,NumMuxChan> getEnabledWrkElect();
 
             int numEnabledWrkElect();
+            int electNumToIndex(int electNum);
+            int indexToElectNum(int index);
 
         protected:
 
             bool running_ = false;
-            int currWrkElect_ = NotConnected;
+            volatile int currWrkElect_ = NotConnected;
 
             int numEnabled_ = 0;
             Array<bool,NumMuxChan> enabledTable_;
@@ -66,11 +68,30 @@ namespace ps
             void setAllChanToGnd();
             void initializeEnabledTable(bool value);
 
-            int electNumToIndex(int electNum);
-            int indexToElectNum(int index);
             int countNumEnabled();
 
     };
+
+
+    inline bool Multiplexer::isRunning()
+    {
+        return running_;
+    }
+
+    inline int Multiplexer::numEnabledWrkElect()
+    {
+        return numEnabled_;
+    }
+
+    inline int Multiplexer::electNumToIndex(int electNum)
+    {
+        return electNum - 1;
+    }
+
+    inline int Multiplexer::indexToElectNum(int index)
+    {
+        return index + 1;
+    }
 
 }
 

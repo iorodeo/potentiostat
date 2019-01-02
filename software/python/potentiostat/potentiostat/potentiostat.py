@@ -16,6 +16,7 @@ import json
 import atexit
 import contextlib
 import progressbar
+import os
 
 
 # Json message keys
@@ -28,6 +29,7 @@ ParamKey = 'param'
 TimeKey = 't'
 VoltKey = 'v'
 CurrKey = 'i'
+ChanKey = 'n'
 RefVoltKey = 'r'
 VoltRangeKey = 'voltRange'
 CurrRangeKey = 'currRange'
@@ -38,6 +40,9 @@ StepArrayKey = 'step'
 TestNameArrayKey = 'testNames'
 VersionKey = 'version'
 VariantKey = 'variant'
+MuxEnabledKey = 'muxEnabled'
+MuxChannelsKey = 'muxChannels'
+
 
 # Commands
 RunTestCmd  = 'runTest'
@@ -60,6 +65,11 @@ GetTestDoneTimeCmd = 'getTestDoneTime'
 GetTestNamesCmd = 'getTestNames'
 GetVersionCmd = 'getVersion'
 GetVariantCmd = 'getVariant'
+SetMuxEnabledCmd = 'setMuxEnabled'
+GetMuxEnabledCmd = 'getMuxEnabled'
+SetEnabledMuxChanCmd = 'setEnabledMuxChannels'
+GetEnabledMuxChanCmd = 'getEnabledMuxChannels'
+GetMuxTestNamesCmd = 'getMuxTestNames'
 
 # Voltage ranges
 VoltRange1V = '1V'
@@ -90,6 +100,8 @@ HwVariantToCurrRangeList = {
 
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
 
+MinimumFirmwareVersionForMux = '0.0.5'
+
 class Potentiostat(serial.Serial):
 
     """Provides a high level interface  performing serial communications with the Rodeostat. 
@@ -114,6 +126,7 @@ class Potentiostat(serial.Serial):
         while self.inWaiting() > 0:
             val = self.read()
         self.hw_variant = self.get_hardware_variant()
+        self.firmware_version = self.get_firmware_version()
         self.test_running = False
 
 
@@ -325,10 +338,61 @@ class Potentiostat(serial.Serial):
         return msg_dict[ResponseKey][VersionKey]
 
 
+    def set_mux_enabled(self, value):
+        """Enable/Disables the multiplexer expansion hardware
+
+        """
+        cmd_dict = {CommandKey: SetMuxEnabledCmd, MuxEnabledKey: value}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][MuxEnabledKey]
+
+
+    def get_mux_enabled(self):
+        """Get multiplexer expansion hardware enabled state 
+
+        """
+        cmd_dict = {CommandKey: GetMuxEnabledCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][MuxEnabledKey]
+
+
+    def set_enabled_mux_channels(self,channels):
+        """Enables the specified subset of multiplexer working electrode channels
+
+        """
+        cmd_dict = {CommandKey: SetEnabledMuxChanCmd, MuxChannelsKey: channels}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][MuxChannelsKey]
+
+
+    def get_enabled_mux_channels(self):
+        """Get the list of currently enabled multiplexer working electrode channels
+
+        """
+        cmd_dict = {CommandKey: GetEnabledMuxChanCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][MuxChannelsKey]
+
+    def get_mux_test_names(self):
+        """Gets the list of test which are compatible with the multiplexer expansion hardware
+
+        """
+        cmd_dict = {CommandKey: GetMuxTestNamesCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][TestNameArrayKey]
+
+
     def run_test(self, testname, param=None, filename=None, display='pbar', timeunit='s'):
         """Runs the test with specified test name and returns the time, voltage and current data.
 
         """
+        mux_enabled = False
+        channels = [0]
+        if self.firmware_version >= MinimumFirmwareVersionForMux:
+            mux_enabled = self.get_mux_enabled()
+            if mux_enabled:
+                channels = self.get_enabled_mux_channels()
+
         if timeunit not in TimeUnitToScale:
             raise RuntimeError('uknown timeunit option {0}'.format(timeunit))
         if display not in (None, 'pbar', 'data'):
@@ -351,12 +415,22 @@ class Potentiostat(serial.Serial):
             pbar = progressbar.ProgressBar(widgets=widgets,maxval=test_done_tval)
             pbar.start()
 
-        tval_list = [] 
-        volt_list = [] 
-        curr_list = []
+        tval_dict = {chan:[] for chan in channels}
+        volt_dict = {chan:[] for chan in channels} 
+        curr_dict = {chan:[] for chan in channels}
 
         if filename is not None:
-            fid = open(filename,'w')
+            basename, ext = os.path.splitext(filename)
+            filename_dict = {}
+            fid_dict = {}
+            for chan in channels:
+                if chan == 0:
+                    # Dummy channel for when multiplexer is not running
+                    filename_dict[chan] = filename
+                else:
+                    filename_dict[chan] = '{0}_chan_{1}.{2}'.format(basename,chan,ext)
+            for chan,name in filename_dict.iteritems():
+                fid_dict[chan] = open(name,'w')
 
         cmd_dict = {CommandKey: RunTestCmd, TestKey: testname}
         msg_dict = self.send_cmd(cmd_dict)
@@ -374,15 +448,24 @@ class Potentiostat(serial.Serial):
                 tval = sample_dict[TimeKey]*TimeUnitToScale[timeunit]
                 volt = sample_dict[VoltKey]
                 curr = sample_dict[CurrKey]
-                tval_list.append(tval)
-                volt_list.append(volt)
-                curr_list.append(curr)
+                if mux_enabled:
+                    chan = sample_dict[ChanKey]
+                else:
+                    chan = 0  # Dummy channel for when mux isn't running
+                tval_dict[chan].append(tval)
+                volt_dict[chan].append(volt)
+                curr_dict[chan].append(curr)
+
                 # Write data to file
                 if filename is not None:
-                    fid.write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tval,volt,curr))
+                    fid_dict[chan].write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tval,volt,curr))
                 # Handle diplay options
                 if display == 'data':
-                    print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tval,volt,curr))
+                    if chan == 0:
+                        print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tval,volt,curr))
+                    else:
+                        print('{0:1.3f}, {1:1.4f}, {2:1.4f}, {3}'.format(tval,volt,curr,chan))
+
                 elif display == 'pbar':
                     pbar.update(tval)
             else:
@@ -395,9 +478,13 @@ class Potentiostat(serial.Serial):
             print()
 
         if filename is not None:
-            fid.close()
+            for chan, fid in fid_dict.iteritems():
+                fid.close()
 
-        return tval_list, volt_list, curr_list 
+        if mux_enabled:
+            return tval_dict, volt_dict, curr_dict
+        else:
+            return tval_dict[0], volt_dict[0], curr_dict[0]
 
 
     def send_cmd(self,cmd_dict):

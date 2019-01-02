@@ -364,6 +364,7 @@ namespace ps
             multiplexer_.disconnectCtrElect();
             multiplexer_.clearSwitchPins();
         }
+        jsonDat.set(MuxEnabledKey,multiplexer_.isRunning());
         return status;
     }
 
@@ -379,24 +380,24 @@ namespace ps
         ReturnStatus status;
         status.success = true;
 
-        if (!jsonMsg.containsKey(MuxChannelKey))
+        if (!jsonMsg.containsKey(MuxChannelsKey))
         {
             status.success = false;
-            status.message = String("json does not contain key: ") + MuxChannelKey;
+            status.message = String("json does not contain key: ") + MuxChannelsKey;
             return status;
         }
-        if (!jsonMsg[MuxChannelKey].is<JsonArray&>()) 
+        if (!jsonMsg[MuxChannelsKey].is<JsonArray&>()) 
         {
             status.success = false;
-            status.message = MuxChannelKey + String(" not a JsonArray");
+            status.message = MuxChannelsKey + String(" not a JsonArray");
             return status;
         }
 
-        JsonArray &jsonMuxChannelArray = jsonMsg[MuxChannelKey];
+        JsonArray &jsonMuxChannelArray = jsonMsg[MuxChannelsKey];
         if (jsonMuxChannelArray.size() > NumMuxChan)
         {
             status.success = false;
-            status.message = MuxChannelKey + String(" array too large");
+            status.message = MuxChannelsKey + String(" array too large");
             return status;
         }
 
@@ -413,14 +414,14 @@ namespace ps
                 else
                 {
                     status.success = false;
-                    status.message = MuxChannelKey + String(" element out of range");
+                    status.message = MuxChannelsKey + String(" element out of range");
                     break;
                 }
             }
             else
             {
                 status.success = false;
-                status.message = MuxChannelKey + String(" element not an int");
+                status.message = MuxChannelsKey + String(" element not an int");
                 break;
             }
         }
@@ -428,6 +429,11 @@ namespace ps
         if (status.success)
         {
             multiplexer_.setEnabledWrkElect(enabledWrkElect);
+            JsonArray &jsonEnabledArray = jsonDat.createNestedArray(MuxChannelsKey);
+            for (size_t i=0; i<enabledWrkElect.size(); i++)
+            {
+                jsonEnabledArray.add(enabledWrkElect[i]);
+            }
         }
         return status;
     }
@@ -436,7 +442,7 @@ namespace ps
     {
         ReturnStatus status;
         Array<int,NumMuxChan> enabledWrkElect = multiplexer_.getEnabledWrkElect();
-        JsonArray &jsonEnabledArray = jsonDat.createNestedArray(MuxChannelKey);
+        JsonArray &jsonEnabledArray = jsonDat.createNestedArray(MuxChannelsKey);
         for (size_t i=0; i<enabledWrkElect.size(); i++)
         {
             jsonEnabledArray.add(enabledWrkElect[i]);
@@ -542,32 +548,50 @@ namespace ps
             uint64_t t = uint64_t(TestTimerPeriod)*timerCnt_;
             float volt = test_ -> getValue(t);
             analogSubsystem_.setVolt(volt);
-
             float curr = analogSubsystem_.getCurr();
-            //currLowPass_.update(curr,LowPassDtSec);
-            currLowPass_[0].update(curr,LowPassDtSec);
+
+            int electNum = 0; // Default value (0 is non mux channel)
+            int electInd = 0; // Default value 
+
+            if (multiplexer_.isRunning())
+            {
+                electNum = multiplexer_.numEnabledWrkElect();
+                electInd = multiplexer_.electNumToIndex(electNum);
+            }
+
+            currLowPass_[electInd].update(curr,lowPassDtSec_);
 
             if (timerCnt_ > 0)
             {
                 if (test_ -> getSampleMethod() == SampleGeneric)
                 {
-                    // Send sample data for tests which use generic sampling 
+                    // ------------------------------------------------------------------
+                    // Send sample data for tests which use normal sampling 
+                    // ------------------------------------------------------------------
                     if (timerCnt_%sampleModulus_ == 0)
                     {
-                        //Sample sample = {t, volt, currLowPass_.value()};
-                        Sample sample = {t, volt, currLowPass_[0].value()};
+                        Sample sample = {t, volt, currLowPass_[electInd].value(),uint8_t(electNum)};
                         dataBuffer_.push_back(sample);
+                        if (multiplexer_.isRunning())
+                        {
+                            multiplexer_.connectNextEnabledWrkElect();   
+                        }
                     }
                 }
                 else
                 {
+                    // ------------------------------------------------------------------
                     // Send sample for tests which use custom sampling methods
-                    //Sample sampleRaw  = {t, volt, currLowPass_.value()}; // Raw sample data
-                    Sample sampleRaw  = {t, volt, currLowPass_[0].value()}; // Raw sample data
-                    Sample sampleTest = {0, 0.0, 0.0}; // Custom sample data (set in updateSample)
+                    // ------------------------------------------------------------------
+                    Sample sampleRaw  = {t, volt, currLowPass_[0].value(),uint8_t(electNum)}; // Raw sample data
+                    Sample sampleTest = {0, 0.0, 0.0, uint8_t(electNum)}; // Custom sample data (set in updateSample)
                     if (test_ -> updateSample(sampleRaw, sampleTest))
                     {
                         dataBuffer_.push_back(sampleTest);
+                        if (multiplexer_.isRunning())
+                        {
+                            multiplexer_.connectNextEnabledWrkElect();   
+                        }
                     }
                 }
             }
@@ -590,8 +614,19 @@ namespace ps
             analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
 
             test_ -> reset();
-            //currLowPass_.reset();
-            currLowPass_[0].reset();
+            if (multiplexer_.isRunning())
+            {
+                for (int i=0; i<NumMuxChan; i++)
+                {
+                    currLowPass_[i].reset();
+                }
+                lowPassDtSec_ = (1.0e-6*TestTimerPeriod)*float(multiplexer_.numEnabledWrkElect());    
+            }
+            else
+            {
+                currLowPass_[0].reset();
+                lowPassDtSec_ = 1.0e-6*TestTimerPeriod;    
+            }
 
             testInProgress_ = true;
             testTimer_.begin(testTimerCallback_, TestTimerPeriod);
