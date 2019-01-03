@@ -9,6 +9,7 @@ syntax: glob
 *.egg
 *.tar.gz
 data.txt
+data.pkl
 __pycache__
 software/python/potentiostat/build
 software/javascript/app/dist

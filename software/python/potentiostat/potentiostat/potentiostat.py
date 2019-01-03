@@ -17,7 +17,7 @@ import atexit
 import contextlib
 import progressbar
 import os
-
+import cPickle
 
 # Json message keys
 CommandKey = 'command'
@@ -42,7 +42,6 @@ VersionKey = 'version'
 VariantKey = 'variant'
 MuxEnabledKey = 'muxEnabled'
 MuxChannelsKey = 'muxChannels'
-
 
 # Commands
 RunTestCmd  = 'runTest'
@@ -101,6 +100,9 @@ HwVariantToCurrRangeList = {
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
 
 MinimumFirmwareVersionForMux = '0.0.5'
+
+TxtOutputFileType = 0
+PklOutputFileType = 1
 
 class Potentiostat(serial.Serial):
 
@@ -224,11 +226,13 @@ class Potentiostat(serial.Serial):
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][VoltRangeKey]
 
+
     def get_all_volt_range(self):
         """Gets a list of voltage ranges supported by the device.
 
         """
         return VoltRangeList
+
 
     def set_curr_range(self,curr_range):
         """Sets the measurement current range (uA).
@@ -249,11 +253,13 @@ class Potentiostat(serial.Serial):
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][CurrRangeKey]
 
+
     def get_all_curr_range(self):
         """Gets a list of all current ranges supported by the device.
 
         """
         return HwVariantToCurrRangeList[self.hw_variant]
+
 
     def get_device_id(self):
         """Gets the current value of the device identification number
@@ -392,7 +398,6 @@ class Potentiostat(serial.Serial):
             mux_enabled = self.get_mux_enabled()
             if mux_enabled:
                 channel_list = self.get_enabled_mux_channels()
-                print(channel_list)
 
         if timeunit not in TimeUnitToScale:
             raise RuntimeError('uknown timeunit option {0}'.format(timeunit))
@@ -418,22 +423,16 @@ class Potentiostat(serial.Serial):
 
         data_dict = {chan:{TimeKey:[],VoltKey:[],CurrKey:[]} for chan in channel_list}
 
-        # -------------------------------------------------------------------------------
-        # TODO 
-        # -------------------------------------------------------------------------------
-        #if filename is not None:
-        #    basename, ext = os.path.splitext(filename)
-        #    filename_dict = {}
-        #    fid_dict = {}
-        #    for chan in channel_list:
-        #        if chan == 0:
-        #            # Dummy channel for when multiplexer is not running
-        #            filename_dict[chan] = filename
-        #        else:
-        #            filename_dict[chan] = '{0}_chan_{1}.{2}'.format(basename,chan,ext)
-        #    for chan,name in filename_dict.iteritems():
-        #        fid_dict[chan] = open(name,'w')
+        # Determine output file type and open if required
+        if filename is not None:
+            filename_base, filename_ext = os.path.splitext(filename)
+            if filename_ext == '.pkl':
+                output_filetype = PklOutputFileType
+            else:
+                output_filetype = TxtOutputFileType
+                fid = open(filename,'w')
 
+        # Start voltammetric test
         cmd_dict = {CommandKey: RunTestCmd, TestKey: testname}
         msg_dict = self.send_cmd(cmd_dict)
         self.test_running = True
@@ -458,12 +457,12 @@ class Potentiostat(serial.Serial):
                 for k,v in [(TimeKey,tval),(VoltKey,volt),(CurrKey,curr)]:
                     data_dict[chan][k].append(v)
 
-                # -----------------------------------------------------------------------
-                # TODO
-                # -----------------------------------------------------------------------
-                ## Write data to file
-                #if filename is not None:
-                #    fid_dict[chan].write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tval,volt,curr))
+                # Write data to file
+                if (filename is not None) and (output_filetype == TxtOutputFileType):
+                    if chan == 0:
+                        fid.write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tval,volt,curr))
+                    else:
+                        fid.write('{0}, {1:1.3f}, {2:1.4f}, {3:1.4f}\n'.format(chan,tval,volt,curr))
 
                 # Handle diplay options
                 if display == 'data':
@@ -483,12 +482,15 @@ class Potentiostat(serial.Serial):
             print()
             print()
 
-        # -------------------------------------------------------------------------------
-        # TODO
-        # -------------------------------------------------------------------------------
-        #if filename is not None:
-        #    for chan, fid in fid_dict.iteritems():
-        #        fid.close()
+        if filename is not None:
+            if output_filetype == PklOutputFileType:
+                with open(filename,'w') as fid:
+                    if mux_enabled:
+                        cPickle.dump(data_dict, fid)
+                    else:
+                        cPickle.dump(data_dict[0], fid)
+            else:
+                fid.close()
 
         if mux_enabled:
             return data_dict 

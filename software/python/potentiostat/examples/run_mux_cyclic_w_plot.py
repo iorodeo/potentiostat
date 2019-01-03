@@ -11,7 +11,7 @@ curr_range = '100uA'        # The name of the current range [-100uA, +100uA]
 sample_rate = 100.0         # The number of samples/second to collect
 
 volt_min = -0.2             # The minimum voltage in the waveform (V)
-volt_max =  2.0             # The maximum voltage in the waveform (V)
+volt_max =  3.0             # The maximum voltage in the waveform (V)
 #volt_per_sec = 0.050        # The rate at which to transition from volt_min to volt_max (V/s)
 volt_per_sec = 1.00         # The rate at which to transition from volt_min to volt_max (V/s)
 num_cycles = 1              # The number of cycle in the waveform
@@ -44,10 +44,11 @@ dev.set_enabled_mux_channels(channel_list)
 
 # Run cyclic voltammetry test
 #data_dict = dev.run_test(test_name,display='data',filename=datafile)
-data_dict = dev.run_test(test_name,display='data')
+#data_dict = dev.run_test(test_name,display='data')
+data_dict = dev.run_test(test_name,display='pbar',filename='data.txt')
+#data_dict = dev.run_test(test_name,display='pbar',filename='data.pkl')
 
 dev.set_mux_enabled(False)
-
 
 
 # plot results using matplotlib
