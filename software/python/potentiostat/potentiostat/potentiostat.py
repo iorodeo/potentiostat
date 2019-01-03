@@ -387,11 +387,12 @@ class Potentiostat(serial.Serial):
 
         """
         mux_enabled = False
-        channels = [0]
+        channel_list = [0]
         if self.firmware_version >= MinimumFirmwareVersionForMux:
             mux_enabled = self.get_mux_enabled()
             if mux_enabled:
-                channels = self.get_enabled_mux_channels()
+                channel_list = self.get_enabled_mux_channels()
+                print(channel_list)
 
         if timeunit not in TimeUnitToScale:
             raise RuntimeError('uknown timeunit option {0}'.format(timeunit))
@@ -415,22 +416,23 @@ class Potentiostat(serial.Serial):
             pbar = progressbar.ProgressBar(widgets=widgets,maxval=test_done_tval)
             pbar.start()
 
-        tval_dict = {chan:[] for chan in channels}
-        volt_dict = {chan:[] for chan in channels} 
-        curr_dict = {chan:[] for chan in channels}
+        data_dict = {chan:{TimeKey:[],VoltKey:[],CurrKey:[]} for chan in channel_list}
 
-        if filename is not None:
-            basename, ext = os.path.splitext(filename)
-            filename_dict = {}
-            fid_dict = {}
-            for chan in channels:
-                if chan == 0:
-                    # Dummy channel for when multiplexer is not running
-                    filename_dict[chan] = filename
-                else:
-                    filename_dict[chan] = '{0}_chan_{1}.{2}'.format(basename,chan,ext)
-            for chan,name in filename_dict.iteritems():
-                fid_dict[chan] = open(name,'w')
+        # -------------------------------------------------------------------------------
+        # TODO 
+        # -------------------------------------------------------------------------------
+        #if filename is not None:
+        #    basename, ext = os.path.splitext(filename)
+        #    filename_dict = {}
+        #    fid_dict = {}
+        #    for chan in channel_list:
+        #        if chan == 0:
+        #            # Dummy channel for when multiplexer is not running
+        #            filename_dict[chan] = filename
+        #        else:
+        #            filename_dict[chan] = '{0}_chan_{1}.{2}'.format(basename,chan,ext)
+        #    for chan,name in filename_dict.iteritems():
+        #        fid_dict[chan] = open(name,'w')
 
         cmd_dict = {CommandKey: RunTestCmd, TestKey: testname}
         msg_dict = self.send_cmd(cmd_dict)
@@ -448,23 +450,27 @@ class Potentiostat(serial.Serial):
                 tval = sample_dict[TimeKey]*TimeUnitToScale[timeunit]
                 volt = sample_dict[VoltKey]
                 curr = sample_dict[CurrKey]
+                chan = 0  # Dummy channel used when mux isn't running
+
                 if mux_enabled:
                     chan = sample_dict[ChanKey]
-                else:
-                    chan = 0  # Dummy channel for when mux isn't running
-                tval_dict[chan].append(tval)
-                volt_dict[chan].append(volt)
-                curr_dict[chan].append(curr)
 
-                # Write data to file
-                if filename is not None:
-                    fid_dict[chan].write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tval,volt,curr))
+                for k,v in [(TimeKey,tval),(VoltKey,volt),(CurrKey,curr)]:
+                    data_dict[chan][k].append(v)
+
+                # -----------------------------------------------------------------------
+                # TODO
+                # -----------------------------------------------------------------------
+                ## Write data to file
+                #if filename is not None:
+                #    fid_dict[chan].write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tval,volt,curr))
+
                 # Handle diplay options
                 if display == 'data':
                     if chan == 0:
                         print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tval,volt,curr))
                     else:
-                        print('{0:1.3f}, {1:1.4f}, {2:1.4f}, {3}'.format(tval,volt,curr,chan))
+                        print('ch{0}: {1:1.3f}, {2:1.4f}, {3:1.4f}'.format(chan,tval,volt,curr))
 
                 elif display == 'pbar':
                     pbar.update(tval)
@@ -477,14 +483,17 @@ class Potentiostat(serial.Serial):
             print()
             print()
 
-        if filename is not None:
-            for chan, fid in fid_dict.iteritems():
-                fid.close()
+        # -------------------------------------------------------------------------------
+        # TODO
+        # -------------------------------------------------------------------------------
+        #if filename is not None:
+        #    for chan, fid in fid_dict.iteritems():
+        #        fid.close()
 
         if mux_enabled:
-            return tval_dict, volt_dict, curr_dict
+            return data_dict 
         else:
-            return tval_dict[0], volt_dict[0], curr_dict[0]
+            return data_dict[0][TimeKey], data_dict[0][VoltKey], data_dict[0][CurrKey]
 
 
     def send_cmd(self,cmd_dict):

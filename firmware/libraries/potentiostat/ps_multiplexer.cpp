@@ -137,12 +137,6 @@ namespace ps
     }
 
 
-    int Multiplexer::currentWrkElect()
-    {
-        return currWrkElect_;
-    }
-
-
     bool Multiplexer::isConnectedWrk()
     {
         if (currWrkElect_ == NotConnected)
@@ -199,12 +193,13 @@ namespace ps
 
     void Multiplexer::connectNextEnabledWrkElect()   
     {                                                
-        int startIndex = (electNumToIndex(currWrkElect_) + 1) % NumMuxChan; 
+        int currIndex = electNumToIndex(currWrkElect_);
         for (int i=0; i<NumMuxChan; i++)
         {
-            int nextIndex = (startIndex  + i) % NumMuxChan;
+            int nextIndex = (currIndex  + 1 + i) % NumMuxChan;
             if (enabledTable_[nextIndex])
             {
+                disconnectWrkElect();
                 currWrkElect_ = indexToElectNum(nextIndex);
                 connectWrkElect(currWrkElect_);
                 break;

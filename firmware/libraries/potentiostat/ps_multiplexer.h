@@ -72,6 +72,10 @@ namespace ps
 
     };
 
+    inline int Multiplexer::currentWrkElect()
+    {
+        return currWrkElect_;
+    }
 
     inline bool Multiplexer::isRunning()
     {

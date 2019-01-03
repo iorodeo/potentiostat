@@ -555,7 +555,7 @@ namespace ps
 
             if (multiplexer_.isRunning())
             {
-                electNum = multiplexer_.numEnabledWrkElect();
+                electNum = multiplexer_.currentWrkElect();
                 electInd = multiplexer_.electNumToIndex(electNum);
             }
 
