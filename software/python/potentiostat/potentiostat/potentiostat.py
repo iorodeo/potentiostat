@@ -398,38 +398,75 @@ class Potentiostat(serial.Serial):
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][TestNameArrayKey]
 
-    # ---------------------------------------------------------------------------------------------
-    # TODO
-    # ---------------------------------------------------------------------------------------------
+
     def set_mux_ref_elect_connected(self,value):
-        #SetMuxRefElectConnCmd
-        pass
+        """Sets the connected state (True/False) of the reference electrode when using the multiplexer 
+        expansion hardware.
+
+        """
+        cmd_dict = {CommandKey: SetMuxRefElectConnCmd,ConnectedKey: value}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
 
     def get_mux_ref_elect_connected(self):
-        #GetMuxRefElectConnCmd 
-        pass
+        """ Returns the connected state (True/False) of the reference electrode when using the multiplexer
+        expansion hardware.
+
+        """
+        cmd_dict = {CommandKey: GetMuxRefElectConnCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
 
     def set_mux_ctr_elect_connected(self,value):
-        #SetMuxCtrElectConnCmd 
-        pass
+        """Sets the connected state (True or False) of the counter electrode when using the multiplexer
+        expansion hardware.
+
+        """
+        cmd_dict = {CommandKey: SetMuxCtrElectConnCmd, ConnectedKey: value}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
 
     def get_mux_ctr_elect_connected(self):
-        #GetMuxCtrElectConnCmd 
-        pass
+        """Returns the connected state (True or False) of the counter electrode when using the multiplexer
+        expansion hardware.
+
+        """
+        cmd_dict = {CommandKey: GetMuxCtrElectConnCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
 
     def set_mux_wrk_elect_connected(self, value):
-        #SetMuxWrkElectConnCmd 
-        pass
+        """Sets the connected state (1, 2, 3, 4, 5, 6, 7 or False) of the working electrode when using the 
+        multiplexer expansion hardware.
+
+        """
+        cmd_dict = {CommandKey: SetMuxWrkElectConnCmd, ConnectedKey: value}
+        msg_dict = self.send_cmd[cmd_dict]
+        return msg_dict[ResponseKey][ConnectedKey]
+
 
     def get_mux_wrk_elect_connected(self):
-        #GetMuxWrkElectConnCmd 
-        pass
+        """Returns the connected state (1, 2, 3, 4, 5, 6, 7 or False) of the working electrode when using 
+        the multiplexer expansion hardware.
+
+        """
+        cmd_dict = {CommandKey: GetMuxWrkElectConnCmd}
+        msg_dict = self.send_cmd[cmd_dict]
+        return msg_dict[ResponseKey][ConnectedKey]
+
 
     def disconnect_all_mux_elect(self):
-        #DisconnAllMuxElectCmd 
-        pass
+        """Disconnects all electrodes (reference, counter and working) when using the multiplexer expansion
+        hardware.
 
-    # -------------------------------------------------------------------------------------------------
+        """
+        cmd_dict = {CommandKey: DisconnAllMuxElectCmd}
+        msg_dict = self.send_cmd[cmd_dict]
+
 
     def run_test(self, testname, param=None, filename=None, display='pbar', timeunit='s'):
         """Runs the test with specified test name and returns the time, voltage and current data.
