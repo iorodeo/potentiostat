@@ -52,6 +52,7 @@ namespace ps
 
             void setEnabledWrkElect(Array<int,NumMuxChan> enabledArray);
             Array<int,NumMuxChan> getEnabledWrkElect();
+            bool isWrkElectEnabled(int electNum);
 
             int numEnabledWrkElect();
             int electNumToIndex(int electNum);

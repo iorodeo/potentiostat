@@ -46,7 +46,8 @@ namespace ps
     const String VersionKey = String("version");
     const String VariantKey = String("variant");
     const String MuxEnabledKey = String("muxEnabled");
-    const String MuxChannelsKey = String("muxChannels");
+    const String MuxChannelKey = String("muxChannel");
+    const String ConnectedKey = String("connected");
 
     // Json command strings
     const String RunTestCmd = String("runTest");
@@ -74,7 +75,14 @@ namespace ps
     const String SetEnabledMuxChanCmd = String("setEnabledMuxChannels");
     const String GetEnabledMuxChanCmd = String("getEnabledMuxChannels");
     const String GetMuxTestNamesCmd = String("getMuxTestNames");
-
+    const String SetMuxRefElectConnCmd = String("setMuxRefElectConnected");
+    const String GetMuxRefElectConnCmd = String("getMuxRefElectConnected");
+    const String SetMuxCtrElectConnCmd = String("setMuxCtrElectConnected");
+    const String GetMuxCtrElectConnCmd = String("getMuxCtrElectConnected");
+    const String SetMuxWrkElectConnCmd = String("setMuxWrkElectConnected");
+    const String GetMuxWrkElectConnCmd = String("getMuxWrkElectConnected");
+    const String DisconnAllMuxElectCmd = String("disconnectAllMuxElect");
+    
     // Ranges for output voltage
     const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
     const VoltRange VoltRange2V(String("2V"),-2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueDac);

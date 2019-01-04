@@ -58,6 +58,13 @@ namespace ps
             ReturnStatus onCommandSetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetMuxTestNames(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetMuxRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetMuxRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetMuxCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetMuxCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetMuxWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetMuxWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandDisconnAllMuxElect(JsonObject &jsonMsg, JsonObject &jsonDat);
 
             void startTest();
             void stopTest();

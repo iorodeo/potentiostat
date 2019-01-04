@@ -50,6 +50,13 @@ namespace ps
         commandTable_.registerMethod(CommandKey,   SetEnabledMuxChanCmd,  &SystemState::onCommandSetEnabledMuxChan);
         commandTable_.registerMethod(CommandKey,   GetEnabledMuxChanCmd,  &SystemState::onCommandGetEnabledMuxChan);
         commandTable_.registerMethod(CommandKey,   GetMuxTestNamesCmd,    &SystemState::onCommandGetMuxTestNames);
+        commandTable_.registerMethod(CommandKey,   SetMuxRefElectConnCmd, &SystemState::onCommandSetMuxRefElectConn);
+        commandTable_.registerMethod(CommandKey,   GetMuxRefElectConnCmd, &SystemState::onCommandGetMuxRefElectConn);
+        commandTable_.registerMethod(CommandKey,   SetMuxCtrElectConnCmd, &SystemState::onCommandSetMuxCtrElectConn); 
+        commandTable_.registerMethod(CommandKey,   GetMuxCtrElectConnCmd, &SystemState::onCommandGetMuxCtrElectConn);
+        commandTable_.registerMethod(CommandKey,   SetMuxWrkElectConnCmd, &SystemState::onCommandSetMuxWrkElectConn);
+        commandTable_.registerMethod(CommandKey,   GetMuxWrkElectConnCmd, &SystemState::onCommandGetMuxWrkElectConn); 
+        commandTable_.registerMethod(CommandKey,   DisconnAllMuxElectCmd, &SystemState::onCommandDisconnAllMuxElect);
 
         analogSubsystem_.initialize();
         analogSubsystem_.setVolt(0.0);
@@ -380,24 +387,24 @@ namespace ps
         ReturnStatus status;
         status.success = true;
 
-        if (!jsonMsg.containsKey(MuxChannelsKey))
+        if (!jsonMsg.containsKey(MuxChannelKey))
         {
             status.success = false;
-            status.message = String("json does not contain key: ") + MuxChannelsKey;
+            status.message = String("json does not contain key: ") + MuxChannelKey;
             return status;
         }
-        if (!jsonMsg[MuxChannelsKey].is<JsonArray&>()) 
+        if (!jsonMsg[MuxChannelKey].is<JsonArray&>()) 
         {
             status.success = false;
-            status.message = MuxChannelsKey + String(" not a JsonArray");
+            status.message = MuxChannelKey + String(" not a JsonArray");
             return status;
         }
 
-        JsonArray &jsonMuxChannelArray = jsonMsg[MuxChannelsKey];
+        JsonArray &jsonMuxChannelArray = jsonMsg[MuxChannelKey];
         if (jsonMuxChannelArray.size() > NumMuxChan)
         {
             status.success = false;
-            status.message = MuxChannelsKey + String(" array too large");
+            status.message = MuxChannelKey + String(" array too large");
             return status;
         }
 
@@ -414,14 +421,14 @@ namespace ps
                 else
                 {
                     status.success = false;
-                    status.message = MuxChannelsKey + String(" element out of range");
+                    status.message = MuxChannelKey + String(" element out of range");
                     break;
                 }
             }
             else
             {
                 status.success = false;
-                status.message = MuxChannelsKey + String(" element not an int");
+                status.message = MuxChannelKey + String(" element not an int");
                 break;
             }
         }
@@ -429,7 +436,7 @@ namespace ps
         if (status.success)
         {
             multiplexer_.setEnabledWrkElect(enabledWrkElect);
-            JsonArray &jsonEnabledArray = jsonDat.createNestedArray(MuxChannelsKey);
+            JsonArray &jsonEnabledArray = jsonDat.createNestedArray(MuxChannelKey);
             for (size_t i=0; i<enabledWrkElect.size(); i++)
             {
                 jsonEnabledArray.add(enabledWrkElect[i]);
@@ -442,7 +449,7 @@ namespace ps
     {
         ReturnStatus status;
         Array<int,NumMuxChan> enabledWrkElect = multiplexer_.getEnabledWrkElect();
-        JsonArray &jsonEnabledArray = jsonDat.createNestedArray(MuxChannelsKey);
+        JsonArray &jsonEnabledArray = jsonDat.createNestedArray(MuxChannelKey);
         for (size_t i=0; i<enabledWrkElect.size(); i++)
         {
             jsonEnabledArray.add(enabledWrkElect[i]);
@@ -455,7 +462,201 @@ namespace ps
         ReturnStatus status;
         status = voltammetry_.getMuxTestNames(jsonMsg, jsonDat);
         return status;
+    } 
+
+    // TODO
+    // --------------------------------------------------------------------------------------------
+    ReturnStatus SystemState::onCommandSetMuxRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(ConnectedKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ConnectedKey;
+            return status;
+        }
+
+        if ( !(jsonMsg[ConnectedKey].is<bool>()) )
+        {
+            status.success = false;
+            status.message = String("unable to convert ") + ConnectedKey + String(" to bool");
+            return status;
+        }
+
+        if (!multiplexer_.isRunning())
+        {
+            status.success = false;
+            status.message = String("mux not enabled - unable to connect/disconnect");
+            return status;
+        }
+
+        if (jsonMsg.get<bool>(ConnectedKey))
+        {
+            multiplexer_.connectRefElect();
+        }
+        else
+        {
+            multiplexer_.disconnectRefElect();
+        }
+
+        jsonDat.set(ConnectedKey,multiplexer_.isConnectedRef());
+        return status;
     }
+
+    ReturnStatus SystemState::onCommandGetMuxRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (multiplexer_.isRunning())
+        {
+            jsonDat.set(ConnectedKey,multiplexer_.isConnectedRef());
+        }
+        else
+        {
+            jsonDat.set(ConnectedKey,false);
+        }
+        return status;
+
+    }
+
+    ReturnStatus SystemState::onCommandSetMuxCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(ConnectedKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ConnectedKey;
+            return status;
+        }
+
+        if ( !(jsonMsg[ConnectedKey].is<bool>()) )
+        {
+            status.success = false;
+            status.message = String("unable to convert '") + ConnectedKey + String("' to bool");
+            return status;
+        }
+
+        if (!multiplexer_.isRunning())
+        {
+            status.success = false;
+            status.message = String("mux not enabled - unable to connect/disconnect");
+            return status;
+        }
+
+        if (jsonMsg.get<bool>(ConnectedKey))
+        {
+            multiplexer_.connectCtrElect();
+        }
+        else
+        {
+            multiplexer_.disconnectCtrElect();
+        }
+
+        jsonDat.set(ConnectedKey,multiplexer_.isConnectedCtr());
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandGetMuxCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (multiplexer_.isRunning())
+        {
+            jsonDat.set(ConnectedKey,multiplexer_.isConnectedCtr());
+        }
+        else
+        {
+            jsonDat.set(ConnectedKey,false);
+        }
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandSetMuxWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(ConnectedKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ConnectedKey;
+            return status;
+        }
+
+        if (!multiplexer_.isRunning())
+        {
+            status.success = false;
+            status.message = String("mux not enabled - unable to connect/disconnect");
+            return status;
+        }
+
+        if ((!(jsonMsg[ConnectedKey].is<bool>())) && (!jsonMsg[ConnectedKey].is<int>()))
+        {
+            status.success = false;
+            status.message = ConnectedKey + String(" must be bool or int");
+            return status;
+        }
+
+        if (jsonMsg[ConnectedKey].is<bool>())
+        {
+            if (!jsonMsg.get<bool>(ConnectedKey))
+            {
+                multiplexer_.disconnectWrkElect();
+                jsonDat.set(ConnectedKey,multiplexer_.isConnectedWrk());
+            }
+            else
+            {
+                status.success = false;
+                status.message = String("if bool '") + ConnectedKey + String("' must be false");
+                return status;
+            }
+        }
+        else
+        {
+            int electNum = jsonMsg.get<int>(ConnectedKey);
+            if ((electNum <= 0) && (electNum > NumMuxChan))
+            {
+                status.success = false;
+                status.message = String("mux channel out of range");
+                return status;
+            }
+
+            if (!multiplexer_.isWrkElectEnabled(electNum))
+            {
+                status.success = false;
+                status.message = String("mux channel is not enabled");
+                return status;
+            }
+
+            multiplexer_.connectWrkElect(electNum);
+            jsonDat.set(ConnectedKey,multiplexer_.currentWrkElect());
+        }
+
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandGetMuxWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if ((multiplexer_.isRunning()) && (multiplexer_.isConnectedWrk()))  
+        {
+            jsonDat.set(ConnectedKey,multiplexer_.currentWrkElect());
+        }
+        else
+        {
+            jsonDat.set(ConnectedKey, false);
+        }
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandDisconnAllMuxElect(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (multiplexer_.isRunning())
+        {
+            multiplexer_.disconnectWrkElect();
+            multiplexer_.disconnectRefElect();
+            multiplexer_.disconnectCtrElect();
+        }
+        return status;
+    }
+
     // ------------------------------------------------------------------------------------------
 
 

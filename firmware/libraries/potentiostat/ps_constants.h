@@ -16,7 +16,7 @@ namespace ps
     extern const String HardwareVariant;
 
     // Command tabe parameters
-    const uint32_t CommandTableMaxSize = 30;
+    const uint32_t CommandTableMaxSize = 40;
     
     // Buffer parameters
     const uint32_t DataBufferSize = 1000;
@@ -64,7 +64,9 @@ namespace ps
     extern const String VersionKey;
     extern const String VariantKey;
     extern const String MuxEnabledKey;
-    extern const String MuxChannelsKey;
+    extern const String MuxChannelKey;
+    extern const String ConnectedKey;
+
 
     // Json command strings
     extern const String RunTestCmd;
@@ -92,6 +94,13 @@ namespace ps
     extern const String SetEnabledMuxChanCmd;
     extern const String GetEnabledMuxChanCmd;
     extern const String GetMuxTestNamesCmd;
+    extern const String SetMuxRefElectConnCmd;
+    extern const String GetMuxRefElectConnCmd;
+    extern const String SetMuxCtrElectConnCmd;
+    extern const String GetMuxCtrElectConnCmd;
+    extern const String SetMuxWrkElectConnCmd;
+    extern const String GetMuxWrkElectConnCmd;
+    extern const String DisconnAllMuxElectCmd;
 
     // Ranges for output voltage
     extern const VoltRange VoltRange1V; 

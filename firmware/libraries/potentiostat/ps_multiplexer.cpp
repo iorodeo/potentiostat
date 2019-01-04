@@ -154,11 +154,11 @@ namespace ps
     {
         if (digitalRead(MUX_CTR_CONN)) 
         {
-            return true;
+            return false;
         }
         else 
         {
-            return false;
+            return true;
         }
     }
 
@@ -167,11 +167,11 @@ namespace ps
     {
         if (digitalRead(MUX_REF_CONN))
         {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
     }
 
@@ -199,9 +199,7 @@ namespace ps
             int nextIndex = (currIndex  + 1 + i) % NumMuxChan;
             if (enabledTable_[nextIndex])
             {
-                disconnectWrkElect();
-                currWrkElect_ = indexToElectNum(nextIndex);
-                connectWrkElect(currWrkElect_);
+                connectWrkElect(indexToElectNum(nextIndex));
                 break;
             }
         }
@@ -290,6 +288,20 @@ namespace ps
             }
         }
         return enabledArray;
+    } 
+    
+    
+    bool Multiplexer::isWrkElectEnabled(int electNum)
+    {
+        int electIndex = electNumToIndex(electNum);
+        if ((electIndex < 0) || (electIndex >= NumMuxChan))
+        {
+            return false;
+        }
+        else
+        {
+            return enabledTable_[electIndex];
+        }
     }
 
 

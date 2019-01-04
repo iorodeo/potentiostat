@@ -41,7 +41,8 @@ TestNameArrayKey = 'testNames'
 VersionKey = 'version'
 VariantKey = 'variant'
 MuxEnabledKey = 'muxEnabled'
-MuxChannelsKey = 'muxChannels'
+MuxChannelKey = 'muxChannel'
+ConnectedKey = 'connected'
 
 # Commands
 RunTestCmd  = 'runTest'
@@ -69,6 +70,16 @@ GetMuxEnabledCmd = 'getMuxEnabled'
 SetEnabledMuxChanCmd = 'setEnabledMuxChannels'
 GetEnabledMuxChanCmd = 'getEnabledMuxChannels'
 GetMuxTestNamesCmd = 'getMuxTestNames'
+
+SetMuxRefElectConnCmd = "setMuxRefElectConnected"
+GetMuxRefElectConnCmd = "getMuxRefElectConnected"
+SetMuxCtrElectConnCmd = "setMuxCtrElectConnected"
+GetMuxCtrElectConnCmd = "getMuxCtrElectConnected"
+SetMuxWrkElectConnCmd = "setMuxWrkElectConnected"
+GetMuxWrkElectConnCmd = "getMuxWrkElectConnected"
+DisconnAllMuxElectCmd = "disconnectAllMuxElect"
+
+
 
 # Voltage ranges
 VoltRange1V = '1V'
@@ -366,9 +377,9 @@ class Potentiostat(serial.Serial):
         """Enables the specified subset of multiplexer working electrode channels
 
         """
-        cmd_dict = {CommandKey: SetEnabledMuxChanCmd, MuxChannelsKey: channels}
+        cmd_dict = {CommandKey: SetEnabledMuxChanCmd, MuxChannelKey: channels}
         msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][MuxChannelsKey]
+        return msg_dict[ResponseKey][MuxChannelKey]
 
 
     def get_enabled_mux_channels(self):
@@ -377,7 +388,7 @@ class Potentiostat(serial.Serial):
         """
         cmd_dict = {CommandKey: GetEnabledMuxChanCmd}
         msg_dict = self.send_cmd(cmd_dict)
-        return msg_dict[ResponseKey][MuxChannelsKey]
+        return msg_dict[ResponseKey][MuxChannelKey]
 
     def get_mux_test_names(self):
         """Gets the list of test which are compatible with the multiplexer expansion hardware
@@ -387,6 +398,38 @@ class Potentiostat(serial.Serial):
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][TestNameArrayKey]
 
+    # ---------------------------------------------------------------------------------------------
+    # TODO
+    # ---------------------------------------------------------------------------------------------
+    def set_mux_ref_elect_connected(self,value):
+        #SetMuxRefElectConnCmd
+        pass
+
+    def get_mux_ref_elect_connected(self):
+        #GetMuxRefElectConnCmd 
+        pass
+
+    def set_mux_ctr_elect_connected(self,value):
+        #SetMuxCtrElectConnCmd 
+        pass
+
+    def get_mux_ctr_elect_connected(self):
+        #GetMuxCtrElectConnCmd 
+        pass
+
+    def set_mux_wrk_elect_connected(self, value):
+        #SetMuxWrkElectConnCmd 
+        pass
+
+    def get_mux_wrk_elect_connected(self):
+        #GetMuxWrkElectConnCmd 
+        pass
+
+    def disconnect_all_mux_elect(self):
+        #DisconnAllMuxElectCmd 
+        pass
+
+    # -------------------------------------------------------------------------------------------------
 
     def run_test(self, testname, param=None, filename=None, display='pbar', timeunit='s'):
         """Runs the test with specified test name and returns the time, voltage and current data.
