@@ -445,7 +445,7 @@ class Potentiostat(serial.Serial):
 
         """
         cmd_dict = {CommandKey: SetMuxWrkElectConnCmd, ConnectedKey: value}
-        msg_dict = self.send_cmd[cmd_dict]
+        msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][ConnectedKey]
 
 
@@ -455,7 +455,7 @@ class Potentiostat(serial.Serial):
 
         """
         cmd_dict = {CommandKey: GetMuxWrkElectConnCmd}
-        msg_dict = self.send_cmd[cmd_dict]
+        msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][ConnectedKey]
 
 
@@ -465,7 +465,7 @@ class Potentiostat(serial.Serial):
 
         """
         cmd_dict = {CommandKey: DisconnAllMuxElectCmd}
-        msg_dict = self.send_cmd[cmd_dict]
+        msg_dict = self.send_cmd(cmd_dict)
 
 
     def run_test(self, testname, param=None, filename=None, display='pbar', timeunit='s'):

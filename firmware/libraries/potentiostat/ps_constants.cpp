@@ -82,7 +82,7 @@ namespace ps
     const String SetMuxWrkElectConnCmd = String("setMuxWrkElectConnected");
     const String GetMuxWrkElectConnCmd = String("getMuxWrkElectConnected");
     const String DisconnAllMuxElectCmd = String("disconnectAllMuxElect");
-    
+
     // Ranges for output voltage
     const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
     const VoltRange VoltRange2V(String("2V"),-2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueDac);
