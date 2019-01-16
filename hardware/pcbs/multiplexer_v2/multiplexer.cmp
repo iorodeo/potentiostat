@@ -1,0 +1,136 @@
+Cmp-Mod V01 Created by CvPcb (2013-jul-07)-stable date = Tue 15 Jan 2019 05:57:57 PM PST
+
+BeginCmp
+TimeStamp = /5B4BD185;
+Reference = C1;
+ValeurCmp = 0.1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BD3A9;
+Reference = C2;
+ValeurCmp = 0.1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BD194;
+Reference = C3;
+ValeurCmp = 0.1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BD3AF;
+Reference = C4;
+ValeurCmp = 0.1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BD3BD;
+Reference = C5;
+ValeurCmp = 0.1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BD3D1;
+Reference = C6;
+ValeurCmp = 0.1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BD3C3;
+Reference = C7;
+ValeurCmp = 0.1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BD3D7;
+Reference = C8;
+ValeurCmp = 0.1uF;
+IdModule  = SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BC53E;
+Reference = K1;
+ValeurCmp = CONN_3;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BDC47;
+Reference = K2;
+ValeurCmp = CONN_3;
+IdModule  = CONNBLOCK3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BC7E9;
+Reference = P1;
+ValeurCmp = CONN_5X2;
+IdModule  = 5X2_SHRD_HEADER;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BC67F;
+Reference = P2;
+ValeurCmp = CONN_5X2;
+IdModule  = 5X2_SHRD_HEADER;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BCEAB;
+Reference = P3;
+ValeurCmp = CONN_2;
+IdModule  = PIN_ARRAY_2X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BCEBA;
+Reference = P4;
+ValeurCmp = CONN_2;
+IdModule  = PIN_ARRAY_2X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BD941;
+Reference = P5;
+ValeurCmp = CONN_7;
+IdModule  = 5X2_SHRD_HEADER;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BC4A2;
+Reference = U1;
+ValeurCmp = ADG44X;
+IdModule  = 16-SOIC-0154;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BC959;
+Reference = U2;
+ValeurCmp = ADG44X;
+IdModule  = 16-SOIC-0154;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BC991;
+Reference = U3;
+ValeurCmp = ADG44X;
+IdModule  = 16-SOIC-0154;
+EndCmp
+
+BeginCmp
+TimeStamp = /5B4BC9B7;
+Reference = U4;
+ValeurCmp = ADG44X;
+IdModule  = 16-SOIC-0154;
+EndCmp
+
+EndListe
