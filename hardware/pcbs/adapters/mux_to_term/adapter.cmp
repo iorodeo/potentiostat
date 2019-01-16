@@ -1,0 +1,24 @@
+Cmp-Mod V01 Created by CvPcb (2013-jul-07)-stable date = Tue 15 Jan 2019 07:58:20 PM PST
+
+BeginCmp
+TimeStamp = /5C3EA406;
+Reference = K1;
+ValeurCmp = CONN_3;
+IdModule  = CONNBLOCK3;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C3EA35D;
+Reference = P1;
+ValeurCmp = CONN_5X2;
+IdModule  = 5X2_SHRD_HEADER_FEMALE;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C3EA415;
+Reference = P2;
+ValeurCmp = CONN_7;
+IdModule  = CONNBLOCK7;
+EndCmp
+
+EndListe
