@@ -1,0 +1,59 @@
+Cmp-Mod V01 Created by CvPcb (2013-jul-07)-stable date = Thu 17 Jan 2019 05:19:58 PM PST
+
+BeginCmp
+TimeStamp = /5C4127DC;
+Reference = K1;
+ValeurCmp = CONN_3;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C4128F5;
+Reference = K2;
+ValeurCmp = CONN_3;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C412901;
+Reference = K3;
+ValeurCmp = CONN_3;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C41290D;
+Reference = K4;
+ValeurCmp = CONN_3;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C412919;
+Reference = K5;
+ValeurCmp = CONN_3;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C412925;
+Reference = K6;
+ValeurCmp = CONN_3;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C412931;
+Reference = K7;
+ValeurCmp = CONN_3;
+IdModule  = PIN_ARRAY_3X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5C3EA35D;
+Reference = P1;
+ValeurCmp = CONN_5X2;
+IdModule  = 5X2_SHRD_HEADER_FEMALE;
+EndCmp
+
+EndListe

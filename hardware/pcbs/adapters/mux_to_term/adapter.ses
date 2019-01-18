@@ -1,0 +1,155 @@
+
+(session adapter.ses
+  (base_design adapter.dsn)
+  (placement
+    (resolution um 10)
+    (component CONNBLOCK7
+      (place P2 736600 -850900 front 270)
+    )
+    (component CONNBLOCK3
+      (place K1 736600 -609600 front 270)
+    )
+    (component 5X2_SHRD_HEADER_FEMALE
+      (place P1 584200 -762000 back 270)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version "(2013-jul-07)-stable")
+    )
+    (library_out 
+      (padstack "Via[0-1]_889:635_um"
+        (shape
+          (circle F.Cu 8890 0 0)
+        )
+        (shape
+          (circle B.Cu 8890 0 0)
+        )
+        (attach off)
+      )
+      (padstack "Via[0-1]_889:0_um"
+        (shape
+          (circle F.Cu 8890 0 0)
+        )
+        (shape
+          (circle B.Cu 8890 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net /CTR_SW
+        (wire
+          (path F.Cu 2540
+            596900 -716280
+            703580 -609600
+            736600 -609600
+          )
+        )
+      )
+      (net /GND
+        (wire
+          (path F.Cu 2540
+            571500 -716280
+            713181 -574599
+            736600 -574599
+          )
+        )
+      )
+      (net /REF_SW
+        (wire
+          (path B.Cu 2540
+            571500 -741680
+            558796 -728976
+            558796 -705690
+            619885 -644601
+            736600 -644601
+          )
+        )
+      )
+      (net /WRK_1
+        (wire
+          (path B.Cu 2540
+            736600 -745900
+            722787 -745900
+          )
+        )
+        (wire
+          (path B.Cu 2540
+            596900 -741680
+            718567 -741680
+            722787 -745900
+          )
+        )
+      )
+      (net /WRK_2
+        (wire
+          (path F.Cu 2540
+            571500 -767080
+            553686 -784894
+            553686 -825427
+            592980 -864721
+            742319 -864721
+            750745 -856295
+            750745 -795045
+            736600 -780900
+          )
+        )
+      )
+      (net /WRK_3
+        (wire
+          (path B.Cu 2540
+            596900 -767080
+            687780 -767080
+            736600 -815900
+          )
+        )
+      )
+      (net /WRK_4
+        (wire
+          (path F.Cu 2540
+            571500 -792480
+            558796 -805184
+            558796 -823347
+            586349 -850900
+            736600 -850900
+          )
+        )
+      )
+      (net /WRK_5
+        (wire
+          (path B.Cu 2540
+            596900 -792480
+            643180 -792480
+            736600 -885900
+          )
+        )
+      )
+      (net /WRK_6
+        (wire
+          (path B.Cu 2540
+            571500 -817880
+            723341 -969721
+            742606 -969721
+            750815 -961512
+            750815 -935115
+            736600 -920900
+          )
+        )
+      )
+      (net /WRK_7
+        (wire
+          (path B.Cu 2540
+            596900 -817880
+            734920 -955900
+            736600 -955900
+          )
+        )
+      )
+    )
+  )
+)

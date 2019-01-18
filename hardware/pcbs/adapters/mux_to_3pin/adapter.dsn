@@ -1,0 +1,170 @@
+(pcb /home/wbd/work/products/potentiostat/hardware/pcbs/adapters/mux_to_3pin/adapter.dsn
+  (parser
+    (string_quote ")
+    (space_in_quoted_tokens on)
+    (host_cad "KiCad's Pcbnew")
+    (host_version "(2013-jul-07)-stable")
+  )
+  (resolution um 10)
+  (unit um)
+  (structure
+    (layer F.Cu
+      (type signal)
+      (property
+        (index 0)
+      )
+    )
+    (layer B.Cu
+      (type signal)
+      (property
+        (index 1)
+      )
+    )
+    (boundary
+      (path pcb 0  64770 -99060  64770 -93980  64731.4 -93538.9  64616.8 -93111.3
+            64429.7 -92710  64175.8 -92347.3  63862.7 -92034.2  63500 -91780.3
+            63098.7 -91593.2  62671.1 -91478.6  62230 -91440  53340 -91440
+            52898.9 -91401.4  52471.3 -91286.8  52070 -91099.7  51707.3 -90845.8
+            51394.2 -90532.7  51140.3 -90170  50953.2 -89768.7  50838.6 -89341.1
+            50800 -88900  50800 -63500  50838.6 -63058.9  50953.2 -62631.3
+            51140.3 -62230  51394.2 -61867.3  51707.3 -61554.2  52070 -61300.3
+            52471.3 -61113.2  52898.9 -60998.6  53340 -60960  62230 -60960
+            62671.1 -60921.4  63098.7 -60806.8  63500 -60619.7  63862.7 -60365.8
+            64175.8 -60052.7  64429.7 -59690  64616.8 -59288.7  64731.4 -58861.1
+            64770 -58420  64770 -53340  64808.6 -52898.9  64923.2 -52471.3
+            65110.3 -52070  65364.2 -51707.3  65677.3 -51394.2  66040 -51140.3
+            66441.3 -50953.2  66868.9 -50838.6  67310 -50800  74930 -50800
+            75371.1 -50838.6  75798.7 -50953.2  76200 -51140.3  76562.7 -51394.2
+            76875.8 -51707.3  77129.7 -52070  77316.8 -52471.3  77431.4 -52898.9
+            77470 -53340  77470 -99060  77431.4 -99501.1  77316.8 -99928.7
+            77129.7 -100330  76875.8 -100693  76562.7 -101006  76200 -101260
+            75798.7 -101447  75371.1 -101561  74930 -101600  67310 -101600
+            66868.9 -101561  66441.3 -101447  66040 -101260  65677.3 -101006
+            65364.2 -100693  65110.3 -100330  64923.2 -99928.7  64808.6 -99501.1
+            64770 -99060)
+    )
+    (via "Via[0-1]_889:635_um" "Via[0-1]_889:0_um")
+    (rule
+      (width 254)
+      (clearance 254.1)
+      (clearance 254.1 (type default_smd))
+      (clearance 63.5 (type smd_smd))
+    )
+  )
+  (placement
+    (component 5X2_SHRD_HEADER_FEMALE
+      (place P1 58420 -76200 back 270 (PN CONN_5X2))
+    )
+    (component PIN_ARRAY_3X1
+      (place K1 72390 -57150 front 0 (PN CONN_3))
+      (place K2 72390 -63500 front 0 (PN CONN_3))
+      (place K3 72390 -69850 front 0 (PN CONN_3))
+      (place K4 72390 -76200 front 0 (PN CONN_3))
+      (place K5 72390 -82550 front 0 (PN CONN_3))
+      (place K6 72390 -88900 front 0 (PN CONN_3))
+      (place K7 72390 -95250 front 0 (PN CONN_3))
+    )
+  )
+  (library
+    (image 5X2_SHRD_HEADER_FEMALE
+      (outline (path signal 381  9652 4826  -10668 4826))
+      (outline (path signal 381  -10668 4826  -10668 -4826))
+      (outline (path signal 381  -10668 -4826  9652 -4826))
+      (outline (path signal 381  9652 -4826  9652 4826))
+      (outline (path signal 381  6393.18 -7299.96  3390.9 -7299.96))
+      (outline (path signal 381  4856.48 -5488.94  6380.48 -7266.94))
+      (outline (path signal 381  3332.48 -7264.4  4856.48 -5486.4))
+      (pin Rect[A]Pad_1778x1778_um (rotate 180) 1 4572 -1270)
+      (pin Round[A]Pad_1778_um (rotate 180) 2 4572 1270)
+      (pin Round[A]Pad_1778_um (rotate 180) 3 2032 -1270)
+      (pin Round[A]Pad_1778_um (rotate 180) 4 2032 1270)
+      (pin Round[A]Pad_1778_um (rotate 180) 5 -508 -1270)
+      (pin Round[A]Pad_1778_um (rotate 180) 6 -508 1270)
+      (pin Round[A]Pad_1778_um (rotate 180) 7 -3048 -1270)
+      (pin Round[A]Pad_1778_um (rotate 180) 8 -3048 1270)
+      (pin Round[A]Pad_1778_um (rotate 180) 9 -5588 -1270)
+      (pin Round[A]Pad_1778_um (rotate 180) 10 -5588 1270)
+    )
+    (image PIN_ARRAY_3X1
+      (outline (path signal 152.4  -3810 -1270  -3810 1270))
+      (outline (path signal 152.4  -3810 1270  3810 1270))
+      (outline (path signal 152.4  3810 1270  3810 -1270))
+      (outline (path signal 152.4  3810 -1270  -3810 -1270))
+      (outline (path signal 152.4  -1270 1270  -1270 -1270))
+      (pin Rect[A]Pad_1524x1524_um 1 -2540 0)
+      (pin Round[A]Pad_1524_um 2 0 0)
+      (pin Round[A]Pad_1524_um 3 2540 0)
+    )
+    (padstack Round[A]Pad_1524_um
+      (shape (circle F.Cu 1524))
+      (shape (circle B.Cu 1524))
+      (attach off)
+    )
+    (padstack Round[A]Pad_1778_um
+      (shape (circle F.Cu 1778))
+      (shape (circle B.Cu 1778))
+      (attach off)
+    )
+    (padstack Rect[A]Pad_1524x1524_um
+      (shape (rect F.Cu -762 -762 762 762))
+      (shape (rect B.Cu -762 -762 762 762))
+      (attach off)
+    )
+    (padstack Rect[A]Pad_1778x1778_um
+      (shape (rect F.Cu -889 -889 889 889))
+      (shape (rect B.Cu -889 -889 889 889))
+      (attach off)
+    )
+    (padstack "Via[0-1]_889:635_um"
+      (shape (circle F.Cu 889))
+      (shape (circle B.Cu 889))
+      (attach off)
+    )
+    (padstack "Via[0-1]_889:0_um"
+      (shape (circle F.Cu 889))
+      (shape (circle B.Cu 889))
+      (attach off)
+    )
+  )
+  (network
+    (net /CTR_SW
+      (pins P1-2 K1-1 K2-1 K3-1 K4-1 K5-1 K6-1 K7-1)
+    )
+    (net /REF_SW
+      (pins P1-3 K1-2 K2-2 K3-2 K4-2 K5-2 K6-2 K7-2)
+    )
+    (net /WRK_1
+      (pins P1-4 K1-3)
+    )
+    (net /WRK_2
+      (pins P1-5 K2-3)
+    )
+    (net /WRK_3
+      (pins P1-6 K3-3)
+    )
+    (net /WRK_4
+      (pins P1-7 K4-3)
+    )
+    (net /WRK_5
+      (pins P1-8 K5-3)
+    )
+    (net /WRK_6
+      (pins P1-9 K6-3)
+    )
+    (net /WRK_7
+      (pins P1-10 K7-3)
+    )
+    (class kicad_default "" /CTR_SW /REF_SW /WRK_1 /WRK_2 /WRK_3 /WRK_4 /WRK_5
+      /WRK_6 /WRK_7
+      (circuit
+        (use_via Via[0-1]_889:635_um)
+      )
+      (rule
+        (width 254)
+        (clearance 254.1)
+      )
+    )
+  )
+  (wiring
+  )
+)

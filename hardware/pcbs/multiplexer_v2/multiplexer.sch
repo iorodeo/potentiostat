@@ -37,7 +37,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "16 jan 2019"
+Date "18 jan 2019"
 Rev ""
 Comp ""
 Comment1 ""
@@ -84,9 +84,9 @@ WRK_3
 Text Label 5100 1600 2    60   ~ 0
 WRK_4
 Text Label 6600 1750 0    60   ~ 0
-+15V
++12V
 Text Label 6600 1850 0    60   ~ 0
--15V
+-12V
 Text Label 6600 1950 0    60   ~ 0
 GND
 NoConn ~ 6350 2050
@@ -176,9 +176,9 @@ WRK_3
 Text Label 5100 3500 2    60   ~ 0
 WRK_4
 Text Label 6600 3650 0    60   ~ 0
-+15V
++12V
 Text Label 6600 3750 0    60   ~ 0
--15V
+-12V
 Text Label 6600 3850 0    60   ~ 0
 GND
 NoConn ~ 6350 3950
@@ -214,9 +214,9 @@ WRK_6
 Text Label 8600 1600 2    60   ~ 0
 WRK_7
 Text Label 10100 1750 0    60   ~ 0
-+15V
++12V
 Text Label 10100 1850 0    60   ~ 0
--15V
+-12V
 Text Label 10100 1950 0    60   ~ 0
 GND
 NoConn ~ 9850 2050
@@ -238,9 +238,9 @@ WRK_6
 Text Label 8600 3500 2    60   ~ 0
 WRK_7
 Text Label 10100 3650 0    60   ~ 0
-+15V
++12V
 Text Label 10100 3750 0    60   ~ 0
--15V
+-12V
 Text Label 10100 3850 0    60   ~ 0
 GND
 NoConn ~ 9850 3950
@@ -487,9 +487,9 @@ Wire Wire Line
 	1950 2400 1750 2400
 Connection ~ 1950 2400
 Text Label 1750 1900 2    60   ~ 0
-+15V
++12V
 Text Label 1750 2400 2    60   ~ 0
--15V
+-12V
 $Comp
 L C C1
 U 1 1 5B4BD185
@@ -523,9 +523,9 @@ Wire Wire Line
 Text Label 4100 1050 1    60   ~ 0
 GND
 Text Label 4100 1950 3    60   ~ 0
--15V
+-12V
 Text Label 4450 1050 1    60   ~ 0
-+15V
++12V
 Text Label 4450 1950 3    60   ~ 0
 GND
 $Comp
@@ -561,9 +561,9 @@ Wire Wire Line
 Text Label 4150 2950 1    60   ~ 0
 GND
 Text Label 4150 3850 3    60   ~ 0
--15V
+-12V
 Text Label 4500 2950 1    60   ~ 0
-+15V
++12V
 Text Label 4500 3850 3    60   ~ 0
 GND
 $Comp
@@ -599,9 +599,9 @@ Wire Wire Line
 Text Label 7650 1050 1    60   ~ 0
 GND
 Text Label 7650 1950 3    60   ~ 0
--15V
+-12V
 Text Label 8000 1050 1    60   ~ 0
-+15V
++12V
 Text Label 8000 1950 3    60   ~ 0
 GND
 $Comp
@@ -637,9 +637,9 @@ Wire Wire Line
 Text Label 7650 2800 1    60   ~ 0
 GND
 Text Label 7650 3700 3    60   ~ 0
--15V
+-12V
 Text Label 8000 2800 1    60   ~ 0
-+15V
++12V
 Text Label 8000 3700 3    60   ~ 0
 GND
 Wire Notes Line
@@ -739,9 +739,9 @@ Wire Wire Line
 Wire Wire Line
 	2600 5600 2600 5800
 Text Label 1800 5800 3    60   ~ 0
-+15V
++12V
 Text Label 2200 5800 3    60   ~ 0
--15V
+-12V
 Text Label 2600 5800 3    60   ~ 0
 GND
 Text Notes 2050 750  0    60   ~ 0
