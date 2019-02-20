@@ -63,6 +63,7 @@ namespace ps
         durationArray_.fill(0);
         setNumStep(numStep);
         setName("multiStep");
+        setMuxCompatible(true);
     }
 
 
@@ -272,7 +273,7 @@ namespace ps
             {
                 JsonArray &jsonStep = jsonStepArray.createNestedArray();
                 jsonStep.add(convertUsToMs(durationArray_[i]));
-                jsonStep.add(valueArray_[i],JsonFloatDecimals);
+                jsonStep.add(valueArray_[i]);
             }
         }
     }
@@ -400,7 +401,7 @@ namespace ps
                 setStepValue(i,valueArrayTmp[i]);
                 JsonArray &jsonStepDat = jsonStepDatArray.createNestedArray();
                 jsonStepDat.add(convertUsToMs(durationArray_[i]));
-                jsonStepDat.add(valueArray_[i],JsonFloatDecimals);
+                jsonStepDat.add(valueArray_[i]);
             }
         }
 

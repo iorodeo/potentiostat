@@ -16,7 +16,8 @@ import json
 import atexit
 import contextlib
 import progressbar
-
+import os
+import cPickle
 
 # Json message keys
 CommandKey = 'command'
@@ -28,6 +29,7 @@ ParamKey = 'param'
 TimeKey = 't'
 VoltKey = 'v'
 CurrKey = 'i'
+ChanKey = 'n'
 RefVoltKey = 'r'
 VoltRangeKey = 'voltRange'
 CurrRangeKey = 'currRange'
@@ -38,6 +40,9 @@ StepArrayKey = 'step'
 TestNameArrayKey = 'testNames'
 VersionKey = 'version'
 VariantKey = 'variant'
+MuxEnabledKey = 'muxEnabled'
+MuxChannelKey = 'muxChannel'
+ConnectedKey = 'connected'
 
 # Commands
 RunTestCmd  = 'runTest'
@@ -60,6 +65,21 @@ GetTestDoneTimeCmd = 'getTestDoneTime'
 GetTestNamesCmd = 'getTestNames'
 GetVersionCmd = 'getVersion'
 GetVariantCmd = 'getVariant'
+SetMuxEnabledCmd = 'setMuxEnabled'
+GetMuxEnabledCmd = 'getMuxEnabled'
+SetEnabledMuxChanCmd = 'setEnabledMuxChannels'
+GetEnabledMuxChanCmd = 'getEnabledMuxChannels'
+GetMuxTestNamesCmd = 'getMuxTestNames'
+
+SetMuxRefElectConnCmd = "setMuxRefElectConnected"
+GetMuxRefElectConnCmd = "getMuxRefElectConnected"
+SetMuxCtrElectConnCmd = "setMuxCtrElectConnected"
+GetMuxCtrElectConnCmd = "getMuxCtrElectConnected"
+SetMuxWrkElectConnCmd = "setMuxWrkElectConnected"
+GetMuxWrkElectConnCmd = "getMuxWrkElectConnected"
+DisconnAllMuxElectCmd = "disconnectAllMuxElect"
+
+
 
 # Voltage ranges
 VoltRange1V = '1V'
@@ -90,6 +110,11 @@ HwVariantToCurrRangeList = {
 
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
 
+MinimumFirmwareVersionForMux = '0.0.5'
+
+TxtOutputFileType = 0
+PklOutputFileType = 1
+
 class Potentiostat(serial.Serial):
 
     """Provides a high level interface  performing serial communications with the Rodeostat. 
@@ -114,6 +139,7 @@ class Potentiostat(serial.Serial):
         while self.inWaiting() > 0:
             val = self.read()
         self.hw_variant = self.get_hardware_variant()
+        self.firmware_version = self.get_firmware_version()
         self.test_running = False
 
 
@@ -211,11 +237,13 @@ class Potentiostat(serial.Serial):
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][VoltRangeKey]
 
+
     def get_all_volt_range(self):
         """Gets a list of voltage ranges supported by the device.
 
         """
         return VoltRangeList
+
 
     def set_curr_range(self,curr_range):
         """Sets the measurement current range (uA).
@@ -236,11 +264,13 @@ class Potentiostat(serial.Serial):
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][CurrRangeKey]
 
+
     def get_all_curr_range(self):
         """Gets a list of all current ranges supported by the device.
 
         """
         return HwVariantToCurrRangeList[self.hw_variant]
+
 
     def get_device_id(self):
         """Gets the current value of the device identification number
@@ -325,10 +355,130 @@ class Potentiostat(serial.Serial):
         return msg_dict[ResponseKey][VersionKey]
 
 
+    def set_mux_enabled(self, value):
+        """Enable/Disables the multiplexer expansion hardware
+
+        """
+        cmd_dict = {CommandKey: SetMuxEnabledCmd, MuxEnabledKey: value}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][MuxEnabledKey]
+
+
+    def get_mux_enabled(self):
+        """Get multiplexer expansion hardware enabled state 
+
+        """
+        cmd_dict = {CommandKey: GetMuxEnabledCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][MuxEnabledKey]
+
+
+    def set_enabled_mux_channels(self,channels):
+        """Enables the specified subset of multiplexer working electrode channels
+
+        """
+        cmd_dict = {CommandKey: SetEnabledMuxChanCmd, MuxChannelKey: channels}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][MuxChannelKey]
+
+
+    def get_enabled_mux_channels(self):
+        """Get the list of currently enabled multiplexer working electrode channels
+
+        """
+        cmd_dict = {CommandKey: GetEnabledMuxChanCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][MuxChannelKey]
+
+    def get_mux_test_names(self):
+        """Gets the list of test which are compatible with the multiplexer expansion hardware
+
+        """
+        cmd_dict = {CommandKey: GetMuxTestNamesCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][TestNameArrayKey]
+
+
+    def set_mux_ref_elect_connected(self,value):
+        """Sets the connected state (True/False) of the reference electrode when using the multiplexer 
+        expansion hardware.
+
+        """
+        cmd_dict = {CommandKey: SetMuxRefElectConnCmd,ConnectedKey: value}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
+
+    def get_mux_ref_elect_connected(self):
+        """ Returns the connected state (True/False) of the reference electrode when using the multiplexer
+        expansion hardware.
+
+        """
+        cmd_dict = {CommandKey: GetMuxRefElectConnCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
+
+    def set_mux_ctr_elect_connected(self,value):
+        """Sets the connected state (True or False) of the counter electrode when using the multiplexer
+        expansion hardware.
+
+        """
+        cmd_dict = {CommandKey: SetMuxCtrElectConnCmd, ConnectedKey: value}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
+
+    def get_mux_ctr_elect_connected(self):
+        """Returns the connected state (True or False) of the counter electrode when using the multiplexer
+        expansion hardware.
+
+        """
+        cmd_dict = {CommandKey: GetMuxCtrElectConnCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
+
+    def set_mux_wrk_elect_connected(self, value):
+        """Sets the connected state (1, 2, 3, 4, 5, 6, 7 or False) of the working electrode when using the 
+        multiplexer expansion hardware.
+
+        """
+        cmd_dict = {CommandKey: SetMuxWrkElectConnCmd, ConnectedKey: value}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
+
+    def get_mux_wrk_elect_connected(self):
+        """Returns the connected state (1, 2, 3, 4, 5, 6, 7 or False) of the working electrode when using 
+        the multiplexer expansion hardware.
+
+        """
+        cmd_dict = {CommandKey: GetMuxWrkElectConnCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
+
+    def disconnect_all_mux_elect(self):
+        """Disconnects all electrodes (reference, counter and working) when using the multiplexer expansion
+        hardware.
+
+        """
+        cmd_dict = {CommandKey: DisconnAllMuxElectCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+
+
     def run_test(self, testname, param=None, filename=None, display='pbar', timeunit='s'):
         """Runs the test with specified test name and returns the time, voltage and current data.
 
         """
+        mux_enabled = False
+        channel_list = [0]
+        if self.firmware_version >= MinimumFirmwareVersionForMux:
+            mux_enabled = self.get_mux_enabled()
+            if mux_enabled:
+                channel_list = self.get_enabled_mux_channels()
+
         if timeunit not in TimeUnitToScale:
             raise RuntimeError('uknown timeunit option {0}'.format(timeunit))
         if display not in (None, 'pbar', 'data'):
@@ -351,13 +501,18 @@ class Potentiostat(serial.Serial):
             pbar = progressbar.ProgressBar(widgets=widgets,maxval=test_done_tval)
             pbar.start()
 
-        tval_list = [] 
-        volt_list = [] 
-        curr_list = []
+        data_dict = {chan:{TimeKey:[],VoltKey:[],CurrKey:[]} for chan in channel_list}
 
+        # Determine output file type and open if required
         if filename is not None:
-            fid = open(filename,'w')
+            filename_base, filename_ext = os.path.splitext(filename)
+            if filename_ext == '.pkl':
+                output_filetype = PklOutputFileType
+            else:
+                output_filetype = TxtOutputFileType
+                fid = open(filename,'w')
 
+        # Start voltammetric test
         cmd_dict = {CommandKey: RunTestCmd, TestKey: testname}
         msg_dict = self.send_cmd(cmd_dict)
         self.test_running = True
@@ -374,15 +529,28 @@ class Potentiostat(serial.Serial):
                 tval = sample_dict[TimeKey]*TimeUnitToScale[timeunit]
                 volt = sample_dict[VoltKey]
                 curr = sample_dict[CurrKey]
-                tval_list.append(tval)
-                volt_list.append(volt)
-                curr_list.append(curr)
+                chan = 0  # Dummy channel used when mux isn't running
+
+                if mux_enabled:
+                    chan = sample_dict[ChanKey]
+
+                for k,v in [(TimeKey,tval),(VoltKey,volt),(CurrKey,curr)]:
+                    data_dict[chan][k].append(v)
+
                 # Write data to file
-                if filename is not None:
-                    fid.write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tval,volt,curr))
+                if (filename is not None) and (output_filetype == TxtOutputFileType):
+                    if chan == 0:
+                        fid.write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tval,volt,curr))
+                    else:
+                        fid.write('{0}, {1:1.3f}, {2:1.4f}, {3:1.4f}\n'.format(chan,tval,volt,curr))
+
                 # Handle diplay options
                 if display == 'data':
-                    print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tval,volt,curr))
+                    if chan == 0:
+                        print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tval,volt,curr))
+                    else:
+                        print('ch{0}: {1:1.3f}, {2:1.4f}, {3:1.4f}'.format(chan,tval,volt,curr))
+
                 elif display == 'pbar':
                     pbar.update(tval)
             else:
@@ -395,9 +563,19 @@ class Potentiostat(serial.Serial):
             print()
 
         if filename is not None:
-            fid.close()
+            if output_filetype == PklOutputFileType:
+                with open(filename,'w') as fid:
+                    if mux_enabled:
+                        cPickle.dump(data_dict, fid)
+                    else:
+                        cPickle.dump(data_dict[0], fid)
+            else:
+                fid.close()
 
-        return tval_list, volt_list, curr_list 
+        if mux_enabled:
+            return data_dict 
+        else:
+            return data_dict[0][TimeKey], data_dict[0][VoltKey], data_dict[0][CurrKey]
 
 
     def send_cmd(self,cmd_dict):

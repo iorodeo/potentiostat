@@ -142,7 +142,6 @@ namespace ps
     ReturnStatus Voltammetry::getTestNames(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-
         JsonArray &jsonNameArray = jsonDat.createNestedArray(TestNameArrayKey);
         for (size_t i=0; i<availableTests_.size(); i++)
         {
@@ -151,6 +150,22 @@ namespace ps
         return status;
     }
 
+
+    ReturnStatus Voltammetry::getMuxTestNames(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        JsonArray &jsonNameArray = jsonDat.createNestedArray(TestNameArrayKey);
+        for (size_t i=0; i<availableTests_.size(); i++)
+        {
+            if (availableTests_[i] -> isMuxCompatible())
+            {
+                jsonNameArray.add(availableTests_[i] -> getName());
+            }
+        }
+        return status;
+    }
+
+
     void Voltammetry::setSamplePeriod(uint64_t samplePeriod)
     {
         for (size_t i=0; i<availableTests_.size(); i++)
@@ -158,5 +173,6 @@ namespace ps
             availableTests_[i] -> setSamplePeriod(samplePeriod);
         }
     }
+
 
 } // namespace ps

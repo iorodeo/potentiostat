@@ -15,11 +15,7 @@ namespace ps
         public:
 
             MessageParser();
-            JsonObject& parse(String &message);
-
-        protected:
-
-            StaticJsonBuffer<JsonMessageBufferSize> jsonBuffer_;
+            JsonObject& parse(String &message, StaticJsonBuffer<JsonMessageBufferSize> &jsonBuffer);
 
     };
 

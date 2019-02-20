@@ -4,11 +4,10 @@
 
 namespace ps
 { 
-    const String FirmwareVersion = String("0.0.4");
+    const String FirmwareVersion = String("0.0.5");
 
     // Serial parameters
     const uint32_t UsbSerialBaudrate = 115200;
-    const uint32_t JsonFloatDecimals = 5;
 
     // Device ID EEPROM address
     extern const uint32_t EEPROM_DeviceIdAddress = 0;
@@ -21,6 +20,7 @@ namespace ps
     const String TimeKey = String("t");
     const String VoltKey = String("v");
     const String CurrKey = String("i");
+    const String ChanKey = String("n");
     const String RefVoltKey = String("r");
     const String ParamKey = String("param");
     const String VoltRangeKey = String("voltRange");
@@ -45,6 +45,9 @@ namespace ps
     const String TestNameArrayKey = String("testNames");
     const String VersionKey = String("version");
     const String VariantKey = String("variant");
+    const String MuxEnabledKey = String("muxEnabled");
+    const String MuxChannelKey = String("muxChannel");
+    const String ConnectedKey = String("connected");
 
     // Json command strings
     const String RunTestCmd = String("runTest");
@@ -67,6 +70,18 @@ namespace ps
     const String GetTestNamesCmd = String("getTestNames");
     const String GetVersionCmd = String("getVersion");
     const String GetVariantCmd = String("getVariant");
+    const String SetMuxEnabledCmd = String("setMuxEnabled");
+    const String GetMuxEnabledCmd = String("getMuxEnabled");
+    const String SetEnabledMuxChanCmd = String("setEnabledMuxChannels");
+    const String GetEnabledMuxChanCmd = String("getEnabledMuxChannels");
+    const String GetMuxTestNamesCmd = String("getMuxTestNames");
+    const String SetMuxRefElectConnCmd = String("setMuxRefElectConnected");
+    const String GetMuxRefElectConnCmd = String("getMuxRefElectConnected");
+    const String SetMuxCtrElectConnCmd = String("setMuxCtrElectConnected");
+    const String GetMuxCtrElectConnCmd = String("getMuxCtrElectConnected");
+    const String SetMuxWrkElectConnCmd = String("setMuxWrkElectConnected");
+    const String GetMuxWrkElectConnCmd = String("getMuxWrkElectConnected");
+    const String DisconnAllMuxElectCmd = String("disconnectAllMuxElect");
 
     // Ranges for output voltage
     const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
@@ -114,6 +129,5 @@ namespace ps
 
     // Low pass filter params for current samples
     const LowPassParam CurrLowPassParam = {200.0, 0.0, 2}; // cutoff freq (Hz), initial value, order
-    const float LowPassDtSec = 1.0e-6*TestTimerPeriod;    // (s)
 
 } // namespace ps

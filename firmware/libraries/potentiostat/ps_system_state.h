@@ -13,7 +13,9 @@
 #include "ps_voltammetry.h"
 #include "ps_sample.h"
 #include "ps_filter.h"
-
+#include "ps_multiplexer.h"
+#include "third-party/Array/Array.h"
+#define ARDUINOJSON_USE_DOUBLE 0
 #include "third-party/ArduinoJson/ArduinoJson.h"
 
 namespace ps
@@ -51,6 +53,18 @@ namespace ps
             ReturnStatus onCommandGetTestNames(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetVersion(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetVariant(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetMuxEnabled(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetMuxEnabled(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetMuxTestNames(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetMuxRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetMuxRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetMuxCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetMuxCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetMuxWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetMuxWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandDisconnAllMuxElect(JsonObject &jsonMsg, JsonObject &jsonDat);
 
             void startTest();
             void stopTest();
@@ -68,25 +82,25 @@ namespace ps
             volatile bool lastSampleFlag_;
 
             AnalogSubsystem analogSubsystem_;
+            Multiplexer multiplexer_;
 
             MessageReceiver messageReceiver_;
             MessageParser messageParser_;
             MessageSender messageSender_;
 
             CommandTable<SystemState,CommandTableMaxSize> commandTable_;
-            StaticJsonBuffer<JsonMessageBufferSize> commandRespJsonBuffer_;
 
             CircularBuffer<Sample,DataBufferSize> dataBuffer_;
             Voltammetry voltammetry_;
 
             IntervalTimer testTimer_;
             void (*testTimerCallback_)() = dummyTimerCallback;
-
+            volatile uint64_t timerCnt_;
             uint32_t samplePeriod_; 
             uint32_t sampleModulus_;  
-            uint64_t timerCnt_;
 
-            LowPass currLowPass_;
+            Array<LowPass,NumMuxChan> currLowPass_;
+            float lowPassDtSec_;
             BaseTest *test_;
 
             static void dummyTimerCallback() {};

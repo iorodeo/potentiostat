@@ -7,6 +7,7 @@ namespace ps
     CyclicTest::CyclicTest() : PeriodicTest()
     {
         setName("cyclic");
+        setMuxCompatible(true);
     }
 
 

@@ -21,10 +21,6 @@ namespace ps
             void sendSampleEnd();
             void sendCommandResponse(ReturnStatus status, JsonObject &jsonDat);
 
-        protected:
-
-            StaticJsonBuffer<JsonMessageBufferSize> jsonBuffer_;
-
     };
 
 

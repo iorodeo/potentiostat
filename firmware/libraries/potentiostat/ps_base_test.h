@@ -46,6 +46,9 @@ namespace ps
             virtual void getParam(JsonObject &jsonDat);
             virtual ReturnStatus setParam(JsonObject &jsonMsg, JsonObject &jsonDat);
 
+            virtual bool isMuxCompatible();
+            virtual void setMuxCompatible(bool value);
+
         protected:
 
             uint64_t quietTime_ = 0;
@@ -54,6 +57,7 @@ namespace ps
             uint32_t sampleModulus_ = 0;
             String name_ = String("base");
             SampleMethod sampleMethod_ = SampleGeneric;
+            bool muxCompatible_ = false;
 
             JsonObject &getParamJsonObject(JsonObject &json, ReturnStatus &status);
             void setQuietValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);

@@ -9,56 +9,43 @@ namespace ps
 
     void MessageSender::sendCommandResponse(ReturnStatus status, JsonObject &jsonDat)
     {
-        // ArduinoJson upgrade
-        // ----------------------------------------------------
-        //jsonBuffer_.clear(); 
-        // ----------------------------------------------------
-        jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
-        JsonObject &jsonMsg = jsonBuffer_.createObject();
-
+        StaticJsonBuffer<JsonMessageBufferSize> jsonBuffer;
+        JsonObject &jsonMsg = jsonBuffer.createObject();
         jsonMsg.set(SuccessKey, status.success);
         if (status.message.length() > 0)
         {
             jsonMsg.set(MessageKey, status.message);
         }
         jsonMsg.set(ResponseKey, jsonDat);
-
-
         jsonMsg.printTo(Serial);
         Serial.println();
-
     }
 
     void MessageSender::sendSample(Sample sample)
     {
-        // ArduinoJson upgrade
-        // ----------------------------------------------------
-        //jsonBuffer_.clear(); 
-        // ----------------------------------------------------
-        jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
-        JsonObject &jsonSample = jsonBuffer_.createObject();
-
+        StaticJsonBuffer<JsonMessageBufferSize> jsonBuffer;
+        JsonObject &jsonSample = jsonBuffer.createObject();
         jsonSample.set(TimeKey, convertUsToMs(sample.t)); 
-        jsonSample.set(VoltKey, sample.volt,JsonFloatDecimals);
-        jsonSample.set(CurrKey, sample.curr,JsonFloatDecimals);
-
+        jsonSample.set(VoltKey, sample.volt);
+        jsonSample.set(CurrKey, sample.curr);
+        if (sample.chan > 0)
+        {
+            jsonSample.set(ChanKey, sample.chan);
+        }
         jsonSample.printTo(Serial);
         Serial.println();
     }
 
     void MessageSender::sendSampleEnd()
     {
-        // ArduinoJson upgrade
-        // ----------------------------------------------------
-        //jsonBuffer_.clear(); 
-        // ----------------------------------------------------
-        jsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>(); 
-        JsonObject &jsonSample = jsonBuffer_.createObject();
+        StaticJsonBuffer<JsonMessageBufferSize> jsonBuffer;
+        JsonObject &jsonSample = jsonBuffer.createObject();
         jsonSample.printTo(Serial);
         Serial.println();
     }
 
 } // namespace ps
+
 
 
 // Send time in us as string

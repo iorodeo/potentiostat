@@ -13,7 +13,11 @@ namespace ps
         timerCnt_ = 0;
         test_ = nullptr;
 
-        currLowPass_.setParam(CurrLowPassParam);
+        //currLowPass_.setParam(CurrLowPassParam);
+        for (int i=0; i<NumMuxChan; i++)
+        {
+            currLowPass_.push_back(LowPass(CurrLowPassParam));
+        }
         setSamplePeriod(DefaultSamplePeriod);
     }
 
@@ -21,42 +25,84 @@ namespace ps
     void SystemState::initialize()
     {
         commandTable_.setClient(this);
-        commandTable_.registerMethod(CommandKey,   RunTestCmd,          &SystemState::onCommandRunTest);
-        commandTable_.registerMethod(CommandKey,   StopTestCmd,         &SystemState::onCommandStopTest);
-        commandTable_.registerMethod(CommandKey,   GetVoltCmd,          &SystemState::onCommandGetVolt);
-        commandTable_.registerMethod(CommandKey,   SetVoltCmd,          &SystemState::onCommandSetVolt);
-        commandTable_.registerMethod(CommandKey,   GetCurrCmd,          &SystemState::onCommandGetCurr);
-        commandTable_.registerMethod(CommandKey,   GetRefVoltCmd,       &SystemState::onCommandGetRefVolt);
-        commandTable_.registerMethod(CommandKey,   SetParamCmd,         &SystemState::onCommandSetTestParam);
-        commandTable_.registerMethod(CommandKey,   GetParamCmd,         &SystemState::onCommandGetTestParam);
-        commandTable_.registerMethod(CommandKey,   SetVoltRangeCmd,     &SystemState::onCommandSetVoltRange);
-        commandTable_.registerMethod(CommandKey,   GetVoltRangeCmd,     &SystemState::onCommandGetVoltRange);
-        commandTable_.registerMethod(CommandKey,   SetCurrRangeCmd,     &SystemState::onCommandSetCurrRange);
-        commandTable_.registerMethod(CommandKey,   GetCurrRangeCmd,     &SystemState::onCommandGetCurrRange);
-        commandTable_.registerMethod(CommandKey,   SetDeviceIdCmd,      &SystemState::onCommandSetDeviceId);
-        commandTable_.registerMethod(CommandKey,   GetDeviceIdCmd,      &SystemState::onCommandGetDeviceId);
-        commandTable_.registerMethod(CommandKey,   SetSamplePeriodCmd,  &SystemState::onCommandSetSamplePeriod);
-        commandTable_.registerMethod(CommandKey,   GetSamplePeriodCmd,  &SystemState::onCommandGetSamplePeriod);
-        commandTable_.registerMethod(CommandKey,   GetTestDoneTimeCmd,  &SystemState::onCommandGetTestDoneTime);
-        commandTable_.registerMethod(CommandKey,   GetTestNamesCmd,     &SystemState::onCommandGetTestNames);
-        commandTable_.registerMethod(CommandKey,   GetVersionCmd,       &SystemState::onCommandGetVersion);
-        commandTable_.registerMethod(CommandKey,   GetVariantCmd,       &SystemState::onCommandGetVariant);
+        commandTable_.registerMethod(CommandKey,   RunTestCmd,            &SystemState::onCommandRunTest);
+        commandTable_.registerMethod(CommandKey,   StopTestCmd,           &SystemState::onCommandStopTest);
+        commandTable_.registerMethod(CommandKey,   GetVoltCmd,            &SystemState::onCommandGetVolt);
+        commandTable_.registerMethod(CommandKey,   SetVoltCmd,            &SystemState::onCommandSetVolt);
+        commandTable_.registerMethod(CommandKey,   GetCurrCmd,            &SystemState::onCommandGetCurr);
+        commandTable_.registerMethod(CommandKey,   GetRefVoltCmd,         &SystemState::onCommandGetRefVolt);
+        commandTable_.registerMethod(CommandKey,   SetParamCmd,           &SystemState::onCommandSetTestParam);
+        commandTable_.registerMethod(CommandKey,   GetParamCmd,           &SystemState::onCommandGetTestParam);
+        commandTable_.registerMethod(CommandKey,   SetVoltRangeCmd,       &SystemState::onCommandSetVoltRange);
+        commandTable_.registerMethod(CommandKey,   GetVoltRangeCmd,       &SystemState::onCommandGetVoltRange);
+        commandTable_.registerMethod(CommandKey,   SetCurrRangeCmd,       &SystemState::onCommandSetCurrRange);
+        commandTable_.registerMethod(CommandKey,   GetCurrRangeCmd,       &SystemState::onCommandGetCurrRange);
+        commandTable_.registerMethod(CommandKey,   SetDeviceIdCmd,        &SystemState::onCommandSetDeviceId);
+        commandTable_.registerMethod(CommandKey,   GetDeviceIdCmd,        &SystemState::onCommandGetDeviceId);
+        commandTable_.registerMethod(CommandKey,   SetSamplePeriodCmd,    &SystemState::onCommandSetSamplePeriod);
+        commandTable_.registerMethod(CommandKey,   GetSamplePeriodCmd,    &SystemState::onCommandGetSamplePeriod);
+        commandTable_.registerMethod(CommandKey,   GetTestDoneTimeCmd,    &SystemState::onCommandGetTestDoneTime);
+        commandTable_.registerMethod(CommandKey,   GetTestNamesCmd,       &SystemState::onCommandGetTestNames);
+        commandTable_.registerMethod(CommandKey,   GetVersionCmd,         &SystemState::onCommandGetVersion);
+        commandTable_.registerMethod(CommandKey,   GetVariantCmd,         &SystemState::onCommandGetVariant);
+        commandTable_.registerMethod(CommandKey,   SetMuxEnabledCmd,      &SystemState::onCommandSetMuxEnabled);
+        commandTable_.registerMethod(CommandKey,   GetMuxEnabledCmd,      &SystemState::onCommandGetMuxEnabled);
+        commandTable_.registerMethod(CommandKey,   SetEnabledMuxChanCmd,  &SystemState::onCommandSetEnabledMuxChan);
+        commandTable_.registerMethod(CommandKey,   GetEnabledMuxChanCmd,  &SystemState::onCommandGetEnabledMuxChan);
+        commandTable_.registerMethod(CommandKey,   GetMuxTestNamesCmd,    &SystemState::onCommandGetMuxTestNames);
+        commandTable_.registerMethod(CommandKey,   SetMuxRefElectConnCmd, &SystemState::onCommandSetMuxRefElectConn);
+        commandTable_.registerMethod(CommandKey,   GetMuxRefElectConnCmd, &SystemState::onCommandGetMuxRefElectConn);
+        commandTable_.registerMethod(CommandKey,   SetMuxCtrElectConnCmd, &SystemState::onCommandSetMuxCtrElectConn); 
+        commandTable_.registerMethod(CommandKey,   GetMuxCtrElectConnCmd, &SystemState::onCommandGetMuxCtrElectConn);
+        commandTable_.registerMethod(CommandKey,   SetMuxWrkElectConnCmd, &SystemState::onCommandSetMuxWrkElectConn);
+        commandTable_.registerMethod(CommandKey,   GetMuxWrkElectConnCmd, &SystemState::onCommandGetMuxWrkElectConn); 
+        commandTable_.registerMethod(CommandKey,   DisconnAllMuxElectCmd, &SystemState::onCommandDisconnAllMuxElect);
 
         analogSubsystem_.initialize();
         analogSubsystem_.setVolt(0.0);
         messageReceiver_.reset();
+
     }
 
 
     ReturnStatus SystemState::onCommandRunTest(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
-        ReturnStatus status;
-        status = voltammetry_.getTest(jsonMsg,jsonDat,test_);
-
-        if ((status.success) && (test_ != nullptr))
+        ReturnStatus status = voltammetry_.getTest(jsonMsg,jsonDat,test_);
+        if (!status.success)
         {
-            startTest();
+            return status;
         }
+
+        if (test_ == nullptr)
+        {
+            status.success = false;
+            status.message = String("something is wrong, test_ == nullptr");
+            return status;
+        }
+
+        if (multiplexer_.isRunning())
+        {
+            if (!(test_ -> isMuxCompatible()))
+            {
+                status.success = false;
+                status.message = String("test, ") + (test_ -> getName()) + String(", is not mux compatible");
+                return status;
+            }
+            if (multiplexer_.numEnabledWrkElect() <= 0)
+            {
+                status.success = false;
+                status.message = String("mux running, but no enabled working electrode channels");
+                return status;
+            }
+            else
+            {
+                multiplexer_.connectCtrElect();
+                multiplexer_.connectRefElect();
+                multiplexer_.connectFirstEnabledWrkElect();
+            }
+        }
+
+        startTest();
         return status;
     }
 
@@ -73,7 +119,7 @@ namespace ps
     {
         ReturnStatus status;
         float volt = analogSubsystem_.getVolt();
-        jsonDat.set(VoltKey,volt,JsonFloatDecimals);
+        jsonDat.set(VoltKey,volt);
         return status;
     }
 
@@ -107,7 +153,7 @@ namespace ps
 
         analogSubsystem_.setVolt(volt);
         volt = analogSubsystem_.getVolt();
-        jsonDat.set(VoltKey,volt,JsonFloatDecimals);
+        jsonDat.set(VoltKey,volt);
         return status;
     }
 
@@ -116,7 +162,7 @@ namespace ps
     {
         ReturnStatus status;
         float curr = analogSubsystem_.getCurr();
-        jsonDat.set(CurrKey,curr,JsonFloatDecimals);
+        jsonDat.set(CurrKey,curr);
         return status;
     }
 
@@ -125,7 +171,7 @@ namespace ps
     {
         ReturnStatus status;
         float refVolt = analogSubsystem_.getRefElectVolt();
-        jsonDat.set(RefVoltKey,refVolt,JsonFloatDecimals);
+        jsonDat.set(RefVoltKey,refVolt);
         return status;
     }
 
@@ -292,6 +338,327 @@ namespace ps
         return status;
     }
 
+    // Develop
+    // ------------------------------------------------------------------------------------------
+
+    ReturnStatus SystemState::onCommandSetMuxEnabled(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(MuxEnabledKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + MuxEnabledKey;
+            return status;
+        }
+
+        if ( !(jsonMsg[MuxEnabledKey].is<bool>()) )
+        {
+            status.success = false;
+            status.message = String("unable to convert muxEnabled to bool");
+            return status;
+        }
+
+        if (jsonMsg.get<bool>(MuxEnabledKey))
+        {
+            multiplexer_.setupSwitchPins();
+            multiplexer_.start();
+        }
+        else
+        {
+            multiplexer_.stop();
+            multiplexer_.disconnectWrkElect();
+            multiplexer_.disconnectRefElect();
+            multiplexer_.disconnectCtrElect();
+            multiplexer_.clearSwitchPins();
+        }
+        jsonDat.set(MuxEnabledKey,multiplexer_.isRunning());
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandGetMuxEnabled(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        jsonDat.set(MuxEnabledKey,multiplexer_.isRunning());
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandSetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        status.success = true;
+
+        if (!jsonMsg.containsKey(MuxChannelKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + MuxChannelKey;
+            return status;
+        }
+        if (!jsonMsg[MuxChannelKey].is<JsonArray&>()) 
+        {
+            status.success = false;
+            status.message = MuxChannelKey + String(" not a JsonArray");
+            return status;
+        }
+
+        JsonArray &jsonMuxChannelArray = jsonMsg[MuxChannelKey];
+        if (jsonMuxChannelArray.size() > NumMuxChan)
+        {
+            status.success = false;
+            status.message = MuxChannelKey + String(" array too large");
+            return status;
+        }
+
+        Array<int,NumMuxChan> enabledWrkElect;
+        for (size_t i=0; i<jsonMuxChannelArray.size(); i++)
+        {
+            if (jsonMuxChannelArray[i].is<int>())
+            {
+                int channel = jsonMuxChannelArray.get<int>(i);
+                if ((channel > 0) && (channel <= NumMuxChan))
+                {
+                    enabledWrkElect.push_back(channel);
+                }
+                else
+                {
+                    status.success = false;
+                    status.message = MuxChannelKey + String(" element out of range");
+                    break;
+                }
+            }
+            else
+            {
+                status.success = false;
+                status.message = MuxChannelKey + String(" element not an int");
+                break;
+            }
+        }
+
+        if (status.success)
+        {
+            multiplexer_.setEnabledWrkElect(enabledWrkElect);
+            JsonArray &jsonEnabledArray = jsonDat.createNestedArray(MuxChannelKey);
+            for (size_t i=0; i<enabledWrkElect.size(); i++)
+            {
+                jsonEnabledArray.add(enabledWrkElect[i]);
+            }
+        }
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandGetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        Array<int,NumMuxChan> enabledWrkElect = multiplexer_.getEnabledWrkElect();
+        JsonArray &jsonEnabledArray = jsonDat.createNestedArray(MuxChannelKey);
+        for (size_t i=0; i<enabledWrkElect.size(); i++)
+        {
+            jsonEnabledArray.add(enabledWrkElect[i]);
+        }
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandGetMuxTestNames(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        status = voltammetry_.getMuxTestNames(jsonMsg, jsonDat);
+        return status;
+    } 
+
+    // TODO
+    // --------------------------------------------------------------------------------------------
+    ReturnStatus SystemState::onCommandSetMuxRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(ConnectedKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ConnectedKey;
+            return status;
+        }
+
+        if ( !(jsonMsg[ConnectedKey].is<bool>()) )
+        {
+            status.success = false;
+            status.message = String("unable to convert ") + ConnectedKey + String(" to bool");
+            return status;
+        }
+
+        if (!multiplexer_.isRunning())
+        {
+            status.success = false;
+            status.message = String("mux not enabled - unable to connect/disconnect");
+            return status;
+        }
+
+        if (jsonMsg.get<bool>(ConnectedKey))
+        {
+            multiplexer_.connectRefElect();
+        }
+        else
+        {
+            multiplexer_.disconnectRefElect();
+        }
+
+        jsonDat.set(ConnectedKey,multiplexer_.isConnectedRef());
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandGetMuxRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (multiplexer_.isRunning())
+        {
+            jsonDat.set(ConnectedKey,multiplexer_.isConnectedRef());
+        }
+        else
+        {
+            jsonDat.set(ConnectedKey,false);
+        }
+        return status;
+
+    }
+
+    ReturnStatus SystemState::onCommandSetMuxCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(ConnectedKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ConnectedKey;
+            return status;
+        }
+
+        if ( !(jsonMsg[ConnectedKey].is<bool>()) )
+        {
+            status.success = false;
+            status.message = String("unable to convert '") + ConnectedKey + String("' to bool");
+            return status;
+        }
+
+        if (!multiplexer_.isRunning())
+        {
+            status.success = false;
+            status.message = String("mux not enabled - unable to connect/disconnect");
+            return status;
+        }
+
+        if (jsonMsg.get<bool>(ConnectedKey))
+        {
+            multiplexer_.connectCtrElect();
+        }
+        else
+        {
+            multiplexer_.disconnectCtrElect();
+        }
+
+        jsonDat.set(ConnectedKey,multiplexer_.isConnectedCtr());
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandGetMuxCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (multiplexer_.isRunning())
+        {
+            jsonDat.set(ConnectedKey,multiplexer_.isConnectedCtr());
+        }
+        else
+        {
+            jsonDat.set(ConnectedKey,false);
+        }
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandSetMuxWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(ConnectedKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ConnectedKey;
+            return status;
+        }
+
+        if (!multiplexer_.isRunning())
+        {
+            status.success = false;
+            status.message = String("mux not enabled - unable to connect/disconnect");
+            return status;
+        }
+
+        if ((!(jsonMsg[ConnectedKey].is<bool>())) && (!jsonMsg[ConnectedKey].is<int>()))
+        {
+            status.success = false;
+            status.message = ConnectedKey + String(" must be bool or int");
+            return status;
+        }
+
+        if (jsonMsg[ConnectedKey].is<bool>())
+        {
+            if (!jsonMsg.get<bool>(ConnectedKey))
+            {
+                multiplexer_.disconnectWrkElect();
+                jsonDat.set(ConnectedKey,multiplexer_.isConnectedWrk());
+            }
+            else
+            {
+                status.success = false;
+                status.message = String("if bool '") + ConnectedKey + String("' must be false");
+                return status;
+            }
+        }
+        else
+        {
+            int electNum = jsonMsg.get<int>(ConnectedKey);
+            if ((electNum <= 0) && (electNum > NumMuxChan))
+            {
+                status.success = false;
+                status.message = String("mux channel out of range");
+                return status;
+            }
+
+            if (!multiplexer_.isWrkElectEnabled(electNum))
+            {
+                status.success = false;
+                status.message = String("mux channel is not enabled");
+                return status;
+            }
+
+            multiplexer_.connectWrkElect(electNum);
+            jsonDat.set(ConnectedKey,multiplexer_.currentWrkElect());
+        }
+
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandGetMuxWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if ((multiplexer_.isRunning()) && (multiplexer_.isConnectedWrk()))  
+        {
+            jsonDat.set(ConnectedKey,multiplexer_.currentWrkElect());
+        }
+        else
+        {
+            jsonDat.set(ConnectedKey, false);
+        }
+        return status;
+    }
+
+    ReturnStatus SystemState::onCommandDisconnAllMuxElect(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (multiplexer_.isRunning())
+        {
+            multiplexer_.disconnectWrkElect();
+            multiplexer_.disconnectRefElect();
+            multiplexer_.disconnectCtrElect();
+        }
+        return status;
+    }
+
+    // ------------------------------------------------------------------------------------------
+
 
     void SystemState::updateMessageData()
     {
@@ -301,19 +668,17 @@ namespace ps
 
     void SystemState::processMessages()
     {
+
         if (messageReceiver_.available())
         {
             ReturnStatus status;
+            StaticJsonBuffer<JsonMessageBufferSize> messageJsonBuffer;
+            StaticJsonBuffer<JsonMessageBufferSize> commandRespJsonBuffer;
 
             String message = messageReceiver_.next();
-            JsonObject &jsonMsg = messageParser_.parse(message);
+            JsonObject &jsonMsg = messageParser_.parse(message,messageJsonBuffer);
 
-            // ArduinoJson upgrade
-            // ----------------------------------------------
-            //commandRespJsonBuffer_.clear();
-            // ----------------------------------------------
-            commandRespJsonBuffer_ = StaticJsonBuffer<JsonMessageBufferSize>();
-            JsonObject &jsonDat = commandRespJsonBuffer_.createObject();
+            JsonObject &jsonDat = commandRespJsonBuffer.createObject();
             if (jsonMsg.success())
             {
                 status = commandTable_.apply(CommandKey,jsonMsg,jsonDat);
@@ -384,29 +749,50 @@ namespace ps
             uint64_t t = uint64_t(TestTimerPeriod)*timerCnt_;
             float volt = test_ -> getValue(t);
             analogSubsystem_.setVolt(volt);
-
             float curr = analogSubsystem_.getCurr();
-            currLowPass_.update(curr,LowPassDtSec);
+
+            int electNum = 0; // Default value (0 is non mux channel)
+            int electInd = 0; // Default value 
+
+            if (multiplexer_.isRunning())
+            {
+                electNum = multiplexer_.currentWrkElect();
+                electInd = multiplexer_.electNumToIndex(electNum);
+            }
+
+            currLowPass_[electInd].update(curr,lowPassDtSec_);
 
             if (timerCnt_ > 0)
             {
                 if (test_ -> getSampleMethod() == SampleGeneric)
                 {
-                    // Send sample data for tests which use generic sampling 
+                    // ------------------------------------------------------------------
+                    // Send sample data for tests which use normal sampling 
+                    // ------------------------------------------------------------------
                     if (timerCnt_%sampleModulus_ == 0)
                     {
-                        Sample sample = {t, volt, currLowPass_.value()};
+                        Sample sample = {t, volt, currLowPass_[electInd].value(),uint8_t(electNum)};
                         dataBuffer_.push_back(sample);
+                        if (multiplexer_.isRunning())
+                        {
+                            multiplexer_.connectNextEnabledWrkElect();   
+                        }
                     }
                 }
                 else
                 {
+                    // ------------------------------------------------------------------
                     // Send sample for tests which use custom sampling methods
-                    Sample sampleRaw  = {t, volt, currLowPass_.value()}; // Raw sample data
-                    Sample sampleTest = {0, 0.0, 0.0}; // Custom sample data (set in updateSample)
+                    // ------------------------------------------------------------------
+                    Sample sampleRaw  = {t, volt, currLowPass_[0].value(),uint8_t(electNum)}; // Raw sample data
+                    Sample sampleTest = {0, 0.0, 0.0, uint8_t(electNum)}; // Custom sample data (set in updateSample)
                     if (test_ -> updateSample(sampleRaw, sampleTest))
                     {
                         dataBuffer_.push_back(sampleTest);
+                        if (multiplexer_.isRunning())
+                        {
+                            multiplexer_.connectNextEnabledWrkElect();   
+                        }
                     }
                 }
             }
@@ -429,7 +815,19 @@ namespace ps
             analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
 
             test_ -> reset();
-            currLowPass_.reset();
+            if (multiplexer_.isRunning())
+            {
+                for (int i=0; i<NumMuxChan; i++)
+                {
+                    currLowPass_[i].reset();
+                }
+                lowPassDtSec_ = (1.0e-6*TestTimerPeriod)*float(multiplexer_.numEnabledWrkElect());    
+            }
+            else
+            {
+                currLowPass_[0].reset();
+                lowPassDtSec_ = 1.0e-6*TestTimerPeriod;    
+            }
 
             testInProgress_ = true;
             testTimer_.begin(testTimerCallback_, TestTimerPeriod);
@@ -443,6 +841,13 @@ namespace ps
         testInProgress_ = false;
         lastSampleFlag_ = true;
         analogSubsystem_.setVolt(0.0);
+
+        if (multiplexer_.isRunning())
+        {
+            multiplexer_.disconnectWrkElect();
+            multiplexer_.disconnectRefElect();
+            multiplexer_.disconnectCtrElect();
+        }
     }
 
 

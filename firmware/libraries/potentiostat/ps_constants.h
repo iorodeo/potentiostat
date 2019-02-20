@@ -16,7 +16,7 @@ namespace ps
     extern const String HardwareVariant;
 
     // Command tabe parameters
-    const uint32_t CommandTableMaxSize = 25;
+    const uint32_t CommandTableMaxSize = 40;
     
     // Buffer parameters
     const uint32_t DataBufferSize = 1000;
@@ -29,7 +29,6 @@ namespace ps
 
     // Serial parameters
     extern const uint32_t UsbSerialBaudrate;
-    extern const uint32_t JsonFloatDecimals;
 
     // Json message keys 
     extern const String CommandKey;
@@ -39,6 +38,7 @@ namespace ps
     extern const String TimeKey;
     extern const String VoltKey;
     extern const String CurrKey;
+    extern const String ChanKey;
     extern const String RefVoltKey;
     extern const String ParamKey;
     extern const String VoltRangeKey;
@@ -63,6 +63,10 @@ namespace ps
     extern const String TestNameArrayKey;
     extern const String VersionKey;
     extern const String VariantKey;
+    extern const String MuxEnabledKey;
+    extern const String MuxChannelKey;
+    extern const String ConnectedKey;
+
 
     // Json command strings
     extern const String RunTestCmd;
@@ -85,6 +89,18 @@ namespace ps
     extern const String GetTestNamesCmd;
     extern const String GetVersionCmd;
     extern const String GetVariantCmd;
+    extern const String SetMuxEnabledCmd;
+    extern const String GetMuxEnabledCmd;
+    extern const String SetEnabledMuxChanCmd;
+    extern const String GetEnabledMuxChanCmd;
+    extern const String GetMuxTestNamesCmd;
+    extern const String SetMuxRefElectConnCmd;
+    extern const String GetMuxRefElectConnCmd;
+    extern const String SetMuxCtrElectConnCmd;
+    extern const String GetMuxCtrElectConnCmd;
+    extern const String SetMuxWrkElectConnCmd;
+    extern const String GetMuxWrkElectConnCmd;
+    extern const String DisconnAllMuxElectCmd;
 
     // Ranges for output voltage
     extern const VoltRange VoltRange1V; 
@@ -116,7 +132,6 @@ namespace ps
 
     // Low pass filter params for current samples
     extern const LowPassParam CurrLowPassParam;
-    extern const float LowPassDtSec; 
 
     // Test parameters
     const uint32_t AvailableTestsMaxSize = 20;
@@ -124,6 +139,9 @@ namespace ps
 
     enum SampleMethod {SampleGeneric, SampleCustom};
 
+    // Multiplexer Parameters
+    const uint8_t NumMuxChan = 7;
+    const uint8_t NumMuxPin = 16;
 
 } // namespace ps
 

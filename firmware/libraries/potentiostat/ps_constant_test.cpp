@@ -8,6 +8,7 @@ namespace ps
     ConstantTest::ConstantTest() 
     { 
         setName("constant");
+        setMuxCompatible(true);
     } 
 
 
@@ -81,7 +82,7 @@ namespace ps
 
         if (status.success)
         {
-            jsonDatPrm.set(ValueKey, value_, JsonFloatDecimals);
+            jsonDatPrm.set(ValueKey, value_);
             jsonDatPrm.set(DurationKey, convertUsToMs(duration_));
         }
     }
@@ -122,12 +123,12 @@ namespace ps
             if (jsonMsgPrm[ValueKey].is<float>())
             {
                 setValue(jsonMsgPrm.get<float>(ValueKey));
-                jsonDatPrm.set(ValueKey,getValue(),JsonFloatDecimals);
+                jsonDatPrm.set(ValueKey,getValue());
             }
             else if (jsonMsgPrm[ValueKey].is<long>())
             {
                 setValue(float(jsonMsgPrm.get<long>(ValueKey)));
-                jsonDatPrm.set(ValueKey,getValue(),JsonFloatDecimals);
+                jsonDatPrm.set(ValueKey,getValue());
             }
             else
             {
