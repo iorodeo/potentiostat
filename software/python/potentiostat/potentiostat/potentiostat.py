@@ -79,14 +79,27 @@ SetMuxWrkElectConnCmd = "setMuxWrkElectConnected"
 GetMuxWrkElectConnCmd = "getMuxWrkElectConnected"
 DisconnAllMuxElectCmd = "disconnectAllMuxElect"
 
-
-
 # Voltage ranges
 VoltRange1V = '1V'
 VoltRange2V = '2V'
+VoltRange4V = '4V'
 VoltRange5V = '5V'
+VoltRange8V = '8V'
 VoltRange10V = '10V'
-VoltRangeList = [VoltRange1V, VoltRange2V, VoltRange5V, VoltRange10V]
+VoltRangeList_AD8250 = [VoltRange1V, VoltRange2V, VoltRange5V, VoltRange10V]
+VoltRangeList_AD8251 = [VoltRange1V, VoltRange2V, VoltRange4V, VoltRange8V]
+
+HwVariantToVoltRangesDict = {
+        'nanoAmpV0.1'         : VoltRangeList_AD8250, 
+        'microAmpV0.1'        : VoltRangeList_AD8250, 
+        'milliAmpV0.1'        : VoltRangeList_AD8250, 
+        'AD8250_nanoAmpV0.1'  : VoltRangeList_AD8250, 
+        'AD8250_microAmpV0.1' : VoltRangeList_AD8250, 
+        'AD8250_milliAmpV0.1' : VoltRangeList_AD8250, 
+        'AD8251_nanoAmpV0.1'  : VoltRangeList_AD8251,  
+        'AD8251_microAmpV0.1' : VoltRangeList_AD8251, 
+        'AD8251_milliAmpV0.1' : VoltRangeList_AD8251, 
+        }
 
 # Current Ranges
 CurrRange60nA = '60nA'
@@ -102,10 +115,16 @@ CurrRangeListNanoAmp = [CurrRange1uA, CurrRange10uA, CurrRange100nA, CurrRange60
 CurrRangeListMicroAmp = [CurrRange1uA, CurrRange10uA, CurrRange100uA, CurrRange1000uA]
 CurrRangeListMilliAmp = [CurrRange100uA, CurrRange1000uA, CurrRange12000uA, CurrRange24000uA]
 
-HwVariantToCurrRangeList = {
-        'nanoAmpV0.1'  :  CurrRangeListNanoAmp,
-        'microAmpV0.1' :  CurrRangeListMicroAmp, 
-        'milliAmpV0.1' :  CurrRangeListMilliAmp,
+HwVariantToCurrRangesDict = {
+        'nanoAmpV0.1'         :  CurrRangeListNanoAmp,
+        'microAmpV0.1'        :  CurrRangeListMicroAmp, 
+        'milliAmpV0.1'        :  CurrRangeListMilliAmp,
+        'AD8250_nanoAmpV0.1'  :  CurrRangeListNanoAmp,
+        'AD8250_microAmpV0.1' :  CurrRangeListMicroAmp, 
+        'AD8250_milliAmpV0.1' :  CurrRangeListMilliAmp,
+        'AD8251_nanoAmpV0.1'  :  CurrRangeListNanoAmp,
+        'AD8251_microAmpV0.1' :  CurrRangeListMicroAmp, 
+        'AD8251_milliAmpV0.1' :  CurrRangeListMilliAmp,
         }
 
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
@@ -242,7 +261,7 @@ class Potentiostat(serial.Serial):
         """Gets a list of voltage ranges supported by the device.
 
         """
-        return VoltRangeList
+        return HwVariantToVoltRangesDict[self.hw_variant]
 
 
     def set_curr_range(self,curr_range):
@@ -269,7 +288,7 @@ class Potentiostat(serial.Serial):
         """Gets a list of all current ranges supported by the device.
 
         """
-        return HwVariantToCurrRangeList[self.hw_variant]
+        return HwVariantToCurrRangesDict[self.hw_variant]
 
 
     def get_device_id(self):

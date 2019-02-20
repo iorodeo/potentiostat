@@ -1,14 +1,12 @@
 #ifndef PS_CONSTANTS_H
 #define PS_CONSTANTS_H
 
+#include "ps_hardware_variant_defs.h"
 #include "ps_volt_range.h"
 #include "ps_curr_range.h"
 #include "ps_filter.h"
-
 #include "third-party/Array/Array.h"
 
-//#define HARDWARE_VARIANT_NANO_AMP
-//#define HARDWARE_VARIANT_MILL_AMP
 
 namespace ps
 {

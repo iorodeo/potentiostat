@@ -1,4 +1,5 @@
 #include "ps_analog_subsystem.h"
+#include "ps_hardware_variant_defs.h"
 #include "ps_constants.h"
 
 namespace ps
@@ -31,12 +32,15 @@ namespace ps
 
         // Set to voltage and current range to defaults
         setVoltRange(VoltRange1V);
-#if defined HARDWARE_VARIANT_MILL_AMP
+#if defined CURRENT_VARIANT_MICRO_AMP
+        setCurrRange(CurrRange10uA);
+#elif defined CURRENT_VARIANT_NANO_AMP
+        setCurrRange(CurrRange10uA);
+#elif defined CURRENT_VARIANT_MILL_AMP
         setCurrRange(CurrRange1000uA);
 #else
-        setCurrRange(CurrRange10uA);
+#   error "CURRENT_VARIANT must be specified"
 #endif
-
         // Initialize analog input/output subsystem
         analogWriteResolution(DefaultAnalogWriteResolution);
         analogReadResolution(DefaultAnalogReadResolution);
@@ -224,8 +228,8 @@ namespace ps
                 digitalWrite(AD8250_GAIN_A1,LOW);
                 break;
 
+#if defined VOLTAGE_VARIANT_AD8250 
             case VoltGain5X:
-
                 digitalWrite(AD8250_GAIN_A0,LOW);
                 digitalWrite(AD8250_GAIN_A1,HIGH);
                 break;
@@ -236,9 +240,22 @@ namespace ps
                 digitalWrite(AD8250_GAIN_A1,HIGH);
                 break;
 
-            default:
+#elif defined VOLTAGE_VARIANT_AD8251
+            case VoltGain4X:
+                digitalWrite(AD8250_GAIN_A0,LOW);
+                digitalWrite(AD8250_GAIN_A1,HIGH);
                 break;
 
+            case VoltGain8X:
+
+                digitalWrite(AD8250_GAIN_A0,HIGH);
+                digitalWrite(AD8250_GAIN_A1,HIGH);
+                break;
+#else
+#   error "VOLTAGE_VARIANT must be specified"
+#endif
+            default:
+                break;
         }
     }
 
@@ -259,6 +276,7 @@ namespace ps
         {
             voltGain =  VoltGain2X;
         }
+#if defined VOLTAGE_VARIANT_AD8250 
         else if ((value0 == HIGH) && (value1 == LOW))
         {
             voltGain = VoltGain5X;
@@ -267,6 +285,18 @@ namespace ps
         {
             voltGain = VoltGain10X;
         }
+#elif defined VOLTAGE_VARIANT_AD8251
+        else if ((value0 == HIGH) && (value1 == LOW))
+        {
+            voltGain = VoltGain4X;
+        }
+        else
+        {
+            voltGain = VoltGain8X;
+        }
+#else
+#   error "VOLTAGE_VARIANT must be specified"
+#endif
         return voltGain;
     }
 

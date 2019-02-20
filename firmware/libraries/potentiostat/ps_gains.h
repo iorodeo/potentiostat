@@ -2,18 +2,54 @@
 #define PS_GAINS_H
 
 #include <Arduino.h>
+#include "ps_hardware_variant_defs.h"
 
 namespace ps
 {
 
+#if defined VOLTAGE_VARIANT_AD8250
+
     enum VoltGain // Analog output voltage scaling factor 
     {
-        VoltGain1X  = 0,   // [-1V,  +1V]   w/ default resisotors
+        VoltGain1X  = 0,   // [-1V,  +1V]   
         VoltGain2X  = 1,   // [-2V,  +2V]
         VoltGain5X  = 2,   // [-5V,  +5V]
-        VoltGain10X = 3,   // [-10V  +10V]
+        VoltGain10X = 3,   // [-10V, +10V]
         NumVoltGain = 4
     };
+
+    const String VoltGainStringArray[NumVoltGain] = 
+    {
+        String("VoltGain1X"),
+        String("VoltGain2X"),
+        String("VoltGain5X"),
+        String("VoltGain10X")
+    };
+
+#elif defined VOLTAGE_VARIANT_AD8251
+
+    enum VoltGain // Analog output voltage scaling factor 
+    {
+        VoltGain1X  = 0,   // [-1V,  +1V]   
+        VoltGain2X  = 1,   // [-2V,  +2V]
+        VoltGain4X  = 2,   // [-4V,  +4V]
+        VoltGain8X  = 3,   // [-8V,  +8V]
+        VoltGain10X = 4,   // [-10V, +10V] // used for reference input
+        NumVoltGain = 5
+    };
+
+    const String VoltGainStringArray[NumVoltGain] = 
+    {
+        String("VoltGain1X"),
+        String("VoltGain2X"),
+        String("VoltGain4X"),
+        String("VoltGain8X"),
+        String("VoltGain10X")
+    };
+
+#else
+#   error "VOLTAGE_VARIANT must be specified"
+#endif
 
     enum CurrGainPath // TransImpedance Amplifiler Current gain path
     {
@@ -25,13 +61,6 @@ namespace ps
         NumCurrGainPath = 5
     };
 
-    const String VoltGainStringArray[NumVoltGain] = 
-    {
-        String("VoltGain1X"),
-        String("VoltGain2X"),
-        String("VoltGain5X"),
-        String("VoltGain10X")
-    };
 
     const String CurrGainPathStringArray[NumCurrGainPath] = 
     {
