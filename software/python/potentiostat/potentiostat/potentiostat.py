@@ -17,7 +17,10 @@ import atexit
 import contextlib
 import progressbar
 import os
-import cPickle
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
 
 # Json message keys
 CommandKey = 'command'
