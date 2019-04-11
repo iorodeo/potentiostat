@@ -36,6 +36,7 @@ Contents:
 
     installation
     getting_started
+    multiplexer
     examples
     tests 
     api_reference

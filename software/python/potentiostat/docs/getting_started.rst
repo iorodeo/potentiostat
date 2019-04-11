@@ -90,6 +90,9 @@ are given in (V).  For a complete description of the parameters for all
 voltammetric see the :ref:`tests_ref` section of the documentation.
 
 
+
+.. _getting_started_set_param_ref:
+
 ************************************
 Setting voltammetric test parameters
 ************************************
