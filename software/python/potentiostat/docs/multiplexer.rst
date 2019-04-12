@@ -92,6 +92,122 @@ voltage and current data for channel 1 can be accessed as follows.
     chan1_curr = data_dict[1]['i']  # channel 1, list of current samples 
 
 The parameters for the test can be set as usual using the
-:meth:`~potentiostat.Potentiostat.set_param` method as described here
+:meth:`~potentiostat.Potentiostat.set_param` method as described in the
+:ref:`getting_started_set_param_ref` subsection, or by specifying the
+parameters using the params keyword argument to the
+:meth:`~potentiostat.Potentiostat.run_test` method as shown below
 
-:ref:`examples_ref`
+.. code-block:: python
+
+    my_param = { 
+        'quietValue' : 0.0,
+        'quietTime'  : 1000,
+        'amplitude'  : 2.0,
+        'offset'     : 0.0,
+        'period'     : 1000,
+        'numCycles'  : 5,
+        'shift'      : 0.0, 
+        }
+
+    data_dict  = pstat.run_test('cyclic', param=my_param)
+
+
+
+.. note::
+
+    When using the multiplexer all electrodes (counter, reference and working)
+    are on digitally controlled switches.  By default, when not running a test,
+    the electrodes will be disconnected. When using the
+    :meth:`~potentiostat.Potentiostat.run_test` method the electrodes will be
+    automatically connected using these switches prior to running the test.
+    Similarly, after the test is complete, the electrodes will be automatically
+    disconnected. 
+
+
+.. note::
+
+    At this time the squareWave test is not compatible with the multiplexer
+    expansion board. Attempting to run this when the multiplexer is enabled
+    will result in an error. 
+
+
+***************************************************
+Manual/direct operation when the multiplexer 
+***************************************************
+
+When using the Rodeostat with the multiplexer expansion board in manual/direct
+control mode a few special considerations are required.  By default all
+electrodes (counter, reference and working) are disconnected and you must
+manually specify in software when you want to connect a specific electrode. 
+The methods used for the reference and counter electrodes this are:
+
+    * :meth:`~potentiostat.Potentiostat.set_mux_ctr_elect_connected` which connects/disconnects the counter electrode 
+    * :meth:`~potentiostat.Potentiostat.set_mux_ref_elect_connected` which connects/disconnects the reference electrode 
+
+
+For example, the following commmands connect the counter and reference electrodes.
+
+.. code-block:: python
+
+    pstat.set_mux_ctr_elect_connected(True)   # connect the counter electrode 
+    pstat.set_mux_ref_elect_connected(True)   # connect the reference electrode
+
+Similarly, the counter and referece electrodes can be disconnected as shown below. 
+
+.. code-block:: python
+
+    pstat.set_mux_ctr_elect_connected(False)   # disconnect the counter electrode 
+    pstat.set_mux_ref_elect_connected(False)   # disconnect the reference electrode
+
+The enabled working electrodes are automatically connected to multiplexer. In
+addition the working electrodes can be connected to current measurement
+circuit (transimpedance amplifier) via the make-before-break multiplexer using the
+:meth:`~potentiostat.Potentiostat.set_mux_wrk_elect_connected` method. This
+command takes as an argument the number of the working electrode you would like
+to connect to the measurement circuit. For example, to connect working
+electrode number 3 to the current measurement circuit you would use the folling
+command.
+
+.. code-block:: python
+
+    pstat.set_mux_wrk_elect_connected(3)  # connect working electrode number 3 to TIA 
+
+.. note::
+
+    Only one enabled working electrode can be connected to the
+    measurement circuit at a time. For example, if working electrode number 3 is
+    connected the the current measurement and you wish to connect working
+    electrode 5 to this circuit you can do this by running the command 
+    pstat.set_mux_wrk_elect_connected(5). This will connect working electrode 5
+    to the measurement circuit. However, prior to connecting working electrode
+    5, working electrode 3 will first be disconnected, using the a
+    make-before-break protocol, before connecting electrode 5.
+
+
+To disconnect all working electrodes from the measurement circuit the you can
+run the :meth:`~potentiostat.Potentiostat.set_mux_wrk_elect_connected`  method
+with an argument of False. For example, 
+
+.. code-block:: python
+
+    pstat.set_mux_wrk_elect_connected(False)  # disconnect all working electrodes from TIA 
+
+.. note::
+
+    When working electrodes are enabled the are connected electronically to the
+    multiplexer (and Rodeostat). At this point the can sink/source current. The
+    :meth:`~potentiostat.Potentiostat.set_mux_wrk_elect_connected` just selects
+    which of the enabled working electrodes is connect to current measurent
+    circuit (transimpedance amplifier) using the make-before-break protocol.
+
+
+To disconnect all electrodes (counter, reference and working) with a single command the 
+:meth:`~potentiostat.Potentiostat.disconnect_all_mux_elect` method  may be used as shown below.
+
+.. code-block:: python
+
+    pstat.disconnect_all_mux_elect()  # disconnect all electrodes 
+
+
+    
+
