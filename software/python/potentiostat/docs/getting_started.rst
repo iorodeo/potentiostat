@@ -55,7 +55,7 @@ This method will return a list, such as that given below.
 
 .. code-block:: python
 
-  test_names = ['cyclic', 'sinusoid', 'constant', 'linearSweep', 'chronoamp', 'multiStep']
+  test_names = ['cyclic', 'sinusoid', 'constant', 'squareWave', 'linearSweep', 'chronoamp', 'multiStep']
 
 Each string in the list is name of a voltammetric test which can be run by the
 firmware on the Rodeostat.  

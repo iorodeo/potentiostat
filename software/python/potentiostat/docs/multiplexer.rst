@@ -130,6 +130,19 @@ parameters using the params keyword argument to the
     expansion board. Attempting to run this when the multiplexer is enabled
     will result in an error. 
 
+To get a list of the test which are compatibile with the multiplexer the 
+:meth:`~potentiostat.Potentiostat.get_mux_test_names`  can be used.
+
+.. code-block:: python
+    
+    test_names = pstat.get_mux_test_names()
+
+This command will return a list such as that shown below
+
+.. code-block:: python
+
+  test_names = ['cyclic', 'sinusoid', 'constant', 'linearSweep', 'chronoamp', 'multiStep']
+
 
 ***************************************************
 Manual/direct operation when the multiplexer 
