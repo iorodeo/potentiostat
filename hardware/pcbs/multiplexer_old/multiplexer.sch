@@ -37,7 +37,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "18 jan 2019"
+Date "19 jul 2018"
 Rev ""
 Comp ""
 Comment1 ""
@@ -84,9 +84,9 @@ WRK_3
 Text Label 5100 1600 2    60   ~ 0
 WRK_4
 Text Label 6600 1750 0    60   ~ 0
-+12V
++15V
 Text Label 6600 1850 0    60   ~ 0
--12V
+-15V
 Text Label 6600 1950 0    60   ~ 0
 GND
 NoConn ~ 6350 2050
@@ -176,9 +176,9 @@ WRK_3
 Text Label 5100 3500 2    60   ~ 0
 WRK_4
 Text Label 6600 3650 0    60   ~ 0
-+12V
++15V
 Text Label 6600 3750 0    60   ~ 0
--12V
+-15V
 Text Label 6600 3850 0    60   ~ 0
 GND
 NoConn ~ 6350 3950
@@ -214,9 +214,9 @@ WRK_6
 Text Label 8600 1600 2    60   ~ 0
 WRK_7
 Text Label 10100 1750 0    60   ~ 0
-+12V
++15V
 Text Label 10100 1850 0    60   ~ 0
--12V
+-15V
 Text Label 10100 1950 0    60   ~ 0
 GND
 NoConn ~ 9850 2050
@@ -238,9 +238,9 @@ WRK_6
 Text Label 8600 3500 2    60   ~ 0
 WRK_7
 Text Label 10100 3650 0    60   ~ 0
-+12V
++15V
 Text Label 10100 3750 0    60   ~ 0
--12V
+-15V
 Text Label 10100 3850 0    60   ~ 0
 GND
 NoConn ~ 9850 3950
@@ -487,9 +487,9 @@ Wire Wire Line
 	1950 2400 1750 2400
 Connection ~ 1950 2400
 Text Label 1750 1900 2    60   ~ 0
-+12V
++15V
 Text Label 1750 2400 2    60   ~ 0
--12V
+-15V
 $Comp
 L C C1
 U 1 1 5B4BD185
@@ -523,9 +523,9 @@ Wire Wire Line
 Text Label 4100 1050 1    60   ~ 0
 GND
 Text Label 4100 1950 3    60   ~ 0
--12V
+-15V
 Text Label 4450 1050 1    60   ~ 0
-+12V
++15V
 Text Label 4450 1950 3    60   ~ 0
 GND
 $Comp
@@ -561,9 +561,9 @@ Wire Wire Line
 Text Label 4150 2950 1    60   ~ 0
 GND
 Text Label 4150 3850 3    60   ~ 0
--12V
+-15V
 Text Label 4500 2950 1    60   ~ 0
-+12V
++15V
 Text Label 4500 3850 3    60   ~ 0
 GND
 $Comp
@@ -599,9 +599,9 @@ Wire Wire Line
 Text Label 7650 1050 1    60   ~ 0
 GND
 Text Label 7650 1950 3    60   ~ 0
--12V
+-15V
 Text Label 8000 1050 1    60   ~ 0
-+12V
++15V
 Text Label 8000 1950 3    60   ~ 0
 GND
 $Comp
@@ -637,52 +637,74 @@ Wire Wire Line
 Text Label 7650 2800 1    60   ~ 0
 GND
 Text Label 7650 3700 3    60   ~ 0
--12V
+-15V
 Text Label 8000 2800 1    60   ~ 0
-+12V
++15V
 Text Label 8000 3700 3    60   ~ 0
 GND
 Wire Notes Line
 	6150 2800 6100 2800
+$Comp
+L CONN_7 P5
+U 1 1 5B4BD941
+P 9650 6150
+F 0 "P5" V 9620 6150 60  0000 C CNN
+F 1 "CONN_7" V 9720 6150 60  0000 C CNN
+F 2 "" H 9650 6150 60  0000 C CNN
+F 3 "" H 9650 6150 60  0000 C CNN
+	1    9650 6150
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	9800 5300 10050 5300
+	9300 5850 9050 5850
 Wire Wire Line
-	9000 5400 8750 5400
+	9300 5950 9050 5950
 Wire Wire Line
-	9800 5400 10050 5400
+	9300 6050 9050 6050
 Wire Wire Line
-	9000 5500 8750 5500
+	9300 6150 9050 6150
+$Comp
+L CONN_3 K2
+U 1 1 5B4BDC47
+P 9700 5450
+F 0 "K2" V 9650 5450 50  0000 C CNN
+F 1 "CONN_3" V 9750 5450 40  0000 C CNN
+F 2 "" H 9700 5450 60  0000 C CNN
+F 3 "" H 9700 5450 60  0000 C CNN
+	1    9700 5450
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	9000 5200 8700 5200
+	9350 5350 9050 5350
 Wire Wire Line
-	10100 5200 9800 5200
+	9050 5450 9350 5450
 Wire Wire Line
-	8700 5300 9000 5300
-Text Label 8700 5200 2    60   ~ 0
+	9050 5550 9350 5550
+Text Label 9050 5350 2    60   ~ 0
 GND
-Text Label 10100 5200 0    60   ~ 0
+Text Label 9050 5450 2    60   ~ 0
 CTR_SW
-Text Label 8700 5300 2    60   ~ 0
+Text Label 9050 5550 2    60   ~ 0
 REF_SW
 Wire Wire Line
-	9800 5500 10050 5500
+	9300 6250 9050 6250
 Wire Wire Line
-	9000 5600 8750 5600
+	9300 6350 9050 6350
 Wire Wire Line
-	9800 5600 10050 5600
-Text Label 10050 5300 0    60   ~ 0
+	9300 6450 9050 6450
+Text Label 9050 5850 2    60   ~ 0
 WRK_1
-Text Label 8750 5400 2    60   ~ 0
+Text Label 9050 5950 2    60   ~ 0
 WRK_2
-Text Label 10050 5400 0    60   ~ 0
+Text Label 9050 6050 2    60   ~ 0
 WRK_3
-Text Label 8750 5500 2    60   ~ 0
+Text Label 9050 6150 2    60   ~ 0
 WRK_4
-Text Label 10050 5500 0    60   ~ 0
+Text Label 9050 6250 2    60   ~ 0
 WRK_5
-Text Label 8750 5600 2    60   ~ 0
+Text Label 9050 6350 2    60   ~ 0
 WRK_6
-Text Label 10050 5600 0    60   ~ 0
+Text Label 9050 6450 2    60   ~ 0
 WRK_7
 Text Notes 3100 1400 2    60   ~ 0
 Electrode connections to rodeostat PCB
@@ -692,8 +714,8 @@ Text Notes 2800 4900 2    60   ~ 0
 Connections from UEXT header
 Text Notes 2700 3950 2    60   ~ 0
 Connections from DIO header
-Text Notes 10050 5800 2    60   ~ 0
-Electrode Connection Header
+Text Notes 9850 6750 2    60   ~ 0
+Screw Terminal Connections
 Text Notes 6700 4450 2    60   ~ 0
 Multiplexing for working electrodes 1-4
 Text Notes 9850 4450 2    60   ~ 0
@@ -739,22 +761,11 @@ Wire Wire Line
 Wire Wire Line
 	2600 5600 2600 5800
 Text Label 1800 5800 3    60   ~ 0
-+12V
++15V
 Text Label 2200 5800 3    60   ~ 0
--12V
+-15V
 Text Label 2600 5800 3    60   ~ 0
 GND
 Text Notes 2050 750  0    60   ~ 0
 	S5478-ND
-$Comp
-L CONN_5X2 P5
-U 1 1 5C3E8ED4
-P 9400 5400
-F 0 "P5" H 9400 5700 60  0000 C CNN
-F 1 "CONN_5X2" V 9400 5400 50  0000 C CNN
-F 2 "" H 9400 5400 60  0000 C CNN
-F 3 "" H 9400 5400 60  0000 C CNN
-	1    9400 5400
-	1    0    0    -1  
-$EndComp
 $EndSCHEMATC

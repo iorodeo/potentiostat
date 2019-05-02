@@ -1,58 +1,58 @@
-Cmp-Mod V01 Created by CvPcb (2013-jul-07)-stable date = Sun 15 Jul 2018 05:05:07 PM PDT
+Cmp-Mod V01 Created by CvPcb (2013-jul-07)-stable date = Tue 15 Jan 2019 05:57:57 PM PST
 
 BeginCmp
 TimeStamp = /5B4BD185;
 Reference = C1;
-ValeurCmp = C;
+ValeurCmp = 0.1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /5B4BD3A9;
 Reference = C2;
-ValeurCmp = C;
+ValeurCmp = 0.1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /5B4BD194;
 Reference = C3;
-ValeurCmp = C;
+ValeurCmp = 0.1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /5B4BD3AF;
 Reference = C4;
-ValeurCmp = C;
+ValeurCmp = 0.1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /5B4BD3BD;
 Reference = C5;
-ValeurCmp = C;
+ValeurCmp = 0.1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /5B4BD3D1;
 Reference = C6;
-ValeurCmp = C;
+ValeurCmp = 0.1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /5B4BD3C3;
 Reference = C7;
-ValeurCmp = C;
+ValeurCmp = 0.1uF;
 IdModule  = SM0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /5B4BD3D7;
 Reference = C8;
-ValeurCmp = C;
+ValeurCmp = 0.1uF;
 IdModule  = SM0805;
 EndCmp
 
@@ -102,7 +102,7 @@ BeginCmp
 TimeStamp = /5B4BD941;
 Reference = P5;
 ValeurCmp = CONN_7;
-IdModule  = CONNBLOCK7;
+IdModule  = 5X2_SHRD_HEADER;
 EndCmp
 
 BeginCmp
