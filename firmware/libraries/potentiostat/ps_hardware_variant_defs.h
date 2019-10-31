@@ -3,8 +3,8 @@
 
 // Voltage Hardware Variant (select one)
 // -------------------------------------------
-//#define VOLTAGE_VARIANT_AD8250 
-#define VOLTAGE_VARIANT_AD8251 
+#define VOLTAGE_VARIANT_AD8250 
+//#define VOLTAGE_VARIANT_AD8251 
 
 // Current Hardware Variant (select one)
 // -------------------------------------------
