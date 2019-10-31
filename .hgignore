@@ -15,3 +15,4 @@ software/python/potentiostat/build
 software/javascript/app/dist
 _build
 node_modules
+rescue-backup
