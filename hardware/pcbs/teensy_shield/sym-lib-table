@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name potentiostat-rescue)(type Legacy)(uri ${KIPRJMOD}/potentiostat-rescue.lib)(options "")(descr ""))
+)
