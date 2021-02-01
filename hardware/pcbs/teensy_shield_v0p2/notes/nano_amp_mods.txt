@@ -1,0 +1,27 @@
+Notes of prototype withe nano amp range modifications
+
+Initial version
+----------------
+
+1. Modified resistor R5 to be 6.04 MOhm w/ C19 a 10nF capacitor.
+
+2. Modified resistor R6 to 10 MOhm w/ C20 a 10nF capacitor. 
+
+
+Second version  
+---------------
+
+1. R5 = 6.04 MOhm, C19 = 10nF capacitor    (100nF range)
+
+   Digikey 541-6.04MCCT-ND, Digkey 311-1136-1-ND
+
+2. R6 = 10 MOhm,  C20 =  100nF (60nF range)
+   
+   Digikey 541-10MAZCT-ND,  Digikey 311-1361-1-ND
+   
+
+Note, larger cap is used on C20 as 60nA range unstable when connected to
+sensor.
+
+
+

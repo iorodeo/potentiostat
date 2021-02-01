@@ -1,0 +1,3818 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr User 17000 17500
+encoding utf-8
+Sheet 1 1
+Title ""
+Date "19 dec 2018"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L potentiostat-rescue:TEENSY3.1 U2
+U 1 1 5733FC56
+P 3075 2425
+F 0 "U2" H 3075 3775 60  0000 C CNN
+F 1 "TEENSY3.1" H 3075 775 60  0000 C CNN
+F 2 "~" H 2775 2625 60  0000 C CNN
+F 3 "~" H 2775 2625 60  0000 C CNN
+	1    3075 2425
+	1    0    0    -1  
+$EndComp
+Text Label 4275 1225 0    60   ~ 0
+DAC_UNI
+Text Label 1825 3825 2    60   ~ 0
+AGND
+$Comp
+L potentiostat-rescue:ZXRE060 U1
+U 1 1 57352FD2
+P 2775 10275
+F 0 "U1" H 2775 10025 60  0000 C CNN
+F 1 "ZXRE060" H 2775 10525 60  0000 C CNN
+F 2 "~" H 2775 10275 60  0000 C CNN
+F 3 "~" H 2775 10275 60  0000 C CNN
+	1    2775 10275
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:C C11
+U 1 1 57352FF0
+P 2075 10525
+F 0 "C11" H 2075 10625 40  0000 L CNN
+F 1 "0.1uF" H 2081 10440 40  0000 L CNN
+F 2 "~" H 2113 10375 30  0000 C CNN
+F 3 "~" H 2075 10525 60  0000 C CNN
+	1    2075 10525
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:R R1
+U 1 1 57352FFF
+P 2825 10825
+F 0 "R1" V 2905 10825 40  0000 C CNN
+F 1 "1k" V 2832 10826 40  0000 C CNN
+F 2 "~" V 2755 10825 30  0000 C CNN
+F 3 "~" H 2825 10825 30  0000 C CNN
+	1    2825 10825
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:C C9
+U 1 1 57353049
+P 1825 10525
+F 0 "C9" H 1825 10625 40  0000 L CNN
+F 1 "1uF" H 1831 10440 40  0000 L CNN
+F 2 "~" H 1863 10375 30  0000 C CNN
+F 3 "~" H 1825 10525 60  0000 C CNN
+	1    1825 10525
+	1    0    0    -1  
+$EndComp
+Text Label 1575 10825 2    60   ~ 0
+3V3
+Text Label 4275 1525 0    60   ~ 0
+3V3
+Text Label 1575 10275 2    60   ~ 0
+AGND
+Text Label 3675 10175 0    60   ~ 0
+REF_0V6
+Text Notes 575  9625 0    60   ~ 0
+Voltage Reference, 0.6V, Tol. 0.5%. Used in when shifting DAC_UNI to DAC_BIP.
+Text Notes 575  5075 0    60   ~ 0
+Shift and scales unipolar DAC (DAC_UNI) from [0V,1.2V] range to bipolar DAC (DAC_BIP) in [-1V,1V]  range. \n 
+$Comp
+L potentiostat-rescue:AD8250 U5
+U 1 1 573637D1
+P 3700 8125
+F 0 "U5" H 3700 8475 60  0000 C CNN
+F 1 "AD8250" H 3700 7725 60  0000 C CNN
+F 2 "~" H 3550 8125 60  0000 C CNN
+F 3 "~" H 3550 8125 60  0000 C CNN
+	1    3700 8125
+	1    0    0    -1  
+$EndComp
+Text Label 1825 1325 2    60   ~ 0
+DAC_GAIN_A0
+Text Label 1825 1425 2    60   ~ 0
+DAC_GAIN_A1
+Text Label 3000 8225 2    60   ~ 0
+DAC_GAIN_A0
+Text Label 3000 8325 2    60   ~ 0
+DAC_GAIN_A1
+Text Label 3000 8125 2    60   ~ 0
+-12V
+Text Label 4400 8125 0    60   ~ 0
++12V
+Text Label 4275 1425 0    60   ~ 0
+GND
+Text Label 4400 8325 0    60   ~ 0
+-12V
+Text Label 4400 8225 0    60   ~ 0
+DAC_BIP_NX
+Text Label 3000 8025 2    60   ~ 0
+GND
+Text Label 4400 8025 0    60   ~ 0
+AGND
+Text Label 3000 7925 2    60   ~ 0
+AGND
+Text Label 4400 7925 0    60   ~ 0
+DAC_BIP
+$Comp
+L potentiostat-rescue:C C5
+U 1 1 57364846
+P 1500 6075
+F 0 "C5" H 1500 6175 40  0000 L CNN
+F 1 "10nF" H 1506 5990 40  0000 L CNN
+F 2 "~" H 1538 5925 30  0000 C CNN
+F 3 "~" H 1500 6075 60  0000 C CNN
+	1    1500 6075
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:C C1
+U 1 1 5736484C
+P 775 6075
+F 0 "C1" H 775 6175 40  0000 L CNN
+F 1 "10nF" H 781 5990 40  0000 L CNN
+F 2 "~" H 813 5925 30  0000 C CNN
+F 3 "~" H 775 6075 60  0000 C CNN
+	1    775  6075
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CP1 C7
+U 1 1 57364852
+P 1800 6075
+F 0 "C7" H 1850 6175 50  0000 L CNN
+F 1 "4.7uF" H 1850 5975 50  0000 L CNN
+F 2 "~" H 1800 6075 60  0000 C CNN
+F 3 "~" H 1800 6075 60  0000 C CNN
+	1    1800 6075
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CP1 C3
+U 1 1 57364858
+P 1075 6075
+F 0 "C3" H 1125 6175 50  0000 L CNN
+F 1 "4.7uF" H 1125 5975 50  0000 L CNN
+F 2 "~" H 1075 6075 60  0000 C CNN
+F 3 "~" H 1075 6075 60  0000 C CNN
+	1    1075 6075
+	1    0    0    -1  
+$EndComp
+Text Label 925  5575 1    60   ~ 0
+AGND
+Text Label 925  6575 3    60   ~ 0
+-12V
+Text Label 1650 6575 3    60   ~ 0
+AGND
+Text Label 1650 5575 1    60   ~ 0
++12V
+Text Notes 575  7225 0    60   ~ 0
+Scale bipolar DAC (DAC_BIP) by gain N=1,2,5, or 10 to get DAC_BIP_NX. Gain is selected using 
+Text Notes 575  7375 0    60   ~ 0
+DAC_GAIN_A0 and DAC_GAIN_A1.
+$Comp
+L potentiostat-rescue:LT1995 U4
+U 1 1 57366B11
+P 3525 5975
+F 0 "U4" H 3525 6325 60  0000 C CNN
+F 1 "LT1995" H 3525 5625 60  0000 C CNN
+F 2 "~" H 3375 5975 60  0000 C CNN
+F 3 "~" H 3375 5975 60  0000 C CNN
+	1    3525 5975
+	1    0    0    -1  
+$EndComp
+Text Label 2675 6075 2    60   ~ 0
+-12V
+Text Label 4375 6075 0    60   ~ 0
++12V
+Text Label 2675 6175 2    60   ~ 0
+AGND
+Text Label 2675 5775 2    60   ~ 0
+DAC_UNI
+Text Label 4375 6175 0    60   ~ 0
+DAC_BIP
+Text Label 4375 5775 0    60   ~ 0
+REF_0V6
+$Comp
+L potentiostat-rescue:C C28
+U 1 1 57367149
+P 12175 8200
+F 0 "C28" H 12175 8300 40  0000 L CNN
+F 1 "0.1uF" H 12181 8115 40  0000 L CNN
+F 2 "~" H 12213 8050 30  0000 C CNN
+F 3 "~" H 12175 8200 60  0000 C CNN
+	1    12175 8200
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:C C25
+U 1 1 5736714F
+P 11450 8200
+F 0 "C25" H 11450 8300 40  0000 L CNN
+F 1 "0.1uF" H 11456 8115 40  0000 L CNN
+F 2 "~" H 11488 8050 30  0000 C CNN
+F 3 "~" H 11450 8200 60  0000 C CNN
+	1    11450 8200
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CP1 C31
+U 1 1 57367155
+P 12475 8200
+F 0 "C31" H 12525 8300 50  0000 L CNN
+F 1 "10uF" H 12525 8100 50  0000 L CNN
+F 2 "~" H 12475 8200 60  0000 C CNN
+F 3 "~" H 12475 8200 60  0000 C CNN
+	1    12475 8200
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CP1 C26
+U 1 1 5736715B
+P 11750 8200
+F 0 "C26" H 11800 8300 50  0000 L CNN
+F 1 "10uF" H 11800 8100 50  0000 L CNN
+F 2 "~" H 11750 8200 60  0000 C CNN
+F 3 "~" H 11750 8200 60  0000 C CNN
+	1    11750 8200
+	1    0    0    -1  
+$EndComp
+Text Label 11600 7700 1    60   ~ 0
+AGND
+Text Label 11600 8700 3    60   ~ 0
+-12V
+Text Label 12325 8700 3    60   ~ 0
+AGND
+Text Label 12325 7700 1    60   ~ 0
++12V
+Text Notes 575  5225 0    60   ~ 0
+Amplifier Gain=1.67
+$Comp
+L potentiostat-rescue:MEA1D05XXSC U6
+U 1 1 573678C5
+P 7525 15250
+F 0 "U6" H 7525 15700 60  0000 C CNN
+F 1 "MEA1D05XXSC" H 7525 14800 60  0000 C CNN
+F 2 "~" H 7425 15150 60  0000 C CNN
+F 3 "~" H 7425 15150 60  0000 C CNN
+	1    7525 15250
+	1    0    0    -1  
+$EndComp
+Text Label 8225 15400 0    60   ~ 0
+GND
+Text Label 8225 15300 0    60   ~ 0
+-12V
+Text Label 8225 15500 0    60   ~ 0
++12V
+Text Label 1825 3925 2    60   ~ 0
+5V
+Text Label 8225 15000 0    60   ~ 0
+5V
+Text Notes 7025 14425 0    60   ~ 0
++/- 12V Supply for OPAMPs
+$Comp
+L potentiostat-rescue:OPA129 U8
+U 1 1 5736D1BA
+P 9525 8225
+F 0 "U8" H 9525 8525 60  0000 C CNN
+F 1 "OPA129" H 9525 7925 60  0000 C CNN
+F 2 "~" H 9425 8225 60  0000 C CNN
+F 3 "~" H 9425 8225 60  0000 C CNN
+	1    9525 8225
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:OPA129 U7
+U 1 1 5736D1C9
+P 8025 4425
+F 0 "U7" H 8025 4725 60  0000 C CNN
+F 1 "OPA129" H 8025 4125 60  0000 C CNN
+F 2 "~" H 7925 4425 60  0000 C CNN
+F 3 "~" H 7925 4425 60  0000 C CNN
+	1    8025 4425
+	1    0    0    -1  
+$EndComp
+Text Label 8775 8275 2    60   ~ 0
+REF_ELECT
+Wire Wire Line
+	4075 1225 4275 1225
+Wire Wire Line
+	2025 3825 1825 3825
+Wire Wire Line
+	1825 10325 1825 10275
+Wire Wire Line
+	1825 10725 1825 10975
+Wire Wire Line
+	4075 1525 4275 1525
+Wire Wire Line
+	1575 10275 1825 10275
+Connection ~ 1825 10275
+Wire Wire Line
+	3225 10175 3425 10175
+Wire Wire Line
+	3425 10175 3425 10375
+Wire Wire Line
+	3225 10375 3425 10375
+Connection ~ 2075 10275
+Wire Wire Line
+	2075 10725 2075 10825
+Wire Wire Line
+	1575 10825 2075 10825
+Wire Wire Line
+	2275 10375 2275 10825
+Wire Wire Line
+	2275 10375 2325 10375
+Wire Wire Line
+	2075 10325 2075 10275
+Wire Wire Line
+	2225 10275 2225 10175
+Wire Wire Line
+	2225 10175 2325 10175
+Connection ~ 2225 10275
+Connection ~ 3425 10375
+Wire Wire Line
+	3425 10825 3075 10825
+Wire Wire Line
+	3425 10975 1825 10975
+Connection ~ 3425 10825
+Connection ~ 2075 10825
+Connection ~ 2275 10825
+Connection ~ 3425 10175
+Wire Wire Line
+	2025 1325 1825 1325
+Wire Wire Line
+	2025 1425 1825 1425
+Wire Wire Line
+	3200 8225 3000 8225
+Wire Wire Line
+	3200 8325 3000 8325
+Wire Wire Line
+	3200 8125 3000 8125
+Wire Wire Line
+	4200 8125 4400 8125
+Wire Wire Line
+	4075 1425 4275 1425
+Wire Wire Line
+	4200 8325 4400 8325
+Wire Wire Line
+	4200 8225 4400 8225
+Wire Wire Line
+	3200 8025 3000 8025
+Wire Wire Line
+	4200 8025 4400 8025
+Wire Wire Line
+	3200 7925 3000 7925
+Wire Wire Line
+	4200 7925 4400 7925
+Wire Wire Line
+	1075 6375 1075 6275
+Wire Wire Line
+	775  6375 925  6375
+Wire Wire Line
+	775  6375 775  6275
+Wire Wire Line
+	925  6375 925  6575
+Connection ~ 925  6375
+Wire Wire Line
+	1075 5775 1075 5875
+Wire Wire Line
+	775  5775 925  5775
+Wire Wire Line
+	775  5775 775  5875
+Wire Wire Line
+	925  5775 925  5575
+Connection ~ 925  5775
+Wire Wire Line
+	1500 5875 1500 5775
+Wire Wire Line
+	1500 5775 1650 5775
+Wire Wire Line
+	1800 5775 1800 5875
+Wire Wire Line
+	1650 5775 1650 5575
+Connection ~ 1650 5775
+Wire Wire Line
+	1500 6275 1500 6375
+Wire Wire Line
+	1500 6375 1650 6375
+Wire Wire Line
+	1800 6375 1800 6275
+Wire Wire Line
+	1650 6375 1650 6575
+Connection ~ 1650 6375
+Wire Wire Line
+	2675 6075 3075 6075
+Wire Wire Line
+	3975 6075 4375 6075
+Wire Wire Line
+	2675 6175 2975 6175
+Wire Wire Line
+	3075 5875 2975 5875
+Wire Wire Line
+	2975 5875 2975 6175
+Connection ~ 2975 6175
+Wire Wire Line
+	3075 5975 2875 5975
+Wire Wire Line
+	2875 5975 2875 5775
+Wire Wire Line
+	2675 5775 2875 5775
+Connection ~ 2875 5775
+Wire Wire Line
+	3975 5975 4175 5975
+Wire Wire Line
+	4175 5975 4175 5775
+Wire Wire Line
+	3975 5775 4175 5775
+Wire Wire Line
+	3975 6175 4075 6175
+Wire Wire Line
+	3975 5875 4075 5875
+Wire Wire Line
+	4075 5875 4075 6175
+Connection ~ 4075 6175
+Connection ~ 4175 5775
+Wire Wire Line
+	11750 8500 11750 8400
+Wire Wire Line
+	11450 8500 11600 8500
+Wire Wire Line
+	11450 8500 11450 8400
+Wire Wire Line
+	11600 8500 11600 8700
+Connection ~ 11600 8500
+Wire Wire Line
+	11750 7900 11750 8000
+Wire Wire Line
+	11450 7900 11600 7900
+Wire Wire Line
+	11450 7900 11450 8000
+Wire Wire Line
+	11600 7900 11600 7700
+Connection ~ 11600 7900
+Wire Wire Line
+	12175 8000 12175 7900
+Wire Wire Line
+	12175 7900 12325 7900
+Wire Wire Line
+	12475 7900 12475 8000
+Wire Wire Line
+	12325 7900 12325 7700
+Connection ~ 12325 7900
+Wire Wire Line
+	12175 8400 12175 8500
+Wire Wire Line
+	12175 8500 12325 8500
+Wire Wire Line
+	12475 8500 12475 8400
+Wire Wire Line
+	12325 8500 12325 8700
+Connection ~ 12325 8500
+Wire Wire Line
+	7925 15100 8025 15100
+Wire Wire Line
+	8025 15100 8025 15400
+Wire Wire Line
+	7925 15400 8025 15400
+Connection ~ 8025 15400
+Wire Wire Line
+	7925 15300 8225 15300
+Wire Wire Line
+	7925 15500 8225 15500
+Wire Wire Line
+	7925 15000 8225 15000
+Wire Wire Line
+	2025 3925 1825 3925
+Wire Wire Line
+	8775 8275 9075 8275
+Wire Wire Line
+	8975 8175 9075 8175
+Wire Wire Line
+	8975 7775 8975 8075
+Wire Wire Line
+	8975 8075 9075 8075
+Wire Wire Line
+	8975 7775 10075 7775
+Wire Wire Line
+	10075 7775 10075 8075
+Wire Wire Line
+	10075 8075 9975 8075
+Connection ~ 8975 8075
+Connection ~ 10075 8075
+Wire Wire Line
+	8975 8375 9075 8375
+Connection ~ 8975 8175
+Wire Wire Line
+	9975 8175 10275 8175
+Wire Wire Line
+	9975 8375 10275 8375
+Text Label 10275 8175 0    60   ~ 0
++12V
+Text Label 10275 8375 0    60   ~ 0
+-12V
+Text Notes 6525 7225 0    60   ~ 0
+Uniy Gain Buffer for Reference Electrode 
+$Comp
+L potentiostat-rescue:C C6
+U 1 1 5736D9C6
+P 1525 8300
+F 0 "C6" H 1525 8400 40  0000 L CNN
+F 1 "0.1uF" H 1531 8215 40  0000 L CNN
+F 2 "~" H 1563 8150 30  0000 C CNN
+F 3 "~" H 1525 8300 60  0000 C CNN
+	1    1525 8300
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:C C2
+U 1 1 5736D9CC
+P 800 8300
+F 0 "C2" H 800 8400 40  0000 L CNN
+F 1 "0.1uF" H 806 8215 40  0000 L CNN
+F 2 "~" H 838 8150 30  0000 C CNN
+F 3 "~" H 800 8300 60  0000 C CNN
+	1    800  8300
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CP1 C8
+U 1 1 5736D9D2
+P 1825 8300
+F 0 "C8" H 1875 8400 50  0000 L CNN
+F 1 "10uF" H 1875 8200 50  0000 L CNN
+F 2 "~" H 1825 8300 60  0000 C CNN
+F 3 "~" H 1825 8300 60  0000 C CNN
+	1    1825 8300
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CP1 C4
+U 1 1 5736D9D8
+P 1100 8300
+F 0 "C4" H 1150 8400 50  0000 L CNN
+F 1 "10uF" H 1150 8200 50  0000 L CNN
+F 2 "~" H 1100 8300 60  0000 C CNN
+F 3 "~" H 1100 8300 60  0000 C CNN
+	1    1100 8300
+	1    0    0    -1  
+$EndComp
+Text Label 950  7800 1    60   ~ 0
+AGND
+Text Label 950  8800 3    60   ~ 0
+-12V
+Text Label 1675 8800 3    60   ~ 0
+AGND
+Text Label 1675 7800 1    60   ~ 0
++12V
+Wire Wire Line
+	1100 8600 1100 8500
+Wire Wire Line
+	800  8600 950  8600
+Wire Wire Line
+	800  8600 800  8500
+Wire Wire Line
+	950  8600 950  8800
+Connection ~ 950  8600
+Wire Wire Line
+	1100 8000 1100 8100
+Wire Wire Line
+	800  8000 950  8000
+Wire Wire Line
+	800  8000 800  8100
+Wire Wire Line
+	950  8000 950  7800
+Connection ~ 950  8000
+Wire Wire Line
+	1525 8100 1525 8000
+Wire Wire Line
+	1525 8000 1675 8000
+Wire Wire Line
+	1825 8000 1825 8100
+Wire Wire Line
+	1675 8000 1675 7800
+Connection ~ 1675 8000
+Wire Wire Line
+	1525 8500 1525 8600
+Wire Wire Line
+	1525 8600 1675 8600
+Wire Wire Line
+	1825 8600 1825 8500
+Wire Wire Line
+	1675 8600 1675 8800
+Connection ~ 1675 8600
+Connection ~ 10075 8275
+$Comp
+L potentiostat-rescue:OPA227 U10
+U 1 1 5736DD28
+P 10375 10625
+F 0 "U10" H 10375 10925 60  0000 C CNN
+F 1 "OPA227" H 10375 10325 60  0000 C CNN
+F 2 "~" H 10475 10625 60  0000 C CNN
+F 3 "~" H 10475 10625 60  0000 C CNN
+	1    10375 10625
+	1    0    0    -1  
+$EndComp
+Text Notes 6525 9625 0    60   ~ 0
+Control Amplifier
+NoConn ~ 9925 10475
+NoConn ~ 10825 10475
+Text Label 9725 10675 2    60   ~ 0
+AGND
+$Comp
+L potentiostat-rescue:R R2
+U 1 1 5737532F
+P 9125 10225
+F 0 "R2" V 9205 10225 40  0000 C CNN
+F 1 "10k" V 9132 10226 40  0000 C CNN
+F 2 "~" V 9055 10225 30  0000 C CNN
+F 3 "~" H 9125 10225 30  0000 C CNN
+	1    9125 10225
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:R R3
+U 1 1 5737533E
+P 9125 10925
+F 0 "R3" V 9205 10925 40  0000 C CNN
+F 1 "10k" V 9132 10926 40  0000 C CNN
+F 2 "~" V 9055 10925 30  0000 C CNN
+F 3 "~" H 9125 10925 30  0000 C CNN
+	1    9125 10925
+	1    0    0    -1  
+$EndComp
+Text Label 8875 9875 2    60   ~ 0
+DAC_BIP_NX
+Wire Wire Line
+	9975 8275 10075 8275
+Text Label 10275 8275 0    60   ~ 0
+REF_ELECT_BUF
+Text Label 8925 11275 2    60   ~ 0
+REF_ELECT_BUF
+Wire Wire Line
+	9925 10675 9725 10675
+Wire Wire Line
+	9925 10775 9725 10775
+Text Label 9725 10775 2    60   ~ 0
+-12V
+Wire Wire Line
+	10825 10575 11025 10575
+Text Label 11025 10575 0    60   ~ 0
++12V
+Text Label 11025 10675 0    60   ~ 0
+CTR_ELECT
+NoConn ~ 10825 10775
+Wire Wire Line
+	9125 10575 9825 10575
+$Comp
+L potentiostat-rescue:C C34
+U 1 1 57376739
+P 12825 10600
+F 0 "C34" H 12825 10700 40  0000 L CNN
+F 1 "0.1uF" H 12831 10515 40  0000 L CNN
+F 2 "~" H 12863 10450 30  0000 C CNN
+F 3 "~" H 12825 10600 60  0000 C CNN
+	1    12825 10600
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:C C27
+U 1 1 5737673F
+P 12100 10600
+F 0 "C27" H 12100 10700 40  0000 L CNN
+F 1 "0.1uF" H 12106 10515 40  0000 L CNN
+F 2 "~" H 12138 10450 30  0000 C CNN
+F 3 "~" H 12100 10600 60  0000 C CNN
+	1    12100 10600
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CP1 C36
+U 1 1 57376745
+P 13125 10600
+F 0 "C36" H 13175 10700 50  0000 L CNN
+F 1 "10uF" H 13175 10500 50  0000 L CNN
+F 2 "~" H 13125 10600 60  0000 C CNN
+F 3 "~" H 13125 10600 60  0000 C CNN
+	1    13125 10600
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CP1 C29
+U 1 1 5737674B
+P 12400 10600
+F 0 "C29" H 12450 10700 50  0000 L CNN
+F 1 "10uF" H 12450 10500 50  0000 L CNN
+F 2 "~" H 12400 10600 60  0000 C CNN
+F 3 "~" H 12400 10600 60  0000 C CNN
+	1    12400 10600
+	1    0    0    -1  
+$EndComp
+Text Label 12250 10100 1    60   ~ 0
+AGND
+Text Label 12250 11100 3    60   ~ 0
+-12V
+Text Label 12975 11100 3    60   ~ 0
+AGND
+Text Label 12975 10100 1    60   ~ 0
++12V
+Wire Wire Line
+	12400 10900 12400 10800
+Wire Wire Line
+	12100 10900 12250 10900
+Wire Wire Line
+	12100 10900 12100 10800
+Wire Wire Line
+	12250 10900 12250 11100
+Connection ~ 12250 10900
+Wire Wire Line
+	12400 10300 12400 10400
+Wire Wire Line
+	12100 10300 12250 10300
+Wire Wire Line
+	12100 10300 12100 10400
+Wire Wire Line
+	12250 10300 12250 10100
+Connection ~ 12250 10300
+Wire Wire Line
+	12825 10400 12825 10300
+Wire Wire Line
+	12825 10300 12975 10300
+Wire Wire Line
+	13125 10300 13125 10400
+Wire Wire Line
+	12975 10300 12975 10100
+Connection ~ 12975 10300
+Wire Wire Line
+	12825 10800 12825 10900
+Wire Wire Line
+	12825 10900 12975 10900
+Wire Wire Line
+	13125 10900 13125 10800
+Wire Wire Line
+	12975 10900 12975 11100
+Connection ~ 12975 10900
+Wire Wire Line
+	7175 4475 7475 4475
+Text Label 7175 4475 2    60   ~ 0
+AGND
+Wire Wire Line
+	7175 4375 7375 4375
+NoConn ~ 4075 1325
+NoConn ~ 4075 1625
+NoConn ~ 4075 1925
+NoConn ~ 4075 2025
+NoConn ~ 4075 2125
+Wire Wire Line
+	2175 14775 1975 14775
+Wire Wire Line
+	2175 15225 1975 15225
+Wire Wire Line
+	2175 15675 1975 15675
+Text Label 1975 15225 2    60   ~ 0
+REF_ELECT
+Text Label 1975 14775 2    60   ~ 0
+CTR_ELECT
+Text Label 1975 15675 2    60   ~ 0
+WRK_ELECT
+Text Label 11075 4725 0    60   ~ 0
+-12V
+Text Label 11075 4625 0    60   ~ 0
++12V
+Text Label 11075 4825 0    60   ~ 0
+AGND
+Text Label 12225 4625 2    60   ~ 0
+TIA_SW2_IN1
+Text Label 12225 4725 2    60   ~ 0
+TIA_SW2_IN2
+Text Label 12225 4925 2    60   ~ 0
+TIA_SW2_IN4
+Text Label 12225 4825 2    60   ~ 0
+TIA_SW2_IN3
+Text Notes 6550 1150 0    60   ~ 0
+Transimpedance Amplifier
+Text Label 9675 4625 2    60   ~ 0
+TIA_SW1_IN1
+Text Label 9675 4725 2    60   ~ 0
+TIA_SW1_IN2
+Text Label 9675 4925 2    60   ~ 0
+TIA_SW1_IN4
+Text Label 9675 4825 2    60   ~ 0
+TIA_SW1_IN3
+Wire Wire Line
+	8475 4375 8675 4375
+Wire Wire Line
+	8475 4575 8675 4575
+Text Label 8675 4375 0    60   ~ 0
++12V
+Text Label 8675 4575 0    60   ~ 0
+-12V
+Wire Wire Line
+	7375 1825 7375 2425
+$Comp
+L potentiostat-rescue:R R8
+U 1 1 5738DD58
+P 9325 3675
+F 0 "R8" V 9405 3675 40  0000 C CNN
+F 1 "600k" V 9332 3676 40  0000 C CNN
+F 2 "~" V 9255 3675 30  0000 C CNN
+F 3 "~" H 9325 3675 30  0000 C CNN
+	1    9325 3675
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:C C22
+U 1 1 5738DD67
+P 9325 3375
+F 0 "C22" H 9325 3475 40  0000 L CNN
+F 1 "56nF" H 9331 3290 40  0000 L CNN
+F 2 "~" H 9363 3225 30  0000 C CNN
+F 3 "~" H 9325 3375 60  0000 C CNN
+	1    9325 3375
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8975 3675 9075 3675
+Wire Wire Line
+	8975 3375 8975 3525
+Wire Wire Line
+	9675 3675 9575 3675
+Wire Wire Line
+	9675 3375 9675 3525
+Wire Wire Line
+	8975 3375 9125 3375
+Wire Wire Line
+	9525 3375 9675 3375
+$Comp
+L potentiostat-rescue:R R7
+U 1 1 5738E2C5
+P 9325 3125
+F 0 "R7" V 9405 3125 40  0000 C CNN
+F 1 "60k" V 9332 3126 40  0000 C CNN
+F 2 "~" V 9255 3125 30  0000 C CNN
+F 3 "~" H 9325 3125 30  0000 C CNN
+	1    9325 3125
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:C C21
+U 1 1 5738E2CB
+P 9325 2825
+F 0 "C21" H 9325 2925 40  0000 L CNN
+F 1 "56nF" H 9331 2740 40  0000 L CNN
+F 2 "~" H 9363 2675 30  0000 C CNN
+F 3 "~" H 9325 2825 60  0000 C CNN
+	1    9325 2825
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8975 3125 9075 3125
+Wire Wire Line
+	8975 2825 8975 2975
+Wire Wire Line
+	9675 3125 9575 3125
+Wire Wire Line
+	9675 2825 9675 2975
+Wire Wire Line
+	8975 2825 9125 2825
+Wire Wire Line
+	9525 2825 9675 2825
+$Comp
+L potentiostat-rescue:R R6
+U 1 1 5738E2D7
+P 9325 2575
+F 0 "R6" V 9405 2575 40  0000 C CNN
+F 1 "6k" V 9332 2576 40  0000 C CNN
+F 2 "~" V 9255 2575 30  0000 C CNN
+F 3 "~" H 9325 2575 30  0000 C CNN
+	1    9325 2575
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:C C20
+U 1 1 5738E2DD
+P 9325 2275
+F 0 "C20" H 9325 2375 40  0000 L CNN
+F 1 "56nF" H 9331 2190 40  0000 L CNN
+F 2 "~" H 9363 2125 30  0000 C CNN
+F 3 "~" H 9325 2275 60  0000 C CNN
+	1    9325 2275
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8975 2575 9075 2575
+Wire Wire Line
+	8975 2275 8975 2425
+Wire Wire Line
+	9675 2575 9575 2575
+Wire Wire Line
+	9675 2275 9675 2425
+Wire Wire Line
+	8975 2275 9125 2275
+Wire Wire Line
+	9525 2275 9675 2275
+$Comp
+L potentiostat-rescue:R R5
+U 1 1 5738E2E9
+P 9325 1975
+F 0 "R5" V 9405 1975 40  0000 C CNN
+F 1 "600" V 9332 1976 40  0000 C CNN
+F 2 "~" V 9255 1975 30  0000 C CNN
+F 3 "~" H 9325 1975 30  0000 C CNN
+	1    9325 1975
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:C C19
+U 1 1 5738E2EF
+P 9325 1675
+F 0 "C19" H 9325 1775 40  0000 L CNN
+F 1 "56nF" H 9331 1590 40  0000 L CNN
+F 2 "~" H 9363 1525 30  0000 C CNN
+F 3 "~" H 9325 1675 60  0000 C CNN
+	1    9325 1675
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8975 1975 9075 1975
+Wire Wire Line
+	8975 1675 8975 1825
+Wire Wire Line
+	9675 1975 9575 1975
+Wire Wire Line
+	9675 1675 9675 1825
+Wire Wire Line
+	8975 1675 9125 1675
+Wire Wire Line
+	9525 1675 9675 1675
+Wire Wire Line
+	7375 3525 8975 3525
+Connection ~ 8975 3525
+Wire Wire Line
+	7375 2975 8975 2975
+Connection ~ 8975 2975
+Connection ~ 7375 3525
+Wire Wire Line
+	7375 2425 8975 2425
+Connection ~ 8975 2425
+Connection ~ 7375 2975
+Wire Wire Line
+	7375 1825 8975 1825
+Connection ~ 8975 1825
+Connection ~ 7375 2425
+Connection ~ 9675 3525
+Connection ~ 9675 2975
+Connection ~ 9675 2425
+Connection ~ 9675 1825
+Wire Wire Line
+	10875 4175 11175 4175
+Wire Wire Line
+	10875 4275 11275 4275
+Wire Wire Line
+	10875 4375 11375 4375
+Wire Wire Line
+	10875 4475 11475 4475
+Connection ~ 7375 4375
+Wire Wire Line
+	9875 4625 9675 4625
+Wire Wire Line
+	9875 4725 9675 4725
+Wire Wire Line
+	9875 4825 9675 4825
+Wire Wire Line
+	9875 4925 9675 4925
+Wire Wire Line
+	12425 4625 12225 4625
+Wire Wire Line
+	12425 4725 12225 4725
+Wire Wire Line
+	12425 4825 12225 4825
+Wire Wire Line
+	12425 4925 12225 4925
+Wire Wire Line
+	10875 4625 11075 4625
+Wire Wire Line
+	10875 4725 11075 4725
+Wire Wire Line
+	10875 4825 11075 4825
+$Comp
+L potentiostat-rescue:ADG44X U9
+U 1 1 57394731
+P 10375 4475
+F 0 "U9" H 10375 4925 60  0000 C CNN
+F 1 "ADG44X" H 10375 3875 60  0000 C CNN
+F 2 "" H 10425 4475 60  0000 C CNN
+F 3 "" H 10425 4475 60  0000 C CNN
+	1    10375 4475
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:ADG44X U13
+U 1 1 5739474A
+P 12925 4475
+F 0 "U13" H 12925 4925 60  0000 C CNN
+F 1 "ADG44X" H 12925 3875 60  0000 C CNN
+F 2 "" H 12975 4475 60  0000 C CNN
+F 3 "" H 12975 4475 60  0000 C CNN
+	1    12925 4475
+	1    0    0    -1  
+$EndComp
+NoConn ~ 10875 4925
+Wire Wire Line
+	11175 3525 11175 4175
+Connection ~ 11175 4175
+Wire Wire Line
+	11275 2975 11275 4275
+Connection ~ 11275 4275
+Wire Wire Line
+	11375 2425 11375 4375
+Connection ~ 11375 4375
+Wire Wire Line
+	11475 1825 11475 4475
+Connection ~ 11475 4475
+Wire Wire Line
+	11175 3525 9675 3525
+Wire Wire Line
+	11275 2975 9675 2975
+Wire Wire Line
+	11375 2425 9675 2425
+Wire Wire Line
+	11475 1825 9675 1825
+Text Label 13625 4725 0    60   ~ 0
+-12V
+Text Label 13625 4625 0    60   ~ 0
++12V
+Text Label 13625 4825 0    60   ~ 0
+AGND
+Wire Wire Line
+	13425 4625 13625 4625
+Wire Wire Line
+	13425 4725 13625 4725
+Wire Wire Line
+	13425 4825 13625 4825
+NoConn ~ 13425 4925
+Wire Wire Line
+	7475 3975 7475 4275
+Wire Wire Line
+	7475 4575 7575 4575
+Connection ~ 7475 4475
+Wire Wire Line
+	7475 4275 7575 4275
+Wire Wire Line
+	7475 3975 8575 3975
+Wire Wire Line
+	8575 3975 8575 4275
+Wire Wire Line
+	8575 4275 8475 4275
+Connection ~ 7475 4275
+Text Label 7175 4375 2    60   ~ 0
+WRK_ELECT
+Text Label 1825 2825 2    60   ~ 0
+TIA_OUT_UNI
+Text Label 1825 1525 2    60   ~ 0
+TIA_SW1_IN1
+Text Label 1825 1825 2    60   ~ 0
+TIA_SW1_IN2
+Text Label 1825 2025 2    60   ~ 0
+TIA_SW1_IN4
+Text Label 1825 1925 2    60   ~ 0
+TIA_SW1_IN3
+Text Label 1825 2125 2    60   ~ 0
+TIA_SW2_IN1
+Text Label 1825 2225 2    60   ~ 0
+TIA_SW2_IN2
+Text Label 1825 3625 2    60   ~ 0
+TIA_SW2_IN4
+Text Label 1825 3525 2    60   ~ 0
+TIA_SW2_IN3
+Wire Wire Line
+	1825 1525 2025 1525
+Wire Wire Line
+	1825 1825 2025 1825
+Wire Wire Line
+	1825 1925 2025 1925
+Wire Wire Line
+	1825 2025 2025 2025
+Wire Wire Line
+	1825 2125 2025 2125
+Wire Wire Line
+	1825 2225 2025 2225
+Wire Wire Line
+	1825 3525 2025 3525
+Wire Wire Line
+	1825 3625 2025 3625
+Wire Wire Line
+	2025 1225 1825 1225
+Text Label 1825 1225 2    60   ~ 0
+GND
+NoConn ~ 2025 3025
+NoConn ~ 2025 3325
+NoConn ~ 2025 3425
+NoConn ~ 4075 2575
+NoConn ~ 4075 2675
+NoConn ~ 4075 2775
+NoConn ~ 4075 2875
+NoConn ~ 4075 3825
+NoConn ~ 4075 3925
+Wire Wire Line
+	2025 1625 1825 1625
+Wire Wire Line
+	2025 1725 1825 1725
+Text Label 1825 1625 2    60   ~ 0
+TX
+Text Label 1825 1725 2    60   ~ 0
+RX
+Wire Wire Line
+	1825 2325 2025 2325
+Wire Wire Line
+	1825 2425 2025 2425
+Wire Wire Line
+	1825 2525 2025 2525
+Wire Wire Line
+	2025 2625 1825 2625
+Text Label 1825 2325 2    60   ~ 0
+CS
+Text Label 1825 2425 2    60   ~ 0
+MOSI
+Text Label 1825 2525 2    60   ~ 0
+MISO
+Text Label 1825 2625 2    60   ~ 0
+SCK
+Wire Wire Line
+	2025 3125 1825 3125
+Wire Wire Line
+	2025 3225 1825 3225
+NoConn ~ 4075 2225
+Text Label 1825 3125 2    60   ~ 0
+SDA
+Text Label 1825 3225 2    60   ~ 0
+SCL
+NoConn ~ 2025 3725
+Wire Wire Line
+	1825 2825 2025 2825
+NoConn ~ 2025 2725
+$Comp
+L potentiostat-rescue:CONN_5X2 P13
+U 1 1 57398AAE
+P 10975 14925
+F 0 "P13" H 10975 15225 60  0000 C CNN
+F 1 "CONN_5X2" V 10975 14925 50  0000 C CNN
+F 2 "" H 10975 14925 60  0000 C CNN
+F 3 "" H 10975 14925 60  0000 C CNN
+	1    10975 14925
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10575 14725 10375 14725
+Wire Wire Line
+	10375 14825 10575 14825
+Wire Wire Line
+	10575 14925 10375 14925
+Wire Wire Line
+	10575 15025 10375 15025
+Wire Wire Line
+	10575 15125 10375 15125
+Wire Wire Line
+	11375 14725 11575 14725
+Wire Wire Line
+	11375 14825 11575 14825
+Wire Wire Line
+	11375 14925 11575 14925
+Wire Wire Line
+	11375 15025 11575 15025
+Wire Wire Line
+	11375 15125 11575 15125
+Text Label 10375 14725 2    60   ~ 0
+VUEXT
+Text Label 11575 14725 0    60   ~ 0
+GND
+Text Label 10375 14825 2    60   ~ 0
+TX
+Text Label 11575 14825 0    60   ~ 0
+RX
+Text Label 10375 14925 2    60   ~ 0
+SCL
+Text Label 11575 14925 0    60   ~ 0
+SDA
+Text Label 10375 15025 2    60   ~ 0
+MISO
+Text Label 11575 15025 0    60   ~ 0
+MOSI
+Text Label 10375 15125 2    60   ~ 0
+SCK
+Text Label 11575 15125 0    60   ~ 0
+CS
+Text Notes 10875 14425 0    60   ~ 0
+Expanson Headers
+$Comp
+L potentiostat-rescue:CONN_2X2 P15
+U 1 1 573999BF
+P 14925 14825
+F 0 "P15" H 14925 14975 50  0000 C CNN
+F 1 "CONN_2X2" H 14935 14695 40  0000 C CNN
+F 2 "" H 14925 14825 60  0000 C CNN
+F 3 "" H 14925 14825 60  0000 C CNN
+	1    14925 14825
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	15325 14775 15425 14775
+Wire Wire Line
+	15425 14775 15425 14825
+Wire Wire Line
+	15425 14875 15325 14875
+Wire Wire Line
+	15425 14825 15625 14825
+Connection ~ 15425 14825
+Wire Wire Line
+	14525 14775 14325 14775
+Wire Wire Line
+	14325 14875 14525 14875
+Text Label 14325 14775 2    60   ~ 0
+5V
+Text Label 14325 14875 2    60   ~ 0
+3V3
+Text Label 15625 14825 0    60   ~ 0
+VUEXT
+Text Notes 14275 14425 0    60   ~ 0
+Expansion header power selection
+Text Notes 775  14425 0    60   ~ 0
+Electrode Connectors
+$Comp
+L potentiostat-rescue:LT1995 U12
+U 1 1 573905A7
+P 12925 3125
+F 0 "U12" H 12925 3475 60  0000 C CNN
+F 1 "LT1995" H 12925 2775 60  0000 C CNN
+F 2 "~" H 12775 3125 60  0000 C CNN
+F 3 "~" H 12775 3125 60  0000 C CNN
+	1    12925 3125
+	1    0    0    -1  
+$EndComp
+Text Label 12275 3225 2    60   ~ 0
+-12V
+Text Label 13675 3225 0    60   ~ 0
++12V
+Text Label 12275 2925 2    60   ~ 0
+REF_0V6
+Wire Wire Line
+	12475 2925 12275 2925
+Wire Wire Line
+	12475 3225 12275 3225
+Wire Wire Line
+	13375 3225 13675 3225
+Wire Wire Line
+	13425 4475 13525 4475
+Wire Wire Line
+	13525 2925 13525 4175
+Wire Wire Line
+	13525 4375 13425 4375
+Wire Wire Line
+	13525 4275 13425 4275
+Connection ~ 13525 4375
+Wire Wire Line
+	13525 4175 13425 4175
+Connection ~ 13525 4275
+Connection ~ 13525 4175
+Wire Wire Line
+	13375 2925 13525 2925
+Wire Wire Line
+	13375 3325 14225 3325
+Text Label 15875 3325 0    60   ~ 0
+TIA_OUT_UNI
+Wire Wire Line
+	12475 3325 12275 3325
+Text Label 12275 3325 2    60   ~ 0
+AGND
+NoConn ~ 12475 3025
+NoConn ~ 12475 3125
+NoConn ~ 13375 3025
+NoConn ~ 13375 3125
+Wire Notes Line
+	6325 7125 6325 9425
+Wire Notes Line
+	6325 9525 6325 11725
+Wire Notes Line
+	6325 14325 6325 16225
+Wire Notes Line
+	525  7075 16525 7075
+Wire Notes Line
+	525  9475 16525 9475
+Wire Notes Line
+	525  11775 16525 11775
+Wire Notes Line
+	525  4875 6275 4875
+Wire Notes Line
+	9475 14325 9475 16275
+Wire Notes Line
+	13375 14325 13375 15675
+$Comp
+L potentiostat-rescue:C C37
+U 1 1 5739FA65
+P 13150 1675
+F 0 "C37" H 13150 1775 40  0000 L CNN
+F 1 "10nF" H 13156 1590 40  0000 L CNN
+F 2 "~" H 13188 1525 30  0000 C CNN
+F 3 "~" H 13150 1675 60  0000 C CNN
+	1    13150 1675
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:C C30
+U 1 1 5739FA6B
+P 12425 1675
+F 0 "C30" H 12425 1775 40  0000 L CNN
+F 1 "10nF" H 12431 1590 40  0000 L CNN
+F 2 "~" H 12463 1525 30  0000 C CNN
+F 3 "~" H 12425 1675 60  0000 C CNN
+	1    12425 1675
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CP1 C38
+U 1 1 5739FA71
+P 13450 1675
+F 0 "C38" H 13500 1775 50  0000 L CNN
+F 1 "4.7uf" H 13500 1575 50  0000 L CNN
+F 2 "~" H 13450 1675 60  0000 C CNN
+F 3 "~" H 13450 1675 60  0000 C CNN
+	1    13450 1675
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CP1 C32
+U 1 1 5739FA77
+P 12725 1675
+F 0 "C32" H 12775 1775 50  0000 L CNN
+F 1 "4.7uF" H 12775 1575 50  0000 L CNN
+F 2 "~" H 12725 1675 60  0000 C CNN
+F 3 "~" H 12725 1675 60  0000 C CNN
+	1    12725 1675
+	1    0    0    -1  
+$EndComp
+Text Label 12575 1175 1    60   ~ 0
+AGND
+Text Label 12575 2175 3    60   ~ 0
+-12V
+Text Label 13300 2175 3    60   ~ 0
+AGND
+Text Label 13300 1175 1    60   ~ 0
++12V
+Wire Wire Line
+	12725 1975 12725 1875
+Wire Wire Line
+	12425 1975 12575 1975
+Wire Wire Line
+	12425 1975 12425 1875
+Wire Wire Line
+	12575 1975 12575 2175
+Connection ~ 12575 1975
+Wire Wire Line
+	12725 1375 12725 1475
+Wire Wire Line
+	12425 1375 12575 1375
+Wire Wire Line
+	12425 1375 12425 1475
+Wire Wire Line
+	12575 1375 12575 1175
+Connection ~ 12575 1375
+Wire Wire Line
+	13150 1475 13150 1375
+Wire Wire Line
+	13150 1375 13300 1375
+Wire Wire Line
+	13450 1375 13450 1475
+Wire Wire Line
+	13300 1375 13300 1175
+Connection ~ 13300 1375
+Wire Wire Line
+	13150 1875 13150 1975
+Wire Wire Line
+	13150 1975 13300 1975
+Wire Wire Line
+	13450 1975 13450 1875
+Wire Wire Line
+	13300 1975 13300 2175
+Connection ~ 13300 1975
+$Comp
+L potentiostat-rescue:C C17
+U 1 1 5739FA95
+P 8225 6100
+F 0 "C17" H 8225 6200 40  0000 L CNN
+F 1 "0.1uF" H 8231 6015 40  0000 L CNN
+F 2 "~" H 8263 5950 30  0000 C CNN
+F 3 "~" H 8225 6100 60  0000 C CNN
+	1    8225 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:C C15
+U 1 1 5739FA9B
+P 7500 6100
+F 0 "C15" H 7500 6200 40  0000 L CNN
+F 1 "0.1uF" H 7506 6015 40  0000 L CNN
+F 2 "~" H 7538 5950 30  0000 C CNN
+F 3 "~" H 7500 6100 60  0000 C CNN
+	1    7500 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CP1 C18
+U 1 1 5739FAA1
+P 8525 6100
+F 0 "C18" H 8575 6200 50  0000 L CNN
+F 1 "10uF" H 8575 6000 50  0000 L CNN
+F 2 "~" H 8525 6100 60  0000 C CNN
+F 3 "~" H 8525 6100 60  0000 C CNN
+	1    8525 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CP1 C16
+U 1 1 5739FAA7
+P 7800 6100
+F 0 "C16" H 7850 6200 50  0000 L CNN
+F 1 "10uF" H 7850 6000 50  0000 L CNN
+F 2 "~" H 7800 6100 60  0000 C CNN
+F 3 "~" H 7800 6100 60  0000 C CNN
+	1    7800 6100
+	1    0    0    -1  
+$EndComp
+Text Label 7650 5600 1    60   ~ 0
+AGND
+Text Label 7650 6600 3    60   ~ 0
+-12V
+Text Label 8375 6600 3    60   ~ 0
+AGND
+Text Label 8375 5600 1    60   ~ 0
++12V
+Wire Wire Line
+	7800 6400 7800 6300
+Wire Wire Line
+	7500 6400 7650 6400
+Wire Wire Line
+	7500 6400 7500 6300
+Wire Wire Line
+	7650 6400 7650 6600
+Connection ~ 7650 6400
+Wire Wire Line
+	7800 5800 7800 5900
+Wire Wire Line
+	7500 5800 7650 5800
+Wire Wire Line
+	7500 5800 7500 5900
+Wire Wire Line
+	7650 5800 7650 5600
+Connection ~ 7650 5800
+Wire Wire Line
+	8225 5900 8225 5800
+Wire Wire Line
+	8225 5800 8375 5800
+Wire Wire Line
+	8525 5800 8525 5900
+Wire Wire Line
+	8375 5800 8375 5600
+Connection ~ 8375 5800
+Wire Wire Line
+	8225 6300 8225 6400
+Wire Wire Line
+	8225 6400 8375 6400
+Wire Wire Line
+	8525 6400 8525 6300
+Wire Wire Line
+	8375 6400 8375 6600
+Connection ~ 8375 6400
+$Comp
+L potentiostat-rescue:C C23
+U 1 1 5739FE6C
+P 10175 6025
+F 0 "C23" H 10175 6125 40  0000 L CNN
+F 1 "0.1uF" H 10181 5940 40  0000 L CNN
+F 2 "~" H 10213 5875 30  0000 C CNN
+F 3 "~" H 10175 6025 60  0000 C CNN
+	1    10175 6025
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:C C24
+U 1 1 5739FE7B
+P 10525 6025
+F 0 "C24" H 10525 6125 40  0000 L CNN
+F 1 "0.1uF" H 10531 5940 40  0000 L CNN
+F 2 "~" H 10563 5875 30  0000 C CNN
+F 3 "~" H 10525 6025 60  0000 C CNN
+	1    10525 6025
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10175 5825 10175 5625
+Wire Wire Line
+	10175 6225 10175 6475
+Wire Wire Line
+	10525 6225 10525 6475
+Wire Wire Line
+	10525 5825 10525 5625
+Text Label 10175 5625 1    60   ~ 0
+AGND
+Text Label 10175 6475 3    60   ~ 0
+-12V
+Text Label 10525 5625 1    60   ~ 0
++12V
+Text Label 10525 6475 3    60   ~ 0
+AGND
+$Comp
+L potentiostat-rescue:C C33
+U 1 1 573A0472
+P 12775 6075
+F 0 "C33" H 12775 6175 40  0000 L CNN
+F 1 "0.1uF" H 12781 5990 40  0000 L CNN
+F 2 "~" H 12813 5925 30  0000 C CNN
+F 3 "~" H 12775 6075 60  0000 C CNN
+	1    12775 6075
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:C C35
+U 1 1 573A0478
+P 13125 6075
+F 0 "C35" H 13125 6175 40  0000 L CNN
+F 1 "0.1uF" H 13131 5990 40  0000 L CNN
+F 2 "~" H 13163 5925 30  0000 C CNN
+F 3 "~" H 13125 6075 60  0000 C CNN
+	1    13125 6075
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12775 5875 12775 5675
+Wire Wire Line
+	12775 6275 12775 6525
+Wire Wire Line
+	13125 6275 13125 6525
+Wire Wire Line
+	13125 5875 13125 5675
+Text Label 12775 5675 1    60   ~ 0
+AGND
+Text Label 12775 6525 3    60   ~ 0
+-12V
+Text Label 13125 5675 1    60   ~ 0
++12V
+Text Label 13125 6525 3    60   ~ 0
+AGND
+$Comp
+L potentiostat-rescue:BAS07-04 D2
+U 1 1 573A0A9F
+P 14925 2675
+F 0 "D2" H 15025 2575 40  0000 C CNN
+F 1 "BAS07-04" H 14925 2775 40  0000 C CNN
+F 2 "~" H 14925 2675 60  0000 C CNN
+F 3 "~" H 14925 2675 60  0000 C CNN
+	1    14925 2675
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:R R18
+U 1 1 573A0AAE
+P 14475 3325
+F 0 "R18" V 14555 3325 40  0000 C CNN
+F 1 "1k" V 14482 3326 40  0000 C CNN
+F 2 "~" V 14405 3325 30  0000 C CNN
+F 3 "~" H 14475 3325 30  0000 C CNN
+	1    14475 3325
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:R R19
+U 1 1 573A0ABD
+P 15375 3325
+F 0 "R19" V 15455 3325 40  0000 C CNN
+F 1 "100" V 15382 3326 40  0000 C CNN
+F 2 "~" V 15305 3325 30  0000 C CNN
+F 3 "~" H 15375 3325 30  0000 C CNN
+	1    15375 3325
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	14725 3325 14925 3325
+Wire Wire Line
+	14925 2875 14925 3325
+Connection ~ 14925 3325
+Wire Wire Line
+	15625 3325 15875 3325
+Wire Wire Line
+	14525 2675 14325 2675
+Wire Wire Line
+	15325 2675 15525 2675
+Text Label 14325 2675 2    60   ~ 0
+AGND
+Text Label 15525 2675 0    60   ~ 0
+3V3
+Wire Wire Line
+	9125 10475 9125 10575
+Connection ~ 9125 10575
+Wire Wire Line
+	9125 9975 9125 9875
+Wire Wire Line
+	9125 11175 9125 11275
+Wire Wire Line
+	9125 9875 8875 9875
+Wire Wire Line
+	9125 11275 8925 11275
+Text Notes 6550 1250 0    60   ~ 0
+For switch arrangement see http://www.analog.com/library/analogdialogue/archives/47-05/pgtia.html\n\nSet gains so that output voltage range is -0.6V to 0.6V. \n\nInput current ranges (+/-)  1uA, 10uA, 100uA, 1000uA \n\nC values - may need tobe refined
+$Comp
+L potentiostat-rescue:CONN_2 P6
+U 1 1 57EC18EC
+P 5975 5625
+F 0 "P6" V 5925 5625 40  0000 C CNN
+F 1 "CONN_2" V 6025 5625 40  0000 C CNN
+F 2 "" H 5975 5625 60  0000 C CNN
+F 3 "" H 5975 5625 60  0000 C CNN
+	1    5975 5625
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:CONN_2 P4
+U 1 1 57EC18FB
+P 5975 3375
+F 0 "P4" V 5925 3375 40  0000 C CNN
+F 1 "CONN_2" V 6025 3375 40  0000 C CNN
+F 2 "" H 5975 3375 60  0000 C CNN
+F 3 "" H 5975 3375 60  0000 C CNN
+	1    5975 3375
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5875 3725 5875 3825
+Wire Wire Line
+	5675 3825 5875 3825
+Wire Wire Line
+	6075 3825 6075 3725
+Connection ~ 5875 3825
+Text Label 5675 3825 2    60   ~ 0
+GND
+Wire Wire Line
+	5875 5975 5875 6075
+Wire Wire Line
+	5625 6075 5875 6075
+Wire Wire Line
+	6075 6075 6075 5975
+Connection ~ 5875 6075
+$Comp
+L potentiostat-rescue:CONN_2 P7
+U 1 1 57EC23C6
+P 5975 6325
+F 0 "P7" V 5925 6325 40  0000 C CNN
+F 1 "CONN_2" V 6025 6325 40  0000 C CNN
+F 2 "" H 5975 6325 60  0000 C CNN
+F 3 "" H 5975 6325 60  0000 C CNN
+	1    5975 6325
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5875 6675 5875 6775
+Wire Wire Line
+	5625 6775 5875 6775
+Wire Wire Line
+	6075 6775 6075 6675
+Connection ~ 5875 6775
+Text Label 5625 6075 2    60   ~ 0
+DAC_UNI
+$Comp
+L potentiostat-rescue:CONN_2 P5
+U 1 1 57EC23D0
+P 5975 4075
+F 0 "P5" V 5925 4075 40  0000 C CNN
+F 1 "CONN_2" V 6025 4075 40  0000 C CNN
+F 2 "" H 5975 4075 60  0000 C CNN
+F 3 "" H 5975 4075 60  0000 C CNN
+	1    5975 4075
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5875 4425 5875 4525
+Wire Wire Line
+	5675 4525 5875 4525
+Wire Wire Line
+	6075 4525 6075 4425
+Connection ~ 5875 4525
+Text Label 5675 4525 2    60   ~ 0
+AGND
+Text Label 5625 6775 2    60   ~ 0
+DAC_BIP
+$Comp
+L potentiostat-rescue:CONN_2 P9
+U 1 1 57EC268F
+P 6025 8725
+F 0 "P9" V 5975 8725 40  0000 C CNN
+F 1 "CONN_2" V 6075 8725 40  0000 C CNN
+F 2 "" H 6025 8725 60  0000 C CNN
+F 3 "" H 6025 8725 60  0000 C CNN
+	1    6025 8725
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5925 9075 5925 9175
+Wire Wire Line
+	5675 9175 5925 9175
+Wire Wire Line
+	6125 9175 6125 9075
+Connection ~ 5925 9175
+Text Label 5675 9175 2    60   ~ 0
+DAC_BIP_NX
+$Comp
+L potentiostat-rescue:CONN_2 P10
+U 1 1 57EC269B
+P 6025 11025
+F 0 "P10" V 5975 11025 40  0000 C CNN
+F 1 "CONN_2" V 6075 11025 40  0000 C CNN
+F 2 "" H 6025 11025 60  0000 C CNN
+F 3 "" H 6025 11025 60  0000 C CNN
+	1    6025 11025
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5925 11375 5925 11475
+Wire Wire Line
+	5675 11475 5925 11475
+Wire Wire Line
+	6125 11475 6125 11375
+Connection ~ 5925 11475
+Text Label 5675 11475 2    60   ~ 0
+REF_0V6
+Text Notes 5425 4725 0    60   ~ 0
+GND test points 
+Text Notes 4775 6975 0    60   ~ 0
+unipolar/bipolar DAC test points
+Text Notes 5075 9375 0    60   ~ 0
+NX scaled DAC test point
+Text Notes 4975 11675 0    60   ~ 0
+0.6V ref. voltage test point
+$Comp
+L potentiostat-rescue:CONN_2 P11
+U 1 1 57EC2AB5
+P 9175 14675
+F 0 "P11" V 9125 14675 40  0000 C CNN
+F 1 "CONN_2" V 9225 14675 40  0000 C CNN
+F 2 "" H 9175 14675 60  0000 C CNN
+F 3 "" H 9175 14675 60  0000 C CNN
+	1    9175 14675
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	9075 15025 9075 15125
+Wire Wire Line
+	8825 15125 9075 15125
+Wire Wire Line
+	9275 15125 9275 15025
+Connection ~ 9075 15125
+Text Label 8825 15125 2    60   ~ 0
+-12V
+$Comp
+L potentiostat-rescue:CONN_2 P12
+U 1 1 57EC2AC0
+P 9175 15425
+F 0 "P12" V 9125 15425 40  0000 C CNN
+F 1 "CONN_2" V 9225 15425 40  0000 C CNN
+F 2 "" H 9175 15425 60  0000 C CNN
+F 3 "" H 9175 15425 60  0000 C CNN
+	1    9175 15425
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	9075 15775 9075 15875
+Wire Wire Line
+	8825 15875 9075 15875
+Wire Wire Line
+	9275 15875 9275 15775
+Connection ~ 9075 15875
+Text Label 8825 15875 2    60   ~ 0
++12V
+Text Notes 8125 16125 0    60   ~ 0
++/- 12V supply test points
+$Comp
+L potentiostat-rescue:CONN_2 P19
+U 1 1 57EC3038
+P 16125 8675
+F 0 "P19" V 16075 8675 40  0000 C CNN
+F 1 "CONN_2" V 16175 8675 40  0000 C CNN
+F 2 "" H 16125 8675 60  0000 C CNN
+F 3 "" H 16125 8675 60  0000 C CNN
+	1    16125 8675
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	16025 9025 16025 9125
+Wire Wire Line
+	15775 9125 16025 9125
+Wire Wire Line
+	16225 9125 16225 9025
+Connection ~ 16025 9125
+Text Label 15775 9125 2    60   ~ 0
+REF_ELECT_BUF
+Text Notes 14975 9325 0    60   ~ 0
+buffered ref. electrode test point
+Connection ~ 13525 4475
+Text Label 13625 4475 0    60   ~ 0
+TIA_OUT_BIP
+$Comp
+L potentiostat-rescue:CONN_2 P17
+U 1 1 57EC3347
+P 16075 5525
+F 0 "P17" V 16025 5525 40  0000 C CNN
+F 1 "CONN_2" V 16125 5525 40  0000 C CNN
+F 2 "" H 16075 5525 60  0000 C CNN
+F 3 "" H 16075 5525 60  0000 C CNN
+	1    16075 5525
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	15975 5875 15975 5975
+Wire Wire Line
+	15725 5975 15975 5975
+Wire Wire Line
+	16175 5975 16175 5875
+Connection ~ 15975 5975
+$Comp
+L potentiostat-rescue:CONN_2 P18
+U 1 1 57EC3351
+P 16075 6225
+F 0 "P18" V 16025 6225 40  0000 C CNN
+F 1 "CONN_2" V 16125 6225 40  0000 C CNN
+F 2 "" H 16075 6225 60  0000 C CNN
+F 3 "" H 16075 6225 60  0000 C CNN
+	1    16075 6225
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	15975 6575 15975 6675
+Wire Wire Line
+	15725 6675 15975 6675
+Wire Wire Line
+	16175 6675 16175 6575
+Connection ~ 15975 6675
+Text Label 15725 5975 2    60   ~ 0
+TIA_OUT_BIP
+Text Label 15725 6675 2    60   ~ 0
+TIA_OUT_UNI
+Text Notes 14925 6925 0    60   ~ 0
+bipolor/unipolar transimpedance \namplifier output test poinsts
+$Comp
+L potentiostat-rescue:CONN_2 P21
+U 1 1 57EC361A
+P 16175 13525
+F 0 "P21" V 16125 13525 40  0000 C CNN
+F 1 "CONN_2" V 16225 13525 40  0000 C CNN
+F 2 "" H 16175 13525 60  0000 C CNN
+F 3 "" H 16175 13525 60  0000 C CNN
+	1    16175 13525
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	16075 13875 16075 13975
+Wire Wire Line
+	15825 13975 16075 13975
+Wire Wire Line
+	16275 13975 16275 13875
+Connection ~ 16075 13975
+Text Label 15825 13975 2    60   ~ 0
+REF_ELECT_UNI
+Text Notes 14975 14125 0    60   ~ 0
+unipolar ref. electrode test point
+Wire Wire Line
+	2025 2925 1825 2925
+Text Label 1825 2925 2    60   ~ 0
+REF_ELECT_UNI
+Wire Notes Line
+	525  14275 16525 14275
+Wire Notes Line
+	6325 11825 6325 14225
+$Comp
+L potentiostat-rescue:MAX6176AASA+ U3
+U 1 1 57ED73DA
+P 3425 12825
+F 0 "U3" H 3425 13125 60  0000 C CNN
+F 1 "MAX6176AASA+" H 3475 12425 60  0000 C CNN
+F 2 "~" H 3675 12475 60  0000 C CNN
+F 3 "~" H 3675 12475 60  0000 C CNN
+	1    3425 12825
+	1    0    0    -1  
+$EndComp
+NoConn ~ 2975 12725
+Wire Wire Line
+	2975 12825 2775 12825
+Wire Wire Line
+	2975 13025 2775 13025
+Wire Wire Line
+	3875 12925 4075 12925
+NoConn ~ 2975 12925
+NoConn ~ 3875 12725
+NoConn ~ 3875 12825
+NoConn ~ 3875 13025
+Text Notes 625  11925 0    60   ~ 0
+10V Reference voltage. 
+Text Label 2775 12825 2    60   ~ 0
++12V
+Text Label 2775 13025 2    60   ~ 0
+GND
+Text Label 4075 12925 0    60   ~ 0
+REF_10V
+$Comp
+L potentiostat-rescue:CONN_2 P8
+U 1 1 57ED78F7
+P 5975 13475
+F 0 "P8" V 5925 13475 40  0000 C CNN
+F 1 "CONN_2" V 6025 13475 40  0000 C CNN
+F 2 "" H 5975 13475 60  0000 C CNN
+F 3 "" H 5975 13475 60  0000 C CNN
+	1    5975 13475
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5875 13825 5875 13925
+Wire Wire Line
+	5625 13925 5875 13925
+Wire Wire Line
+	6075 13925 6075 13825
+Connection ~ 5875 13925
+Text Label 5625 13925 2    60   ~ 0
+REF_10V
+Text Notes 4925 14125 0    60   ~ 0
+10V ref. voltage test point
+$Comp
+L potentiostat-rescue:OP07 U11
+U 1 1 57ED7D4A
+P 11175 13125
+F 0 "U11" H 11175 13475 60  0000 C CNN
+F 1 "OP07" H 11175 12875 60  0000 C CNN
+F 2 "~" H 11205 13125 60  0000 C CNN
+F 3 "~" H 11205 13125 60  0000 C CNN
+	1    11175 13125
+	1    0    0    -1  
+$EndComp
+Text Notes 6425 11925 0    60   ~ 0
+Differential Amplifier - shifts and scales +/- 10V  REF_ELECT_BUF into 0-1.2V range for analog input. 
+$Comp
+L potentiostat-rescue:BAS07-04 D1
+U 1 1 57ED7EE6
+P 13375 12725
+F 0 "D1" H 13475 12625 40  0000 C CNN
+F 1 "BAS07-04" H 13375 12825 40  0000 C CNN
+F 2 "~" H 13375 12725 60  0000 C CNN
+F 3 "~" H 13375 12725 60  0000 C CNN
+	1    13375 12725
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:R R12
+U 1 1 57ED7EF5
+P 9675 13325
+F 0 "R12" V 9755 13325 40  0000 C CNN
+F 1 "3k" V 9682 13326 40  0000 C CNN
+F 2 "~" V 9605 13325 30  0000 C CNN
+F 3 "~" H 9675 13325 30  0000 C CNN
+	1    9675 13325
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:R R10
+U 1 1 57ED7F04
+P 9675 12925
+F 0 "R10" V 9755 12925 40  0000 C CNN
+F 1 "50k" V 9682 12926 40  0000 C CNN
+F 2 "~" V 9605 12925 30  0000 C CNN
+F 3 "~" H 9675 12925 30  0000 C CNN
+	1    9675 12925
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:R R9
+U 1 1 57ED7F13
+P 9675 12725
+F 0 "R9" V 9755 12725 40  0000 C CNN
+F 1 "50k" V 9682 12726 40  0000 C CNN
+F 2 "~" V 9605 12725 30  0000 C CNN
+F 3 "~" H 9675 12725 30  0000 C CNN
+	1    9675 12725
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:R R11
+U 1 1 57ED7F22
+P 9675 13125
+F 0 "R11" V 9755 13125 40  0000 C CNN
+F 1 "50k" V 9682 13126 40  0000 C CNN
+F 2 "~" V 9605 13125 30  0000 C CNN
+F 3 "~" H 9675 13125 30  0000 C CNN
+	1    9675 13125
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:R R13
+U 1 1 57ED7F31
+P 11125 12475
+F 0 "R13" V 11205 12475 40  0000 C CNN
+F 1 "3k" V 11132 12476 40  0000 C CNN
+F 2 "~" V 11055 12475 30  0000 C CNN
+F 3 "~" H 11125 12475 30  0000 C CNN
+	1    11125 12475
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:R R15
+U 1 1 57ED7F40
+P 12925 13125
+F 0 "R15" V 13005 13125 40  0000 C CNN
+F 1 "1k" V 12932 13126 40  0000 C CNN
+F 2 "~" V 12855 13125 30  0000 C CNN
+F 3 "~" H 12925 13125 30  0000 C CNN
+	1    12925 13125
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:R R17
+U 1 1 57ED7F4F
+P 13825 13125
+F 0 "R17" V 13905 13125 40  0000 C CNN
+F 1 "100" V 13832 13126 40  0000 C CNN
+F 2 "~" V 13755 13125 30  0000 C CNN
+F 3 "~" H 13825 13125 30  0000 C CNN
+	1    13825 13125
+	0    -1   -1   0   
+$EndComp
+$Comp
+L potentiostat-rescue:C C13
+U 1 1 57ED7F5E
+P 7075 12925
+F 0 "C13" H 7075 13025 40  0000 L CNN
+F 1 "0.1uF" H 7081 12840 40  0000 L CNN
+F 2 "~" H 7113 12775 30  0000 C CNN
+F 3 "~" H 7075 12925 60  0000 C CNN
+	1    7075 12925
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:C C14
+U 1 1 57ED7F6D
+P 7475 12925
+F 0 "C14" H 7475 13025 40  0000 L CNN
+F 1 "0.1uF" H 7481 12840 40  0000 L CNN
+F 2 "~" H 7513 12775 30  0000 C CNN
+F 3 "~" H 7475 12925 60  0000 C CNN
+	1    7475 12925
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7075 13125 7075 13275
+Wire Wire Line
+	7075 13275 7275 13275
+Wire Wire Line
+	7475 13275 7475 13125
+Wire Wire Line
+	7275 13275 7275 13475
+Connection ~ 7275 13275
+Text Label 7275 13475 3    60   ~ 0
+AGND
+Wire Wire Line
+	7075 12725 7075 12475
+Wire Wire Line
+	7475 12725 7475 12475
+Text Label 7075 12475 1    60   ~ 0
++12V
+Text Label 7475 12475 1    60   ~ 0
+-12V
+$Comp
+L potentiostat-rescue:R R4
+U 1 1 57ED96F5
+P 9125 13325
+F 0 "R4" V 9205 13325 40  0000 C CNN
+F 1 "191" V 9132 13326 40  0000 C CNN
+F 2 "~" V 9055 13325 30  0000 C CNN
+F 3 "~" H 9125 13325 30  0000 C CNN
+	1    9125 13325
+	0    -1   -1   0   
+$EndComp
+NoConn ~ 10675 12925
+NoConn ~ 11675 12925
+NoConn ~ 11675 13225
+Wire Wire Line
+	9925 13125 10075 13125
+Wire Wire Line
+	9925 12925 10075 12925
+Wire Wire Line
+	10425 13025 10675 13025
+Wire Wire Line
+	9925 12725 10425 12725
+Connection ~ 10425 12725
+Wire Wire Line
+	9425 13125 9175 13125
+Wire Wire Line
+	9425 12925 9175 12925
+Wire Wire Line
+	9425 12725 9175 12725
+Text Label 9175 13125 2    60   ~ 0
+REF_10V
+Text Label 9175 12725 2    60   ~ 0
+AGND
+Text Label 9175 12925 2    60   ~ 0
+REF_ELECT_BUF
+Wire Wire Line
+	10425 12475 10425 12725
+Wire Wire Line
+	10075 13325 9925 13325
+Wire Wire Line
+	9375 13325 9425 13325
+Wire Wire Line
+	8875 13325 8625 13325
+Text Label 8625 13325 2    60   ~ 0
+AGND
+Wire Wire Line
+	10425 12475 10875 12475
+Wire Wire Line
+	10675 13225 10425 13225
+Wire Wire Line
+	11675 13025 11925 13025
+Text Label 11925 13025 0    60   ~ 0
++12V
+Text Label 10425 13225 2    60   ~ 0
+-12V
+Wire Wire Line
+	10075 12925 10075 13125
+Connection ~ 10075 13125
+Wire Wire Line
+	11375 12475 12275 12475
+Wire Wire Line
+	12275 12475 12275 13125
+Wire Wire Line
+	11675 13125 12275 13125
+Connection ~ 12275 13125
+Wire Wire Line
+	13175 13125 13375 13125
+Wire Wire Line
+	13375 12925 13375 13125
+Connection ~ 13375 13125
+Wire Wire Line
+	12975 12725 12725 12725
+Wire Wire Line
+	13775 12725 14025 12725
+Text Label 12725 12725 2    60   ~ 0
+AGND
+Text Label 14025 12725 0    60   ~ 0
+3V3
+Wire Wire Line
+	14075 13125 14375 13125
+Text Label 14375 13125 0    60   ~ 0
+REF_ELECT_UNI
+$Comp
+L potentiostat-rescue:CONN_2 P20
+U 1 1 57EDD33C
+P 16175 10925
+F 0 "P20" V 16125 10925 40  0000 C CNN
+F 1 "CONN_2" V 16225 10925 40  0000 C CNN
+F 2 "" H 16175 10925 60  0000 C CNN
+F 3 "" H 16175 10925 60  0000 C CNN
+	1    16175 10925
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	16075 11275 16075 11375
+Wire Wire Line
+	15825 11375 16075 11375
+Wire Wire Line
+	16275 11375 16275 11275
+Connection ~ 16075 11375
+Text Label 15825 11375 2    60   ~ 0
+CTR_ELECT
+Text Notes 15075 11525 0    60   ~ 0
+counter electrode test point
+$Comp
+L potentiostat-rescue:C C10
+U 1 1 57EDD82C
+P 1925 12875
+F 0 "C10" H 1925 12975 40  0000 L CNN
+F 1 "0.1uF" H 1931 12790 40  0000 L CNN
+F 2 "~" H 1963 12725 30  0000 C CNN
+F 3 "~" H 1925 12875 60  0000 C CNN
+	1    1925 12875
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1925 12675 1925 12425
+Wire Wire Line
+	1925 13075 1925 13325
+Text Label 1925 13325 3    60   ~ 0
+GND
+Text Label 1925 12425 1    60   ~ 0
++12V
+$Comp
+L potentiostat-rescue:CONN_2 P1
+U 1 1 57EDDD81
+P 2525 14875
+F 0 "P1" V 2475 14875 40  0000 C CNN
+F 1 "CONN_2" V 2575 14875 40  0000 C CNN
+F 2 "" H 2525 14875 60  0000 C CNN
+F 3 "" H 2525 14875 60  0000 C CNN
+	1    2525 14875
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CONN_2 P2
+U 1 1 57EDDD90
+P 2525 15325
+F 0 "P2" V 2475 15325 40  0000 C CNN
+F 1 "CONN_2" V 2575 15325 40  0000 C CNN
+F 2 "" H 2525 15325 60  0000 C CNN
+F 3 "" H 2525 15325 60  0000 C CNN
+	1    2525 15325
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:CONN_2 P3
+U 1 1 57EDDD9F
+P 2525 15775
+F 0 "P3" V 2475 15775 40  0000 C CNN
+F 1 "CONN_2" V 2575 15775 40  0000 C CNN
+F 2 "" H 2525 15775 60  0000 C CNN
+F 3 "" H 2525 15775 60  0000 C CNN
+	1    2525 15775
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2175 14975 1975 14975
+Wire Wire Line
+	2175 15425 1975 15425
+Wire Wire Line
+	2175 15875 1975 15875
+Text Label 1975 14975 2    60   ~ 0
+AGND
+Text Label 1975 15425 2    60   ~ 0
+AGND
+Text Label 1975 15875 2    60   ~ 0
+AGND
+$Comp
+L potentiostat-rescue:C C12
+U 1 1 57EDE7D6
+P 6725 15225
+F 0 "C12" H 6725 15325 40  0000 L CNN
+F 1 "0.1uF" H 6731 15140 40  0000 L CNN
+F 2 "~" H 6763 15075 30  0000 C CNN
+F 3 "~" H 6725 15225 60  0000 C CNN
+	1    6725 15225
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6725 15025 6725 14775
+Wire Wire Line
+	6725 15425 6725 15675
+Text Label 6725 14775 1    60   ~ 0
+5V
+Text Label 6725 15675 3    60   ~ 0
+GND
+$Comp
+L potentiostat-rescue:PWR_FLAG #FLG01
+U 1 1 57EDFCAC
+P 5575 1225
+F 0 "#FLG01" H 5575 1320 30  0001 C CNN
+F 1 "PWR_FLAG" H 5575 1405 30  0000 C CNN
+F 2 "" H 5575 1225 60  0000 C CNN
+F 3 "" H 5575 1225 60  0000 C CNN
+	1    5575 1225
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5575 1225 5575 1375
+$Comp
+L potentiostat-rescue:PWR_FLAG #FLG02
+U 1 1 57EE00C1
+P 5575 1925
+F 0 "#FLG02" H 5575 2020 30  0001 C CNN
+F 1 "PWR_FLAG" H 5575 2105 30  0000 C CNN
+F 2 "" H 5575 1925 60  0000 C CNN
+F 3 "" H 5575 1925 60  0000 C CNN
+	1    5575 1925
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:PWR_FLAG #FLG03
+U 1 1 57EE00C7
+P 6025 1925
+F 0 "#FLG03" H 6025 2020 30  0001 C CNN
+F 1 "PWR_FLAG" H 6025 2105 30  0000 C CNN
+F 2 "" H 6025 1925 60  0000 C CNN
+F 3 "" H 6025 1925 60  0000 C CNN
+	1    6025 1925
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5575 1925 5575 2075
+Wire Wire Line
+	6025 1925 6025 2075
+Text Label 5575 1375 3    60   ~ 0
+5V
+Text Label 5575 2075 3    60   ~ 0
+GND
+Text Label 6025 2075 3    60   ~ 0
+AGND
+Wire Wire Line
+	9875 4375 9625 4375
+Wire Wire Line
+	9625 4175 9625 4275
+Wire Wire Line
+	9625 4275 9875 4275
+Connection ~ 9625 4375
+Wire Wire Line
+	9625 4175 9875 4175
+Connection ~ 9625 4275
+Wire Wire Line
+	8475 4475 9625 4475
+Connection ~ 9625 4475
+Wire Wire Line
+	4075 3725 4325 3725
+Wire Wire Line
+	4075 3625 4325 3625
+Wire Wire Line
+	4075 3525 4325 3525
+Wire Wire Line
+	4075 3425 4325 3425
+Wire Wire Line
+	4075 3325 4325 3325
+Wire Wire Line
+	4075 3175 4325 3175
+Wire Wire Line
+	4075 3075 4325 3075
+Wire Wire Line
+	4075 2975 4325 2975
+Text Label 4325 2975 0    60   ~ 0
+D31
+Text Label 4325 3075 0    60   ~ 0
+D30
+Text Label 4325 3175 0    60   ~ 0
+D29
+Text Label 4325 3325 0    60   ~ 0
+D28
+Text Label 4325 3425 0    60   ~ 0
+D27
+Text Label 4325 3525 0    60   ~ 0
+D26
+Text Label 4325 3625 0    60   ~ 0
+D25
+Text Label 4325 3725 0    60   ~ 0
+D24
+$Comp
+L potentiostat-rescue:CONN_5X2 P14
+U 1 1 57EEB2EA
+P 10975 15825
+F 0 "P14" H 10975 16125 60  0000 C CNN
+F 1 "CONN_5X2" V 10975 15825 50  0000 C CNN
+F 2 "" H 10975 15825 60  0000 C CNN
+F 3 "" H 10975 15825 60  0000 C CNN
+	1    10975 15825
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10575 15625 10375 15625
+Wire Wire Line
+	10375 15725 10575 15725
+Wire Wire Line
+	10575 15825 10375 15825
+Wire Wire Line
+	10575 15925 10375 15925
+Wire Wire Line
+	10575 16025 10375 16025
+Wire Wire Line
+	11375 15625 11575 15625
+Wire Wire Line
+	11375 15725 11575 15725
+Wire Wire Line
+	11375 15825 11575 15825
+Wire Wire Line
+	11375 15925 11575 15925
+Wire Wire Line
+	11375 16025 11575 16025
+Text Label 10375 15625 2    60   ~ 0
+VEXP
+Text Label 11575 15625 0    60   ~ 0
+GND
+Text Label 10375 15725 2    60   ~ 0
+D24
+Text Label 11575 15725 0    60   ~ 0
+D25
+Text Label 10375 15825 2    60   ~ 0
+D26
+Text Label 11575 15825 0    60   ~ 0
+D27
+Text Label 10375 15925 2    60   ~ 0
+D28
+Text Label 11575 15925 0    60   ~ 0
+D29
+Text Label 10375 16025 2    60   ~ 0
+D30
+Text Label 11575 16025 0    60   ~ 0
+D31
+$Comp
+L potentiostat-rescue:CONN_2X2 P16
+U 1 1 57EEB305
+P 14925 15225
+F 0 "P16" H 14925 15375 50  0000 C CNN
+F 1 "CONN_2X2" H 14935 15095 40  0000 C CNN
+F 2 "" H 14925 15225 60  0000 C CNN
+F 3 "" H 14925 15225 60  0000 C CNN
+	1    14925 15225
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	15325 15175 15425 15175
+Wire Wire Line
+	15425 15175 15425 15225
+Wire Wire Line
+	15425 15275 15325 15275
+Wire Wire Line
+	15425 15225 15625 15225
+Connection ~ 15425 15225
+Wire Wire Line
+	14525 15175 14325 15175
+Wire Wire Line
+	14325 15275 14525 15275
+Text Label 14325 15175 2    60   ~ 0
+5V
+Text Label 14325 15275 2    60   ~ 0
+3V3
+Text Label 15625 15225 0    60   ~ 0
+VEXP
+$Comp
+L potentiostat-rescue:R R14
+U 1 1 57EEB80D
+P 12625 15025
+F 0 "R14" V 12705 15025 40  0000 C CNN
+F 1 "4.7k" V 12632 15026 40  0000 C CNN
+F 2 "~" V 12555 15025 30  0000 C CNN
+F 3 "~" H 12625 15025 30  0000 C CNN
+	1    12625 15025
+	1    0    0    -1  
+$EndComp
+$Comp
+L potentiostat-rescue:R R16
+U 1 1 57EEB81C
+P 12925 15025
+F 0 "R16" V 13005 15025 40  0000 C CNN
+F 1 "4.7k" V 12932 15026 40  0000 C CNN
+F 2 "~" V 12855 15025 30  0000 C CNN
+F 3 "~" H 12925 15025 30  0000 C CNN
+	1    12925 15025
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12625 15275 12625 15475
+Wire Wire Line
+	12925 15275 12925 15475
+Text Label 12625 15475 3    60   ~ 0
+SCL
+Text Label 12925 15475 3    60   ~ 0
+SDA
+Wire Wire Line
+	12625 14775 12625 14725
+Wire Wire Line
+	12625 14725 12775 14725
+Wire Wire Line
+	12925 14725 12925 14775
+Wire Wire Line
+	12775 14725 12775 14525
+Connection ~ 12775 14725
+Text Label 12775 14525 0    60   ~ 0
+VUEXT
+$Comp
+L potentiostat-rescue:CONN_3 K1
+U 1 1 57EEC99B
+P 4725 15325
+F 0 "K1" V 4675 15325 50  0000 C CNN
+F 1 "CONN_3" V 4775 15325 40  0000 C CNN
+F 2 "" H 4725 15325 60  0000 C CNN
+F 3 "" H 4725 15325 60  0000 C CNN
+	1    4725 15325
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4375 15225 4175 15225
+Wire Wire Line
+	4375 15325 4175 15325
+Wire Wire Line
+	4375 15425 4175 15425
+Text Label 4175 15225 2    60   ~ 0
+CTR_ELECT
+Text Label 4175 15325 2    60   ~ 0
+REF_ELECT
+Text Label 4175 15425 2    60   ~ 0
+WRK_ELECT
+Text Notes 11175 5175 0    60   ~ 0
+Use ADG441
+$Comp
+L potentiostat-rescue:C C39
+U 1 1 585C345D
+P 10375 9975
+F 0 "C39" H 10375 10075 40  0000 L CNN
+F 1 "10nF" H 10381 9890 40  0000 L CNN
+F 2 "~" H 10413 9825 30  0000 C CNN
+F 3 "~" H 10375 9975 60  0000 C CNN
+	1    10375 9975
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	10825 10675 10925 10675
+Wire Wire Line
+	9825 9975 10175 9975
+Wire Wire Line
+	10575 9975 10925 9975
+Wire Wire Line
+	10925 9975 10925 10675
+Connection ~ 10925 10675
+Wire Wire Line
+	9825 9975 9825 10575
+Connection ~ 9825 10575
+Wire Wire Line
+	1825 10275 2075 10275
+Wire Wire Line
+	2075 10275 2225 10275
+Wire Wire Line
+	2225 10275 2325 10275
+Wire Wire Line
+	3425 10375 3425 10825
+Wire Wire Line
+	3425 10825 3425 10975
+Wire Wire Line
+	2075 10825 2275 10825
+Wire Wire Line
+	2275 10825 2575 10825
+Wire Wire Line
+	3425 10175 3675 10175
+Wire Wire Line
+	925  6375 1075 6375
+Wire Wire Line
+	925  5775 1075 5775
+Wire Wire Line
+	1650 5775 1800 5775
+Wire Wire Line
+	1650 6375 1800 6375
+Wire Wire Line
+	2975 6175 3075 6175
+Wire Wire Line
+	2875 5775 3075 5775
+Wire Wire Line
+	4075 6175 4375 6175
+Wire Wire Line
+	4175 5775 4375 5775
+Wire Wire Line
+	11600 8500 11750 8500
+Wire Wire Line
+	11600 7900 11750 7900
+Wire Wire Line
+	12325 7900 12475 7900
+Wire Wire Line
+	12325 8500 12475 8500
+Wire Wire Line
+	8025 15400 8225 15400
+Wire Wire Line
+	8975 8075 8975 8175
+Wire Wire Line
+	10075 8075 10075 8275
+Wire Wire Line
+	8975 8175 8975 8375
+Wire Wire Line
+	950  8600 1100 8600
+Wire Wire Line
+	950  8000 1100 8000
+Wire Wire Line
+	1675 8000 1825 8000
+Wire Wire Line
+	1675 8600 1825 8600
+Wire Wire Line
+	10075 8275 10275 8275
+Wire Wire Line
+	12250 10900 12400 10900
+Wire Wire Line
+	12250 10300 12400 10300
+Wire Wire Line
+	12975 10300 13125 10300
+Wire Wire Line
+	12975 10900 13125 10900
+Wire Wire Line
+	8975 3525 8975 3675
+Wire Wire Line
+	8975 2975 8975 3125
+Wire Wire Line
+	7375 3525 7375 4375
+Wire Wire Line
+	8975 2425 8975 2575
+Wire Wire Line
+	7375 2975 7375 3525
+Wire Wire Line
+	8975 1825 8975 1975
+Wire Wire Line
+	7375 2425 7375 2975
+Wire Wire Line
+	9675 3525 9675 3675
+Wire Wire Line
+	9675 2975 9675 3125
+Wire Wire Line
+	9675 2425 9675 2575
+Wire Wire Line
+	9675 1825 9675 1975
+Wire Wire Line
+	7375 4375 7575 4375
+Wire Wire Line
+	11175 4175 12425 4175
+Wire Wire Line
+	11275 4275 12425 4275
+Wire Wire Line
+	11375 4375 12425 4375
+Wire Wire Line
+	11475 4475 12425 4475
+Wire Wire Line
+	7475 4475 7575 4475
+Wire Wire Line
+	7475 4475 7475 4575
+Wire Wire Line
+	7475 4275 7475 4475
+Wire Wire Line
+	15425 14825 15425 14875
+Wire Wire Line
+	13525 4375 13525 4475
+Wire Wire Line
+	13525 4275 13525 4375
+Wire Wire Line
+	13525 4175 13525 4275
+Wire Wire Line
+	12575 1975 12725 1975
+Wire Wire Line
+	12575 1375 12725 1375
+Wire Wire Line
+	13300 1375 13450 1375
+Wire Wire Line
+	13300 1975 13450 1975
+Wire Wire Line
+	7650 6400 7800 6400
+Wire Wire Line
+	7650 5800 7800 5800
+Wire Wire Line
+	8375 5800 8525 5800
+Wire Wire Line
+	8375 6400 8525 6400
+Wire Wire Line
+	14925 3325 15125 3325
+Wire Wire Line
+	9125 10575 9125 10675
+Wire Wire Line
+	5875 3825 6075 3825
+Wire Wire Line
+	5875 6075 6075 6075
+Wire Wire Line
+	5875 6775 6075 6775
+Wire Wire Line
+	5875 4525 6075 4525
+Wire Wire Line
+	5925 9175 6125 9175
+Wire Wire Line
+	5925 11475 6125 11475
+Wire Wire Line
+	9075 15125 9275 15125
+Wire Wire Line
+	9075 15875 9275 15875
+Wire Wire Line
+	16025 9125 16225 9125
+Wire Wire Line
+	13525 4475 13625 4475
+Wire Wire Line
+	15975 5975 16175 5975
+Wire Wire Line
+	15975 6675 16175 6675
+Wire Wire Line
+	16075 13975 16275 13975
+Wire Wire Line
+	5875 13925 6075 13925
+Wire Wire Line
+	7275 13275 7475 13275
+Wire Wire Line
+	10425 12725 10425 13025
+Wire Wire Line
+	10075 13125 10675 13125
+Wire Wire Line
+	10075 13125 10075 13325
+Wire Wire Line
+	12275 13125 12675 13125
+Wire Wire Line
+	13375 13125 13575 13125
+Wire Wire Line
+	16075 11375 16275 11375
+Wire Wire Line
+	9625 4375 9625 4475
+Wire Wire Line
+	9625 4275 9625 4375
+Wire Wire Line
+	9625 4475 9875 4475
+Wire Wire Line
+	15425 15225 15425 15275
+Wire Wire Line
+	12775 14725 12925 14725
+Wire Wire Line
+	10925 10675 11025 10675
+Wire Wire Line
+	9825 10575 9925 10575
+Wire Notes Line
+	6325 525  6325 7025
+$Comp
+L Amplifier_Operational:OP07 U?
+U 1 1 60466A62
+P -6800 8450
+F 0 "U?" H -6650 8350 50  0000 L CNN
+F 1 "OP07" H -6650 8550 50  0000 L CNN
+F 2 "" H -6750 8500 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H -6750 8600 50  0001 C CNN
+	1    -6800 8450
+	1    0    0    1   
+$EndComp
+NoConn ~ -6800 8150
+NoConn ~ -6700 8150
+Text Label -6900 8050 1    50   ~ 0
+-12V
+Text Label -6900 8850 3    50   ~ 0
++12V
+Wire Wire Line
+	-6900 8150 -6900 8050
+Wire Wire Line
+	-6900 8750 -6900 8850
+$Comp
+L Device:R R?
+U 1 1 60741FB7
+P -7700 8350
+F 0 "R?" V -7800 8350 50  0000 C CNN
+F 1 "12k" V -7700 8350 50  0000 C CNN
+F 2 "" V -7770 8350 50  0001 C CNN
+F 3 "~" H -7700 8350 50  0001 C CNN
+	1    -7700 8350
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6078CF54
+P -6850 7700
+F 0 "R?" V -6950 7700 50  0000 C CNN
+F 1 "20k" V -6850 7700 50  0000 C CNN
+F 2 "" V -6920 7700 50  0001 C CNN
+F 3 "~" H -6850 7700 50  0001 C CNN
+	1    -6850 7700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	-7850 8350 -8100 8350
+$Comp
+L Device:R R?
+U 1 1 60870522
+P -7700 8550
+F 0 "R?" V -7600 8550 50  0000 C CNN
+F 1 "12k" V -7700 8550 50  0000 C CNN
+F 2 "" V -7770 8550 50  0001 C CNN
+F 3 "~" H -7700 8550 50  0001 C CNN
+	1    -7700 8550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	-7850 8550 -8100 8550
+Wire Wire Line
+	-7550 8550 -7300 8550
+$Comp
+L Device:R R?
+U 1 1 6095CC8C
+P -7300 8900
+F 0 "R?" H -7450 8900 50  0000 L CNN
+F 1 "20k" V -7300 8850 50  0000 L CNN
+F 2 "" V -7370 8900 50  0001 C CNN
+F 3 "~" H -7300 8900 50  0001 C CNN
+	1    -7300 8900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-7300 8550 -7300 8750
+Connection ~ -7300 8550
+Wire Wire Line
+	-7300 8550 -7100 8550
+Wire Wire Line
+	-7300 9050 -7300 9250
+Text Label -7300 9250 3    50   ~ 0
+AGND
+Text Label -8100 8550 2    60   ~ 0
+REF_0V6
+Text Label -8100 8350 2    60   ~ 0
+DAC_UNI
+Text Label -5950 8200 1    60   ~ 0
+DAC_BIP
+Wire Wire Line
+	-7550 8350 -7300 8350
+Wire Wire Line
+	-6500 8450 -6300 8450
+Wire Wire Line
+	-7000 7700 -7300 7700
+Wire Wire Line
+	-7300 7700 -7300 8350
+Connection ~ -7300 8350
+Wire Wire Line
+	-7300 8350 -7100 8350
+Wire Wire Line
+	-6700 7700 -6300 7700
+Wire Wire Line
+	-6300 7700 -6300 8450
+Connection ~ -6300 8450
+$Comp
+L 74HC138:74HC138 U?
+U 1 1 6035EC77
+P -6850 6050
+F 0 "U?" H -7100 6650 50  0000 C CNN
+F 1 "74HC138" V -6850 6100 50  0000 C CNN
+F 2 "" H -6850 6050 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/cd74hc238.pdf" H -6850 6050 50  0001 C CNN
+	1    -6850 6050
+	1    0    0    -1  
+$EndComp
+Text Label -6850 5250 1    50   ~ 0
+3V3
+Wire Wire Line
+	-6850 6550 -6850 6750
+Text Label -6850 6750 3    50   ~ 0
+GND
+Wire Wire Line
+	-6850 5250 -6850 5450
+Wire Wire Line
+	-7250 6250 -7400 6250
+Wire Wire Line
+	-7400 6050 -7250 6050
+Text Label -7600 6050 2    50   ~ 0
+GND
+Text Label -7600 6350 2    50   ~ 0
+3V3
+Wire Wire Line
+	-7400 6050 -7400 5850
+Wire Wire Line
+	-7400 5850 -7250 5850
+Connection ~ -7400 6050
+Wire Wire Line
+	-7400 6050 -7400 6250
+Wire Wire Line
+	-7600 6050 -7400 6050
+Wire Wire Line
+	-7600 6350 -7250 6350
+Wire Wire Line
+	-7250 5650 -7600 5650
+Wire Wire Line
+	-7250 5750 -7600 5750
+Text Label -7600 5650 2    60   ~ 0
+DAC_GAIN_A0
+Text Label -7600 5750 2    60   ~ 0
+DAC_GAIN_A1
+NoConn ~ -6450 6050
+NoConn ~ -6450 6150
+NoConn ~ -6450 6250
+NoConn ~ -6450 6350
+Wire Wire Line
+	-6450 5650 -6200 5650
+Wire Wire Line
+	-6450 5750 -6200 5750
+Wire Wire Line
+	-6450 5850 -6200 5850
+Wire Wire Line
+	-6450 5950 -6200 5950
+Text Label -6200 5650 0    50   ~ 0
+SW_GAIN_1X
+Text Label -6200 5750 0    50   ~ 0
+SW_GAIN_2X
+Text Label -6200 5850 0    50   ~ 0
+SW_GAIN_5X
+Text Label -6200 5950 0    50   ~ 0
+SW_GAIN_10X
+$Comp
+L Amplifier_Operational:OP07 U?
+U 1 1 609F0791
+P -4650 8550
+F 0 "U?" H -4500 8450 50  0000 L CNN
+F 1 "OP07" H -4500 8650 50  0000 L CNN
+F 2 "" H -4600 8600 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H -4600 8700 50  0001 C CNN
+	1    -4650 8550
+	1    0    0    1   
+$EndComp
+Text Label -4750 8950 3    50   ~ 0
++12V
+Wire Wire Line
+	-4750 8850 -4750 8950
+Text Label -4750 8150 1    50   ~ 0
+-12V
+Wire Wire Line
+	-4750 8250 -4750 8150
+NoConn ~ -4650 8250
+NoConn ~ -4550 8250
+Wire Wire Line
+	-4950 8650 -5150 8650
+Wire Wire Line
+	-5150 8650 -5150 8950
+Text Label -5150 8950 3    50   ~ 0
+AGND
+$Comp
+L Device:R R?
+U 1 1 60C56CD8
+P -5550 8450
+F 0 "R?" V -5650 8450 50  0000 C CNN
+F 1 "10k" V -5550 8450 50  0000 C CNN
+F 2 "" V -5620 8450 50  0001 C CNN
+F 3 "~" H -5550 8450 50  0001 C CNN
+	1    -5550 8450
+	0    1    1    0   
+$EndComp
+$Comp
+L Analog_Switch:DG411xY U?
+U 2 1 60CB16D2
+P -3700 6100
+F 0 "U?" H -3700 6367 50  0000 C CNN
+F 1 "DG411xY" H -3700 6276 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H -3700 6000 50  0001 C CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H -3700 6100 50  0001 C CNN
+	2    -3700 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Analog_Switch:DG411xY U?
+U 3 1 60CB5288
+P -3700 6800
+F 0 "U?" H -3700 7067 50  0000 C CNN
+F 1 "DG411xY" H -3700 6976 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H -3700 6700 50  0001 C CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H -3700 6800 50  0001 C CNN
+	3    -3700 6800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Analog_Switch:DG411xY U?
+U 4 1 60CB6A1B
+P -3700 7500
+F 0 "U?" H -3700 7767 50  0000 C CNN
+F 1 "DG411xY" H -3700 7676 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H -3700 7400 50  0001 C CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H -3700 7500 50  0001 C CNN
+	4    -3700 7500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Analog_Switch:DG411xY U?
+U 5 1 60CB7E20
+P -2400 6350
+F 0 "U?" H -2120 6396 50  0000 L CNN
+F 1 "DG411xY" H -2120 6305 50  0000 L CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H -2400 6250 50  0001 C CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H -2400 6350 50  0001 C CNN
+	5    -2400 6350
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	-3700 6000 -3650 6000
+$Comp
+L Analog_Switch:DG411xY U?
+U 1 1 60CAFCD1
+P -3700 5400
+F 0 "U?" H -3700 5667 50  0000 C CNN
+F 1 "DG411xY" H -3700 5576 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H -3700 5300 50  0001 C CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H -3700 5400 50  0001 C CNN
+	1    -3700 5400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-3700 5600 -3700 5700
+Wire Wire Line
+	-3700 5700 -3950 5700
+Text Label -3950 5700 2    50   ~ 0
+SW_GAIN_1X
+Wire Wire Line
+	-3700 6300 -3700 6400
+Wire Wire Line
+	-3700 6400 -3950 6400
+Text Label -3950 6400 2    50   ~ 0
+SW_GAIN_2X
+Wire Wire Line
+	-3700 7000 -3700 7100
+Wire Wire Line
+	-3700 7100 -3950 7100
+Text Label -3950 7100 2    50   ~ 0
+SW_GAIN_5X
+Wire Wire Line
+	-3700 7700 -3700 7800
+Wire Wire Line
+	-3700 7800 -3950 7800
+Text Label -3950 7800 2    50   ~ 0
+SW_GAIN_10X
+$Comp
+L Device:R R?
+U 1 1 61255DE0
+P -4400 5400
+F 0 "R?" V -4500 5400 50  0000 C CNN
+F 1 "10k" V -4400 5400 50  0000 C CNN
+F 2 "" V -4470 5400 50  0001 C CNN
+F 3 "~" H -4400 5400 50  0001 C CNN
+	1    -4400 5400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	-4250 5400 -4000 5400
+$Comp
+L Device:R R?
+U 1 1 612B6E2D
+P -4400 6100
+F 0 "R?" V -4500 6100 50  0000 C CNN
+F 1 "20k" V -4400 6100 50  0000 C CNN
+F 2 "" V -4470 6100 50  0001 C CNN
+F 3 "~" H -4400 6100 50  0001 C CNN
+	1    -4400 6100
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	-4250 6100 -4000 6100
+$Comp
+L Device:R R?
+U 1 1 61316B8E
+P -4400 6800
+F 0 "R?" V -4500 6800 50  0000 C CNN
+F 1 "50k" V -4400 6800 50  0000 C CNN
+F 2 "" V -4470 6800 50  0001 C CNN
+F 3 "~" H -4400 6800 50  0001 C CNN
+	1    -4400 6800
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	-4250 6800 -4000 6800
+$Comp
+L Device:R R?
+U 1 1 613791EC
+P -4400 7500
+F 0 "R?" V -4500 7500 50  0000 C CNN
+F 1 "100k" V -4400 7500 50  0000 C CNN
+F 2 "" V -4470 7500 50  0001 C CNN
+F 3 "~" H -4400 7500 50  0001 C CNN
+	1    -4400 7500
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	-4250 7500 -4000 7500
+Wire Wire Line
+	-5150 8450 -5150 7500
+Wire Wire Line
+	-5150 5400 -4550 5400
+Wire Wire Line
+	-5150 8450 -4950 8450
+Wire Wire Line
+	-4550 6100 -5150 6100
+Connection ~ -5150 6100
+Wire Wire Line
+	-5150 6100 -5150 5400
+Wire Wire Line
+	-4550 6800 -5150 6800
+Connection ~ -5150 6800
+Wire Wire Line
+	-5150 6800 -5150 6100
+Wire Wire Line
+	-4550 7500 -5150 7500
+Connection ~ -5150 7500
+Wire Wire Line
+	-5150 7500 -5150 6800
+Wire Wire Line
+	-3400 7500 -3100 7500
+Wire Wire Line
+	-3100 7500 -3100 8550
+Wire Wire Line
+	-3100 8550 -4350 8550
+Wire Wire Line
+	-3400 6800 -3100 6800
+Wire Wire Line
+	-3100 6800 -3100 7500
+Connection ~ -3100 7500
+Wire Wire Line
+	-3400 6100 -3100 6100
+Wire Wire Line
+	-3100 6100 -3100 6800
+Connection ~ -3100 6800
+Wire Wire Line
+	-3100 5400 -3100 6100
+Connection ~ -3100 6100
+Wire Wire Line
+	-3400 5400 -3100 5400
+Connection ~ -5150 8450
+Wire Wire Line
+	-5400 8450 -5150 8450
+Wire Wire Line
+	-3100 8550 -2800 8550
+Connection ~ -3100 8550
+Text Label -2800 8550 0    60   ~ 0
+DAC_BIP_NX
+Wire Wire Line
+	-2400 6850 -2400 7100
+Wire Wire Line
+	-2300 6850 -2300 7100
+Text Label -2400 7100 3    50   ~ 0
+AGND
+Text Label -2300 7100 3    50   ~ 0
+-12V
+Wire Wire Line
+	-2400 5850 -2400 5600
+Text Label -2400 5600 1    50   ~ 0
++12V
+Wire Wire Line
+	-2300 5850 -2300 5600
+Text Label -2300 5600 1    50   ~ 0
+3V3
+Wire Wire Line
+	-6300 8450 -5950 8450
+Wire Wire Line
+	-5950 8450 -5950 8200
+Connection ~ -5950 8450
+Wire Wire Line
+	-5950 8450 -5700 8450
+Text Notes -1650 6400 0    50   ~ 0
+LCSC#: C17218
+Text Notes -6600 6650 0    50   ~ 0
+LCSC#: C5602	
+Text Notes -6500 8800 0    50   ~ 0
+LCSC# C7433
+Text Label -7250 10800 1    60   ~ 0
+3V3
+Text Label -7250 11800 3    50   ~ 0
+AGND
+$Comp
+L Device:C C?
+U 1 1 62166DD1
+P -7250 11300
+F 0 "C?" H -7135 11346 50  0000 L CNN
+F 1 "4.7uF" H -7135 11255 50  0000 L CNN
+F 2 "" H -7212 11150 50  0001 C CNN
+F 3 "~" H -7250 11300 50  0001 C CNN
+	1    -7250 11300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-6300 11300 -6050 11300
+$Comp
+L Device:C C?
+U 1 1 6230ECA5
+P -6050 11650
+F 0 "C?" H -5935 11696 50  0000 L CNN
+F 1 "4.7uF" H -5935 11605 50  0000 L CNN
+F 2 "" H -6012 11500 50  0001 C CNN
+F 3 "~" H -6050 11650 50  0001 C CNN
+	1    -6050 11650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-6050 11300 -6050 11500
+Connection ~ -6050 11300
+Wire Wire Line
+	-6050 11800 -6050 12050
+Text Label -6050 12050 3    50   ~ 0
+AGND
+$Comp
+L REF3312:REF3312 U?
+U 1 1 62452959
+P -6650 11300
+F 0 "U?" H -6650 11790 50  0000 C CNN
+F 1 "REF3312" H -6650 11699 50  0000 C CNN
+F 2 "" H -6650 11300 50  0001 C CNN
+F 3 "" H -6650 11300 50  0001 C CNN
+	1    -6650 11300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-7000 11050 -7250 11050
+Wire Wire Line
+	-7250 11050 -7250 10800
+Wire Wire Line
+	-7250 11450 -7250 11550
+Wire Wire Line
+	-7250 11550 -7000 11550
+Wire Wire Line
+	-7250 11150 -7250 11050
+Connection ~ -7250 11050
+Wire Wire Line
+	-7250 11550 -7250 11800
+Connection ~ -7250 11550
+Text Label -6050 11000 1    50   ~ 0
+REF_1V25
+$Comp
+L Amplifier_Operational:OP07 U?
+U 1 1 626D3619
+P -5000 11400
+F 0 "U?" H -4850 11500 50  0000 L CNN
+F 1 "OP07" H -4850 11300 50  0000 L CNN
+F 2 "" H -4950 11450 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H -4950 11550 50  0001 C CNN
+	1    -5000 11400
+	1    0    0    -1  
+$EndComp
+NoConn ~ -5000 11700
+NoConn ~ -4900 11700
+Text Label -5100 11000 1    50   ~ 0
++12V
+Wire Wire Line
+	-5100 11100 -5100 11000
+Text Label -5100 11800 3    50   ~ 0
+-12V
+Wire Wire Line
+	-5100 11700 -5100 11800
+Wire Wire Line
+	-6050 11300 -5300 11300
+Wire Wire Line
+	-6050 11300 -6050 11000
+Wire Wire Line
+	-5300 11500 -5600 11500
+$Comp
+L Device:R R?
+U 1 1 62AA64C0
+P -5200 12350
+F 0 "R?" V -5300 12350 50  0000 C CNN
+F 1 "20k" V -5200 12350 50  0000 C CNN
+F 2 "" V -5270 12350 50  0001 C CNN
+F 3 "~" H -5200 12350 50  0001 C CNN
+	1    -5200 12350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	-4700 11400 -4350 11400
+Wire Wire Line
+	-4350 11400 -4350 12350
+Connection ~ -4350 11400
+$Comp
+L Device:R R?
+U 1 1 62BF9154
+P -5600 12700
+F 0 "R?" H -5550 12700 50  0000 L CNN
+F 1 "10k" V -5600 12650 50  0000 L CNN
+F 2 "" V -5670 12700 50  0001 C CNN
+F 3 "~" H -5600 12700 50  0001 C CNN
+	1    -5600 12700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-5600 12850 -5600 13100
+Text Label -5600 13100 3    50   ~ 0
+AGND
+Wire Wire Line
+	-5600 11500 -5600 12350
+$Comp
+L Device:R R?
+U 1 1 62CE2799
+P -4750 12350
+F 0 "R?" V -4850 12350 50  0000 C CNN
+F 1 "50k" V -4750 12350 50  0000 C CNN
+F 2 "" V -4820 12350 50  0001 C CNN
+F 3 "~" H -4750 12350 50  0001 C CNN
+	1    -4750 12350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	-5600 12350 -5350 12350
+Connection ~ -5600 12350
+Wire Wire Line
+	-5600 12350 -5600 12550
+Wire Wire Line
+	-5050 12350 -4900 12350
+Wire Wire Line
+	-4600 12350 -4350 12350
+Text Notes -7100 11950 0    50   ~ 0
+1.25V Reference Voltage\n\nLCSC#: C183104	
+Text Label -4350 11150 1    60   ~ 0
+REF_10V
+Wire Wire Line
+	-4350 11150 -4350 11400
+$Comp
+L Device:R R?
+U 1 1 62EB4031
+P -4000 11400
+F 0 "R?" V -4100 11400 50  0000 C CNN
+F 1 "120k" V -4000 11400 50  0000 C CNN
+F 2 "" V -4070 11400 50  0001 C CNN
+F 3 "~" H -4000 11400 50  0001 C CNN
+	1    -4000 11400
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 62EB4A1B
+P -3550 11400
+F 0 "R?" V -3650 11400 50  0000 C CNN
+F 1 "36k" V -3550 11400 50  0000 C CNN
+F 2 "" V -3620 11400 50  0001 C CNN
+F 3 "~" H -3550 11400 50  0001 C CNN
+	1    -3550 11400
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 631D3A8A
+P -3200 11750
+F 0 "R?" H -3130 11796 50  0000 L CNN
+F 1 "10k" V -3200 11700 50  0000 L CNN
+F 2 "" V -3270 11750 50  0001 C CNN
+F 3 "~" H -3200 11750 50  0001 C CNN
+	1    -3200 11750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4350 11400 -4150 11400
+Wire Wire Line
+	-3850 11400 -3700 11400
+Wire Wire Line
+	-3400 11400 -3200 11400
+Wire Wire Line
+	-3200 11400 -3200 11600
+$Comp
+L Amplifier_Operational:OP07 U?
+U 1 1 635E08BE
+P -2550 11500
+F 0 "U?" H -2450 11600 50  0000 L CNN
+F 1 "OP07" H -2400 11400 50  0000 L CNN
+F 2 "" H -2500 11550 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H -2500 11650 50  0001 C CNN
+	1    -2550 11500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-3200 11400 -2850 11400
+Connection ~ -3200 11400
+NoConn ~ -2550 11800
+NoConn ~ -2450 11800
+Text Label -2650 11900 3    50   ~ 0
+-12V
+Wire Wire Line
+	-2650 11800 -2650 11900
+Text Label -2650 11100 1    50   ~ 0
++12V
+Wire Wire Line
+	-2650 11200 -2650 11100
+Wire Wire Line
+	-3200 11900 -3200 12150
+Text Label -3200 12150 3    50   ~ 0
+AGND
+Wire Wire Line
+	-2850 11600 -2950 11600
+Wire Wire Line
+	-2950 11600 -2950 12250
+Wire Wire Line
+	-2950 12250 -1950 12250
+Wire Wire Line
+	-1950 12250 -1950 11500
+Wire Wire Line
+	-1950 11500 -2250 11500
+Wire Wire Line
+	-1950 11500 -1600 11500
+Connection ~ -1950 11500
+Text Label -1600 11500 0    60   ~ 0
+REF_0V6
+Text Notes -8100 3850 0    200  ~ 0
+Don't forget the bypass capacitors!!!
+NoConn ~ 20000 10300
+NoConn ~ 20100 10300
+$Comp
+L Amplifier_Operational:OP07 U?
+U 1 1 63AACB4F
+P 20000 10600
+F 0 "U?" H 20100 10700 50  0000 L CNN
+F 1 "OP07" H 20100 10500 50  0000 L CNN
+F 2 "" H 20050 10650 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 20050 10750 50  0001 C CNN
+	1    20000 10600
+	1    0    0    1   
+$EndComp
+Text Label 19550 10700 2    60   ~ 0
+AGND
+$Comp
+L Device:R R?
+U 1 1 63DF03EB
+P 18800 10800
+F 0 "R?" H 18850 10800 50  0000 L CNN
+F 1 "10k" V 18800 10750 50  0000 L CNN
+F 2 "" V 18730 10800 50  0001 C CNN
+F 3 "~" H 18800 10800 50  0001 C CNN
+	1    18800 10800
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 63DF1A32
+P 18800 10200
+F 0 "R?" H 18850 10200 50  0000 L CNN
+F 1 "10k" V 18800 10150 50  0000 L CNN
+F 2 "" V 18730 10200 50  0001 C CNN
+F 3 "~" H 18800 10200 50  0001 C CNN
+	1    18800 10200
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	18800 10650 18800 10500
+Wire Wire Line
+	18800 10500 19550 10500
+Wire Wire Line
+	18800 10500 18800 10350
+Connection ~ 18800 10500
+Wire Wire Line
+	18800 10950 18800 11100
+Wire Wire Line
+	18800 11100 18500 11100
+Wire Wire Line
+	18800 10050 18800 9900
+Wire Wire Line
+	18500 9900 18800 9900
+Text Label 18500 9900 2    60   ~ 0
+DAC_BIP_NX
+Text Label 18500 11100 2    60   ~ 0
+REF_ELECT_BUF
+Wire Wire Line
+	19550 10700 19700 10700
+Text Label 19900 10150 1    60   ~ 0
+-12V
+Text Label 19900 11050 3    60   ~ 0
++12V
+Wire Wire Line
+	19900 11050 19900 10900
+Wire Wire Line
+	19900 10300 19900 10150
+Connection ~ 19550 10500
+Wire Wire Line
+	19550 10500 19700 10500
+$Comp
+L Device:C C?
+U 1 1 6422F50E
+P 20050 9550
+F 0 "C?" V 19900 9550 50  0000 C CNN
+F 1 "10nF" V 20200 9550 50  0000 C CNN
+F 2 "" H 20088 9400 50  0001 C CNN
+F 3 "~" H 20050 9550 50  0001 C CNN
+	1    20050 9550
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	19550 9550 19900 9550
+Wire Wire Line
+	19550 10500 19550 9550
+Wire Wire Line
+	20300 10600 20500 10600
+Wire Wire Line
+	20500 10600 20500 9550
+Wire Wire Line
+	20500 9550 20200 9550
+Wire Wire Line
+	20500 10600 20800 10600
+Connection ~ 20500 10600
+Text Label 20800 10600 0    60   ~ 0
+CTR_ELECT
+$Comp
+L 74HC138:74HC138 U?
+U 1 1 64865EB3
+P 19100 13250
+F 0 "U?" H 18850 13850 50  0000 C CNN
+F 1 "74HC138" V 19100 13300 50  0000 C CNN
+F 2 "" H 19100 13250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/cd74hc238.pdf" H 19100 13250 50  0001 C CNN
+	1    19100 13250
+	1    0    0    -1  
+$EndComp
+Text Label 19100 12450 1    50   ~ 0
+3V3
+Wire Wire Line
+	19100 13750 19100 13950
+Text Label 19100 13950 3    50   ~ 0
+GND
+Wire Wire Line
+	19100 12450 19100 12650
+Wire Wire Line
+	18700 13450 18550 13450
+Wire Wire Line
+	18550 13250 18700 13250
+Text Label 18350 13250 2    50   ~ 0
+GND
+Text Label 18350 13550 2    50   ~ 0
+3V3
+Wire Wire Line
+	18550 13250 18550 13050
+Wire Wire Line
+	18550 13050 18700 13050
+Connection ~ 18550 13250
+Wire Wire Line
+	18550 13250 18550 13450
+Wire Wire Line
+	18350 13250 18550 13250
+Wire Wire Line
+	18350 13550 18700 13550
+Wire Wire Line
+	18700 12850 18350 12850
+Wire Wire Line
+	18700 12950 18350 12950
+Text Label 18350 12850 2    60   ~ 0
+DAC_GAIN_B0
+Text Label 18350 12950 2    60   ~ 0
+DAC_GAIN_B1
+NoConn ~ 19500 13250
+NoConn ~ 19500 13350
+NoConn ~ 19500 13450
+NoConn ~ 19500 13550
+Wire Wire Line
+	19500 12850 19750 12850
+Wire Wire Line
+	19500 12950 19750 12950
+Wire Wire Line
+	19500 13050 19750 13050
+Wire Wire Line
+	19500 13150 19750 13150
+Text Label 19750 12850 0    50   ~ 0
+SW_GAIN_INV_1X
+Text Label 19750 12950 0    50   ~ 0
+SW_GAIN_INV_2X
+Text Label 19750 13050 0    50   ~ 0
+SW_GAIN_INV_5X
+Text Label 19750 13150 0    50   ~ 0
+SW_GAIN_INV_10X
+Text Notes 19350 13850 0    50   ~ 0
+LCSC#: C5602	
+$Comp
+L Amplifier_Operational:OP07 U?
+U 1 1 64A04AA3
+P 21650 15800
+F 0 "U?" H 21800 15700 50  0000 L CNN
+F 1 "OP07" H 21800 15900 50  0000 L CNN
+F 2 "" H 21700 15850 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 21700 15950 50  0001 C CNN
+	1    21650 15800
+	1    0    0    1   
+$EndComp
+Text Label 21550 16200 3    50   ~ 0
++12V
+Wire Wire Line
+	21550 16100 21550 16200
+Text Label 21550 15400 1    50   ~ 0
+-12V
+Wire Wire Line
+	21550 15500 21550 15400
+NoConn ~ 21650 15500
+NoConn ~ 21750 15500
+Wire Wire Line
+	21350 15900 21150 15900
+Wire Wire Line
+	21150 15900 21150 16200
+Text Label 21150 16200 3    50   ~ 0
+AGND
+$Comp
+L Device:R R?
+U 1 1 64A0519E
+P 20750 15700
+F 0 "R?" V 20650 15700 50  0000 C CNN
+F 1 "100k" V 20750 15700 50  0000 C CNN
+F 2 "" V 20680 15700 50  0001 C CNN
+F 3 "~" H 20750 15700 50  0001 C CNN
+	1    20750 15700
+	0    1    1    0   
+$EndComp
+$Comp
+L Analog_Switch:DG411xY U?
+U 2 1 64A051A8
+P 22600 13350
+F 0 "U?" H 22600 13617 50  0000 C CNN
+F 1 "DG411xY" H 22600 13526 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 22600 13250 50  0001 C CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H 22600 13350 50  0001 C CNN
+	2    22600 13350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Analog_Switch:DG411xY U?
+U 3 1 64A051B2
+P 22600 14050
+F 0 "U?" H 22600 14317 50  0000 C CNN
+F 1 "DG411xY" H 22600 14226 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 22600 13950 50  0001 C CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H 22600 14050 50  0001 C CNN
+	3    22600 14050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Analog_Switch:DG411xY U?
+U 4 1 64A051BC
+P 22600 14750
+F 0 "U?" H 22600 15017 50  0000 C CNN
+F 1 "DG411xY" H 22600 14926 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 22600 14650 50  0001 C CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H 22600 14750 50  0001 C CNN
+	4    22600 14750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Analog_Switch:DG411xY U?
+U 5 1 64A051C6
+P 23900 13600
+F 0 "U?" H 24180 13646 50  0000 L CNN
+F 1 "DG411xY" H 24180 13555 50  0000 L CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 23900 13500 50  0001 C CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H 23900 13600 50  0001 C CNN
+	5    23900 13600
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	22600 13250 22650 13250
+$Comp
+L Analog_Switch:DG411xY U?
+U 1 1 64A051D1
+P 22600 12650
+F 0 "U?" H 22600 12917 50  0000 C CNN
+F 1 "DG411xY" H 22600 12826 50  0000 C CNN
+F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 22600 12550 50  0001 C CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H 22600 12650 50  0001 C CNN
+	1    22600 12650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	22600 12850 22600 12950
+Wire Wire Line
+	22600 12950 22350 12950
+Text Label 22350 12950 2    50   ~ 0
+SW_GAIN_INV_1X
+Wire Wire Line
+	22600 13550 22600 13650
+Wire Wire Line
+	22600 13650 22350 13650
+Text Label 22350 13650 2    50   ~ 0
+SW_GAIN_INV_2X
+Wire Wire Line
+	22600 14250 22600 14350
+Wire Wire Line
+	22600 14350 22350 14350
+Text Label 22350 14350 2    50   ~ 0
+SW_GAIN_INV_5X
+Wire Wire Line
+	22600 14950 22600 15050
+Wire Wire Line
+	22600 15050 22350 15050
+Text Label 22350 15050 2    50   ~ 0
+SW_GAIN_INV_10X
+$Comp
+L Device:R R?
+U 1 1 64A051E7
+P 21900 12650
+F 0 "R?" V 21800 12650 50  0000 C CNN
+F 1 "100k" V 21900 12650 50  0000 C CNN
+F 2 "" V 21830 12650 50  0001 C CNN
+F 3 "~" H 21900 12650 50  0001 C CNN
+	1    21900 12650
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	22050 12650 22300 12650
+$Comp
+L Device:R R?
+U 1 1 64A051F2
+P 21900 13350
+F 0 "R?" V 21800 13350 50  0000 C CNN
+F 1 "50k" V 21900 13350 50  0000 C CNN
+F 2 "" V 21830 13350 50  0001 C CNN
+F 3 "~" H 21900 13350 50  0001 C CNN
+	1    21900 13350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	22050 13350 22300 13350
+$Comp
+L Device:R R?
+U 1 1 64A051FD
+P 21900 14050
+F 0 "R?" V 21800 14050 50  0000 C CNN
+F 1 "20k" V 21900 14050 50  0000 C CNN
+F 2 "" V 21830 14050 50  0001 C CNN
+F 3 "~" H 21900 14050 50  0001 C CNN
+	1    21900 14050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	22050 14050 22300 14050
+$Comp
+L Device:R R?
+U 1 1 64A05208
+P 21900 14750
+F 0 "R?" V 21800 14750 50  0000 C CNN
+F 1 "10k" V 21900 14750 50  0000 C CNN
+F 2 "" V 21830 14750 50  0001 C CNN
+F 3 "~" H 21900 14750 50  0001 C CNN
+	1    21900 14750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	22050 14750 22300 14750
+Wire Wire Line
+	21150 15700 21150 14750
+Wire Wire Line
+	21150 12650 21750 12650
+Wire Wire Line
+	21150 15700 21350 15700
+Wire Wire Line
+	21750 13350 21150 13350
+Connection ~ 21150 13350
+Wire Wire Line
+	21150 13350 21150 12650
+Wire Wire Line
+	21750 14050 21150 14050
+Connection ~ 21150 14050
+Wire Wire Line
+	21150 14050 21150 13350
+Wire Wire Line
+	21750 14750 21150 14750
+Connection ~ 21150 14750
+Wire Wire Line
+	21150 14750 21150 14050
+Wire Wire Line
+	22900 14750 23200 14750
+Wire Wire Line
+	23200 14750 23200 15800
+Wire Wire Line
+	23200 15800 21950 15800
+Wire Wire Line
+	22900 14050 23200 14050
+Wire Wire Line
+	23200 14050 23200 14750
+Connection ~ 23200 14750
+Wire Wire Line
+	22900 13350 23200 13350
+Wire Wire Line
+	23200 13350 23200 14050
+Connection ~ 23200 14050
+Wire Wire Line
+	23200 12650 23200 13350
+Connection ~ 23200 13350
+Wire Wire Line
+	22900 12650 23200 12650
+Connection ~ 21150 15700
+Wire Wire Line
+	20900 15700 21150 15700
+Wire Wire Line
+	23200 15800 23500 15800
+Connection ~ 23200 15800
+Wire Wire Line
+	23900 14100 23900 14350
+Wire Wire Line
+	24000 14100 24000 14350
+Text Label 23900 14350 3    50   ~ 0
+AGND
+Text Label 24000 14350 3    50   ~ 0
+-12V
+Wire Wire Line
+	23900 13100 23900 12850
+Text Label 23900 12850 1    50   ~ 0
++12V
+Wire Wire Line
+	24000 13100 24000 12850
+Text Label 24000 12850 1    50   ~ 0
+3V3
+Wire Wire Line
+	20350 15700 20600 15700
+Text Notes 24650 13650 0    50   ~ 0
+LCSC#: C17218
+Text Label 20350 15700 2    60   ~ 0
+REF_ELECT_BUF
+$Comp
+L Amplifier_Operational:OP07 U?
+U 1 1 64DCCE7F
+P 24950 15900
+F 0 "U?" H 25100 15800 50  0000 L CNN
+F 1 "OP07" H 25100 16000 50  0000 L CNN
+F 2 "" H 25000 15950 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 25000 16050 50  0001 C CNN
+	1    24950 15900
+	1    0    0    1   
+$EndComp
+Text Label 24850 16300 3    50   ~ 0
++12V
+Wire Wire Line
+	24850 16200 24850 16300
+Text Label 24850 15500 1    50   ~ 0
+-12V
+Wire Wire Line
+	24850 15600 24850 15500
+NoConn ~ 24950 15600
+NoConn ~ 25050 15600
+$Comp
+L Device:R R?
+U 1 1 64E5E508
+P 23650 15800
+F 0 "R?" V 23443 15800 50  0000 C CNN
+F 1 "R" V 23534 15800 50  0000 C CNN
+F 2 "" V 23580 15800 50  0001 C CNN
+F 3 "~" H 23650 15800 50  0001 C CNN
+	1    23650 15800
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	24200 15800 24650 15800
+Text Notes 24350 16700 0    50   ~ 0
+This will be inverting adder .... 
+$EndSCHEMATC

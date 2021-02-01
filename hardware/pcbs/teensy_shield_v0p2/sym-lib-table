@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name potentiostat-rescue)(type Legacy)(uri ${KIPRJMOD}/potentiostat-rescue.lib)(options "")(descr ""))
+  (lib (name 74HC138)(type Legacy)(uri ${KIPRJMOD}/74HC138.lib)(options "")(descr ""))
+  (lib (name REF3312)(type Legacy)(uri ${KIPRJMOD}/REF3312.lib)(options "")(descr ""))
+)
