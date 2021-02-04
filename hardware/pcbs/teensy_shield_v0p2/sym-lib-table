@@ -3,4 +3,5 @@
   (lib (name 74HC138)(type Legacy)(uri ${KIPRJMOD}/74HC138.lib)(options "")(descr ""))
   (lib (name REF33XX)(type Legacy)(uri ${KIPRJMOD}/REF33XX.lib)(options "")(descr ""))
   (lib (name teensy3)(type Legacy)(uri ${KIPRJMOD}/teensy3.lib)(options "")(descr ""))
+  (lib (name mea1d05xxsc)(type Legacy)(uri ${KIPRJMOD}/mea1d05xxsc.lib)(options "")(descr ""))
 )
