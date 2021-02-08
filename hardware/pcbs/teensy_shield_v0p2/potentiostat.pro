@@ -1,4 +1,4 @@
-update=Sat 06 Feb 2021 06:25:18 PM PST
+update=Sun 07 Feb 2021 06:06:24 PM PST
 version=1
 last_client=kicad
 [cvpcb]
@@ -40,7 +40,7 @@ MinHoleToHole=0.25
 TrackWidth1=0.254
 ViaDiameter1=0.889
 ViaDrill1=0.635
-dPairWidth1=0.2
+dPairWidth1=0.254
 dPairGap1=0.25
 dPairViaGap1=0.25
 SilkLineWidth=0.15
@@ -66,7 +66,7 @@ OthersTextUpright=1
 SolderMaskClearance=0
 SolderMaskMinWidth=0
 SolderPasteClearance=0
-SolderPasteRatio=0
+SolderPasteRatio=-0
 [pcbnew/Layer.F.Cu]
 Name=F.Cu
 Type=0
@@ -222,11 +222,11 @@ Enabled=1
 [pcbnew/Layer.Edge.Cuts]
 Enabled=1
 [pcbnew/Layer.Margin]
-Enabled=0
+Enabled=1
 [pcbnew/Layer.B.CrtYd]
-Enabled=0
+Enabled=1
 [pcbnew/Layer.F.CrtYd]
-Enabled=0
+Enabled=1
 [pcbnew/Layer.B.Fab]
 Enabled=0
 [pcbnew/Layer.F.Fab]
@@ -242,17 +242,17 @@ ViaDiameter=0.889
 ViaDrill=0.635
 uViaDiameter=0.508
 uViaDrill=0.127
-dPairWidth=0.2
+dPairWidth=0.254
 dPairGap=0.25
 dPairViaGap=0.25
 [pcbnew/Netclasses/1]
 Name=Power
 Clearance=0.2032
-TrackWidth=0.508
+TrackWidth=0.381
 ViaDiameter=0.889
 ViaDrill=0.635
 uViaDiameter=0.508
 uViaDrill=0.127
-dPairWidth=0.2
+dPairWidth=0.508
 dPairGap=0.25
 dPairViaGap=0.25

@@ -2835,71 +2835,33 @@ F 3 "~" H 27000 10125 50  0001 C CNN
 	1    27000 10125
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:C C51
-U 1 1 604AA16D
-P 27500 10125
-F 0 "C51" H 27615 10171 50  0000 L CNN
-F 1 "1uF" H 27615 10080 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 27538 9975 50  0001 C CNN
-F 3 "~" H 27500 10125 50  0001 C CNN
-	1    27500 10125
-	1    0    0    -1  
-$EndComp
-Text Label 27500 9825 1    60   ~ 0
-3V3
 Text Label 27000 9825 1    60   ~ 0
 3V3
-Wire Wire Line
-	27500 10275 27500 10475
-Text Label 27500 10475 3    60   ~ 0
-GND
 Wire Wire Line
 	27000 10275 27000 10475
 Text Label 27000 10475 3    60   ~ 0
 GND
 Wire Wire Line
 	27000 9825 27000 9975
-Wire Wire Line
-	27500 9825 27500 9975
 $Comp
 L Device:C C46
 U 1 1 605E8CC1
-P 25850 5150
-F 0 "C46" H 25965 5196 50  0000 L CNN
-F 1 "0.1uF" H 25965 5105 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 25888 5000 50  0001 C CNN
-F 3 "~" H 25850 5150 50  0001 C CNN
-	1    25850 5150
+P 26200 5150
+F 0 "C46" H 26315 5196 50  0000 L CNN
+F 1 "0.1uF" H 26315 5105 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 26238 5000 50  0001 C CNN
+F 3 "~" H 26200 5150 50  0001 C CNN
+	1    26200 5150
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:C C49
-U 1 1 605E95B1
-P 26350 5150
-F 0 "C49" H 26465 5196 50  0000 L CNN
-F 1 "1uF" H 26465 5105 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 26388 5000 50  0001 C CNN
-F 3 "~" H 26350 5150 50  0001 C CNN
-	1    26350 5150
-	1    0    0    -1  
-$EndComp
-Text Label 26350 4850 1    60   ~ 0
-3V3
-Text Label 25850 4850 1    60   ~ 0
+Text Label 26200 4850 1    60   ~ 0
 3V3
 Wire Wire Line
-	26350 5300 26350 5500
-Text Label 26350 5500 3    60   ~ 0
+	26200 5300 26200 5500
+Text Label 26200 5500 3    60   ~ 0
 GND
 Wire Wire Line
-	25850 5300 25850 5500
-Text Label 25850 5500 3    60   ~ 0
-GND
-Wire Wire Line
-	25850 4850 25850 5000
-Wire Wire Line
-	26350 4850 26350 5000
+	26200 4850 26200 5000
 $Comp
 L Device:C C13
 U 1 1 6081D3D7
@@ -3074,7 +3036,7 @@ Wire Wire Line
 Text Notes 24950 10925 0    60   ~ 0
 switch decoupling 
 Text Notes 25675 5950 0    50   ~ 0
-demux decoupling capacitors
+demux decoupling 
 $Comp
 L Device:C C41
 U 1 1 6155FBBB
@@ -3463,7 +3425,7 @@ U 1 1 5733FC56
 P 2775 2025
 F 0 "U2" H 2775 3375 60  0000 C CNN
 F 1 "TEENSY3.1" H 2775 375 60  0000 C CNN
-F 2 "teensy3x:TEENSY3X" H 2475 2225 60  0000 C CNN
+F 2 "teensy3x:TEENSY3X" H 3150 2025 60  0001 C CNN
 F 3 "~" H 2475 2225 60  0000 C CNN
 	1    2775 2025
 	1    0    0    -1  
@@ -3798,7 +3760,7 @@ Wire Wire Line
 	13050 15875 13050 16075
 Wire Wire Line
 	13050 16375 13050 16625
-Text Notes 26850 10925 0    60   ~ 0
+Text Notes 26650 10925 0    60   ~ 0
 demux decoupling 
 $Comp
 L Connector_Generic:Conn_02x05_Odd_Even P13
