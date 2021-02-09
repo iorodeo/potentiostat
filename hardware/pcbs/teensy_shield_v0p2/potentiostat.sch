@@ -3161,11 +3161,11 @@ Text Label 11975 15925 1    60   ~ 0
 Wire Wire Line
 	11975 16375 11975 16575
 Text Label 11975 16575 3    60   ~ 0
-AGND
+GND
 Wire Wire Line
 	12475 16375 12475 16575
 Text Label 12475 16575 3    60   ~ 0
-AGND
+GND
 Wire Wire Line
 	11975 15925 11975 16075
 Text Label 12475 15925 1    60   ~ 0
