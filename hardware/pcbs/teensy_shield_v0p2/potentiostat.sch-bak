@@ -192,6 +192,7 @@ F 0 "U11" H 3200 7925 50  0000 L CNN
 F 1 "OP07" H 3200 8125 50  0000 L CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 3100 8075 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 3100 8175 50  0001 C CNN
+F 4 "C7433" H 3050 8025 50  0001 C CNN "LCSC Part"
 	1    3050 8025
 	1    0    0    1   
 $EndComp
@@ -292,6 +293,7 @@ F 0 "U1" H 1925 6225 50  0000 C CNN
 F 1 "74HC138" V 2175 5675 50  0000 C CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 2175 5625 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/cd74hc238.pdf" H 2175 5625 50  0001 C CNN
+F 4 "C5602" H 2175 5625 50  0001 C CNN "LCSC Part"
 	1    2175 5625
 	1    0    0    -1  
 $EndComp
@@ -358,6 +360,7 @@ F 0 "U13" H 5350 8025 50  0000 L CNN
 F 1 "OP07" H 5350 8225 50  0000 L CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 5250 8175 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 5250 8275 50  0001 C CNN
+F 4 "C7433" H 5200 8125 50  0001 C CNN "LCSC Part"
 	1    5200 8125
 	1    0    0    1   
 $EndComp
@@ -429,6 +432,7 @@ F 0 "U3" H 3600 6250 50  0000 L CNN
 F 1 "DG411xY" V 3950 5575 50  0000 L CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 3900 5600 50  0001 C CNN
 F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H 3900 5700 50  0001 C CNN
+F 4 "C17218" H 3900 5700 50  0001 C CNN "LCSC Part"
 	5    3900 5700
 	1    0    0    -1  
 $EndComp
@@ -594,10 +598,6 @@ Wire Wire Line
 Connection ~ 3900 8025
 Wire Wire Line
 	3900 8025 4150 8025
-Text Notes 4300 5375 3    60   ~ 0
-LCSC#: C17218
-Text Notes 2750 5625 3    60   ~ 0
-LCSC#: C5602
 Text Notes 1800 7350 0    50   ~ 0
 OP07\nLCSC# C7433
 Text Label 1300 10600 1    60   ~ 0
@@ -612,6 +612,7 @@ F 0 "C1" H 1415 11146 50  0000 L CNN
 F 1 "4.7uF" H 1415 11055 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric" H 1338 10950 50  0001 C CNN
 F 3 "~" H 1300 11100 50  0001 C CNN
+F 4 "C19666" H 1300 11100 50  0001 C CNN "LCSC Part"
 	1    1300 11100
 	1    0    0    -1  
 $EndComp
@@ -625,6 +626,7 @@ F 0 "C5" H 2615 11496 50  0000 L CNN
 F 1 "4.7uF" H 2615 11405 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric" H 2538 11300 50  0001 C CNN
 F 3 "~" H 2500 11450 50  0001 C CNN
+F 4 "C19666" H 2500 11450 50  0001 C CNN "LCSC Part"
 	1    2500 11450
 	1    0    0    -1  
 $EndComp
@@ -659,6 +661,7 @@ F 0 "U12" H 3900 11300 50  0000 L CNN
 F 1 "OP07" H 3900 11100 50  0000 L CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 3800 11250 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 3800 11350 50  0001 C CNN
+F 4 "" H 3750 11200 50  0001 C CNN "LCSC Part"
 	1    3750 11200
 	1    0    0    1   
 $EndComp
@@ -674,8 +677,6 @@ Wire Wire Line
 	3650 10900 3650 10800
 Wire Wire Line
 	2500 11100 2500 10800
-Text Notes 1550 11775 0    60   ~ 0
-3V reference \nLCSC#: C140329\nREF3330AIDBZR
 Text Notes 650  -1300 0    200  ~ 0
 Notes:\n\n1.) Don't forget the bypass capacitors!!!\n2.) Maybe change DC converter from  +/-15V  to +/-15V \n3.) Add switch to working electrode ( and counter and reference?)\n4.) Add low pass filters to inputs  (DAC) and outputs (ADC)\n
 NoConn ~ 15150 8325
@@ -688,6 +689,7 @@ F 0 "U15" H 15250 8725 50  0000 L CNN
 F 1 "OP07" H 15250 8525 50  0000 L CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 15200 8675 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 15200 8775 50  0001 C CNN
+F 4 "C7433" H 15150 8625 50  0001 C CNN "LCSC Part"
 	1    15150 8625
 	1    0    0    1   
 $EndComp
@@ -777,6 +779,7 @@ F 0 "U19" H 20375 9275 50  0000 C CNN
 F 1 "74HC138" V 20625 8725 50  0000 C CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 20625 8675 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/cd74hc238.pdf" H 20625 8675 50  0001 C CNN
+F 4 "C5602" H 20625 8675 50  0001 C CNN "LCSC Part"
 	1    20625 8675
 	1    0    0    -1  
 $EndComp
@@ -845,6 +848,7 @@ F 0 "U16" H 15375 13025 50  0000 L CNN
 F 1 "OP07" H 15375 13225 50  0000 L CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 15275 13175 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 15275 13275 50  0001 C CNN
+F 4 "C7433" H 15225 13125 50  0001 C CNN "LCSC Part"
 	1    15225 13125
 	1    0    0    1   
 $EndComp
@@ -916,6 +920,7 @@ F 0 "U5" V 17850 8450 50  0000 L CNN
 F 1 "DG411xY" V 18100 8400 50  0000 L CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 18050 8450 50  0001 C CNN
 F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H 18050 8550 50  0001 C CNN
+F 4 "C17218" V 18050 8550 50  0001 C CNN "LCSC Part"
 	5    18050 8550
 	1    0    0    -1  
 $EndComp
@@ -1079,6 +1084,7 @@ F 0 "U17" H 18525 13125 50  0000 L CNN
 F 1 "OP07" H 18525 13325 50  0000 L CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 18425 13275 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 18425 13375 50  0001 C CNN
+F 4 "C7433" H 18375 13225 50  0001 C CNN "LCSC Part"
 	1    18375 13225
 	1    0    0    1   
 $EndComp
@@ -1141,6 +1147,7 @@ F 0 "U10" H 1900 11590 50  0000 C CNN
 F 1 "REF33XX" H 1900 11499 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 1900 11100 50  0001 C CNN
 F 3 "" H 1900 11100 50  0001 C CNN
+F 4 "C140329" H 1900 11100 50  0001 C CNN "LCSC Part"
 	1    1900 11100
 	1    0    0    -1  
 $EndComp
@@ -1220,6 +1227,7 @@ F 0 "U14" H 6050 11400 50  0000 L CNN
 F 1 "OP07" H 6100 11200 50  0000 L CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 6000 11350 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 6000 11450 50  0001 C CNN
+F 4 "" H 5950 11300 50  0001 C CNN "LCSC Part"
 	1    5950 11300
 	1    0    0    1   
 $EndComp
@@ -1354,6 +1362,7 @@ F 0 "U9" H 13125 5867 50  0000 C CNN
 F 1 "TL072" H 13125 5776 50  0000 C CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 13125 5500 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 13125 5500 50  0001 C CNN
+F 4 "C6961" H 13125 5500 50  0001 C CNN "LCSC Part"
 	1    13125 5500
 	1    0    0    1   
 $EndComp
@@ -1365,6 +1374,7 @@ F 0 "U9" H 12700 8758 50  0000 C CNN
 F 1 "TL072" H 12700 8849 50  0000 C CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 12700 9125 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 12700 9125 50  0001 C CNN
+F 4 "C6961" H 12700 9125 50  0001 C CNN "LCSC Part"
 	2    12700 9125
 	1    0    0    1   
 $EndComp
@@ -1506,6 +1516,7 @@ F 0 "U21" H 22375 3125 50  0000 C CNN
 F 1 "74HC138" V 22625 2575 50  0000 C CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 22625 2525 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/cd74hc238.pdf" H 22625 2525 50  0001 C CNN
+F 4 "C5602" H 22625 2525 50  0001 C CNN "LCSC Part"
 	1    22625 2525
 	-1   0    0    -1  
 $EndComp
@@ -1907,6 +1918,7 @@ F 0 "U8" H 20155 2446 50  0000 L CNN
 F 1 "DG411xY" H 20155 2355 50  0000 L CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 19875 2300 50  0001 C CNN
 F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H 19875 2400 50  0001 C CNN
+F 4 "C17218" H 19875 2400 50  0001 C CNN "LCSC Part"
 	5    19875 2400
 	1    0    0    -1  
 $EndComp
@@ -1918,6 +1930,7 @@ F 0 "U7" H 19130 2471 50  0000 L CNN
 F 1 "DG411xY" H 19130 2380 50  0000 L CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 18850 2325 50  0001 C CNN
 F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H 18850 2425 50  0001 C CNN
+F 4 "C17218" H 18850 2425 50  0001 C CNN "LCSC Part"
 	5    18850 2425
 	1    0    0    -1  
 $EndComp
@@ -1929,6 +1942,7 @@ F 0 "U20" H 22075 5600 50  0000 L CNN
 F 1 "OP07" H 22075 5800 50  0000 L CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 21975 5750 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 21975 5850 50  0001 C CNN
+F 4 "C7433" H 21925 5700 50  0001 C CNN "LCSC Part"
 	1    21925 5700
 	1    0    0    1   
 $EndComp
@@ -2072,6 +2086,7 @@ F 0 "U18" H 19250 5500 50  0000 L CNN
 F 1 "OP07" H 19250 5700 50  0000 L CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 19150 5650 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 19150 5750 50  0001 C CNN
+F 4 "C7433" H 19100 5600 50  0001 C CNN "LCSC Part"
 	1    19100 5600
 	1    0    0    1   
 $EndComp
@@ -2230,6 +2245,7 @@ F 0 "U4" H 1980 14271 50  0000 L CNN
 F 1 "DG411xY" H 1980 14180 50  0000 L CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 1700 14125 50  0001 C CNN
 F 3 "https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf" H 1700 14225 50  0001 C CNN
+F 4 "C17218" H 1700 14225 50  0001 C CNN "LCSC Part"
 	5    1700 14225
 	1    0    0    -1  
 $EndComp
@@ -3161,11 +3177,11 @@ Text Label 11975 15925 1    60   ~ 0
 Wire Wire Line
 	11975 16375 11975 16575
 Text Label 11975 16575 3    60   ~ 0
-AGND
+GND
 Wire Wire Line
 	12475 16375 12475 16575
 Text Label 12475 16575 3    60   ~ 0
-AGND
+GND
 Wire Wire Line
 	11975 15925 11975 16075
 Text Label 12475 15925 1    60   ~ 0
