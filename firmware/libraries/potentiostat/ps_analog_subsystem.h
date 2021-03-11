@@ -1,6 +1,7 @@
 #ifndef PS_ANALOG_SUBSYSTEM_H
 #define PS_ANALOG_SUBSYSTEM_H
 
+#include "ps_hardware_variant_defs.h"
 #include "ps_pin_map.h"
 #include "ps_gains.h"
 #include "ps_volt_range.h"
@@ -45,6 +46,15 @@ namespace ps
             ReturnStatus setCurrRangeByName(String currRangeName);
             String getCurrRangeName() const;   
 
+#if defined HARDWARE_VERSION_0P2
+            void setRefElectVoltRange(VoltRange range);
+            VoltRange getRefElectVoltRange() const;
+
+            ReturnStatus setRefElectVoltRangeByName(String voltRangeName);
+            String getRefElectVoltRangeName() const;
+#endif
+
+
         protected:
 
             uint16_t valueDac_;
@@ -65,6 +75,12 @@ namespace ps
 
             uint16_t getTransAmpAin() const;  
             uint16_t getRefElectAin() const;  
+
+#if defined HARDWARE_VERSION_0P2
+            VoltRange refElectVoltRange_;
+            void setRefElectVoltGain(VoltGain value);
+            VoltGain getRefElectVoltGain() const;
+#endif
 
     };
 

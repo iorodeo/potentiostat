@@ -1,5 +1,4 @@
 #include "ps_analog_subsystem.h"
-#include "ps_hardware_variant_defs.h"
 #include "ps_constants.h"
 
 namespace ps
@@ -14,24 +13,38 @@ namespace ps
         // Setup analog subsystem. This method must be called (typically setup)
         // before the AnalogSubsystem can be used. 
         
+#if defined HARDWARE_VERSION_0P1   
         // Set  Dac gain seletion IO pins to output
         pinMode(AD8250_GAIN_A0,OUTPUT);
         pinMode(AD8250_GAIN_A1,OUTPUT);
-
         // Set TIA (current) gain selection IO pins for switch 1 to output
         pinMode(TIA_SW1_IN1,OUTPUT);
         pinMode(TIA_SW1_IN2,OUTPUT);
         pinMode(TIA_SW1_IN3,OUTPUT);
         pinMode(TIA_SW1_IN4,OUTPUT);
-
         // Set TIA (current) gain selection IO pins for switch 2 to output
         pinMode(TIA_SW2_IN1,OUTPUT);
         pinMode(TIA_SW2_IN2,OUTPUT);
         pinMode(TIA_SW2_IN3,OUTPUT);
         pinMode(TIA_SW2_IN4,OUTPUT);
+#elif defined HARDWARE_VERSION_0P2
+        // Set  DAC and TIA gain seletion pins to output
+        pinMode(DAC_GAIN_A0,OUTPUT);
+        pinMode(DAC_GAIN_A1,OUTPUT);
+        pinMode(TIA_GAIN_A0,OUTPUT);
+        pinMode(TIA_GAIN_A1,OUTPUT);
+        pinMode(REF_GAIN_A0,OUTPUT);
+        pinMode(REF_GAIN_A1,OUTPUT);
+#else
+#   error "HARDWARE_VARIANT must be specified"
+#endif
 
         // Set to voltage and current range to defaults
         setVoltRange(VoltRange1V);
+#if defined HARDWARE_VERSION_0P2
+        setRefElectVoltRange(VoltRange1V);
+#endif
+
 #if defined CURRENT_VARIANT_MICRO_AMP
         setCurrRange(CurrRange10uA);
 #elif defined CURRENT_VARIANT_NANO_AMP
@@ -49,7 +62,6 @@ namespace ps
 
         // Set output voltage to zero
         setValueDac(MidValueDac); 
-    
     }
 
 
@@ -70,7 +82,17 @@ namespace ps
     float AnalogSubsystem::getCurr() const           
     {
         // Get current measurement from working electrode
+#if defined HARDWARE_VERSION_0P1
         return currRange_.intToValue(getTransAmpAin());
+#elif defined HARDWARE_VERSION_0P2
+        // DEBUG 
+        // ------------------------------------------------------------------
+        //  NOTE: factor of 20/12.0 is to account for gain error in prototype
+        // ------------------------------------------------------------------
+        return -(20.0/12.0)*currRange_.intToValue(getTransAmpAin());
+#else
+#   error "HARDWARE_VERSION must be specified"
+#endif
     }
 
 
@@ -124,13 +146,16 @@ namespace ps
         if (success)
         {
             setVoltRange(bestRange);
+#if defined HARDWARE_VERSION_0P2 
+            setRefElectVoltRange(bestRange); 
+#endif
         }
         return success;
     }
 
     VoltRange AnalogSubsystem::getVoltRange() const
     { 
-        // Returns the devices voltage range settings.
+        // Returns the device's voltage range setting.
         return voltRange_;
     }
 
@@ -206,6 +231,52 @@ namespace ps
         return status;
     }
 
+#if defined HARDWARE_VERSION_0P2 
+    void AnalogSubsystem::setRefElectVoltRange(VoltRange range)
+    {
+        // Set the voltage range for working to reference electrode analog input 
+        refElectVoltRange_ = range;
+        setRefElectVoltGain(refElectVoltRange_.gain());
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    VoltRange AnalogSubsystem::getRefElectVoltRange() const
+    {
+        // Returns the device's reference electrode voltage range setting
+        return refElectVoltRange_;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus AnalogSubsystem::setRefElectVoltRangeByName(String voltRangeName)
+    {
+        ReturnStatus status;
+        bool found = false;
+        for (size_t i=0; i<VoltRangeArray.size(); i++)
+        {
+            if (voltRangeName.equals(VoltRangeArray[i].name()))
+            {
+                found = true;
+                setRefElectVoltRange(VoltRangeArray[i]);
+            }
+        }
+        if (!found)
+        {
+            status.success = false;
+            status.message = String("voltRange, ") + voltRangeName + String(", not found");
+        }
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    String AnalogSubsystem::getRefElectVoltRangeName() const
+    {
+        // Returns a string representation of the reference electrode voltage range setting
+        return refElectVoltRange_.name();
+    }
+#endif
 
     // AnalogSubsystem protected methods
     // --------------------------------------------------------------------------------------------
@@ -216,14 +287,13 @@ namespace ps
 
         switch (value) 
         {
+#if defined HARDWARE_VERSION_0P1
             case VoltGain1X:
-
                 digitalWrite(AD8250_GAIN_A0,LOW);
                 digitalWrite(AD8250_GAIN_A1,LOW);
                 break;
 
             case VoltGain2X:
-
                 digitalWrite(AD8250_GAIN_A0,HIGH);
                 digitalWrite(AD8250_GAIN_A1,LOW);
                 break;
@@ -235,7 +305,6 @@ namespace ps
                 break;
 
             case VoltGain10X:
-
                 digitalWrite(AD8250_GAIN_A0,HIGH);
                 digitalWrite(AD8250_GAIN_A1,HIGH);
                 break;
@@ -247,25 +316,61 @@ namespace ps
                 break;
 
             case VoltGain8X:
-
                 digitalWrite(AD8250_GAIN_A0,HIGH);
                 digitalWrite(AD8250_GAIN_A1,HIGH);
                 break;
 #else
-#   error "VOLTAGE_VARIANT must be specified"
-#endif
+#   error "VOLTAGE_VARIANT must be AD8250 of AD8251 for hardware version 0.1"
+#endif // #if defined VOLTAGE_VARIANT 
+
+#elif defined HARDWARE_VERSION_0P2
+#if defined VOLTAGE_VARIANT_10V
+            case VoltGain1X:
+                digitalWrite(DAC_GAIN_A0,LOW);
+                digitalWrite(DAC_GAIN_A1,LOW);
+                break;
+
+            case VoltGain2X:
+                digitalWrite(DAC_GAIN_A0,HIGH);
+                digitalWrite(DAC_GAIN_A1,LOW);
+                break;
+
+            case VoltGain5X:
+                digitalWrite(DAC_GAIN_A0,LOW);
+                digitalWrite(DAC_GAIN_A1,HIGH);
+                break;
+
+            case VoltGain10X:
+                digitalWrite(DAC_GAIN_A0,HIGH);
+                digitalWrite(DAC_GAIN_A1,HIGH);
+                break;
+#else
+#   error "VOLTAGE_VARIANT must be 10V for hardware version 0.1"
+#endif // #if defined VOLTAGE_VARIANT
+
+#else
+#   error "HARDWARE_VERSION must be specified"
+#endif // #if defined HARDWARE_VERSION
             default:
                 break;
-        }
-    }
+
+        } // switch (value)
+
+    }  // void AnalogSubsystem::setVoltGain
 
 
     VoltGain AnalogSubsystem::getVoltGain() const
     {
         // Returns the value for the gain (as currently set) for output voltage amplifier
+#if defined HARDWARE_VERSION_0P1
         uint8_t value0 = digitalRead(AD8250_GAIN_A0);
         uint8_t  value1 = digitalRead(AD8250_GAIN_A1);
-
+#elif defined HARDWARE_VERSION_0P2
+        uint8_t value0 = digitalRead(DAC_GAIN_A0);
+        uint8_t  value1 = digitalRead(DAC_GAIN_A1);
+#else
+#   error "HARDWARE_VERSION must be specified"
+#endif
         VoltGain voltGain;  
 
         if ((value0 == LOW) && (value1 == LOW))
@@ -276,7 +381,7 @@ namespace ps
         {
             voltGain =  VoltGain2X;
         }
-#if defined VOLTAGE_VARIANT_AD8250 
+#if defined(VOLTAGE_VARIANT_AD8250) || defined(VOLTAGE_VARIANT_10V)
         else if ((value0 == HIGH) && (value1 == LOW))
         {
             voltGain = VoltGain5X;
@@ -307,6 +412,7 @@ namespace ps
        
         switch (value)
         {
+#if defined HARDWARE_VERSION_0P1
             case CurrGainPathIn1:
 
                 digitalWrite(TIA_SW1_IN1,LOW);
@@ -358,7 +464,29 @@ namespace ps
                 digitalWrite(TIA_SW2_IN3,HIGH);
                 digitalWrite(TIA_SW2_IN4,LOW);
                 break;
+#elif defined HARDWARE_VERSION_0P2
+            case CurrGainPathIn1:
+                digitalWrite(TIA_GAIN_A0,LOW);
+                digitalWrite(TIA_GAIN_A1,LOW);
+                break;
 
+            case CurrGainPathIn2:
+                digitalWrite(TIA_GAIN_A0,HIGH);
+                digitalWrite(TIA_GAIN_A1,LOW);
+                break;
+
+            case CurrGainPathIn3:
+                digitalWrite(TIA_GAIN_A0,LOW);
+                digitalWrite(TIA_GAIN_A1,HIGH);
+                break;
+
+            case CurrGainPathIn4:
+                digitalWrite(TIA_GAIN_A0,HIGH);
+                digitalWrite(TIA_GAIN_A1,HIGH);
+                break;
+#else
+#   error "HARDWARE_VERSION must be specified"
+#endif 
             default:
                 break;
 
@@ -368,9 +496,11 @@ namespace ps
 
     CurrGainPath AnalogSubsystem::getCurrGainPath() const
     {
-        // Returns the gain path setting (currently in use) by the transimpedance
+        // Returns the gain path setting (currently in use) by the transimpedance 
         // amplifier
-
+        CurrGainPath currGainPath = CurrGainPathErr;
+        
+#if defined HARDWARE_VERSION_0P1
         uint8_t sw1 = 0;
         sw1 += digitalRead(TIA_SW1_IN1) << 0;
         sw1 += digitalRead(TIA_SW1_IN2) << 1;
@@ -382,8 +512,6 @@ namespace ps
         sw2 += digitalRead(TIA_SW2_IN2) << 1;
         sw2 += digitalRead(TIA_SW2_IN3) << 2;
         sw2 += digitalRead(TIA_SW2_IN4) << 3;
-
-        CurrGainPath currGainPath = CurrGainPathErr;
 
         if ((sw1 == 0b1110 ) && (sw2 == 0b1110))
         {
@@ -401,6 +529,29 @@ namespace ps
         {
             currGainPath = CurrGainPathIn4;
         }
+#elif defined HARDWARE_VERSION_0P2
+        uint8_t a0 = digitalRead(TIA_GAIN_A0);
+        uint8_t a1 = digitalRead(TIA_GAIN_A1);
+
+        if ((a0 == LOW) && (a1 == LOW)) 
+        {
+            currGainPath = CurrGainPathIn1;
+        }
+        else if ((a0 == HIGH) && (a1 == LOW))
+        {
+            currGainPath = CurrGainPathIn2;
+        }
+        else if ((a0 == LOW) && (a1 == HIGH))
+        {
+            currGainPath = CurrGainPathIn3;
+        }
+        else if ((a0 == HIGH) && (a1 == HIGH))
+        {
+            currGainPath = CurrGainPathIn4;
+        }
+#else
+#   error "HARDWARE_VERSION must be defined"
+#endif
         return currGainPath;
     }
 
@@ -447,6 +598,66 @@ namespace ps
         // Read analog input associated with the refernce electrode
         return analogRead(REF_ELECT_UNI_PIN);
     }
+
+#if defined HARDWARE_VERSION_0P2
+    void AnalogSubsystem::setRefElectVoltGain(VoltGain value)
+    {
+        // Sets the amplifier gain for the reference electrode voltage 
+        // analog input 
+        switch (value) 
+        {
+            case VoltGain1X:
+                digitalWrite(REF_GAIN_A0,LOW);
+                digitalWrite(REF_GAIN_A1,LOW);
+                break;
+
+            case VoltGain2X:
+                digitalWrite(REF_GAIN_A0,HIGH);
+                digitalWrite(REF_GAIN_A1,LOW);
+                break;
+
+            case VoltGain5X:
+                digitalWrite(REF_GAIN_A0,LOW);
+                digitalWrite(REF_GAIN_A1,HIGH);
+                break;
+
+            case VoltGain10X:
+                digitalWrite(REF_GAIN_A0,HIGH);
+                digitalWrite(REF_GAIN_A1,HIGH);
+                break;
+
+            default:
+                break;
+        }
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2
+    VoltGain AnalogSubsystem::getRefElectVoltGain() const
+    {
+        uint8_t value0 = digitalRead(REF_GAIN_A0);
+        uint8_t  value1 = digitalRead(REF_GAIN_A1);
+        VoltGain voltGain;  
+
+        if ((value0 == LOW) && (value1 == LOW))
+        {
+            voltGain = VoltGain1X;
+        }
+        else if ((value0 == HIGH) && (value1 == LOW))
+        {
+            voltGain =  VoltGain2X;
+        }
+        else if ((value0 == HIGH) && (value1 == LOW))
+        {
+            voltGain = VoltGain5X;
+        }
+        else
+        {
+            voltGain = VoltGain10X;
+        }
+        return voltGain;
+    }
+#endif
 
 
 } // namespace ps

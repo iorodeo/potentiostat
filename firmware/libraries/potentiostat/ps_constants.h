@@ -14,7 +14,7 @@ namespace ps
     extern const String HardwareVariant;
 
     // Command tabe parameters
-    const uint32_t CommandTableMaxSize = 40;
+    const uint32_t CommandTableMaxSize = 50;
     
     // Buffer parameters
     const uint32_t DataBufferSize = 1000;
@@ -99,6 +99,18 @@ namespace ps
     extern const String SetMuxWrkElectConnCmd;
     extern const String GetMuxWrkElectConnCmd;
     extern const String DisconnAllMuxElectCmd;
+#if defined HARDWARE_VERSION_0P2
+    extern const String SetRefElectConnCmd;
+    extern const String GetRefElectConnCmd;
+    extern const String SetCtrElectConnCmd;
+    extern const String GetCtrElectConnCmd;
+    extern const String SetWrkElectConnCmd;
+    extern const String GetWrkElectConnCmd;
+    extern const String SetAllElectConnCmd;
+    extern const String GetAllElectConnCmd;
+    extern const String SetRefElectVoltRangeCmd;
+    extern const String GetRefElectVoltRangeCmd;
+#endif
 
     // Ranges for output voltage
     extern const VoltRange VoltRange1V; 

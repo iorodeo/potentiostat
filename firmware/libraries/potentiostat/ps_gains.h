@@ -7,7 +7,7 @@
 namespace ps
 {
 
-#if defined VOLTAGE_VARIANT_AD8250
+#if defined(VOLTAGE_VARIANT_AD8250) || defined(VOLTAGE_VARIANT_10V)
 
     enum VoltGain // Analog output voltage scaling factor 
     {

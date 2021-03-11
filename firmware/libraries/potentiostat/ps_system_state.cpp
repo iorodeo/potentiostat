@@ -25,42 +25,62 @@ namespace ps
     void SystemState::initialize()
     {
         commandTable_.setClient(this);
-        commandTable_.registerMethod(CommandKey,   RunTestCmd,            &SystemState::onCommandRunTest);
-        commandTable_.registerMethod(CommandKey,   StopTestCmd,           &SystemState::onCommandStopTest);
-        commandTable_.registerMethod(CommandKey,   GetVoltCmd,            &SystemState::onCommandGetVolt);
-        commandTable_.registerMethod(CommandKey,   SetVoltCmd,            &SystemState::onCommandSetVolt);
-        commandTable_.registerMethod(CommandKey,   GetCurrCmd,            &SystemState::onCommandGetCurr);
-        commandTable_.registerMethod(CommandKey,   GetRefVoltCmd,         &SystemState::onCommandGetRefVolt);
-        commandTable_.registerMethod(CommandKey,   SetParamCmd,           &SystemState::onCommandSetTestParam);
-        commandTable_.registerMethod(CommandKey,   GetParamCmd,           &SystemState::onCommandGetTestParam);
-        commandTable_.registerMethod(CommandKey,   SetVoltRangeCmd,       &SystemState::onCommandSetVoltRange);
-        commandTable_.registerMethod(CommandKey,   GetVoltRangeCmd,       &SystemState::onCommandGetVoltRange);
-        commandTable_.registerMethod(CommandKey,   SetCurrRangeCmd,       &SystemState::onCommandSetCurrRange);
-        commandTable_.registerMethod(CommandKey,   GetCurrRangeCmd,       &SystemState::onCommandGetCurrRange);
-        commandTable_.registerMethod(CommandKey,   SetDeviceIdCmd,        &SystemState::onCommandSetDeviceId);
-        commandTable_.registerMethod(CommandKey,   GetDeviceIdCmd,        &SystemState::onCommandGetDeviceId);
-        commandTable_.registerMethod(CommandKey,   SetSamplePeriodCmd,    &SystemState::onCommandSetSamplePeriod);
-        commandTable_.registerMethod(CommandKey,   GetSamplePeriodCmd,    &SystemState::onCommandGetSamplePeriod);
-        commandTable_.registerMethod(CommandKey,   GetTestDoneTimeCmd,    &SystemState::onCommandGetTestDoneTime);
-        commandTable_.registerMethod(CommandKey,   GetTestNamesCmd,       &SystemState::onCommandGetTestNames);
-        commandTable_.registerMethod(CommandKey,   GetVersionCmd,         &SystemState::onCommandGetVersion);
-        commandTable_.registerMethod(CommandKey,   GetVariantCmd,         &SystemState::onCommandGetVariant);
-        commandTable_.registerMethod(CommandKey,   SetMuxEnabledCmd,      &SystemState::onCommandSetMuxEnabled);
-        commandTable_.registerMethod(CommandKey,   GetMuxEnabledCmd,      &SystemState::onCommandGetMuxEnabled);
-        commandTable_.registerMethod(CommandKey,   SetEnabledMuxChanCmd,  &SystemState::onCommandSetEnabledMuxChan);
-        commandTable_.registerMethod(CommandKey,   GetEnabledMuxChanCmd,  &SystemState::onCommandGetEnabledMuxChan);
-        commandTable_.registerMethod(CommandKey,   GetMuxTestNamesCmd,    &SystemState::onCommandGetMuxTestNames);
-        commandTable_.registerMethod(CommandKey,   SetMuxRefElectConnCmd, &SystemState::onCommandSetMuxRefElectConn);
-        commandTable_.registerMethod(CommandKey,   GetMuxRefElectConnCmd, &SystemState::onCommandGetMuxRefElectConn);
-        commandTable_.registerMethod(CommandKey,   SetMuxCtrElectConnCmd, &SystemState::onCommandSetMuxCtrElectConn); 
-        commandTable_.registerMethod(CommandKey,   GetMuxCtrElectConnCmd, &SystemState::onCommandGetMuxCtrElectConn);
-        commandTable_.registerMethod(CommandKey,   SetMuxWrkElectConnCmd, &SystemState::onCommandSetMuxWrkElectConn);
-        commandTable_.registerMethod(CommandKey,   GetMuxWrkElectConnCmd, &SystemState::onCommandGetMuxWrkElectConn); 
-        commandTable_.registerMethod(CommandKey,   DisconnAllMuxElectCmd, &SystemState::onCommandDisconnAllMuxElect);
+        commandTable_.registerMethod(CommandKey,   RunTestCmd,              &SystemState::onCommandRunTest);
+        commandTable_.registerMethod(CommandKey,   StopTestCmd,             &SystemState::onCommandStopTest);
+        commandTable_.registerMethod(CommandKey,   GetVoltCmd,              &SystemState::onCommandGetVolt);
+        commandTable_.registerMethod(CommandKey,   SetVoltCmd,              &SystemState::onCommandSetVolt);
+        commandTable_.registerMethod(CommandKey,   GetCurrCmd,              &SystemState::onCommandGetCurr);
+        commandTable_.registerMethod(CommandKey,   GetRefVoltCmd,           &SystemState::onCommandGetRefVolt);
+        commandTable_.registerMethod(CommandKey,   SetParamCmd,             &SystemState::onCommandSetTestParam);
+        commandTable_.registerMethod(CommandKey,   GetParamCmd,             &SystemState::onCommandGetTestParam);
+        commandTable_.registerMethod(CommandKey,   SetVoltRangeCmd,         &SystemState::onCommandSetVoltRange);
+        commandTable_.registerMethod(CommandKey,   GetVoltRangeCmd,         &SystemState::onCommandGetVoltRange);
+        commandTable_.registerMethod(CommandKey,   SetCurrRangeCmd,         &SystemState::onCommandSetCurrRange);
+        commandTable_.registerMethod(CommandKey,   GetCurrRangeCmd,         &SystemState::onCommandGetCurrRange);
+        commandTable_.registerMethod(CommandKey,   SetDeviceIdCmd,          &SystemState::onCommandSetDeviceId);
+        commandTable_.registerMethod(CommandKey,   GetDeviceIdCmd,          &SystemState::onCommandGetDeviceId);
+        commandTable_.registerMethod(CommandKey,   SetSamplePeriodCmd,      &SystemState::onCommandSetSamplePeriod);
+        commandTable_.registerMethod(CommandKey,   GetSamplePeriodCmd,      &SystemState::onCommandGetSamplePeriod);
+        commandTable_.registerMethod(CommandKey,   GetTestDoneTimeCmd,      &SystemState::onCommandGetTestDoneTime);
+        commandTable_.registerMethod(CommandKey,   GetTestNamesCmd,         &SystemState::onCommandGetTestNames);
+        commandTable_.registerMethod(CommandKey,   GetVersionCmd,           &SystemState::onCommandGetVersion);
+        commandTable_.registerMethod(CommandKey,   GetVariantCmd,           &SystemState::onCommandGetVariant);
+        commandTable_.registerMethod(CommandKey,   SetMuxEnabledCmd,        &SystemState::onCommandSetMuxEnabled);
+        commandTable_.registerMethod(CommandKey,   GetMuxEnabledCmd,        &SystemState::onCommandGetMuxEnabled);
+        commandTable_.registerMethod(CommandKey,   SetEnabledMuxChanCmd,    &SystemState::onCommandSetEnabledMuxChan);
+        commandTable_.registerMethod(CommandKey,   GetEnabledMuxChanCmd,    &SystemState::onCommandGetEnabledMuxChan);
+        commandTable_.registerMethod(CommandKey,   GetMuxTestNamesCmd,      &SystemState::onCommandGetMuxTestNames);
+        commandTable_.registerMethod(CommandKey,   SetMuxRefElectConnCmd,   &SystemState::onCommandSetMuxRefElectConn);
+        commandTable_.registerMethod(CommandKey,   GetMuxRefElectConnCmd,   &SystemState::onCommandGetMuxRefElectConn);
+        commandTable_.registerMethod(CommandKey,   SetMuxCtrElectConnCmd,   &SystemState::onCommandSetMuxCtrElectConn); 
+        commandTable_.registerMethod(CommandKey,   GetMuxCtrElectConnCmd,   &SystemState::onCommandGetMuxCtrElectConn);
+        commandTable_.registerMethod(CommandKey,   SetMuxWrkElectConnCmd,   &SystemState::onCommandSetMuxWrkElectConn);
+        commandTable_.registerMethod(CommandKey,   GetMuxWrkElectConnCmd,   &SystemState::onCommandGetMuxWrkElectConn); 
+        commandTable_.registerMethod(CommandKey,   DisconnAllMuxElectCmd,   &SystemState::onCommandDisconnAllMuxElect);
+#if defined HARDWARE_VERSION_0P2 
+        commandTable_.registerMethod(CommandKey,   SetRefElectConnCmd,      &SystemState::onCommandSetRefElectConn);
+        commandTable_.registerMethod(CommandKey,   GetRefElectConnCmd,      &SystemState::onCommandGetRefElectConn);
+        commandTable_.registerMethod(CommandKey,   SetCtrElectConnCmd,      &SystemState::onCommandSetCtrElectConn);
+        commandTable_.registerMethod(CommandKey,   GetCtrElectConnCmd,      &SystemState::onCommandGetCtrElectConn);
+        commandTable_.registerMethod(CommandKey,   SetWrkElectConnCmd,      &SystemState::onCommandSetWrkElectConn);
+        commandTable_.registerMethod(CommandKey,   GetWrkElectConnCmd,      &SystemState::onCommandGetWrkElectConn);
+        commandTable_.registerMethod(CommandKey,   SetAllElectConnCmd,      &SystemState::onCommandSetAllElectConn);
+        commandTable_.registerMethod(CommandKey,   GetAllElectConnCmd,      &SystemState::onCommandGetAllElectConn);
+        commandTable_.registerMethod(CommandKey,   SetRefElectVoltRangeCmd, &SystemState::onCommandSetRefElectVoltRange);
+        commandTable_.registerMethod(CommandKey,   GetRefElectVoltRangeCmd, &SystemState::onCommandGetRefElectVoltRange);
+#endif
 
         analogSubsystem_.initialize();
         analogSubsystem_.setVolt(0.0);
         messageReceiver_.reset();
+
+#if defined HARDWARE_VERSION_0P2 
+        electrodeSwitch_.initialize();
+        // DEBUG
+        // ----------------------------------------------------
+        //electrodeSwitch_.setAllConnected(true);
+        // ----------------------------------------------------
+#endif
 
     }
 
@@ -656,6 +676,199 @@ namespace ps
         }
         return status;
     }
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandSetRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(ConnectedKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ConnectedKey;
+            return status;
+        }
+
+        if ( !(jsonMsg[ConnectedKey].is<bool>()) )
+        {
+            status.success = false;
+            status.message = String("unable to convert '") + ConnectedKey + String("' to bool");
+            return status;
+        }
+
+        if (jsonMsg.get<bool>(ConnectedKey))
+        {
+           electrodeSwitch_.setRefConnected(true);
+        }
+        else
+        {
+            electrodeSwitch_.setRefConnected(false);
+        }
+
+        jsonDat.set(ConnectedKey, electrodeSwitch_.refConnected());
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandGetRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        jsonDat.set(ConnectedKey, electrodeSwitch_.refConnected());
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandSetCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(ConnectedKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ConnectedKey;
+            return status;
+        }
+
+        if ( !(jsonMsg[ConnectedKey].is<bool>()) )
+        {
+            status.success = false;
+            status.message = String("unable to convert '") + ConnectedKey + String("' to bool");
+            return status;
+        }
+
+        if (jsonMsg.get<bool>(ConnectedKey))
+        {
+           electrodeSwitch_.setCtrConnected(true);
+        }
+        else
+        {
+            electrodeSwitch_.setCtrConnected(false);
+        }
+
+        jsonDat.set(ConnectedKey, electrodeSwitch_.ctrConnected());
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandGetCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        jsonDat.set(ConnectedKey, electrodeSwitch_.ctrConnected());
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandSetWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(ConnectedKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ConnectedKey;
+            return status;
+        }
+
+        if ( !(jsonMsg[ConnectedKey].is<bool>()) )
+        {
+            status.success = false;
+            status.message = String("unable to convert '") + ConnectedKey + String("' to bool");
+            return status;
+        }
+
+        if (jsonMsg.get<bool>(ConnectedKey))
+        {
+           electrodeSwitch_.setWrkConnected(true);
+        }
+        else
+        {
+            electrodeSwitch_.setWrkConnected(false);
+        }
+
+        jsonDat.set(ConnectedKey, electrodeSwitch_.wrkConnected());
+        return status;
+    }
+#endif
+
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandGetWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        jsonDat.set(ConnectedKey, electrodeSwitch_.wrkConnected());
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandSetAllElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(ConnectedKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ConnectedKey;
+            return status;
+        }
+
+        if ( !(jsonMsg[ConnectedKey].is<bool>()) )
+        {
+            status.success = false;
+            status.message = String("unable to convert '") + ConnectedKey + String("' to bool");
+            return status;
+        }
+
+        if (jsonMsg.get<bool>(ConnectedKey))
+        {
+           electrodeSwitch_.setAllConnected(true);
+        }
+        else
+        {
+            electrodeSwitch_.setAllConnected(false);
+        }
+
+        jsonDat.set(ConnectedKey, electrodeSwitch_.allConnected());
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandGetAllElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        jsonDat.set(ConnectedKey, electrodeSwitch_.allConnected());
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandSetRefElectVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(VoltRangeKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + VoltRangeKey;
+        }
+        else
+        {
+            String voltRangeName = String((const char *)(jsonMsg[VoltRangeKey]));
+            status = analogSubsystem_.setRefElectVoltRangeByName(voltRangeName);
+            jsonDat.set(VoltRangeKey,analogSubsystem_.getRefElectVoltRangeName());
+        }
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandGetRefElectVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        jsonDat.set(VoltRangeKey,analogSubsystem_.getRefElectVoltRangeName());
+        return status;
+    }
+#endif
 
     // ------------------------------------------------------------------------------------------
 

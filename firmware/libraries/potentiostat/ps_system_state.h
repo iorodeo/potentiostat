@@ -2,9 +2,11 @@
 #define PS_SYSTEM_STATE_H
 
 #include <Arduino.h>
+#include "ps_hardware_variant_defs.h"
 #include "ps_constants.h"
 #include "ps_return_status.h"
 #include "ps_analog_subsystem.h"
+#include "ps_electrode_switch.h"
 #include "ps_message_receiver.h"
 #include "ps_message_sender.h"
 #include "ps_message_parser.h"
@@ -65,7 +67,18 @@ namespace ps
             ReturnStatus onCommandSetMuxWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetMuxWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandDisconnAllMuxElect(JsonObject &jsonMsg, JsonObject &jsonDat);
-
+#if defined HARDWARE_VERSION_0P2
+            ReturnStatus onCommandSetRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetAllElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetAllElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetRefElectVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetRefElectVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat);
+#endif
             void startTest();
             void stopTest();
 
@@ -84,6 +97,9 @@ namespace ps
             AnalogSubsystem analogSubsystem_;
             Multiplexer multiplexer_;
 
+#if defined HARDWARE_VERSION_0P2
+            ElectrodeSwitch electrodeSwitch_;
+#endif
             MessageReceiver messageReceiver_;
             MessageParser messageParser_;
             MessageSender messageSender_;

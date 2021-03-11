@@ -82,9 +82,33 @@ namespace ps
     const String SetMuxWrkElectConnCmd = String("setMuxWrkElectConnected");
     const String GetMuxWrkElectConnCmd = String("getMuxWrkElectConnected");
     const String DisconnAllMuxElectCmd = String("disconnectAllMuxElect");
+#if defined HARDWARE_VERSION_0P2
+    const String SetRefElectConnCmd = String("setRefElectConnected");
+    const String GetRefElectConnCmd = String("getRefElectConnected");
+    const String SetCtrElectConnCmd = String("setCtrElectConnected");
+    const String GetCtrElectConnCmd = String("getCtrElectConnected");
+    const String SetWrkElectConnCmd = String("setWrkElectConnected");
+    const String GetWrkElectConnCmd = String("getWrkElectConnected");
+    const String SetAllElectConnCmd = String("setAllElectConnected");
+    const String GetAllElectConnCmd = String("getAllElectConnected");
+    const String SetRefElectVoltRangeCmd = String("setRefElectVoltRange");
+    const String GetRefElectVoltRangeCmd = String("getRefElectVoltRange");
+#endif
+
 
     // Ranges for output voltage
-#if defined VOLTAGE_VARIANT_AD8250
+#if defined VOLTAGE_VARIANT_10V
+    //-----------------------------------------------------
+    // TODO ... Change this and Python API
+    //const String VoltageVariant = String("10V");
+    const String VoltageVariant = String("AD8250");
+    // -----------------------------------------------------
+    const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
+    const VoltRange VoltRange2V(String("2V"),-2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueDac);
+    const VoltRange VoltRange5V(String("5V"),-5.0, 5.0, VoltGain5X, AnalogSubsystem::MaxValueDac);
+    const VoltRange VoltRange10V(String("10V"),-10.0, 10.0, VoltGain10X, AnalogSubsystem::MaxValueDac);
+    VoltRange voltRangeArrayTmp[NumVoltRange] = {VoltRange1V, VoltRange2V, VoltRange5V, VoltRange10V};
+#elif defined VOLTAGE_VARIANT_AD8250
     const String VoltageVariant = String("AD8250");
     const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
     const VoltRange VoltRange2V(String("2V"),-2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueDac);
