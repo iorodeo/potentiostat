@@ -1,6 +1,6 @@
 #ifndef PS_ELECTRODE_SWITCH_H
 #define PS_ELECTRODE_SWITCH_H
-#include "ps_hardware_variant_defs.h"
+#include "ps_hardware_defs.h"
 
 #if defined HARDWARE_VERSION_0P2
 

@@ -46,6 +46,7 @@ VariantKey = 'variant'
 MuxEnabledKey = 'muxEnabled'
 MuxChannelKey = 'muxChannel'
 ConnectedKey = 'connected'
+AutoConnectKey = "autoConnect"
 
 # Commands
 RunTestCmd  = 'runTest'
@@ -68,12 +69,12 @@ GetTestDoneTimeCmd = 'getTestDoneTime'
 GetTestNamesCmd = 'getTestNames'
 GetVersionCmd = 'getVersion'
 GetVariantCmd = 'getVariant'
+
 SetMuxEnabledCmd = 'setMuxEnabled'
 GetMuxEnabledCmd = 'getMuxEnabled'
 SetEnabledMuxChanCmd = 'setEnabledMuxChannels'
 GetEnabledMuxChanCmd = 'getEnabledMuxChannels'
 GetMuxTestNamesCmd = 'getMuxTestNames'
-
 SetMuxRefElectConnCmd = "setMuxRefElectConnected"
 GetMuxRefElectConnCmd = "getMuxRefElectConnected"
 SetMuxCtrElectConnCmd = "setMuxCtrElectConnected"
@@ -82,6 +83,25 @@ SetMuxWrkElectConnCmd = "setMuxWrkElectConnected"
 GetMuxWrkElectConnCmd = "getMuxWrkElectConnected"
 DisconnAllMuxElectCmd = "disconnectAllMuxElect"
 
+SetRefElectConnCmd = "setRefElectConnected"
+GetRefElectConnCmd = "getRefElectConnected"
+SetCtrElectConnCmd = "setCtrElectConnected"
+GetCtrElectConnCmd = "getCtrElectConnected"
+SetWrkElectConnCmd = "setWrkElectConnected"
+GetWrkElectConnCmd = "getWrkElectConnected"
+SetAllElectConnCmd = "setAllElectConnected"
+GetAllElectConnCmd = "getAllElectConnected"
+SetElectAutoConnCmd = "setElectAutoConnect"        
+GetElectAutoConnCmd = "getElectAutoConnect"         
+SetRefElectVoltRangeCmd = "setRefElectVoltRange"
+GetRefElectVoltRangeCmd = "getRefElectVoltRange"
+GetHardwareVersionCmd = "getHardwareVersion"        
+
+# Hardware version strings
+HardwareVersionDefault = "HW0.1 (default)"
+HardwareVersion0p1 = "HW0.1"
+HardwareVersion0p2 = "HW0.2"
+
 # Voltage ranges
 VoltRange1V = '1V'
 VoltRange2V = '2V'
@@ -89,19 +109,22 @@ VoltRange4V = '4V'
 VoltRange5V = '5V'
 VoltRange8V = '8V'
 VoltRange10V = '10V'
-VoltRangeList_AD8250 = [VoltRange1V, VoltRange2V, VoltRange5V, VoltRange10V]
-VoltRangeList_AD8251 = [VoltRange1V, VoltRange2V, VoltRange4V, VoltRange8V]
+VoltRangeList_8V = [VoltRange1V, VoltRange2V, VoltRange4V, VoltRange8V]
+VoltRangeList_10V = [VoltRange1V, VoltRange2V, VoltRange5V, VoltRange10V]
 
 HwVariantToVoltRangesDict = {
-        'nanoAmpV0.1'         : VoltRangeList_AD8250, 
-        'microAmpV0.1'        : VoltRangeList_AD8250, 
-        'milliAmpV0.1'        : VoltRangeList_AD8250, 
-        'AD8250_nanoAmpV0.1'  : VoltRangeList_AD8250, 
-        'AD8250_microAmpV0.1' : VoltRangeList_AD8250, 
-        'AD8250_milliAmpV0.1' : VoltRangeList_AD8250, 
-        'AD8251_nanoAmpV0.1'  : VoltRangeList_AD8251,  
-        'AD8251_microAmpV0.1' : VoltRangeList_AD8251, 
-        'AD8251_milliAmpV0.1' : VoltRangeList_AD8251, 
+        'nanoAmpV0.1'         : VoltRangeList_10V, 
+        'microAmpV0.1'        : VoltRangeList_10V, 
+        'milliAmpV0.1'        : VoltRangeList_10V, 
+        'AD8250_nanoAmpV0.1'  : VoltRangeList_10V, 
+        'AD8250_microAmpV0.1' : VoltRangeList_10V, 
+        'AD8250_milliAmpV0.1' : VoltRangeList_10V, 
+        'AD8251_nanoAmpV0.1'  : VoltRangeList_8V,  
+        'AD8251_microAmpV0.1' : VoltRangeList_8V, 
+        'AD8251_milliAmpV0.1' : VoltRangeList_8V, 
+        '10V_nanoAmpV0.1'     : VoltRangeList_10V, 
+        '10V_microAmpV0.1'    : VoltRangeList_10V, 
+        '10V_milliAmpV0.1'    : VoltRangeList_10V, 
         }
 
 # Current Ranges
@@ -128,6 +151,9 @@ HwVariantToCurrRangesDict = {
         'AD8251_nanoAmpV0.1'  :  CurrRangeListNanoAmp,
         'AD8251_microAmpV0.1' :  CurrRangeListMicroAmp, 
         'AD8251_milliAmpV0.1' :  CurrRangeListMilliAmp,
+        '10V_nanoAmpV0.1'     :  CurrRangeListNanoAmp,
+        '10V_microAmpV0.1'    :  CurrRangeListMicroAmp, 
+        '10V_milliAmpV0.1'    :  CurrRangeListMilliAmp,
         }
 
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
@@ -157,17 +183,17 @@ class Potentiostat(serial.Serial):
         params = {'baudrate': self.Baudrate, 'timeout': timeout}
         super(Potentiostat,self).__init__(port,**params)
         time.sleep(self.ResetSleepDt)
+        self.test_running = False
         atexit.register(self.atexit_cleanup)
         while self.inWaiting() > 0:
             val = self.read()
-        self.hw_variant = self.get_hardware_variant()
+        self.hardware_variant = self.get_hardware_variant()
         self.firmware_version = self.get_firmware_version()
-        self.test_running = False
+        self.hardware_version = self.get_hardware_version()
 
 
     def get_hardware_variant(self):
         """Returns a string representing the hardware variant.
-        
         """
         cmd_dict = {CommandKey: GetVariantCmd}
         msg_dict = self.send_cmd(cmd_dict)
@@ -264,7 +290,7 @@ class Potentiostat(serial.Serial):
         """Gets a list of voltage ranges supported by the device.
 
         """
-        return HwVariantToVoltRangesDict[self.hw_variant]
+        return HwVariantToVoltRangesDict[self.hardware_variant]
 
 
     def set_curr_range(self,curr_range):
@@ -291,7 +317,7 @@ class Potentiostat(serial.Serial):
         """Gets a list of all current ranges supported by the device.
 
         """
-        return HwVariantToCurrRangesDict[self.hw_variant]
+        return HwVariantToCurrRangesDict[self.hardware_variant]
 
 
     def get_device_id(self):
@@ -377,6 +403,141 @@ class Potentiostat(serial.Serial):
         return msg_dict[ResponseKey][VersionKey]
 
 
+    def get_hardware_version(self):
+        """ Returns string representing the hardware version.
+        """
+        cmd_dict = {CommandKey: GetHardwareVersionCmd}
+        try:
+            msg_dict = self.send_cmd(cmd_dict)
+            hw_version = msg_dict[ResponseKey][VersionKey]
+        except IOError:
+            hw_version = HardwareVersionDefault 
+        return hw_version
+
+
+    def set_ref_elect_connected(self,value):
+        """Sets the connected state (True/False) of the reference electrode.  This
+        feature requires hardware version >= HW0.2
+        """
+        self.check_hardware_version(HardwareVersion0p2)
+        cmd_dict = {CommandKey: SetRefElectConnCmd, ConnectedKey: value}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
+
+    def get_ref_elect_connected(self):
+        """Gets the connected state (True/False) of the reference electrode.  This
+        feature requires hardware version >= HW0.2
+        """
+        self.check_hardware_version(HardwareVersion0p2)
+        cmd_dict = {CommandKey: GetRefElectConnCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
+
+    def set_ctr_elect_connected(self,value):
+        """Sets the connected state (True/False) of the counter electrode.  This
+        feature requires hardware version >= HW0.2
+        """
+        self.check_hardware_version(HardwareVersion0p2)
+        cmd_dict = {CommandKey: SetCtrElectConnCmd, ConnectedKey: value}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
+
+    def get_ctr_elect_connected(self):
+        """Gets the connected state (True/False) of the counter electrode.  This
+        feature requires hardware version >= HW0.2
+        """
+        self.check_hardware_version(HardwareVersion0p2)
+        cmd_dict = {CommandKey: GetCtrElectConnCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
+
+    def set_wrk_elect_connected(self,value):
+        """Sets the connected state (True/False) of the working electrode.  This
+        feature requires hardware version >= HW0.2
+        """
+        self.check_hardware_version(HardwareVersion0p2)
+        cmd_dict = {CommandKey: SetWrkElectConnCmd, ConnectedKey: value}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
+
+    def get_wrk_elect_connected(self):
+        """Gets the connected state (True/False) of the working electrode.  This
+        feature requires hardware version >= HW0.2
+        """
+        self.check_hardware_version(HardwareVersion0p2)
+        cmd_dict = {CommandKey: GetWrkElectConnCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
+
+    def set_all_elect_connected(self,value):
+        """Sets the connected state (True/False) of all the electrodes (referene, 
+        counter and working). This feature requires hardware version >= HW0.2
+        """
+        self.check_hardware_version(HardwareVersion0p2)
+        cmd_dict = {CommandKey: SetAllElectConnCmd, ConnectedKey: value}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+
+
+    def get_all_elect_connected(self):
+        """Gets the connected state (True/False) of all the electrodes
+        (referene, counter and working). Only True if all are connected. This
+        feature requires hardware version >= HW0.2
+        """
+        self.check_hardware_version(HardwareVersion0p2)
+        cmd_dict = {CommandKey: GetAllElectConnCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][ConnectedKey]
+    
+
+    def set_auto_connect(self,value):
+        """ Set auto-connect/auto-disconnect feature. If auto-connect is set to
+        True then the  ref, ctr and wrk electrodes will be automatically connected at
+        the beginning of each test and automatically disconnected at the end of
+        each test.
+        """
+        self.check_hardware_version(HardwareVersion0p2)
+        cmd_dict = {CommandKey: SetElectAutoConnCmd, AutoConnectKey: value}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][AutoConnectKey]
+
+
+    def get_auto_connect(self):
+        """ Gets the value of the device's auto-connect/auto-disconnect setting.
+        """
+        self.check_hardware_version(HardwareVersion0p2)
+        cmd_dict = {CommandKey: GetElectAutoConnCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][AutoConnectKey]
+
+
+    def set_ref_elect_volt_range(self,volt_range):
+        """ Sets the voltage range for the reference electrode analog input.
+        """
+        self.check_hardware_version(HardwareVersion0p2)
+        if not volt_range in self.get_all_volt_range():
+            raise ValueError('unknown voltage range')
+        cmd_dict = {CommandKey: SetRefElectVoltRangeCmd, VoltRangeKey: volt_range}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][VoltRangeKey]
+
+
+    def get_ref_elect_volt_range(self):
+        """ Gets the  device's voltage range setting for the reference
+        electrode analog input.  
+        """
+        self.check_hardware_version(HardwareVersion0p2)
+        cmd_dict = {CommandKey: GetRefElectVoltRangeCmd}
+        msg_dict = self.send_cmd(cmd_dict)
+        return msg_dict[ResponseKey][VoltRangeKey]
+        
+
     def set_mux_enabled(self, value):
         """Enable/Disables the multiplexer expansion hardware
 
@@ -426,7 +587,7 @@ class Potentiostat(serial.Serial):
         expansion hardware.
 
         """
-        cmd_dict = {CommandKey: SetMuxRefElectConnCmd,ConnectedKey: value}
+        cmd_dict = {CommandKey: SetMuxRefElectConnCmd, ConnectedKey: value}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][ConnectedKey]
 
@@ -643,6 +804,13 @@ class Potentiostat(serial.Serial):
         test_recv = msg_dict[ResponseKey][TestKey]
         if test_recv != test_sent:
             raise IOError('testname sent, {0}, not same as received, {1}'.format(test_sent,test_recv))
+
+
+    def check_hardware_version(self,hw_version):
+        """ Check to see if the device's hardware version is at least 'hw_version'
+        """
+        if self.hardware_version < hw_version:
+            raise RuntimeError('requires hardware version >= {}'.format(HardwareVersion0p2))
 
 
     def atexit_cleanup(self):

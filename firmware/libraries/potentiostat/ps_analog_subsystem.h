@@ -1,7 +1,7 @@
 #ifndef PS_ANALOG_SUBSYSTEM_H
 #define PS_ANALOG_SUBSYSTEM_H
 
-#include "ps_hardware_variant_defs.h"
+#include "ps_hardware_defs.h"
 #include "ps_pin_map.h"
 #include "ps_gains.h"
 #include "ps_volt_range.h"

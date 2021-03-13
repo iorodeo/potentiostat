@@ -2,7 +2,7 @@
 #define PS_SYSTEM_STATE_H
 
 #include <Arduino.h>
-#include "ps_hardware_variant_defs.h"
+#include "ps_hardware_defs.h"
 #include "ps_constants.h"
 #include "ps_return_status.h"
 #include "ps_analog_subsystem.h"
@@ -76,8 +76,11 @@ namespace ps
             ReturnStatus onCommandGetWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandSetAllElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetAllElectConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetElectAutoConn(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetElectAutoConn(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandSetRefElectVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetRefElectVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetHardwareVersion(JsonObject &jsonMsg, JsonObject &jsonDat); 
 #endif
             void startTest();
             void stopTest();
@@ -99,6 +102,7 @@ namespace ps
 
 #if defined HARDWARE_VERSION_0P2
             ElectrodeSwitch electrodeSwitch_;
+            bool electrodeAutoConnect_;
 #endif
             MessageReceiver messageReceiver_;
             MessageParser messageParser_;

@@ -4,7 +4,14 @@
 
 namespace ps
 { 
-    const String FirmwareVersion = String("0.0.6");
+    const String FirmwareVersion = String("FW0.0.7");
+#if defined HARDWARE_VERSION_0P1
+    const String HardwareVersion = String("HW0.1");
+#elif defined HARDWARE_VERSION_0P2
+    const String HardwareVersion = String("HW0.2");
+#else
+#   error "VOLTAGE_VARIANT must be selected"
+#endif
 
     // Serial parameters
     const uint32_t UsbSerialBaudrate = 115200;
@@ -48,6 +55,9 @@ namespace ps
     const String MuxEnabledKey = String("muxEnabled");
     const String MuxChannelKey = String("muxChannel");
     const String ConnectedKey = String("connected");
+#if defined HARDWARE_VERSION_0P2
+    const String ElectAutoConnectKey = String("autoConnect");
+#endif
 
     // Json command strings
     const String RunTestCmd = String("runTest");
@@ -91,8 +101,11 @@ namespace ps
     const String GetWrkElectConnCmd = String("getWrkElectConnected");
     const String SetAllElectConnCmd = String("setAllElectConnected");
     const String GetAllElectConnCmd = String("getAllElectConnected");
+    const String SetElectAutoConnCmd = String("setElectAutoConnect");
+    const String GetElectAutoConnCmd = String("getElectAutoConnect");
     const String SetRefElectVoltRangeCmd = String("setRefElectVoltRange");
     const String GetRefElectVoltRangeCmd = String("getRefElectVoltRange");
+    const String GetHardwareVersionCmd = String("getHardwareVersion");
 #endif
 
 
@@ -100,8 +113,7 @@ namespace ps
 #if defined VOLTAGE_VARIANT_10V
     //-----------------------------------------------------
     // TODO ... Change this and Python API
-    //const String VoltageVariant = String("10V");
-    const String VoltageVariant = String("AD8250");
+    const String VoltageVariant = String("10V");
     // -----------------------------------------------------
     const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
     const VoltRange VoltRange2V(String("2V"),-2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueDac);

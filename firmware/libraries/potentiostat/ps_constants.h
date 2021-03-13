@@ -1,7 +1,7 @@
 #ifndef PS_CONSTANTS_H
 #define PS_CONSTANTS_H
 
-#include "ps_hardware_variant_defs.h"
+#include "ps_hardware_defs.h"
 #include "ps_volt_range.h"
 #include "ps_curr_range.h"
 #include "ps_filter.h"
@@ -12,6 +12,9 @@ namespace ps
 {
     extern const String FirmwareVersion;
     extern const String HardwareVariant;
+#if defined HARDWARE_VERSION_0P2
+    extern const String HardwareVersion;
+#endif
 
     // Command tabe parameters
     const uint32_t CommandTableMaxSize = 50;
@@ -64,6 +67,9 @@ namespace ps
     extern const String MuxEnabledKey;
     extern const String MuxChannelKey;
     extern const String ConnectedKey;
+#if defined HARDWARE_VERSION_0P2
+    extern const String ElectAutoConnectKey;
+#endif
 
 
     // Json command strings
@@ -108,8 +114,11 @@ namespace ps
     extern const String GetWrkElectConnCmd;
     extern const String SetAllElectConnCmd;
     extern const String GetAllElectConnCmd;
+    extern const String SetElectAutoConnCmd;
+    extern const String GetElectAutoConnCmd;
     extern const String SetRefElectVoltRangeCmd;
     extern const String GetRefElectVoltRangeCmd;
+    extern const String GetHardwareVersionCmd; 
 #endif
 
     // Ranges for output voltage

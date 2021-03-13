@@ -66,8 +66,11 @@ namespace ps
         commandTable_.registerMethod(CommandKey,   GetWrkElectConnCmd,      &SystemState::onCommandGetWrkElectConn);
         commandTable_.registerMethod(CommandKey,   SetAllElectConnCmd,      &SystemState::onCommandSetAllElectConn);
         commandTable_.registerMethod(CommandKey,   GetAllElectConnCmd,      &SystemState::onCommandGetAllElectConn);
+        commandTable_.registerMethod(CommandKey,   SetElectAutoConnCmd,     &SystemState::onCommandSetElectAutoConn);
+        commandTable_.registerMethod(CommandKey,   GetElectAutoConnCmd,     &SystemState::onCommandGetElectAutoConn);
         commandTable_.registerMethod(CommandKey,   SetRefElectVoltRangeCmd, &SystemState::onCommandSetRefElectVoltRange);
         commandTable_.registerMethod(CommandKey,   GetRefElectVoltRangeCmd, &SystemState::onCommandGetRefElectVoltRange);
+        commandTable_.registerMethod(CommandKey,   GetHardwareVersionCmd,   &SystemState::onCommandGetHardwareVersion);
 #endif
 
         analogSubsystem_.initialize();
@@ -75,11 +78,9 @@ namespace ps
         messageReceiver_.reset();
 
 #if defined HARDWARE_VERSION_0P2 
+        electrodeAutoConnect_ = true;
         electrodeSwitch_.initialize();
-        // DEBUG
-        // ----------------------------------------------------
-        //electrodeSwitch_.setAllConnected(true);
-        // ----------------------------------------------------
+        electrodeSwitch_.setAllConnected(false);
 #endif
 
     }
@@ -358,9 +359,6 @@ namespace ps
         return status;
     }
 
-    // Develop
-    // ------------------------------------------------------------------------------------------
-
     ReturnStatus SystemState::onCommandSetMuxEnabled(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
@@ -484,8 +482,6 @@ namespace ps
         return status;
     } 
 
-    // TODO
-    // --------------------------------------------------------------------------------------------
     ReturnStatus SystemState::onCommandSetMuxRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
@@ -697,7 +693,7 @@ namespace ps
 
         if (jsonMsg.get<bool>(ConnectedKey))
         {
-           electrodeSwitch_.setRefConnected(true);
+            electrodeSwitch_.setRefConnected(true);
         }
         else
         {
@@ -738,7 +734,7 @@ namespace ps
 
         if (jsonMsg.get<bool>(ConnectedKey))
         {
-           electrodeSwitch_.setCtrConnected(true);
+            electrodeSwitch_.setCtrConnected(true);
         }
         else
         {
@@ -779,7 +775,7 @@ namespace ps
 
         if (jsonMsg.get<bool>(ConnectedKey))
         {
-           electrodeSwitch_.setWrkConnected(true);
+            electrodeSwitch_.setWrkConnected(true);
         }
         else
         {
@@ -821,7 +817,7 @@ namespace ps
 
         if (jsonMsg.get<bool>(ConnectedKey))
         {
-           electrodeSwitch_.setAllConnected(true);
+            electrodeSwitch_.setAllConnected(true);
         }
         else
         {
@@ -838,6 +834,47 @@ namespace ps
     {
         ReturnStatus status;
         jsonDat.set(ConnectedKey, electrodeSwitch_.allConnected());
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandSetElectAutoConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        if (!jsonMsg.containsKey(ElectAutoConnectKey))
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ElectAutoConnectKey;
+            return status;
+        }
+
+        if ( !(jsonMsg[ElectAutoConnectKey].is<bool>()) )
+        {
+            status.success = false;
+            status.message = String("unable to convert '") + ElectAutoConnectKey + String("' to bool");
+            return status;
+        }
+
+        if (jsonMsg.get<bool>(ElectAutoConnectKey))
+        {
+            electrodeAutoConnect_ = true;
+        }
+        else
+        { 
+            electrodeAutoConnect_ = false;
+        }
+
+        jsonDat.set(ElectAutoConnectKey, electrodeAutoConnect_);
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandGetElectAutoConn(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        jsonDat.set(ElectAutoConnectKey, electrodeAutoConnect_);
         return status;
     }
 #endif
@@ -866,6 +903,15 @@ namespace ps
     {
         ReturnStatus status;
         jsonDat.set(VoltRangeKey,analogSubsystem_.getRefElectVoltRangeName());
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandGetHardwareVersion(JsonObject &jsonMsg, JsonObject &jsonDat) 
+    {
+        ReturnStatus status;
+        jsonDat.set(VersionKey,HardwareVersion);
         return status;
     }
 #endif
@@ -1024,6 +1070,12 @@ namespace ps
     {
         if (test_ != nullptr)
         {
+
+            if (electrodeAutoConnect_)
+            {
+                electrodeSwitch_.setAllConnected(true);
+            }
+
             timerCnt_ = 0;
             analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
 
@@ -1054,6 +1106,11 @@ namespace ps
         testInProgress_ = false;
         lastSampleFlag_ = true;
         analogSubsystem_.setVolt(0.0);
+
+        if (electrodeAutoConnect_)
+        {
+            electrodeSwitch_.setAllConnected(false);
+        }
 
         if (multiplexer_.isRunning())
         {

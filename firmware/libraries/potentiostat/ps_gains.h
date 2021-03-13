@@ -2,7 +2,7 @@
 #define PS_GAINS_H
 
 #include <Arduino.h>
-#include "ps_hardware_variant_defs.h"
+#include "ps_hardware_defs.h"
 
 namespace ps
 {
