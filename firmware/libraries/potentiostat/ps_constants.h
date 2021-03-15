@@ -21,7 +21,7 @@ namespace ps
     
     // Buffer parameters
     const uint32_t DataBufferSize = 1000;
-    const uint32_t SerialBufferSize = 1000;
+    const uint32_t SerialBufferSize = 2000; 
     const uint32_t JsonMessageBufferSize = 5000;
     const uint32_t JsonTestDataBufferSize = 5000;
 
@@ -122,17 +122,24 @@ namespace ps
 #endif
 
     // Ranges for output voltage
-    extern const VoltRange VoltRange1V; 
-    extern const VoltRange VoltRange2V; 
-    extern const VoltRange VoltRange5V; 
-    extern const VoltRange VoltRange10V; 
+    extern const VoltRangeDac VoltRangeDac1V; 
+    extern const VoltRangeDac VoltRangeDac2V; 
+    extern const VoltRangeDac VoltRangeDac5V; 
+    extern const VoltRangeDac VoltRangeDac10V; 
+
+    const uint8_t NumVoltRangeDac = 4;
+    extern Array<VoltRangeDac,NumVoltRangeDac> VoltRangeDacArray;
+    extern const float SignDac; 
 
     // Range for reference electrode analog input
-    extern const VoltRange VoltRangeAin10V;
+    extern const VoltRangeAdc VoltRangeAdc1V;
+    extern const VoltRangeAdc VoltRangeAdc2V;
+    extern const VoltRangeAdc VoltRangeAdc5V;
+    extern const VoltRangeAdc VoltRangeAdc10V;
 
-    const uint8_t NumVoltRange = 4;
-    extern Array<VoltRange,NumVoltRange> VoltRangeArray;
-    extern const float SignDac; 
+    const uint8_t NumVoltRangeAdc = 4;
+    extern Array<VoltRangeAdc,NumVoltRangeAdc> VoltRangeAdcArray;
+    extern const float SignAdc; 
 
     // Ranges for input current
     extern const CurrRange CurrRange1uA; 

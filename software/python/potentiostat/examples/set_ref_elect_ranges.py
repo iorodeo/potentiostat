@@ -9,7 +9,7 @@ else:
 
 dev = Potentiostat(port)
 
-new_volt_range = "5V"
+new_volt_range = "2V"
 
 volt_range = dev.get_ref_elect_volt_range()
 print()

@@ -33,8 +33,8 @@ namespace ps
             float getCurr() const;           
             float getRefElectVolt() const;   
 
-            void setVoltRange(VoltRange range);  
-            VoltRange getVoltRange() const;      
+            void setVoltRange(VoltRangeDac range);  
+            VoltRangeDac getVoltRange() const;      
             bool autoVoltRange(float minVolt, float maxVolt);
 
             void setCurrRange(CurrRange range);  
@@ -47,18 +47,19 @@ namespace ps
             String getCurrRangeName() const;   
 
 #if defined HARDWARE_VERSION_0P2
-            void setRefElectVoltRange(VoltRange range);
-            VoltRange getRefElectVoltRange() const;
+            void setRefElectVoltRange(VoltRangeAdc range);
+            VoltRangeAdc getRefElectVoltRange() const;
 
             ReturnStatus setRefElectVoltRangeByName(String voltRangeName);
             String getRefElectVoltRangeName() const;
-#endif
 
+            bool autoRefElectVoltRange(float minVolt, float maxVolt);
+#endif
 
         protected:
 
             uint16_t valueDac_;
-            VoltRange voltRange_;
+            VoltRangeDac voltRange_;
             CurrRange currRange_;
 
             void setVoltGain(VoltGain value);    
@@ -77,7 +78,7 @@ namespace ps
             uint16_t getRefElectAin() const;  
 
 #if defined HARDWARE_VERSION_0P2
-            VoltRange refElectVoltRange_;
+            VoltRangeAdc refElectVoltRange_;
             void setRefElectVoltGain(VoltGain value);
             VoltGain getRefElectVoltGain() const;
 #endif

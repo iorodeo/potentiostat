@@ -17,6 +17,28 @@ namespace ps
     
     };
 
+    class VoltRangeDac : public VoltRange 
+    {
+        //using VoltRange::VoltRange;
+        
+        public: 
+            VoltRangeDac() : VoltRange()  {};
+
+            VoltRangeDac(String name, float minValue, float maxValue, VoltGain voltGain, uint16_t maxInt)
+                : VoltRange(name, minValue, maxValue, voltGain, maxInt) {};
+    };
+
+    class VoltRangeAdc : public VoltRange 
+    {
+        //using VoltRange::VoltRange;
+        
+        public: 
+            VoltRangeAdc() : VoltRange()  {};
+
+            VoltRangeAdc(String name, float minValue, float maxValue, VoltGain voltGain, uint16_t maxInt)
+                : VoltRange(name, minValue, maxValue, voltGain, maxInt) {};
+    };
+
 } 
 
 #endif

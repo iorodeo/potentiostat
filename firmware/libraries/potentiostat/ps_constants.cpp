@@ -111,37 +111,40 @@ namespace ps
 
     // Ranges for output voltage
 #if defined VOLTAGE_VARIANT_10V
-    //-----------------------------------------------------
-    // TODO ... Change this and Python API
     const String VoltageVariant = String("10V");
-    // -----------------------------------------------------
-    const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
-    const VoltRange VoltRange2V(String("2V"),-2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueDac);
-    const VoltRange VoltRange5V(String("5V"),-5.0, 5.0, VoltGain5X, AnalogSubsystem::MaxValueDac);
-    const VoltRange VoltRange10V(String("10V"),-10.0, 10.0, VoltGain10X, AnalogSubsystem::MaxValueDac);
-    VoltRange voltRangeArrayTmp[NumVoltRange] = {VoltRange1V, VoltRange2V, VoltRange5V, VoltRange10V};
+    const VoltRangeDac VoltRangeDac1V(String("1V"), -1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
+    const VoltRangeDac VoltRangeDac2V(String("2V"), -2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueDac);
+    const VoltRangeDac VoltRangeDac5V(String("5V"), -5.0, 5.0, VoltGain5X, AnalogSubsystem::MaxValueDac);
+    const VoltRangeDac VoltRangeDac10V(String("10V"), -10.0, 10.0, VoltGain10X, AnalogSubsystem::MaxValueDac);
+    VoltRangeDac DacArrayTmp[NumVoltRangeDac] = {VoltRangeDac1V, VoltRangeDac2V, VoltRangeDac5V, VoltRangeDac10V};
 #elif defined VOLTAGE_VARIANT_AD8250
     const String VoltageVariant = String("AD8250");
-    const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
-    const VoltRange VoltRange2V(String("2V"),-2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueDac);
-    const VoltRange VoltRange5V(String("5V"),-5.0, 5.0, VoltGain5X, AnalogSubsystem::MaxValueDac);
-    const VoltRange VoltRange10V(String("10V"),-10.0, 10.0, VoltGain10X, AnalogSubsystem::MaxValueDac);
-    VoltRange voltRangeArrayTmp[NumVoltRange] = {VoltRange1V, VoltRange2V, VoltRange5V, VoltRange10V};
+    const VoltRangeDac VoltRangeDac1V(String("1V"), -1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
+    const VoltRangeDac VoltRangeDac2V(String("2V"), -2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueDac);
+    const VoltRangeDac VoltRangeDac5V(String("5V"), -5.0, 5.0, VoltGain5X, AnalogSubsystem::MaxValueDac);
+    const VoltRangeDac VoltRangeDac10V(String("10V"), -10.0, 10.0, VoltGain10X, AnalogSubsystem::MaxValueDac);
+    VoltRangeDac DacArrayTmp[NumVoltRangeDac] = {VoltRangeDac1V, VoltRangeDac2V, VoltRangeDac5V, VoltRangeDac10V};
 #elif defined VOLTAGE_VARIANT_AD8251
     const String VoltageVariant = String("AD8251");
-    const VoltRange VoltRange1V(String("1V"),-1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
-    const VoltRange VoltRange2V(String("2V"),-2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueDac);
-    const VoltRange VoltRange4V(String("4V"),-4.0, 4.0, VoltGain4X, AnalogSubsystem::MaxValueDac);
-    const VoltRange VoltRange8V(String("8V"),-8.0, 8.0, VoltGain8X, AnalogSubsystem::MaxValueDac);
-    VoltRange voltRangeArrayTmp[NumVoltRange] = {VoltRange1V, VoltRange2V, VoltRange4V, VoltRange8V};
+    const VoltRangeDac VoltRangeDac1V(String("1V"), -1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueDac);
+    const VoltRangeDac VoltRangeDac2V(String("2V"), -2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueDac);
+    const VoltRangeDac VoltRangeDac4V(String("4V"), -4.0, 4.0, VoltGain4X, AnalogSubsystem::MaxValueDac);
+    const VoltRangeDac VoltRangeDac8V(String("8V"), -8.0, 8.0, VoltGain8X, AnalogSubsystem::MaxValueDac);
+    VoltRangeDac DacArrayTmp[NumVoltRangeDac] = {VoltRangeDac1V, VoltRangeDac2V, VoltRangeDac4V, VoltRangeDac8V};
 #else
 #   error "VOLTAGE_VARIANT must be selected"
 #endif 
-    Array<VoltRange,NumVoltRange> VoltRangeArray(voltRangeArrayTmp);
+    Array<VoltRangeDac,NumVoltRangeDac> VoltRangeDacArray(DacArrayTmp);
     const float SignDac = -1.0; 
 
     // Range for reference electrode analog input
-    const VoltRange VoltRangeAin10V(String("Ain10V"), -10.0, 10.0, VoltGain10X, AnalogSubsystem::MaxValueAin);
+    const VoltRangeAdc VoltRangeAdc1V(String("1V"), -1.0, 1.0, VoltGain1X, AnalogSubsystem::MaxValueAin);
+    const VoltRangeAdc VoltRangeAdc2V(String("2V"), -2.0, 2.0, VoltGain2X, AnalogSubsystem::MaxValueAin);
+    const VoltRangeAdc VoltRangeAdc5V(String("5V"), -5.0, 5.0, VoltGain5X, AnalogSubsystem::MaxValueAin);
+    const VoltRangeAdc VoltRangeAdc10V(String("10V"), -10.0, 10.0, VoltGain10X, AnalogSubsystem::MaxValueAin);
+    VoltRangeAdc AdcArrayTmp[NumVoltRangeAdc] = {VoltRangeAdc1V, VoltRangeAdc2V, VoltRangeAdc5V, VoltRangeAdc10V};
+    Array<VoltRangeAdc,NumVoltRangeAdc> VoltRangeAdcArray(AdcArrayTmp);
+    const float SignAdc = 1.0; 
 
     // Ranges for input current
 #if defined CURRENT_VARIANT_NANO_AMP

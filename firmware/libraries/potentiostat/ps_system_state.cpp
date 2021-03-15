@@ -1079,6 +1079,9 @@ namespace ps
             timerCnt_ = 0;
             analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
 
+#if defined HARDWARE_VERSION_0P2 
+            analogSubsystem_.autoRefElectVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
+#endif
             test_ -> reset();
             if (multiplexer_.isRunning())
             {

@@ -36,13 +36,17 @@ namespace ps
         pinMode(REF_GAIN_A0,OUTPUT);
         pinMode(REF_GAIN_A1,OUTPUT);
 #else
-#   error "HARDWARE_VARIANT must be specified"
+#   error "HARDWARE_VERSION must be specified"
 #endif
 
         // Set to voltage and current range to defaults
-        setVoltRange(VoltRange1V);
-#if defined HARDWARE_VERSION_0P2
-        setRefElectVoltRange(VoltRange1V);
+        setVoltRange(VoltRangeDac1V);
+#if defined HARDWARE_VERSION_0P1   
+        setRefElectVoltRange(VoltRangeAdc10V);
+#elif defined HARDWARE_VERSION_0P2
+        setRefElectVoltRange(VoltRangeAdc1V);
+#else
+#   error "HARDWARE_VERSION must be specified"
 #endif
 
 #if defined CURRENT_VARIANT_MICRO_AMP
@@ -99,11 +103,11 @@ namespace ps
     float AnalogSubsystem::getRefElectVolt() const   
     {
         // Get measurement of reference electrode voltage 
-        return refElectVoltRange_.intToValue(getRefElectAin());
+        return SignAdc*refElectVoltRange_.intToValue(getRefElectAin());
     }
 
 
-    void AnalogSubsystem::setVoltRange(VoltRange range)
+    void AnalogSubsystem::setVoltRange(VoltRangeDac range)
     {
         // Set the output voltage range - for working to reference electrode voltage
         // Note, this command will change the VoltGain setting. 
@@ -116,12 +120,12 @@ namespace ps
     {
         bool success = false;
 
-        VoltRange bestRange;
+        VoltRangeDac bestRange;
         float bestDelta;
 
-        for (size_t i=0; i<VoltRangeArray.size(); i++)
+        for (size_t i=0; i<VoltRangeDacArray.size(); i++)
         {
-            VoltRange range = VoltRangeArray[i];
+            VoltRangeDac range = VoltRangeDacArray[i];
             float minRange = range.minValue();
             float maxRange = range.maxValue();
             if ((minVolt >= minRange) && (maxVolt <= maxRange))
@@ -146,14 +150,12 @@ namespace ps
         if (success)
         {
             setVoltRange(bestRange);
-#if defined HARDWARE_VERSION_0P2 
-            setRefElectVoltRange(bestRange); 
-#endif
         }
         return success;
     }
 
-    VoltRange AnalogSubsystem::getVoltRange() const
+
+    VoltRangeDac AnalogSubsystem::getVoltRange() const
     { 
         // Returns the device's voltage range setting.
         return voltRange_;
@@ -179,12 +181,12 @@ namespace ps
     {
         ReturnStatus status;
         bool found = false;
-        for (size_t i=0; i<VoltRangeArray.size(); i++)
+        for (size_t i=0; i<VoltRangeDacArray.size(); i++)
         {
-            if (voltRangeName.equals(VoltRangeArray[i].name()))
+            if (voltRangeName.equals(VoltRangeDacArray[i].name()))
             {
                 found = true;
-                setVoltRange(VoltRangeArray[i]);
+                setVoltRange(VoltRangeDacArray[i]);
             }
         }
         if (!found)
@@ -232,7 +234,7 @@ namespace ps
     }
 
 #if defined HARDWARE_VERSION_0P2 
-    void AnalogSubsystem::setRefElectVoltRange(VoltRange range)
+    void AnalogSubsystem::setRefElectVoltRange(VoltRangeAdc range)
     {
         // Set the voltage range for working to reference electrode analog input 
         refElectVoltRange_ = range;
@@ -241,7 +243,7 @@ namespace ps
 #endif
 
 #if defined HARDWARE_VERSION_0P2 
-    VoltRange AnalogSubsystem::getRefElectVoltRange() const
+    VoltRangeAdc AnalogSubsystem::getRefElectVoltRange() const
     {
         // Returns the device's reference electrode voltage range setting
         return refElectVoltRange_;
@@ -253,12 +255,12 @@ namespace ps
     {
         ReturnStatus status;
         bool found = false;
-        for (size_t i=0; i<VoltRangeArray.size(); i++)
+        for (size_t i=0; i<VoltRangeAdcArray.size(); i++)
         {
-            if (voltRangeName.equals(VoltRangeArray[i].name()))
+            if (voltRangeName.equals(VoltRangeAdcArray[i].name()))
             {
                 found = true;
-                setRefElectVoltRange(VoltRangeArray[i]);
+                setRefElectVoltRange(VoltRangeAdcArray[i]);
             }
         }
         if (!found)
@@ -275,6 +277,46 @@ namespace ps
     {
         // Returns a string representation of the reference electrode voltage range setting
         return refElectVoltRange_.name();
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2
+    bool AnalogSubsystem::autoRefElectVoltRange(float minVolt, float maxVolt)
+    {
+        bool success = false;
+
+        VoltRangeAdc bestRange;
+        float bestDelta;
+
+        for (size_t i=0; i<VoltRangeAdcArray.size(); i++)
+        {
+            VoltRangeAdc range = VoltRangeAdcArray[i];
+            float minRange = range.minValue();
+            float maxRange = range.maxValue();
+            if ((minVolt >= minRange) && (maxVolt <= maxRange))
+            {
+                float delta = max(minVolt - minRange, maxRange - maxVolt);
+                if (success)
+                {
+                    if (delta < bestDelta)
+                    {
+                        bestRange = range;
+                        bestDelta = delta;
+                    }
+                }
+                else
+                {
+                    bestRange = range;
+                    bestDelta = delta;
+                    success = true;
+                }
+            }
+        }
+        if (success)
+        {
+            setRefElectVoltRange(bestRange);
+        }
+        return success;
     }
 #endif
 

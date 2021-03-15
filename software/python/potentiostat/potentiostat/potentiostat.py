@@ -769,6 +769,7 @@ class Potentiostat(serial.Serial):
         cmd_json = json.dumps(cmd_dict) + '\n'
         self.write(cmd_json.encode())
         msg_json = self.readline()
+        print(msg_json)
         msg_json = msg_json.strip()
         msg_dict = json.loads(msg_json.decode())
         self.check_cmd_msg(cmd_dict,msg_dict)
