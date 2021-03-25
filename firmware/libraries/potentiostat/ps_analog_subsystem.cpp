@@ -86,17 +86,7 @@ namespace ps
     float AnalogSubsystem::getCurr() const           
     {
         // Get current measurement from working electrode
-#if defined HARDWARE_VERSION_0P1
-        return currRange_.intToValue(getTransAmpAin());
-#elif defined HARDWARE_VERSION_0P2
-        // DEBUG 
-        // ------------------------------------------------------------------
-        //  NOTE: factor of 20/12.0 is to account for gain error in prototype
-        // ------------------------------------------------------------------
-        return -(20.0/12.0)*currRange_.intToValue(getTransAmpAin());
-#else
-#   error "HARDWARE_VERSION must be specified"
-#endif
+        return SignCurr*currRange_.intToValue(getTransAmpAin());
     }
 
 

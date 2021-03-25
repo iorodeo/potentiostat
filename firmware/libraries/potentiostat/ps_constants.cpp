@@ -174,6 +174,14 @@ namespace ps
     const String HardwareVariant = VoltageVariant + String("_") + CurrentVariant;
     Array<CurrRange,NumCurrRange>  CurrRangeArray(currRangeArrayTmp);
 
+#if defined HARDWARE_VERSION_0P1
+    const float SignCurr =  1.0;
+#elif defined HARDWARE_VERSION_0P2
+    const float SignCurr = -1.0;
+#else
+#   error "HARDWARE_VERSION must be specified"
+#endif
+
     // Timer parameters
     const uint32_t TestTimerPeriod = 200;                // us
     const uint32_t DefaultSamplePeriod = 10000;          // us

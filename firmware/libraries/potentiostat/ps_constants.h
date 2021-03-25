@@ -149,6 +149,7 @@ namespace ps
 
     const uint8_t NumCurrRange = 4;
     extern Array<CurrRange,NumCurrRange> CurrRangeArray;
+    extern const float SignCurr;
 
     // Timer parameters
     extern const uint32_t TestTimerPeriod;      // us
