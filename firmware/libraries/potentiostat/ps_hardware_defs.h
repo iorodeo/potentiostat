@@ -1,7 +1,7 @@
 #ifndef PS_HARDWARE_DEFS_H
 #define PS_HARDWARE_DEFS_H
 
-    #if 1 
+    #if 0 
         // Hardware version 0.2 
         // -----------------------------------------------------------------------
         #define HARDWARE_VERSION_0P2

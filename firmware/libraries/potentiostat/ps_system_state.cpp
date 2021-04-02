@@ -1071,10 +1071,12 @@ namespace ps
         if (test_ != nullptr)
         {
 
+#if defined HARDWARE_VERSION_0P2 
             if (electrodeAutoConnect_)
             {
                 electrodeSwitch_.setAllConnected(true);
             }
+#endif
 
             timerCnt_ = 0;
             analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
@@ -1110,10 +1112,12 @@ namespace ps
         lastSampleFlag_ = true;
         analogSubsystem_.setVolt(0.0);
 
+#if defined HARDWARE_VERSION_0P2 
         if (electrodeAutoConnect_)
         {
             electrodeSwitch_.setAllConnected(false);
         }
+#endif
 
         if (multiplexer_.isRunning())
         {

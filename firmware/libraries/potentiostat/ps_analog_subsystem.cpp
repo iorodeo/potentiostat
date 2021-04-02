@@ -42,7 +42,7 @@ namespace ps
         // Set to voltage and current range to defaults
         setVoltRange(VoltRangeDac1V);
 #if defined HARDWARE_VERSION_0P1   
-        setRefElectVoltRange(VoltRangeAdc10V);
+        refElectVoltRange_ = VoltRangeAdc10V;
 #elif defined HARDWARE_VERSION_0P2
         setRefElectVoltRange(VoltRangeAdc1V);
 #else

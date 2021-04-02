@@ -52,7 +52,6 @@ namespace ps
 
             ReturnStatus setRefElectVoltRangeByName(String voltRangeName);
             String getRefElectVoltRangeName() const;
-
             bool autoRefElectVoltRange(float minVolt, float maxVolt);
 #endif
 
@@ -77,8 +76,8 @@ namespace ps
             uint16_t getTransAmpAin() const;  
             uint16_t getRefElectAin() const;  
 
-#if defined HARDWARE_VERSION_0P2
             VoltRangeAdc refElectVoltRange_;
+#if defined HARDWARE_VERSION_0P2
             void setRefElectVoltGain(VoltGain value);
             VoltGain getRefElectVoltGain() const;
 #endif
