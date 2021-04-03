@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/wbd/work/products/potentiostat/hardware/pcbs/teensy_shield_v0p2/potentiostat.sch)
-    (date "Mon 08 Feb 2021 11:03:52 AM PST")
+    (date "Fri 02 Apr 2021 04:57:09 PM PDT")
     (tool "Eeschema 5.1.7-a382d34a8~87~ubuntu18.04.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -26,6 +26,8 @@
       (value OP07)
       (footprint Package_SO:SOIC-8_3.9x4.9mm_P1.27mm)
       (datasheet https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf)
+      (fields
+        (field (name "LCSC Part") C7433))
       (libsource (lib Amplifier_Operational) (part OP07) (description "Single Ultra-Low Offset Voltage Operational Amplifier, DIP-8/SOIC-8"))
       (sheetpath (names /) (tstamps /))
       (tstamp 60466A62))
@@ -61,6 +63,8 @@
       (value 74HC138)
       (footprint Package_SO:SOIC-16_3.9x9.9mm_P1.27mm)
       (datasheet http://www.ti.com/lit/ds/symlink/cd74hc238.pdf)
+      (fields
+        (field (name "LCSC Part") C5602))
       (libsource (lib 74HC138) (part 74HC138) (description "3-to-8 line decoder/demultiplexer; inverting, DIP-16/SOIC-16/SSOP-16"))
       (sheetpath (names /) (tstamps /))
       (tstamp 6035EC77))
@@ -68,6 +72,8 @@
       (value OP07)
       (footprint Package_SO:SOIC-8_3.9x4.9mm_P1.27mm)
       (datasheet https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf)
+      (fields
+        (field (name "LCSC Part") C7433))
       (libsource (lib Amplifier_Operational) (part OP07) (description "Single Ultra-Low Offset Voltage Operational Amplifier, DIP-8/SOIC-8"))
       (sheetpath (names /) (tstamps /))
       (tstamp 609F0791))
@@ -82,6 +88,8 @@
       (value DG411xY)
       (footprint Package_SO:SOIC-16_3.9x9.9mm_P1.27mm)
       (datasheet https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf)
+      (fields
+        (field (name "LCSC Part") C17218))
       (libsource (lib Analog_Switch) (part DG411xY) (description "Quad SPST Monolithic CMOS Analog Switches, normally ON, 17Ohm Ron, SOIC-16"))
       (sheetpath (names /) (tstamps /))
       (tstamp 60CB16D2))
@@ -117,6 +125,8 @@
       (value 4.7uF)
       (footprint Capacitor_SMD:C_0603_1608Metric)
       (datasheet ~)
+      (fields
+        (field (name "LCSC Part") C19666))
       (libsource (lib Device) (part C) (description "Unpolarized capacitor"))
       (sheetpath (names /) (tstamps /))
       (tstamp 62166DD1))
@@ -124,6 +134,8 @@
       (value 4.7uF)
       (footprint Capacitor_SMD:C_0603_1608Metric)
       (datasheet ~)
+      (fields
+        (field (name "LCSC Part") C19666))
       (libsource (lib Device) (part C) (description "Unpolarized capacitor"))
       (sheetpath (names /) (tstamps /))
       (tstamp 6230ECA5))
@@ -138,6 +150,8 @@
       (value OP07)
       (footprint Package_SO:SOIC-8_3.9x4.9mm_P1.27mm)
       (datasheet https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf)
+      (fields
+        (field (name "LCSC Part") C7433))
       (libsource (lib Amplifier_Operational) (part OP07) (description "Single Ultra-Low Offset Voltage Operational Amplifier, DIP-8/SOIC-8"))
       (sheetpath (names /) (tstamps /))
       (tstamp 63AACB4F))
@@ -166,6 +180,8 @@
       (value 74HC138)
       (footprint Package_SO:SOIC-16_3.9x9.9mm_P1.27mm)
       (datasheet http://www.ti.com/lit/ds/symlink/cd74hc238.pdf)
+      (fields
+        (field (name "LCSC Part") C5602))
       (libsource (lib 74HC138) (part 74HC138) (description "3-to-8 line decoder/demultiplexer; inverting, DIP-16/SOIC-16/SSOP-16"))
       (sheetpath (names /) (tstamps /))
       (tstamp 64865EB3))
@@ -173,6 +189,8 @@
       (value OP07)
       (footprint Package_SO:SOIC-8_3.9x4.9mm_P1.27mm)
       (datasheet https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf)
+      (fields
+        (field (name "LCSC Part") C7433))
       (libsource (lib Amplifier_Operational) (part OP07) (description "Single Ultra-Low Offset Voltage Operational Amplifier, DIP-8/SOIC-8"))
       (sheetpath (names /) (tstamps /))
       (tstamp 64A04AA3))
@@ -187,6 +205,8 @@
       (value DG411xY)
       (footprint Package_SO:SOIC-16_3.9x9.9mm_P1.27mm)
       (datasheet https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf)
+      (fields
+        (field (name "LCSC Part") C17218))
       (libsource (lib Analog_Switch) (part DG411xY) (description "Quad SPST Monolithic CMOS Analog Switches, normally ON, 17Ohm Ron, SOIC-16"))
       (sheetpath (names /) (tstamps /))
       (tstamp 64A051A8))
@@ -222,6 +242,8 @@
       (value OP07)
       (footprint Package_SO:SOIC-8_3.9x4.9mm_P1.27mm)
       (datasheet https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf)
+      (fields
+        (field (name "LCSC Part") C7433))
       (libsource (lib Amplifier_Operational) (part OP07) (description "Single Ultra-Low Offset Voltage Operational Amplifier, DIP-8/SOIC-8"))
       (sheetpath (names /) (tstamps /))
       (tstamp 64DCCE7F))
@@ -249,6 +271,8 @@
     (comp (ref U10)
       (value REF33XX)
       (footprint Package_TO_SOT_SMD:SOT-23)
+      (fields
+        (field (name "LCSC Part") C140329))
       (libsource (lib REF33XX) (part REF33XX) (description ""))
       (sheetpath (names /) (tstamps /))
       (tstamp 602125CA))
@@ -291,6 +315,8 @@
       (value BAS07-04)
       (footprint Package_TO_SOT_SMD:SOT-23)
       (datasheet ~)
+      (fields
+        (field (name "LCSC Part") "C609810 "))
       (libsource (lib potentiostat-rescue) (part BAS07-04) (description ""))
       (sheetpath (names /) (tstamps /))
       (tstamp 60F4B60B))
@@ -312,6 +338,8 @@
       (value TL072)
       (footprint Package_SO:SOIC-8_3.9x4.9mm_P1.27mm)
       (datasheet http://www.ti.com/lit/ds/symlink/tl071.pdf)
+      (fields
+        (field (name "LCSC Part") C6961))
       (libsource (lib Amplifier_Operational) (part TL072) (description "Dual Low-Noise JFET-Input Operational Amplifiers, DIP-8/SOIC-8"))
       (sheetpath (names /) (tstamps /))
       (tstamp 6022B446))
@@ -319,6 +347,8 @@
       (value DG411xY)
       (footprint Package_SO:SOIC-16_3.9x9.9mm_P1.27mm)
       (datasheet https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf)
+      (fields
+        (field (name "LCSC Part") C17218))
       (libsource (lib Analog_Switch) (part DG411xY) (description "Quad SPST Monolithic CMOS Analog Switches, normally ON, 17Ohm Ron, SOIC-16"))
       (sheetpath (names /) (tstamps /))
       (tstamp 602421C2))
@@ -326,6 +356,8 @@
       (value DG411xY)
       (footprint Package_SO:SOIC-16_3.9x9.9mm_P1.27mm)
       (datasheet https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf)
+      (fields
+        (field (name "LCSC Part") C17218))
       (libsource (lib Analog_Switch) (part DG411xY) (description "Quad SPST Monolithic CMOS Analog Switches, normally ON, 17Ohm Ron, SOIC-16"))
       (sheetpath (names /) (tstamps /))
       (tstamp 603D8EC2))
@@ -333,6 +365,8 @@
       (value 74HC138)
       (footprint Package_SO:SOIC-16_3.9x9.9mm_P1.27mm)
       (datasheet http://www.ti.com/lit/ds/symlink/cd74hc238.pdf)
+      (fields
+        (field (name "LCSC Part") C5602))
       (libsource (lib 74HC138) (part 74HC138) (description "3-to-8 line decoder/demultiplexer; inverting, DIP-16/SOIC-16/SSOP-16"))
       (sheetpath (names /) (tstamps /))
       (tstamp 60CF6B58))
@@ -344,7 +378,7 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 6241EB2D))
     (comp (ref C25)
-      (value 56nF)
+      (value 68nF)
       (footprint Capacitor_SMD:C_0603_1608Metric)
       (datasheet ~)
       (libsource (lib Device) (part C) (description "Unpolarized capacitor"))
@@ -358,7 +392,7 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 639B1B75))
     (comp (ref C28)
-      (value 56nF)
+      (value 68nF)
       (footprint Capacitor_SMD:C_0603_1608Metric)
       (datasheet ~)
       (libsource (lib Device) (part C) (description "Unpolarized capacitor"))
@@ -372,7 +406,7 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 63A69057))
     (comp (ref C26)
-      (value 56nF)
+      (value 68nF)
       (footprint Capacitor_SMD:C_0603_1608Metric)
       (datasheet ~)
       (libsource (lib Device) (part C) (description "Unpolarized capacitor"))
@@ -386,7 +420,7 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 63B29260))
     (comp (ref C27)
-      (value 56nF)
+      (value 68nF)
       (footprint Capacitor_SMD:C_0603_1608Metric)
       (datasheet ~)
       (libsource (lib Device) (part C) (description "Unpolarized capacitor"))
@@ -396,11 +430,13 @@
       (value OP07)
       (footprint Package_SO:SOIC-8_3.9x4.9mm_P1.27mm)
       (datasheet https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf)
+      (fields
+        (field (name "LCSC Part") C7433))
       (libsource (lib Amplifier_Operational) (part OP07) (description "Single Ultra-Low Offset Voltage Operational Amplifier, DIP-8/SOIC-8"))
       (sheetpath (names /) (tstamps /))
       (tstamp 64C04706))
     (comp (ref R33)
-      (value 20k)
+      (value 12k)
       (footprint Resistor_SMD:R_0603_1608Metric)
       (datasheet ~)
       (libsource (lib Device) (part R) (description Resistor))
@@ -424,6 +460,8 @@
       (value BAS07-04)
       (footprint Package_TO_SOT_SMD:SOT-23)
       (datasheet ~)
+      (fields
+        (field (name "LCSC Part") "C609810 "))
       (libsource (lib potentiostat-rescue) (part BAS07-04) (description ""))
       (sheetpath (names /) (tstamps /))
       (tstamp 64C04DF4))
@@ -445,6 +483,8 @@
       (value OP07)
       (footprint Package_SO:SOIC-8_3.9x4.9mm_P1.27mm)
       (datasheet https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf)
+      (fields
+        (field (name "LCSC Part") C7433))
       (libsource (lib Amplifier_Operational) (part OP07) (description "Single Ultra-Low Offset Voltage Operational Amplifier, DIP-8/SOIC-8"))
       (sheetpath (names /) (tstamps /))
       (tstamp 652B528B))
@@ -466,6 +506,8 @@
       (value DG411xY)
       (footprint Package_SO:SOIC-16_3.9x9.9mm_P1.27mm)
       (datasheet https://datasheets.maximintegrated.com/en/ds/DG411-DG413.pdf)
+      (fields
+        (field (name "LCSC Part") C17218))
       (libsource (lib Analog_Switch) (part DG411xY) (description "Quad SPST Monolithic CMOS Analog Switches, normally ON, 17Ohm Ron, SOIC-16"))
       (sheetpath (names /) (tstamps /))
       (tstamp 673EBC01))
