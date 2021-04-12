@@ -6,9 +6,9 @@ namespace ps
 { 
     const String FirmwareVersion = String("FW0.0.7");
 #if defined HARDWARE_VERSION_0P1
-    const String HardwareVersion = String("HW0.1");
+    const String HardwareVersion = String("V0.1");
 #elif defined HARDWARE_VERSION_0P2
-    const String HardwareVersion = String("HW0.2");
+    const String HardwareVersion = String("V0.2");
 #else
 #   error "VOLTAGE_VARIANT must be selected"
 #endif
@@ -148,21 +148,21 @@ namespace ps
 
     // Ranges for input current
 #if defined CURRENT_VARIANT_NANO_AMP
-    const String CurrentVariant = String("nanoAmpV0.1");
+    const String CurrentVariant = String("nanoAmp");
     const CurrRange CurrRange1uA("1uA", -1.0, 1.0, CurrGainPathIn1, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange10uA("10uA", -10.0, 10.0, CurrGainPathIn2, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange60nA("60nA", -0.06, 0.06, CurrGainPathIn3, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange100nA("100nA", -0.1, 0.1, CurrGainPathIn4, AnalogSubsystem::MaxValueAin); 
     CurrRange currRangeArrayTmp[NumCurrRange] = {CurrRange1uA, CurrRange10uA, CurrRange60nA, CurrRange100nA};
 #elif defined CURRENT_VARIANT_MILL_AMP
-    const String CurrentVariant = String("milliAmpV0.1");
+    const String CurrentVariant = String("milliAmp");
     const CurrRange CurrRange100uA("100uA", -100.0, 100.0, CurrGainPathIn3, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange1000uA("1000uA", -1000.0, 1000.0, CurrGainPathIn4, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange12000uA("12000uA", -12024.0, 12024.0, CurrGainPathIn1, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange24000uA("24000uA", -24048.0, 24048.0, CurrGainPathIn2, AnalogSubsystem::MaxValueAin); 
     CurrRange currRangeArrayTmp[NumCurrRange] = {CurrRange100uA, CurrRange1000uA, CurrRange12000uA, CurrRange24000uA};
 #elif defined CURRENT_VARIANT_MICRO_AMP
-    const String CurrentVariant = String("microAmpV0.1");
+    const String CurrentVariant = String("microAmp");
     const CurrRange CurrRange1uA("1uA", -1.0, 1.0, CurrGainPathIn1, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange10uA("10uA", -10.0, 10.0, CurrGainPathIn2, AnalogSubsystem::MaxValueAin); 
     const CurrRange CurrRange100uA("100uA", -100.0, 100.0, CurrGainPathIn3, AnalogSubsystem::MaxValueAin); 
@@ -171,7 +171,7 @@ namespace ps
 #else
 #   error "CURRENT_VARIANT must be selected"
 #endif
-    const String HardwareVariant = VoltageVariant + String("_") + CurrentVariant;
+    const String HardwareVariant = VoltageVariant + String("_") + CurrentVariant + HardwareVersion;
     Array<CurrRange,NumCurrRange>  CurrRangeArray(currRangeArrayTmp);
 
 #if defined HARDWARE_VERSION_0P1

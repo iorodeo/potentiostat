@@ -122,9 +122,9 @@ HwVariantToVoltRangesDict = {
         'AD8251_nanoAmpV0.1'  : VoltRangeList_8V,  
         'AD8251_microAmpV0.1' : VoltRangeList_8V, 
         'AD8251_milliAmpV0.1' : VoltRangeList_8V, 
-        '10V_nanoAmpV0.1'     : VoltRangeList_10V, 
-        '10V_microAmpV0.1'    : VoltRangeList_10V, 
-        '10V_milliAmpV0.1'    : VoltRangeList_10V, 
+        '10V_nanoAmpV0.2'     : VoltRangeList_10V, 
+        '10V_microAmpV0.2'    : VoltRangeList_10V, 
+        '10V_milliAmpV0.2'    : VoltRangeList_10V, 
         }
 
 # Current Ranges
@@ -151,9 +151,9 @@ HwVariantToCurrRangesDict = {
         'AD8251_nanoAmpV0.1'  :  CurrRangeListNanoAmp,
         'AD8251_microAmpV0.1' :  CurrRangeListMicroAmp, 
         'AD8251_milliAmpV0.1' :  CurrRangeListMilliAmp,
-        '10V_nanoAmpV0.1'     :  CurrRangeListNanoAmp,
-        '10V_microAmpV0.1'    :  CurrRangeListMicroAmp, 
-        '10V_milliAmpV0.1'    :  CurrRangeListMilliAmp,
+        '10V_nanoAmpV0.2'     :  CurrRangeListNanoAmp,
+        '10V_microAmpV0.2'    :  CurrRangeListMicroAmp, 
+        '10V_milliAmpV0.2'    :  CurrRangeListMilliAmp,
         }
 
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
