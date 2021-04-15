@@ -53,7 +53,7 @@ here = path.abspath(path.dirname(__file__))
 
 setup(
     name='iorodeo-potentiostat',
-    version='0.0.3',
+    version='0.0.4',
     description='Serial interface to IO Rodeo Potentiostat',
     long_description=__doc__,
     url='https://bitbucket.org/iorodeo/potentiostat',
@@ -74,6 +74,10 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Operating System :: POSIX', 
         'Operating System :: Microsoft :: Windows', 
         'Operating System :: MacOS :: MacOS X',
