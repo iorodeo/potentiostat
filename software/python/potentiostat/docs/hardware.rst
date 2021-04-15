@@ -22,5 +22,5 @@ For a more detailed description of the device hardware see (TODO)
 *********
 Schematic
 *********
-`download pdf <https://bitbucket.org/iorodeo/potentiostat/downloads/potentiostat_shield_schematic_v0p1r2.pdf>`_
+`download pdf <https://github.com/iorodeo/potentiostat/releases/download/v0.1/potentiostat_shield_schematic_v0p2r1.pdf>`_
 

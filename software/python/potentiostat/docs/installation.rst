@@ -88,7 +88,7 @@ References
 .. target-notes::
 
 .. _`PyPI`: https://pypi.python.org/pypi
-.. _`potentiostat shield repository`: https://bitbucket.org/iorodeo/potentiostat/
+.. _`potentiostat shield repository`: https://github.com/iorodeo/potentiostat/
 .. _`virtualenv`: https://pypi.python.org/pypi/virtualenv
 .. _`virtualenv tutorial`: http://python-guide-pt-br.readthedocs.io/en/latest/dev/virtualenvs/ 
 .. _`virtualenv documentation`: https://virtualenv.pypa.io/en/stable/ 
