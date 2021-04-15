@@ -43,7 +43,7 @@ Links
 -----
 
 * Documentation http://stuff.iorodeo.com/docs/potentiostat
-* Download https://bitbucket.org/iorodeo/potentiostat
+* Download https://github.com/iorodeo/potentiostat
 
 """
 from setuptools import setup, find_packages
@@ -56,7 +56,7 @@ setup(
     version='0.0.4',
     description='Serial interface to IO Rodeo Potentiostat',
     long_description=__doc__,
-    url='https://bitbucket.org/iorodeo/potentiostat',
+    url='https://github.com/iorodeo/potentiostat',
     author='Will Dickson',
     author_email='will@iorodeo.com',
     license='MIT',

@@ -47,6 +47,6 @@ Links
 -----
 
 * Documentation https://potentiostat.iorodeo.com
-* Download https://bitbucket.org/iorodeo/potentiostat
+* Download https://github.com/iorodeo/potentiostat
 
 
