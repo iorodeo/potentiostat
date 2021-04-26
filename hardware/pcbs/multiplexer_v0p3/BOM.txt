@@ -1,0 +1,8 @@
+part      description                              vendor   PN                   qty   cost
+------------------------------------------------------------------------------------------
+C1-C8     0.1uF ceramic capacitor, SM0805          Digikey  399-1176-1-ND         8    0.19
+K1        3-pin right angle connector              Digikey  S5478-ND              1    0.51
+P1,P2 P5  5x2 shrouded header                      Digikey  S9169-ND              3    0.42
+P3,P4     breakaway header                         Digikey  S1011EC-40-ND         1    0.66
+U1-U4     4 circuit IC switch                      Digikey  ADG441BRZ-REELCT-ND   4    2.89
+
