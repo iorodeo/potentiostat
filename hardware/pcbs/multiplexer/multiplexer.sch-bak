@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L adg44x:ADG44X U1
+L ADG44X U1
 U 1 1 5B4BC4A2
 P 5850 1600
 F 0 "U1" H 5850 2050 60  0000 C CNN
@@ -25,7 +25,7 @@ F 3 "~" H 5900 1600 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x03 K1
+L CONN_3 K1
 U 1 1 5B4BC53E
 P 2350 1050
 F 0 "K1" V 2300 1050 50  0000 C CNN
@@ -35,11 +35,11 @@ F 3 "" H 2350 1050 60  0000 C CNN
 	1    2350 1050
 	1    0    0    -1  
 $EndComp
-Text Label 1900 950  2    60   ~ 0
+Text Label 1750 950  2    60   ~ 0
 CTR
-Text Label 1900 1150 2    60   ~ 0
+Text Label 1750 1150 2    60   ~ 0
 WRK
-Text Label 1900 1050 2    60   ~ 0
+Text Label 1750 1050 2    60   ~ 0
 REF
 Text Label 6600 1300 0    60   ~ 0
 WRK
@@ -59,7 +59,7 @@ Text Label 6600 1950 0    60   ~ 0
 GND
 NoConn ~ 6350 2050
 $Comp
-L Connector_Generic:Conn_02x05_Odd_Even P2
+L CONN_5X2 P2
 U 1 1 5B4BC67F
 P 2150 4500
 F 0 "P2" H 2150 4800 60  0000 C CNN
@@ -70,7 +70,7 @@ F 3 "" H 2150 4500 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_02x05_Odd_Even P1
+L CONN_5X2 P1
 U 1 1 5B4BC7E9
 P 2150 3550
 F 0 "P1" H 2150 3850 60  0000 C CNN
@@ -80,41 +80,41 @@ F 3 "" H 2150 3550 60  0000 C CNN
 	1    2150 3550
 	1    0    0    -1  
 $EndComp
-Text Label 1700 4400 2    60   ~ 0
+Text Label 1500 4400 2    60   ~ 0
 D3
-Text Label 1700 4500 2    60   ~ 0
+Text Label 1500 4500 2    60   ~ 0
 D19
-Text Label 1700 4600 2    60   ~ 0
+Text Label 1500 4600 2    60   ~ 0
 D12
-Text Label 1700 4700 2    60   ~ 0
+Text Label 1500 4700 2    60   ~ 0
 D13
-Text Label 2700 4400 0    60   ~ 0
+Text Label 2800 4400 0    60   ~ 0
 D4
-Text Label 2700 4500 0    60   ~ 0
+Text Label 2800 4500 0    60   ~ 0
 D18
-Text Label 2700 4600 0    60   ~ 0
+Text Label 2800 4600 0    60   ~ 0
 D11
-Text Label 2700 4700 0    60   ~ 0
+Text Label 2800 4700 0    60   ~ 0
 D10
-NoConn ~ 1950 4300
-NoConn ~ 2450 4300
-Text Label 2700 3350 0    60   ~ 0
+NoConn ~ 1750 4300
+NoConn ~ 2550 4300
+Text Label 2800 3350 0    60   ~ 0
 GND
-Text Label 1700 3450 2    60   ~ 0
+Text Label 1500 3450 2    60   ~ 0
 D24
-Text Label 1700 3550 2    60   ~ 0
+Text Label 1500 3550 2    60   ~ 0
 D26
-Text Label 1700 3650 2    60   ~ 0
+Text Label 1500 3650 2    60   ~ 0
 D28
-Text Label 1700 3750 2    60   ~ 0
+Text Label 1500 3750 2    60   ~ 0
 D30
-Text Label 2700 3450 0    60   ~ 0
+Text Label 2800 3450 0    60   ~ 0
 D25
-Text Label 2700 3550 0    60   ~ 0
+Text Label 2800 3550 0    60   ~ 0
 D27
-Text Label 2700 3650 0    60   ~ 0
+Text Label 2800 3650 0    60   ~ 0
 D29
-Text Label 2700 3750 0    60   ~ 0
+Text Label 2800 3750 0    60   ~ 0
 D31
 Text Label 5100 1750 2    60   ~ 0
 D24
@@ -125,7 +125,7 @@ D26
 Text Label 5100 2050 2    60   ~ 0
 D27
 $Comp
-L adg44x:ADG44X U2
+L ADG44X U2
 U 1 1 5B4BC959
 P 5850 3500
 F 0 "U2" H 5850 3950 60  0000 C CNN
@@ -161,7 +161,7 @@ D31
 Text Label 6600 3200 0    60   ~ 0
 GND
 $Comp
-L adg44x:ADG44X U3
+L ADG44X U3
 U 1 1 5B4BC991
 P 9350 1600
 F 0 "U3" H 9350 2050 60  0000 C CNN
@@ -189,7 +189,7 @@ Text Label 10100 1950 0    60   ~ 0
 GND
 NoConn ~ 9850 2050
 $Comp
-L adg44x:ADG44X U4
+L ADG44X U4
 U 1 1 5B4BC9B7
 P 9350 3500
 F 0 "U4" H 9350 3950 60  0000 C CNN
@@ -242,11 +242,11 @@ Wire Wire Line
 Connection ~ 6450 1500
 Connection ~ 6450 1300
 Wire Wire Line
-	2150 950  1900 950 
+	2000 950  1750 950 
 Wire Wire Line
-	2150 1050 1900 1050
+	2000 1050 1750 1050
 Wire Wire Line
-	2150 1150 1900 1150
+	2000 1150 1750 1150
 Wire Wire Line
 	5350 1300 5100 1300
 Wire Wire Line
@@ -256,39 +256,39 @@ Wire Wire Line
 Wire Wire Line
 	5350 1600 5100 1600
 Wire Wire Line
-	2450 4400 2700 4400
+	2550 4400 2800 4400
 Wire Wire Line
-	2450 4500 2700 4500
+	2550 4500 2800 4500
 Wire Wire Line
-	2450 4600 2700 4600
+	2550 4600 2800 4600
 Wire Wire Line
-	2450 4700 2700 4700
+	2550 4700 2800 4700
 Wire Wire Line
-	1950 4500 1700 4500
+	1750 4500 1500 4500
 Wire Wire Line
-	1950 4600 1700 4600
+	1750 4600 1500 4600
 Wire Wire Line
-	1950 4700 1700 4700
+	1750 4700 1500 4700
 Wire Wire Line
-	2450 3350 2700 3350
+	2550 3350 2800 3350
 Wire Wire Line
-	2450 3450 2700 3450
+	2550 3450 2800 3450
 Wire Wire Line
-	2450 3550 2700 3550
+	2550 3550 2800 3550
 Wire Wire Line
-	2450 3650 2700 3650
+	2550 3650 2800 3650
 Wire Wire Line
-	2450 3750 2700 3750
+	2550 3750 2800 3750
 Wire Wire Line
-	1950 3450 1700 3450
+	1750 3450 1500 3450
 Wire Wire Line
-	1950 3550 1700 3550
+	1750 3550 1500 3550
 Wire Wire Line
-	1950 3650 1700 3650
+	1750 3650 1500 3650
 Wire Wire Line
-	1950 3750 1700 3750
+	1750 3750 1500 3750
 Wire Wire Line
-	1950 4400 1700 4400
+	1750 4400 1500 4400
 Wire Wire Line
 	5350 3650 5100 3650
 Wire Wire Line
@@ -415,37 +415,51 @@ D13
 Text Label 8600 3950 2    60   ~ 0
 D10
 $Comp
-L Connector_Generic:Conn_01x02 P3
+L CONN_2 P3
 U 1 1 5B4BCEAB
-P 2400 1850
-F 0 "P3" V 2350 1850 40  0000 C CNN
-F 1 "CONN_2" V 2450 1850 40  0000 C CNN
-F 2 "" H 2400 1850 60  0000 C CNN
-F 3 "" H 2400 1850 60  0000 C CNN
-	1    2400 1850
+P 2400 1900
+F 0 "P3" V 2350 1900 40  0000 C CNN
+F 1 "CONN_2" V 2450 1900 40  0000 C CNN
+F 2 "" H 2400 1900 60  0000 C CNN
+F 3 "" H 2400 1900 60  0000 C CNN
+	1    2400 1900
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x02 P4
+L CONN_2 P4
 U 1 1 5B4BCEBA
-P 2400 2350
-F 0 "P4" V 2350 2350 40  0000 C CNN
-F 1 "CONN_2" V 2450 2350 40  0000 C CNN
-F 2 "" H 2400 2350 60  0000 C CNN
-F 3 "" H 2400 2350 60  0000 C CNN
-	1    2400 2350
+P 2400 2400
+F 0 "P4" V 2350 2400 40  0000 C CNN
+F 1 "CONN_2" V 2450 2400 40  0000 C CNN
+F 2 "" H 2400 2400 60  0000 C CNN
+F 3 "" H 2400 2400 60  0000 C CNN
+	1    2400 2400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
+	2050 1800 1950 1800
+Wire Wire Line
+	1950 1800 1950 1900
+Wire Wire Line
+	1950 2000 2050 2000
+Wire Wire Line
 	1950 1900 1750 1900
+Connection ~ 1950 1900
+Wire Wire Line
+	2050 2300 1950 2300
+Wire Wire Line
+	1950 2300 1950 2400
+Wire Wire Line
+	1950 2500 2050 2500
 Wire Wire Line
 	1950 2400 1750 2400
+Connection ~ 1950 2400
 Text Label 1750 1900 2    60   ~ 0
 +12V
 Text Label 1750 2400 2    60   ~ 0
 -12V
 $Comp
-L Device:C C1
+L C C1
 U 1 1 5B4BD185
 P 4100 1500
 F 0 "C1" H 4100 1600 40  0000 L CNN
@@ -456,7 +470,7 @@ F 3 "~" H 4100 1500 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C3
+L C C3
 U 1 1 5B4BD194
 P 4450 1500
 F 0 "C3" H 4450 1600 40  0000 L CNN
@@ -466,6 +480,14 @@ F 3 "~" H 4450 1500 60  0000 C CNN
 	1    4450 1500
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	4100 1300 4100 1050
+Wire Wire Line
+	4100 1700 4100 1950
+Wire Wire Line
+	4450 1300 4450 1050
+Wire Wire Line
+	4450 1700 4450 1950
 Text Label 4100 1050 1    60   ~ 0
 GND
 Text Label 4100 1950 3    60   ~ 0
@@ -475,7 +497,7 @@ Text Label 4450 1050 1    60   ~ 0
 Text Label 4450 1950 3    60   ~ 0
 GND
 $Comp
-L Device:C C2
+L C C2
 U 1 1 5B4BD3A9
 P 4150 3400
 F 0 "C2" H 4150 3500 40  0000 L CNN
@@ -486,7 +508,7 @@ F 3 "~" H 4150 3400 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C4
+L C C4
 U 1 1 5B4BD3AF
 P 4500 3400
 F 0 "C4" H 4500 3500 40  0000 L CNN
@@ -496,6 +518,14 @@ F 3 "~" H 4500 3400 60  0000 C CNN
 	1    4500 3400
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	4150 3200 4150 2950
+Wire Wire Line
+	4150 3600 4150 3850
+Wire Wire Line
+	4500 3200 4500 2950
+Wire Wire Line
+	4500 3600 4500 3850
 Text Label 4150 2950 1    60   ~ 0
 GND
 Text Label 4150 3850 3    60   ~ 0
@@ -505,7 +535,7 @@ Text Label 4500 2950 1    60   ~ 0
 Text Label 4500 3850 3    60   ~ 0
 GND
 $Comp
-L Device:C C5
+L C C5
 U 1 1 5B4BD3BD
 P 7650 1500
 F 0 "C5" H 7650 1600 40  0000 L CNN
@@ -516,7 +546,7 @@ F 3 "~" H 7650 1500 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C7
+L C C7
 U 1 1 5B4BD3C3
 P 8000 1500
 F 0 "C7" H 8000 1600 40  0000 L CNN
@@ -526,6 +556,14 @@ F 3 "~" H 8000 1500 60  0000 C CNN
 	1    8000 1500
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	7650 1300 7650 1050
+Wire Wire Line
+	7650 1700 7650 1950
+Wire Wire Line
+	8000 1300 8000 1050
+Wire Wire Line
+	8000 1700 8000 1950
 Text Label 7650 1050 1    60   ~ 0
 GND
 Text Label 7650 1950 3    60   ~ 0
@@ -535,7 +573,7 @@ Text Label 8000 1050 1    60   ~ 0
 Text Label 8000 1950 3    60   ~ 0
 GND
 $Comp
-L Device:C C6
+L C C6
 U 1 1 5B4BD3D1
 P 7650 3250
 F 0 "C6" H 7650 3350 40  0000 L CNN
@@ -546,7 +584,7 @@ F 3 "~" H 7650 3250 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C8
+L C C8
 U 1 1 5B4BD3D7
 P 8000 3250
 F 0 "C8" H 8000 3350 40  0000 L CNN
@@ -556,6 +594,14 @@ F 3 "~" H 8000 3250 60  0000 C CNN
 	1    8000 3250
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	7650 3050 7650 2800
+Wire Wire Line
+	7650 3450 7650 3700
+Wire Wire Line
+	8000 3050 8000 2800
+Wire Wire Line
+	8000 3450 8000 3700
 Text Label 7650 2800 1    60   ~ 0
 GND
 Text Label 7650 3700 3    60   ~ 0
@@ -567,44 +613,44 @@ GND
 Wire Notes Line
 	6150 2800 6100 2800
 Wire Wire Line
-	9700 5300 9950 5300
+	9800 5300 10050 5300
 Wire Wire Line
-	9200 5400 8950 5400
+	9000 5400 8750 5400
 Wire Wire Line
-	9700 5400 9950 5400
+	9800 5400 10050 5400
 Wire Wire Line
-	9200 5500 8950 5500
+	9000 5500 8750 5500
 Wire Wire Line
-	9200 5200 8900 5200
+	9000 5200 8700 5200
 Wire Wire Line
-	10000 5200 9700 5200
+	10100 5200 9800 5200
 Wire Wire Line
-	8900 5300 9200 5300
-Text Label 8900 5200 2    60   ~ 0
+	8700 5300 9000 5300
+Text Label 8700 5200 2    60   ~ 0
 GND
-Text Label 10000 5200 0    60   ~ 0
+Text Label 10100 5200 0    60   ~ 0
 CTR_SW
-Text Label 8900 5300 2    60   ~ 0
+Text Label 8700 5300 2    60   ~ 0
 REF_SW
 Wire Wire Line
-	9700 5500 9950 5500
+	9800 5500 10050 5500
 Wire Wire Line
-	9200 5600 8950 5600
+	9000 5600 8750 5600
 Wire Wire Line
-	9700 5600 9950 5600
-Text Label 9950 5300 0    60   ~ 0
+	9800 5600 10050 5600
+Text Label 10050 5300 0    60   ~ 0
 WRK_1
-Text Label 8950 5400 2    60   ~ 0
+Text Label 8750 5400 2    60   ~ 0
 WRK_2
-Text Label 9950 5400 0    60   ~ 0
+Text Label 10050 5400 0    60   ~ 0
 WRK_3
-Text Label 8950 5500 2    60   ~ 0
+Text Label 8750 5500 2    60   ~ 0
 WRK_4
-Text Label 9950 5500 0    60   ~ 0
+Text Label 10050 5500 0    60   ~ 0
 WRK_5
-Text Label 8950 5600 2    60   ~ 0
+Text Label 8750 5600 2    60   ~ 0
 WRK_6
-Text Label 9950 5600 0    60   ~ 0
+Text Label 10050 5600 0    60   ~ 0
 WRK_7
 Text Notes 3100 1400 2    60   ~ 0
 Electrode connections to rodeostat PCB
@@ -620,9 +666,9 @@ Text Notes 6700 4450 2    60   ~ 0
 Multiplexing for working electrodes 1-4
 Text Notes 9850 4450 2    60   ~ 0
 Multiplexing for working electrodes 5-7 plus\nswitches for counter and reference electrodes
-NoConn ~ 1950 3350
+NoConn ~ 1750 3350
 $Comp
-L power:PWR_FLAG #FLG01
+L PWR_FLAG #FLG01
 U 1 1 5B4BE4A7
 P 1800 5600
 F 0 "#FLG01" H 1800 5695 30  0001 C CNN
@@ -633,7 +679,7 @@ F 3 "" H 1800 5600 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:PWR_FLAG #FLG02
+L PWR_FLAG #FLG02
 U 1 1 5B4BE4B6
 P 2200 5600
 F 0 "#FLG02" H 2200 5695 30  0001 C CNN
@@ -644,7 +690,7 @@ F 3 "" H 2200 5600 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:PWR_FLAG #FLG03
+L PWR_FLAG #FLG03
 U 1 1 5B4BE4C5
 P 2600 5600
 F 0 "#FLG03" H 2600 5695 30  0001 C CNN
@@ -669,7 +715,7 @@ GND
 Text Notes 2050 750  0    60   ~ 0
 	S5478-ND
 $Comp
-L Connector_Generic:Conn_02x05_Odd_Even P5
+L CONN_5X2 P5
 U 1 1 5C3E8ED4
 P 9400 5400
 F 0 "P5" H 9400 5700 60  0000 C CNN
@@ -700,53 +746,7 @@ Wire Wire Line
 Wire Wire Line
 	9950 3300 10100 3300
 Wire Wire Line
-	4100 1050 4100 1350
+	1950 1900 1950 2000
 Wire Wire Line
-	4100 1650 4100 1950
-Wire Wire Line
-	4450 1050 4450 1350
-Wire Wire Line
-	4450 1650 4450 1950
-Wire Wire Line
-	8000 1050 8000 1350
-Wire Wire Line
-	8000 1650 8000 1950
-Wire Wire Line
-	7650 1650 7650 1950
-Wire Wire Line
-	7650 1050 7650 1350
-Wire Wire Line
-	8000 2800 8000 3100
-Wire Wire Line
-	8000 3400 8000 3700
-Wire Wire Line
-	7650 2800 7650 3100
-Wire Wire Line
-	7650 3400 7650 3700
-Wire Wire Line
-	4500 2950 4500 3250
-Wire Wire Line
-	4150 2950 4150 3250
-Wire Wire Line
-	4150 3550 4150 3850
-Wire Wire Line
-	4500 3550 4500 3850
-Wire Wire Line
-	1950 1900 1950 1850
-Wire Wire Line
-	1950 1850 2200 1850
-Wire Wire Line
-	1950 1900 1950 1950
-Wire Wire Line
-	1950 1950 2200 1950
-Connection ~ 1950 1900
-Wire Wire Line
-	1950 2350 2200 2350
-Wire Wire Line
-	1950 2350 1950 2400
-Wire Wire Line
-	1950 2400 1950 2450
-Wire Wire Line
-	1950 2450 2200 2450
-Connection ~ 1950 2400
+	1950 2400 1950 2500
 $EndSCHEMATC
