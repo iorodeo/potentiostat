@@ -22,8 +22,8 @@ namespace ps
     // Buffer parameters
     const uint32_t DataBufferSize = 1000;
     const uint32_t SerialBufferSize = 2000; 
-    const uint32_t JsonMessageBufferSize = 5000;
-    const uint32_t JsonTestDataBufferSize = 5000;
+    const uint32_t JsonMessageBufferSize = 4000;
+    const uint32_t JsonTestDataBufferSize = 4000;
 
     // Device ID EEPROM address
     extern const uint32_t EEPROM_DeviceIdAddress;
