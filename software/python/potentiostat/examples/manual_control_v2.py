@@ -87,7 +87,9 @@ if __name__ == '__main__':
     pstat = Potentiostat('/dev/ttyACM0')
     pstat.set_volt_range('2V')
     pstat.set_curr_range('100uA')
+    pstat.set_all_elect_connected(True)
     t, volt, curr = run_manual_test(pstat, volt_func, dt, t_total)
+    pstat.set_all_elect_connected(False)
 
     # Plot results
     plt.subplot(211)

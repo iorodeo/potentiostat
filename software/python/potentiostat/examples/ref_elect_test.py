@@ -22,6 +22,7 @@ range_value_list = [
 
 while True:
     for val, rng in range_value_list:
+        print(f'val: {val}, rng: {rng}')
 
         dev = Potentiostat(port)
         dev.set_all_elect_connected(True)
