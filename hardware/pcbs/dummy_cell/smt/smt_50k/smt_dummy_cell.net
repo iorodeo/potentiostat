@@ -1,0 +1,68 @@
+(export (version D)
+  (design
+    (source /home/wbd/work/products/potentiostat/hardware/pcbs/dummy_cell/smt/smt_50k/smt_dummy_cell.sch)
+    (date "Fri 05 Aug 2022 11:11:06 AM PDT")
+    (tool "Eeschema 5.1.7-a382d34a8~87~ubuntu18.04.1")
+    (sheet (number 1) (name /) (tstamps /)
+      (title_block
+        (title)
+        (company)
+        (rev)
+        (date)
+        (source smt_dummy_cell.sch)
+        (comment (number 1) (value ""))
+        (comment (number 2) (value ""))
+        (comment (number 3) (value ""))
+        (comment (number 4) (value "")))))
+  (components
+    (comp (ref J1)
+      (value Conn_01x03)
+      (footprint GCT_BG300:BG300_03)
+      (datasheet ~)
+      (libsource (lib Connector_Generic) (part Conn_01x03) (description "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"))
+      (sheetpath (names /) (tstamps /))
+      (tstamp 62D5B0CA))
+    (comp (ref R1)
+      (value 50k)
+      (footprint Resistor_SMD:R_0603_1608Metric)
+      (datasheet ~)
+      (libsource (lib Device) (part R_Small) (description "Resistor, small symbol"))
+      (sheetpath (names /) (tstamps /))
+      (tstamp 62D5B80A)))
+  (libparts
+    (libpart (lib Connector_Generic) (part Conn_01x03)
+      (description "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)")
+      (docs ~)
+      (footprints
+        (fp Connector*:*_1x??_*))
+      (fields
+        (field (name Reference) J)
+        (field (name Value) Conn_01x03))
+      (pins
+        (pin (num 1) (name Pin_1) (type passive))
+        (pin (num 2) (name Pin_2) (type passive))
+        (pin (num 3) (name Pin_3) (type passive))))
+    (libpart (lib Device) (part R_Small)
+      (description "Resistor, small symbol")
+      (docs ~)
+      (footprints
+        (fp R_*))
+      (fields
+        (field (name Reference) R)
+        (field (name Value) R_Small))
+      (pins
+        (pin (num 1) (name ~) (type passive))
+        (pin (num 2) (name ~) (type passive)))))
+  (libraries
+    (library (logical Connector_Generic)
+      (uri /usr/share/kicad/library/Connector_Generic.lib))
+    (library (logical Device)
+      (uri /usr/share/kicad/library/Device.lib)))
+  (nets
+    (net (code 1) (name /CTR)
+      (node (ref J1) (pin 2))
+      (node (ref J1) (pin 3))
+      (node (ref R1) (pin 2)))
+    (net (code 2) (name /WRK)
+      (node (ref J1) (pin 1))
+      (node (ref R1) (pin 1)))))

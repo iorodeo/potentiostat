@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name dummy_cell-rescue)(type Legacy)(uri ${KIPRJMOD}/dummy_cell-rescue.lib)(options "")(descr ""))
+)
