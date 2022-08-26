@@ -1,7 +1,7 @@
 ISO-10303-21;
 HEADER;
 FILE_DESCRIPTION(('FreeCAD Model'),'2;1');
-FILE_NAME('Open CASCADE Shape Model','2022-08-22T20:23:07',(''),(''),
+FILE_NAME('Open CASCADE Shape Model','2022-08-26T11:51:25',(''),(''),
   'Open CASCADE STEP processor 7.5','FreeCAD','Unknown');
 FILE_SCHEMA(('AUTOMOTIVE_DESIGN { 1 0 10303 214 1 1 1 1 }'));
 ENDSEC;
