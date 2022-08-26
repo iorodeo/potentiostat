@@ -1,11 +1,4 @@
-18512398865943634
-5x2_shrd_header
-5X2_SHRD_HEADER
-
-
-0
-10
-10
+18515601839142549
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -57322,6 +57315,13 @@ net tie
 0
 4
 4
+OST_SCREW_TERM_3
+CONNBLOCK3
+
+
+0
+3
+3
 OptoDevice
 ADNS-9800
 Laser Gaming Sensor ADNS-9800
@@ -74486,6 +74486,13 @@ rotary encoder
 0
 5
 4
+SOIC-8_3.9x4.9mm_P1.27mm_HandSolder
+SOIC-8_3.9x4.9mm_P1.27mm_HandSolder
+8-Lead Plastic Small Outline (SN) - Narrow, 3.90 mm Body [SOIC] (see Microchip Packaging Specification http://ww1.microchip.com/downloads/en/PackagingSpec/00000049BQ.pdf)
+SOIC 1.27
+0
+8
+8
 Sensor_Audio
 CUI_CMC-4013-SMT
 Omnidirectional, -42dB, reflowable, electret condenser microphone https://www.cuidevices.com/product/resource/cmc-4013-smt-tr.pdf
@@ -80926,3 +80933,10 @@ varistor SIOV
 0
 2
 2
+feather_wing
+feather_wing
+
+
+0
+30
+28
