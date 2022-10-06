@@ -31,11 +31,10 @@ Hardware design, firmware and software for IO Rodeo's Rodeostat Potentiostat.
 
 * Python 
     - Documentation http://stuff.iorodeo.com/docs/potentiostat/  
-* Javascript
-    - Documentation (TODO)
-* C++
-    - Documentation (TODO)
 
 ## Software
+
+* Web app
+    - Documentation https://blog.iorodeo.com/rodeostat-software/
 
 TODO
