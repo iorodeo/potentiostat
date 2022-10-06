@@ -4,6 +4,7 @@
 
 Hardware design, firmware and software for IO Rodeo's Rodeostat Potentiostat. 
 
+* Project site: http://potentiostat.iorodeo.com 
 
 ## Hardware
 
