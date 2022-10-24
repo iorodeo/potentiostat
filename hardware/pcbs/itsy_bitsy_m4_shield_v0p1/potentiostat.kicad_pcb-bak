@@ -5761,7 +5761,7 @@
   (gr_text DIO (at 70.866 127) (layer F.SilkS)
     (effects (font (size 1.016 1.016) (thickness 0.2032)))
   )
-  (gr_text "Rodeostat Itsy Bitsy M4 V0.1 R1" (at 55.88 120.142 270) (layer F.SilkS)
+  (gr_text "Rodeostat M4 V0.1 R1" (at 55.88 120.142 270) (layer F.SilkS)
     (effects (font (size 1.016 1.016) (thickness 0.2032)))
   )
   (gr_text TIA (at 140.716 130.9116) (layer F.SilkS)
