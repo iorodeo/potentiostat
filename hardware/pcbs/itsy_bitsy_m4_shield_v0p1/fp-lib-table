@@ -1,0 +1,9 @@
+(fp_lib_table
+  (lib (name 4-40)(type Legacy)(uri ${KIPRJMOD}/4-40.mod)(options "")(descr "")(disabled))
+  (lib (name teensy3x)(type KiCad)(uri ${KIPRJMOD}/teensy3x.pretty)(options "")(descr ""))
+  (lib (name 5x2_shrd_header)(type KiCad)(uri ${KIPRJMOD}/5x2_shrd_header.pretty)(options "")(descr ""))
+  (lib (name MEA1)(type KiCad)(uri ${KIPRJMOD}/MEA1.pretty)(options "")(descr ""))
+  (lib (name ost_connblocks)(type KiCad)(uri ${KIPRJMOD}/ost_connblocks.pretty)(options "")(descr ""))
+  (lib (name pin_array)(type KiCad)(uri ${KIPRJMOD}/pin_array.pretty)(options "")(descr ""))
+  (lib (name itsy_bitsy_m4)(type KiCad)(uri ${KIPRJMOD}/itsy_bitsy_m4.pretty)(options "")(descr ""))
+)

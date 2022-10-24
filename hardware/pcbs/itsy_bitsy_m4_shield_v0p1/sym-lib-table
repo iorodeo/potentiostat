@@ -1,0 +1,8 @@
+(sym_lib_table
+  (lib (name potentiostat-rescue)(type Legacy)(uri ${KIPRJMOD}/potentiostat-rescue.lib)(options "")(descr ""))
+  (lib (name 74HC138)(type Legacy)(uri ${KIPRJMOD}/74HC138.lib)(options "")(descr ""))
+  (lib (name REF33XX)(type Legacy)(uri ${KIPRJMOD}/REF33XX.lib)(options "")(descr ""))
+  (lib (name teensy3)(type Legacy)(uri ${KIPRJMOD}/teensy3.lib)(options "")(descr ""))
+  (lib (name mea1d05xxsc)(type Legacy)(uri ${KIPRJMOD}/mea1d05xxsc.lib)(options "")(descr ""))
+  (lib (name itsy_bitsy_m4)(type Legacy)(uri ${KIPRJMOD}/itsy_bitsy_m4.lib)(options "")(descr ""))
+)
