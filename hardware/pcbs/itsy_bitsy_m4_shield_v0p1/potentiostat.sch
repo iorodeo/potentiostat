@@ -3900,4 +3900,6 @@ NoConn ~ 19525 16925
 NoConn ~ 2750 2700
 NoConn ~ 2850 2700
 NoConn ~ 2950 2700
+Text Notes 3525 900  0    50   ~ 0
+Note: ITSY_BITSY_M0 also works.
 $EndSCHEMATC
