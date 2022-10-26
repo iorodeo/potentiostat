@@ -97,8 +97,6 @@ Wire Wire Line
 Wire Wire Line
 	19325 16725 19525 16725
 Wire Wire Line
-	19525 16825 19325 16825
-Wire Wire Line
 	20025 16625 20225 16625
 Wire Wire Line
 	20025 16725 20225 16725
@@ -3406,21 +3404,19 @@ Wire Wire Line
 	3550 2050 3750 2050
 Text Label 3750 2150 0    60   ~ 0
 SDA
-Text Label 3750 2050 0    60   ~ 0
-SCL
 Wire Wire Line
-	2350 1750 2150 1750
+	2350 1650 2150 1650
 Text Label 3750 1750 0    60   ~ 0
 TIA_GAIN_A0
 Text Label 3750 1650 0    60   ~ 0
 TIA_GAIN_A1
 Wire Wire Line
-	3550 1950 3750 1950
+	2350 1850 2150 1850
 Wire Wire Line
-	3550 1850 3750 1850
-Text Label 3750 1950 0    50   ~ 0
+	2350 1950 2150 1950
+Text Label 2150 1850 2    60   ~ 0
 REF_GAIN_A0
-Text Label 3750 1850 0    50   ~ 0
+Text Label 2150 1950 2    60   ~ 0
 REF_GAIN_A1
 Wire Wire Line
 	3550 1550 3750 1550
@@ -3855,51 +3851,67 @@ Wire Wire Line
 	2350 1150 2150 1150
 NoConn ~ 2350 1250
 NoConn ~ 2350 1350
-Text Label 2150 1750 2    60   ~ 0
+Text Label 2150 1650 2    60   ~ 0
 REF_ELECT_UNI
 Wire Wire Line
-	2150 1650 2350 1650
+	2150 1550 2350 1550
 Text Label 2150 2050 2    60   ~ 0
 SCK
 Wire Wire Line
 	2350 2050 2150 2050
-Text Label 2150 1650 2    60   ~ 0
+Text Label 2150 1550 2    60   ~ 0
 TIA_OUT_UNI
 NoConn ~ 3550 1050
 Wire Wire Line
 	3550 2250 3750 2250
 Wire Wire Line
 	3550 2350 3750 2350
-Text Label 3750 2250 0    50   ~ 0
+Text Label 3750 2250 0    60   ~ 0
 TX_D1
-Text Label 3750 2350 0    50   ~ 0
+Text Label 3750 2350 0    60   ~ 0
 RX_D0
-Text Label 2150 1950 2    50   ~ 0
-A5_D19
 Wire Wire Line
-	2350 1950 2150 1950
-Wire Wire Line
-	2350 1850 2150 1850
-Wire Wire Line
-	2350 1550 2125 1550
-Text Label 2150 1850 2    50   ~ 0
-A4_D18
-Text Label 2125 1550 2    50   ~ 0
-A1_D15
+	2350 1750 2125 1750
+Text Label 2125 1750 2    60   ~ 0
+A3_D17
 Text Label 19325 16725 2    50   ~ 0
-A1_D15
+D7
 Text Label 20225 16725 0    50   ~ 0
-A4_D18
-Text Label 19325 16825 2    50   ~ 0
-A5_D19
-NoConn ~ 20025 16825
-NoConn ~ 20025 16925
-NoConn ~ 20025 17025
-NoConn ~ 19525 17025
-NoConn ~ 19525 16925
+A3_D17
 NoConn ~ 2750 2700
 NoConn ~ 2850 2700
 NoConn ~ 2950 2700
 Text Notes 3525 900  0    50   ~ 0
 Note: ITSY_BITSY_M0 also works.
+Text Label 3750 1850 0    60   ~ 0
+D7
+Text Label 3750 2050 0    60   ~ 0
+SCL
+Wire Wire Line
+	3550 1850 3750 1850
+NoConn ~ 3550 1950
+Text Label 19325 17025 2    60   ~ 0
+SCK
+Text Label 19325 16925 2    60   ~ 0
+POCI
+Text Label 19325 16825 2    60   ~ 0
+SCL
+Wire Wire Line
+	19525 17025 19325 17025
+Wire Wire Line
+	19525 16925 19325 16925
+Wire Wire Line
+	19525 16825 19325 16825
+Text Label 20225 17025 0    60   ~ 0
+CS
+Text Label 20225 16925 0    60   ~ 0
+PICO
+Text Label 20225 16825 0    60   ~ 0
+SDA
+Wire Wire Line
+	20025 17025 20225 17025
+Wire Wire Line
+	20025 16925 20225 16925
+Wire Wire Line
+	20025 16825 20225 16825
 $EndSCHEMATC
