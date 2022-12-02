@@ -1070,14 +1070,6 @@ namespace ps
     {
         if (test_ != nullptr)
         {
-
-#if defined HARDWARE_VERSION_0P2 
-            if (electrodeAutoConnect_)
-            {
-                electrodeSwitch_.setAllConnected(true);
-            }
-#endif
-
             timerCnt_ = 0;
             analogSubsystem_.autoVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
 
@@ -1085,6 +1077,15 @@ namespace ps
             analogSubsystem_.autoRefElectVoltRange(test_ -> getMinValue(), test_ -> getMaxValue());
 #endif
             test_ -> reset();
+            float volt = test_ -> getValue(0.0);
+            analogSubsystem_.setVolt(volt);
+
+#if defined HARDWARE_VERSION_0P2 
+            if (electrodeAutoConnect_)
+            {
+                electrodeSwitch_.setAllConnected(true);
+            }
+#endif
             if (multiplexer_.isRunning())
             {
                 for (int i=0; i<NumMuxChan; i++)
@@ -1110,7 +1111,6 @@ namespace ps
         testTimer_.end();
         testInProgress_ = false;
         lastSampleFlag_ = true;
-        analogSubsystem_.setVolt(0.0);
 
 #if defined HARDWARE_VERSION_0P2 
         if (electrodeAutoConnect_)
@@ -1118,13 +1118,13 @@ namespace ps
             electrodeSwitch_.setAllConnected(false);
         }
 #endif
-
         if (multiplexer_.isRunning())
         {
             multiplexer_.disconnectWrkElect();
             multiplexer_.disconnectRefElect();
             multiplexer_.disconnectCtrElect();
         }
+        //analogSubsystem_.setVolt(0.0);
     }
 
 
