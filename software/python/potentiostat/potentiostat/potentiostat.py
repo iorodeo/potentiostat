@@ -3,7 +3,7 @@
 potentiostat
 ============
 
-    This module implements the serial interface to the Rodeostat open source 
+    This module implements the serial interface to the Rodeostat open source
     Potentiostat Shield.
 
     :copyright: (c) 2017 by IO Rodeo 
@@ -165,21 +165,19 @@ PklOutputFileType = 1
 
 class Potentiostat(serial.Serial):
 
-    """Provides a high level interface  performing serial communications with the Rodeostat. 
+    """Provides a high level interface for serial communications with the Rodeostat. 
 
-    :param str port: serial port associated with the Rodeostat, e.g. /dev/ttyACM0, COM1, etc.
-
-    :Keyword Arguments:
-
+    :param port: serial port associated with the Rodeostat, e.g. /dev/ttyACM0, COM1, etc.
+    :type  port: str
+    :param timeout: serial port ready timeout (seconds)
+    :type  timeout: float, optional 
 
     """
     
     ResetSleepDt = 0.0
     Baudrate = 115200
 
-    def __init__(self, port, timeout=10.0, debug=False):
-        """ Constructor
-        """
+    def __init__(self, port, timeout=10.0):
         params = {'baudrate': self.Baudrate, 'timeout': timeout}
         super(Potentiostat,self).__init__(port,**params)
         time.sleep(self.ResetSleepDt)
@@ -194,6 +192,9 @@ class Potentiostat(serial.Serial):
 
     def get_hardware_variant(self):
         """Returns a string representing the hardware variant.
+
+        :return: hardware variant, e.g. '10V_microAmpV0.2'
+        :rtype: string
         """
         cmd_dict = {CommandKey: GetVariantCmd}
         msg_dict = self.send_cmd(cmd_dict)
@@ -209,7 +210,8 @@ class Potentiostat(serial.Serial):
 
 
     def get_volt(self):
-        """Returns the output voltage setting, i.e, the potential between the working and reference electrode. 
+        """Returns the output voltage setting, i.e, the potential between the
+        working and reference electrode. 
 
         """
         cmd_dict = {CommandKey: GetVoltCmd}
@@ -219,7 +221,8 @@ class Potentiostat(serial.Serial):
 
 
     def set_volt(self,volt):
-        """Sets the output voltage setting, i.e., the potential between the working and reference electrode. 
+        """Sets the output voltage setting, i.e., the potential between the
+        working and reference electrode. 
 
         """
         cmd_dict = {CommandKey: SetVoltCmd, VoltKey: volt}
@@ -229,8 +232,10 @@ class Potentiostat(serial.Serial):
 
 
     def get_curr(self):
-        """Returns and immediate measurement of electrical current flowing in/out of the working electrode. 
+        """Gets an immediate measurement of the working electrode current. 
 
+        :return: working electrode current (uA)
+        :rtype: float
         """
         cmd_dict = {CommandKey: GetCurrCmd}
         msg_dict = self.send_cmd(cmd_dict)
@@ -239,7 +244,8 @@ class Potentiostat(serial.Serial):
 
 
     def get_ref_volt(self):
-        """Returns the measurement of the potential between the working and reference electrode. 
+        """Gets an immediate measurement of the potential between the working
+        and reference electrode. 
 
         """
         cmd_dict = {CommandKey: GetRefVoltCmd}
@@ -249,7 +255,8 @@ class Potentiostat(serial.Serial):
 
 
     def get_param(self,testname):
-        """Returns the current values of the parameters for the specified voltammetric test. 
+        """Returns the current values of the parameters for the specified
+        voltammetric test. 
 
         """
         cmd_dict = {CommandKey: GetParamCmd, TestKey: testname} 
@@ -267,7 +274,8 @@ class Potentiostat(serial.Serial):
 
 
     def set_volt_range(self,volt_range):
-        """Sets the output voltage range (V)- used when setting output voltage manually.
+        """Sets the output voltage range (V)- used when setting output voltage
+        manually.
 
         """
         if not volt_range in self.get_all_volt_range():
@@ -287,8 +295,10 @@ class Potentiostat(serial.Serial):
 
 
     def get_all_volt_range(self):
-        """Gets a list of voltage ranges supported by the device.
+        """Gets a list of the voltage ranges supported by the device.
 
+        :return: list of voltage ranges as strings, e.g., ['1V', '2V', '5V', '10V']
+        :rtype:  list
         """
         return HwVariantToVoltRangesDict[self.hardware_variant]
 
@@ -305,7 +315,10 @@ class Potentiostat(serial.Serial):
 
 
     def get_curr_range(self):
-        """Gets the current value of the measurement current range (uA).
+        """Gets the device's range setting for measuring working electrode current.
+
+        :return: working electrode current range setting in (uA)
+        :rtype: str, e.g '1uA', '10uA', etc.
 
         """
         cmd_dict = {CommandKey: GetCurrRangeCmd}
@@ -316,6 +329,8 @@ class Potentiostat(serial.Serial):
     def get_all_curr_range(self):
         """Gets a list of all current ranges supported by the device.
 
+        :return: list of all current ranges as strings e.g., ['1uA', 10uA', '100uA', '1000uA']
+        :rtype: list
         """
         return HwVariantToCurrRangesDict[self.hardware_variant]
 
@@ -323,6 +338,8 @@ class Potentiostat(serial.Serial):
     def get_device_id(self):
         """Gets the current value of the device identification number
 
+        :return: device identification number
+        :rtype: int
         """
         cmd_dict = {CommandKey: GetDeviceIdCmd}
         msg_dict = self.send_cmd(cmd_dict)
@@ -339,8 +356,8 @@ class Potentiostat(serial.Serial):
 
 
     def set_sample_period(self,sample_period):
-        """Sets the sample period (s) used for measurements. The sample period is the
-        time between samples. 
+        """Sets the sample period (s) used for measurements. The sample period
+        is the time between samples. 
 
         """
         cmd_dict = {CommandKey: SetSamplePeriodCmd, SamplePeriodKey: sample_period}
@@ -349,8 +366,8 @@ class Potentiostat(serial.Serial):
 
 
     def get_sample_period(self):
-        """Gets the current value for the sample period (s). The sample period is the
-        time between samples.
+        """Gets the current value for the sample period (s). The sample period
+        is the time between samples.
 
         """
         cmd_dict = {CommandKey: GetSamplePeriodCmd}
@@ -359,8 +376,8 @@ class Potentiostat(serial.Serial):
 
 
     def set_sample_rate(self,sample_rate):
-        """Sets the measurement sample rate (Hz). Note, this is an alternative way to set 
-        the sample period. 
+        """Sets the measurement sample rate (Hz). Note, this is an alternative
+        way to set the sample period. 
 
         """
         sample_period = int(1.0e3/sample_rate)
@@ -368,7 +385,8 @@ class Potentiostat(serial.Serial):
 
 
     def get_sample_rate(self):
-        """Gets the measurement sample period (Hz). Note, the sample rate is 1/sample_period.
+        """Gets the measurement sample period (Hz). Note, the sample rate is
+        1/sample_period.
 
         """
         sample_period = self.get_sample_period()
@@ -377,7 +395,8 @@ class Potentiostat(serial.Serial):
 
 
     def get_test_done_time(self, test, timeunit='ms'):
-        """Gets the time in seconds required to complete the specified test including any quietTime, etc. 
+        """Gets the time in seconds required to complete the specified test
+        including any quietTime, etc. 
 
         """
         cmd_dict = {CommandKey: GetTestDoneTimeCmd, TestKey: test}
@@ -386,7 +405,8 @@ class Potentiostat(serial.Serial):
 
 
     def get_test_names(self):
-        """Gets the list of the names of all tests which can be performed by the device with the current firmware. 
+        """Gets the list of the names of all tests which can be performed by
+        the device with the current firmware. 
 
         """
         cmd_dict = {CommandKey: GetTestNamesCmd}
@@ -397,6 +417,8 @@ class Potentiostat(serial.Serial):
     def get_firmware_version(self):
         """Gets the version string for the firmware on the device.
 
+        :return: firmware version, e.g. 'FW0.0.8'
+        :rtype: str
         """
         cmd_dict = {CommandKey: GetVersionCmd}
         msg_dict = self.send_cmd(cmd_dict)
@@ -405,6 +427,9 @@ class Potentiostat(serial.Serial):
 
     def get_hardware_version(self):
         """ Returns string representing the hardware version.
+
+        :return: hardware version, e.g., 'V0.2'
+        :rtype: str
         """
         cmd_dict = {CommandKey: GetHardwareVersionCmd}
         try:
@@ -426,8 +451,8 @@ class Potentiostat(serial.Serial):
 
 
     def get_ref_elect_connected(self):
-        """Gets the connected state (True/False) of the reference electrode.  This
-        feature requires hardware version >= HW0.2
+        """Gets the connected state (True/False) of the reference electrode.
+        This feature requires hardware version >= HW0.2
         """
         self.check_hardware_version(HardwareVersion0p2)
         cmd_dict = {CommandKey: GetRefElectConnCmd}
@@ -436,8 +461,8 @@ class Potentiostat(serial.Serial):
 
 
     def set_ctr_elect_connected(self,value):
-        """Sets the connected state (True/False) of the counter electrode.  This
-        feature requires hardware version >= HW0.2
+        """Sets the connected state (True/False) of the counter electrode.
+        This feature requires hardware version >= HW0.2
         """
         self.check_hardware_version(HardwareVersion0p2)
         cmd_dict = {CommandKey: SetCtrElectConnCmd, ConnectedKey: value}
@@ -446,8 +471,11 @@ class Potentiostat(serial.Serial):
 
 
     def get_ctr_elect_connected(self):
-        """Gets the connected state (True/False) of the counter electrode.  This
-        feature requires hardware version >= HW0.2
+        """Gets the connected state (True/False) of the counter electrode.
+        This feature requires hardware version >= HW0.2
+
+        :return: connection state of counter electrode (True/False)
+        :rtype: bool
         """
         self.check_hardware_version(HardwareVersion0p2)
         cmd_dict = {CommandKey: GetCtrElectConnCmd}
@@ -476,8 +504,9 @@ class Potentiostat(serial.Serial):
 
 
     def set_all_elect_connected(self,value):
-        """Sets the connected state (True/False) of all the electrodes (referene, 
-        counter and working). This feature requires hardware version >= HW0.2
+        """Sets the connected state (True/False) of all the electrodes
+        (referene, counter and working). This feature requires hardware version
+        >= HW0.2 
         """
         self.check_hardware_version(HardwareVersion0p2)
         cmd_dict = {CommandKey: SetAllElectConnCmd, ConnectedKey: value}
@@ -489,6 +518,9 @@ class Potentiostat(serial.Serial):
         """Gets the connected state (True/False) of all the electrodes
         (referene, counter and working). Only True if all are connected. This
         feature requires hardware version >= HW0.2
+
+        :return: connected stat of all electrodes, True/False
+        :rtype: bool
         """
         self.check_hardware_version(HardwareVersion0p2)
         cmd_dict = {CommandKey: GetAllElectConnCmd}
@@ -498,9 +530,9 @@ class Potentiostat(serial.Serial):
 
     def set_auto_connect(self,value):
         """ Set auto-connect/auto-disconnect feature. If auto-connect is set to
-        True then the  ref, ctr and wrk electrodes will be automatically connected at
-        the beginning of each test and automatically disconnected at the end of
-        each test.
+        True then the  ref, ctr and wrk electrodes will be automatically
+        connected at the beginning of each test and automatically disconnected
+        at the end of each test.
         """
         self.check_hardware_version(HardwareVersion0p2)
         cmd_dict = {CommandKey: SetElectAutoConnCmd, AutoConnectKey: value}
@@ -510,6 +542,9 @@ class Potentiostat(serial.Serial):
 
     def get_auto_connect(self):
         """ Gets the value of the device's auto-connect/auto-disconnect setting.
+
+        :return: the current auto-connect setting, True/False
+        :rtype: bool
         """
         self.check_hardware_version(HardwareVersion0p2)
         cmd_dict = {CommandKey: GetElectAutoConnCmd}
@@ -550,6 +585,8 @@ class Potentiostat(serial.Serial):
     def get_mux_enabled(self):
         """Get multiplexer expansion hardware enabled state 
 
+        :return: mux enabled state, True/False
+        :rtype: bool
         """
         cmd_dict = {CommandKey: GetMuxEnabledCmd}
         msg_dict = self.send_cmd(cmd_dict)
@@ -557,7 +594,8 @@ class Potentiostat(serial.Serial):
 
 
     def set_enabled_mux_channels(self,channels):
-        """Enables the specified subset of multiplexer working electrode channels
+        """Enables the specified subset of multiplexer working electrode
+        channels
 
         """
         cmd_dict = {CommandKey: SetEnabledMuxChanCmd, MuxChannelKey: channels}
@@ -566,16 +604,22 @@ class Potentiostat(serial.Serial):
 
 
     def get_enabled_mux_channels(self):
-        """Get the list of currently enabled multiplexer working electrode channels
+        """Get the list of currently enabled multiplexer working electrode
+        channels
 
+        :return: list of currently enabled mux channels
+        :rtype: list of integers
         """
         cmd_dict = {CommandKey: GetEnabledMuxChanCmd}
         msg_dict = self.send_cmd(cmd_dict)
         return msg_dict[ResponseKey][MuxChannelKey]
 
     def get_mux_test_names(self):
-        """Gets the list of test which are compatible with the multiplexer expansion hardware
+        """Gets the list of tests which are compatible with the multiplexer
+        expansion hardware
 
+        :return: list of tests compatible with multiplexer
+        :rtype: list of strings
         """
         cmd_dict = {CommandKey: GetMuxTestNamesCmd}
         msg_dict = self.send_cmd(cmd_dict)
@@ -583,8 +627,8 @@ class Potentiostat(serial.Serial):
 
 
     def set_mux_ref_elect_connected(self,value):
-        """Sets the connected state (True/False) of the reference electrode when using the multiplexer 
-        expansion hardware.
+        """Sets the connected state (True/False) of the reference electrode
+        when using the multiplexer expansion hardware.
 
         """
         cmd_dict = {CommandKey: SetMuxRefElectConnCmd, ConnectedKey: value}
@@ -593,9 +637,11 @@ class Potentiostat(serial.Serial):
 
 
     def get_mux_ref_elect_connected(self):
-        """ Returns the connected state (True/False) of the reference electrode when using the multiplexer
-        expansion hardware.
+        """ Gets the connected state (True/False) of the reference electrode
+        when using the multiplexer expansion hardware.
 
+        :return: connected state of mux reference electrode, True/False
+        :rtype: bool
         """
         cmd_dict = {CommandKey: GetMuxRefElectConnCmd}
         msg_dict = self.send_cmd(cmd_dict)
@@ -603,8 +649,8 @@ class Potentiostat(serial.Serial):
 
 
     def set_mux_ctr_elect_connected(self,value):
-        """Sets the connected state (True or False) of the counter electrode when using the multiplexer
-        expansion hardware.
+        """Sets the connected state (True or False) of the counter electrode
+        when using the multiplexer expansion hardware.
 
         """
         cmd_dict = {CommandKey: SetMuxCtrElectConnCmd, ConnectedKey: value}
@@ -613,9 +659,11 @@ class Potentiostat(serial.Serial):
 
 
     def get_mux_ctr_elect_connected(self):
-        """Returns the connected state (True or False) of the counter electrode when using the multiplexer
-        expansion hardware.
+        """Returns the connected state (True or False) of the counter electrode
+        when using the multiplexer expansion hardware.
 
+        :return: connected state of mux counter electrode (True/False)
+        :rtype: bool
         """
         cmd_dict = {CommandKey: GetMuxCtrElectConnCmd}
         msg_dict = self.send_cmd(cmd_dict)
@@ -623,9 +671,8 @@ class Potentiostat(serial.Serial):
 
 
     def set_mux_wrk_elect_connected(self, value):
-        """Sets the connected state (1, 2, 3, 4, 5, 6, 7 or False) of the working electrode when using the 
-        multiplexer expansion hardware.
-
+        """Sets the connected state (1, 2, 3, 4, 5, 6, 7 or False) of the
+        working electrode when using the multiplexer expansion hardware.
         """
         cmd_dict = {CommandKey: SetMuxWrkElectConnCmd, ConnectedKey: value}
         msg_dict = self.send_cmd(cmd_dict)
@@ -633,9 +680,11 @@ class Potentiostat(serial.Serial):
 
 
     def get_mux_wrk_elect_connected(self):
-        """Returns the connected state (1, 2, 3, 4, 5, 6, 7 or False) of the working electrode when using 
-        the multiplexer expansion hardware.
+        """Returns the connected state (1, 2, 3, 4, 5, 6, 7 or False) of the
+        working electrode when using the multiplexer expansion hardware.
 
+        :return: connected state of mux working electrode. 
+        :rtype: int or bool
         """
         cmd_dict = {CommandKey: GetMuxWrkElectConnCmd}
         msg_dict = self.send_cmd(cmd_dict)
@@ -643,8 +692,8 @@ class Potentiostat(serial.Serial):
 
 
     def disconnect_all_mux_elect(self):
-        """Disconnects all electrodes (reference, counter and working) when using the multiplexer expansion
-        hardware.
+        """Disconnects all electrodes (reference, counter and working) when
+        using the multiplexer expansion hardware.
 
         """
         cmd_dict = {CommandKey: DisconnAllMuxElectCmd}
@@ -652,7 +701,8 @@ class Potentiostat(serial.Serial):
 
 
     def run_test(self, testname, param=None, filename=None, display='pbar', timeunit='s'):
-        """Runs the test with specified test name and returns the time, voltage and current data.
+        """Runs the test with specified test name and returns the time, voltage
+        and current data.
 
         """
         mux_enabled = False
@@ -808,7 +858,11 @@ class Potentiostat(serial.Serial):
 
 
     def check_hardware_version(self,hw_version):
-        """ Check to see if the device's hardware version is at least 'hw_version'
+        """ Check to see if the device's hardware version matches the given
+        string 'hw_version'
+
+        :param hw_version: string representing hardware version to check, e.g., 'HW0.2'
+        :type  hw_version: str
         """
         if self.hardware_version < hw_version:
             raise RuntimeError('requires hardware version >= {}'.format(HardwareVersion0p2))

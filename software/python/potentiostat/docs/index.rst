@@ -10,7 +10,10 @@ iorodeo-potentiostat
 A Python library for controlling IO Rodeo's Rodeostat open source potentiostat
 
 
-.. figure:: _static/pstat_shield_img_0.JPG
+
+
+
+.. figure:: _static/rodeostat_v0p2_pcb.png
    :align:  center
 
 IO Rodeo's Rodeostat is an open source potentiostat for performing
