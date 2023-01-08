@@ -31,11 +31,9 @@ Hardware design, firmware and software for IO Rodeo's Rodeostat Potentiostat.
 ## Libraries
 
 * Python 
-    - Documentation http://stuff.iorodeo.com/docs/potentiostat/  
+    - Documentation https://iorodeo.github.io/iorodeo-potentiostat-docs-build/
 
 ## Software
 
 * Web app
     - Documentation https://blog.iorodeo.com/rodeostat-software/
-
-TODO
