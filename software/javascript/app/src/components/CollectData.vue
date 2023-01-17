@@ -213,11 +213,16 @@ export default {
         for (let i=0; i<this.dataLength; i++)
         {
           // TO DO save precision somewhere
-          let dataLine = ''; 
-          dataLine += this.data.time[i].toPrecision(4) + ', '; 
-          dataLine += this.data.volt[i].toPrecision(4) + ', '; 
-          dataLine += this.data.curr[i].toPrecision(4);
-          dataArray.push(dataLine);
+          try {
+            let dataLine = ''; 
+            dataLine += this.data.time[i].toPrecision(4) + ', '; 
+            dataLine += this.data.volt[i].toPrecision(4) + ', '; 
+            dataLine += this.data.curr[i].toPrecision(4);
+            dataArray.push(dataLine);
+          } 
+          catch(e) {
+            console.log(e);
+          }
         }
         dataArray = [dataArray.join('\n') + '\n'];
         let blob = new Blob(dataArray, {type: "text/plain;charset=utf-8"});
