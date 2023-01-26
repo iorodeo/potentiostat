@@ -3414,9 +3414,9 @@ Wire Wire Line
 	2350 1850 2150 1850
 Wire Wire Line
 	2350 1950 2150 1950
-Text Label 2150 1850 2    50   ~ 0
+Text Label 2150 1850 2    60   ~ 0
 REF_GAIN_A0
-Text Label 2150 1950 2    50   ~ 0
+Text Label 2150 1950 2    60   ~ 0
 REF_GAIN_A1
 Wire Wire Line
 	3550 1550 3750 1550
@@ -3866,13 +3866,13 @@ Wire Wire Line
 	3550 2250 3750 2250
 Wire Wire Line
 	3550 2350 3750 2350
-Text Label 3750 2250 0    50   ~ 0
+Text Label 3750 2250 0    60   ~ 0
 TX_D1
-Text Label 3750 2350 0    50   ~ 0
+Text Label 3750 2350 0    60   ~ 0
 RX_D0
 Wire Wire Line
 	2350 1750 2125 1750
-Text Label 2125 1750 2    50   ~ 0
+Text Label 2125 1750 2    60   ~ 0
 A3_D17
 Text Label 19325 16725 2    50   ~ 0
 D7
@@ -3883,7 +3883,7 @@ NoConn ~ 2850 2700
 NoConn ~ 2950 2700
 Text Notes 3525 900  0    50   ~ 0
 Note: ITSY_BITSY_M0 also works.
-Text Label 3750 1850 0    50   ~ 0
+Text Label 3750 1850 0    60   ~ 0
 D7
 Text Label 3750 2050 0    60   ~ 0
 SCL
