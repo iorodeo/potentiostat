@@ -5,8 +5,7 @@
 
 namespace ps
 {
-
-#if defined HARDWARE_VERSION_0P1
+#if defined(HARDWARE_VERSION_0P1)
     const int AD8250_GAIN_A0 = 0;
     const int AD8250_GAIN_A1 = 1;
     const int TIA_SW1_IN1 = 2;
@@ -17,7 +16,7 @@ namespace ps
     const int TIA_SW2_IN2 = 9;
     const int TIA_SW2_IN3 = 22;
     const int TIA_SW2_IN4 = 23;
-#elif defined HARDWARE_VERSION_0P2
+#elif defined(HARDWARE_VERSION_0P2) && defined(DEVBOARD_TEENSY)
     const int DAC_GAIN_A0 = 0;
     const int DAC_GAIN_A1 = 1;
     const int TIA_GAIN_A0 = 5;
@@ -27,13 +26,24 @@ namespace ps
     const int SW_CTR_ELECT = 7;
     const int SW_REF_ELECT = 8;
     const int SW_WRK_ELECT = 9;
+#elif defined(HARDWARE_VERSION_0P2) && defined(DEVBOARD_ITSY_BITSY)
+    const int DAC_GAIN_A0 = 3;
+    const int DAC_GAIN_A1 = 4;
+    const int TIA_GAIN_A0 = 9;
+    const int TIA_GAIN_A1 = 10; 
+    const int REF_GAIN_A0 = 18;
+    const int REF_GAIN_A1 = 19;
+    const int SW_CTR_ELECT = 11;
+    const int SW_REF_ELECT = 12;
+    const int SW_WRK_ELECT = 13;
 #else
 #   error "HARDWARE_VERSION must be specified"
 #endif 
+
+#if defined(DEVBOARD_TEENSY)
     const int DAC_UNI_PIN = A14;
     const int TIA_OUT_UNI_PIN = A1;
     const int REF_ELECT_UNI_PIN = A2;
-
     // Multiplexer switch pins
     const int MUX_WRK1_TO_TIA = 24;
     const int MUX_WRK1_TO_GND = 28;
@@ -51,6 +61,13 @@ namespace ps
     const int MUX_WRK7_TO_GND = 10;
     const int MUX_CTR_CONN = 3;
     const int MUX_REF_CONN = 12;
+#elif defined(DEVBOARD_ITSY_BITSY)
+    const int DAC_UNI_PIN = A0;
+    const int TIA_OUT_UNI_PIN = A1;
+    const int REF_ELECT_UNI_PIN = A2;
+#else
+#   error "DEVBOARD must be specified"
+#endif
 
 }
 
