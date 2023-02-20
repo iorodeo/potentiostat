@@ -26,7 +26,8 @@ namespace ps
         BaseTest *testPtr = nullptr;
         for (size_t i=0; i<availableTests_.size(); i++)
         {
-            String currName = (availableTests_[i] -> getName()).trim();
+            String currName = availableTests_[i] -> getName();
+            currName.trim();
             if (name.equals(currName))
             {
                 testPtr = availableTests_[i];

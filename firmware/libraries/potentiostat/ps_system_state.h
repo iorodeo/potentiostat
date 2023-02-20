@@ -15,7 +15,9 @@
 #include "ps_voltammetry.h"
 #include "ps_sample.h"
 #include "ps_filter.h"
+#if defined MUX_CAPABLE 
 #include "ps_multiplexer.h"
+#endif
 #include "third-party/Array/Array.h"
 #define ARDUINOJSON_USE_DOUBLE 0
 #include "third-party/ArduinoJson/ArduinoJson.h"
@@ -98,7 +100,9 @@ namespace ps
             volatile bool lastSampleFlag_;
 
             AnalogSubsystem analogSubsystem_;
+#if defined MUX_CAPABLE
             Multiplexer multiplexer_;
+#endif
 
 #if defined HARDWARE_VERSION_0P2
             ElectrodeSwitch electrodeSwitch_;
@@ -113,7 +117,9 @@ namespace ps
             CircularBuffer<Sample,DataBufferSize> dataBuffer_;
             Voltammetry voltammetry_;
 
-            IntervalTimer testTimer_;
+#if defined DEVBOARD_TEENSY 
+            IntervalTimer testTimer_;  
+#endif
             void (*testTimerCallback_)() = dummyTimerCallback;
             volatile uint64_t timerCnt_;
             uint32_t samplePeriod_; 

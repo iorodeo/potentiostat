@@ -96,7 +96,8 @@ namespace ps
         {
             if ( jsonMsg.containsKey(key.c_str()) )
             {
-                String cmd = String((const char *)(jsonMsg[key])).trim();
+                String cmd = String((const char *)(jsonMsg[key]));
+                cmd.trim();
                 bool found = false;
                 for (size_t i=0; i<table_.size(); i++)
                 {

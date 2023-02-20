@@ -1,6 +1,6 @@
+#if defined DEVBOARD_TEENSY
 #include "ps_device_id_eeprom.h"
 #include <EEPROM.h>
-
 namespace ps
 {
     DeviceId_EEPROM::DeviceId_EEPROM(uint32_t address)
@@ -42,5 +42,5 @@ namespace ps
         jsonDat.set(DeviceIdKey,device_id);
     }
 
-
 } // namespace ps
+#endif 

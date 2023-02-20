@@ -6,6 +6,7 @@
 #include "ps_return_status.h"
 #include "third-party/Array/Array.h"
 
+#if defined MUX_CAPABLE
 namespace ps
 {
 
@@ -99,5 +100,7 @@ namespace ps
     }
 
 }
+
+#endif
 
 #endif

@@ -6,6 +6,7 @@
 
 #include "third-party/ArduinoJson/ArduinoJson.h"
 
+#if defined DEVBOARD_TEENSY
 namespace ps
 {
 
@@ -26,4 +27,5 @@ namespace ps
 
 } // namespace ps
 
+#endif
 #endif 

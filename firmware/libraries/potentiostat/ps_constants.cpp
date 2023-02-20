@@ -10,7 +10,7 @@ namespace ps
 #elif defined HARDWARE_VERSION_0P2
     const String HardwareVersion = String("V0.2");
 #else
-#   error "VOLTAGE_VARIANT must be selected"
+    #error "VOLTAGE_VARIANT must be selected"
 #endif
 
     // Serial parameters
@@ -132,7 +132,7 @@ namespace ps
     const VoltRangeDac VoltRangeDac8V(String("8V"), -8.0, 8.0, VoltGain8X, AnalogSubsystem::MaxValueDac);
     VoltRangeDac DacArrayTmp[NumVoltRangeDac] = {VoltRangeDac1V, VoltRangeDac2V, VoltRangeDac4V, VoltRangeDac8V};
 #else
-#   error "VOLTAGE_VARIANT must be selected"
+    #error "VOLTAGE_VARIANT must be selected"
 #endif 
     Array<VoltRangeDac,NumVoltRangeDac> VoltRangeDacArray(DacArrayTmp);
     const float SignDac = -1.0; 
@@ -169,7 +169,7 @@ namespace ps
     const CurrRange CurrRange1000uA("1000uA", -1000.0, 1000.0, CurrGainPathIn4, AnalogSubsystem::MaxValueAin); 
     CurrRange currRangeArrayTmp[NumCurrRange] = {CurrRange1uA, CurrRange10uA, CurrRange100uA, CurrRange1000uA};
 #else
-#   error "CURRENT_VARIANT must be selected"
+    #error "CURRENT_VARIANT must be selected"
 #endif
     const String HardwareVariant = VoltageVariant + String("_") + CurrentVariant + HardwareVersion;
     Array<CurrRange,NumCurrRange>  CurrRangeArray(currRangeArrayTmp);
@@ -179,7 +179,7 @@ namespace ps
 #elif defined HARDWARE_VERSION_0P2
     const float SignCurr = -1.0;
 #else
-#   error "HARDWARE_VERSION must be specified"
+    #error "HARDWARE_VERSION must be specified"
 #endif
 
     // Timer parameters

@@ -1,5 +1,4 @@
 #include "ps_message_receiver.h"
-#include <util/atomic.h>
 
 namespace ps
 {
@@ -40,8 +39,7 @@ namespace ps
         String message("");
         if (messageCnt_ > 0)
         {
-            ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-            {   
+            {  // Begin atomic block  
                 while (!serialBuffer_.empty())
                 {
                     char byte = serialBuffer_.front();
@@ -53,7 +51,7 @@ namespace ps
                     message += String(byte);
                 }
                 messageCnt_--;
-            }
+            } // End atomic block
         }
         return message;
     }

@@ -167,8 +167,13 @@ namespace ps
     enum SampleMethod {SampleGeneric, SampleCustom};
 
     // Multiplexer Parameters
+#if defined MUX_CAPABLE
     const uint8_t NumMuxChan = 7;
     const uint8_t NumMuxPin = 16;
+#else
+    const uint8_t NumMuxChan = 1;
+    const uint8_t NumMuxPin = 1;
+#endif
 
 } // namespace ps
 

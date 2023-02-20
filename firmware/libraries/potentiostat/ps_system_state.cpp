@@ -1,6 +1,11 @@
 #include "ps_system_state.h"
+#if defined DEVBOARD_TEENSY
 #include "ps_device_id_eeprom.h"
-#include "util/atomic.h"
+#endif
+#if defined DEVBOARD_ITSY_BITSY
+//#include "third-party/SAMD51_InterruptTimer/SAMD51_InterruptTimer.h"
+#include "SAMD51_InterruptTimer.h"
+#endif
 
 
 namespace ps
@@ -101,6 +106,7 @@ namespace ps
             return status;
         }
 
+#if defined MUX_CAPABLE
         if (multiplexer_.isRunning())
         {
             if (!(test_ -> isMuxCompatible()))
@@ -122,6 +128,7 @@ namespace ps
                 multiplexer_.connectFirstEnabledWrkElect();
             }
         }
+#endif
 
         startTest();
         return status;
@@ -266,8 +273,13 @@ namespace ps
     ReturnStatus SystemState::onCommandSetDeviceId(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+#if defined DEVBOARD_TEENSY
         DeviceId_EEPROM deviceIdMem;
         status = deviceIdMem.set(jsonMsg,jsonDat);
+#else
+        status.success = false;
+        status.message = String("device does not support nonvolatile memory");
+#endif
         return status;
     }
 
@@ -275,8 +287,13 @@ namespace ps
     ReturnStatus SystemState::onCommandGetDeviceId(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+#if defined DEVBOARD_TEENSY
         DeviceId_EEPROM deviceIdMem;
         deviceIdMem.get(jsonDat);
+#else
+        status.success = false;
+        status.message = String("device does not support nonvolatile memory");
+#endif
         return status;
     }
 
@@ -376,6 +393,7 @@ namespace ps
             return status;
         }
 
+#if defined MUX_CAPABLE
         if (jsonMsg.get<bool>(MuxEnabledKey))
         {
             multiplexer_.setupSwitchPins();
@@ -390,19 +408,29 @@ namespace ps
             multiplexer_.clearSwitchPins();
         }
         jsonDat.set(MuxEnabledKey,multiplexer_.isRunning());
+#else
+        status.success = false;
+        status.message = String("multiplexer hardware not supported");
+#endif
         return status;
     }
 
     ReturnStatus SystemState::onCommandGetMuxEnabled(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+#if defined MUX_CAPABLE
         jsonDat.set(MuxEnabledKey,multiplexer_.isRunning());
+#else
+        status.success = false;
+        status.message = String("multiplexer hardware not supported");
+#endif
         return status;
     }
 
     ReturnStatus SystemState::onCommandSetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+#if defined MUX_CAPABLE
         status.success = true;
 
         if (!jsonMsg.containsKey(MuxChannelKey))
@@ -460,18 +488,27 @@ namespace ps
                 jsonEnabledArray.add(enabledWrkElect[i]);
             }
         }
+#else
+        status.success = false;
+        status.message = String("multiplexer hardware not supported");
+#endif
         return status;
     }
 
     ReturnStatus SystemState::onCommandGetEnabledMuxChan(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+#if defined MUX_CAPABLE
         Array<int,NumMuxChan> enabledWrkElect = multiplexer_.getEnabledWrkElect();
         JsonArray &jsonEnabledArray = jsonDat.createNestedArray(MuxChannelKey);
         for (size_t i=0; i<enabledWrkElect.size(); i++)
         {
             jsonEnabledArray.add(enabledWrkElect[i]);
         }
+#else
+        status.success = false;
+        status.message = String("multiplexer hardware not supported");
+#endif
         return status;
     }
 
@@ -485,6 +522,7 @@ namespace ps
     ReturnStatus SystemState::onCommandSetMuxRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+#if defined MUX_CAPABLE
         if (!jsonMsg.containsKey(ConnectedKey))
         {
             status.success = false;
@@ -516,12 +554,17 @@ namespace ps
         }
 
         jsonDat.set(ConnectedKey,multiplexer_.isConnectedRef());
+#else
+        status.success = false;
+        status.message = String("multiplexer hardware not supported");
+#endif
         return status;
     }
 
     ReturnStatus SystemState::onCommandGetMuxRefElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+#if defined MUX_CAPABLE
         if (multiplexer_.isRunning())
         {
             jsonDat.set(ConnectedKey,multiplexer_.isConnectedRef());
@@ -530,13 +573,17 @@ namespace ps
         {
             jsonDat.set(ConnectedKey,false);
         }
+#else
+        status.success = false;
+        status.message = String("multiplexer hardware not supported");
+#endif
         return status;
-
     }
 
     ReturnStatus SystemState::onCommandSetMuxCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+#if defined MUX_CAPABLE
         if (!jsonMsg.containsKey(ConnectedKey))
         {
             status.success = false;
@@ -568,12 +615,17 @@ namespace ps
         }
 
         jsonDat.set(ConnectedKey,multiplexer_.isConnectedCtr());
+#else
+        status.success = false;
+        status.message = String("multiplexer hardware not supported");
+#endif
         return status;
     }
 
     ReturnStatus SystemState::onCommandGetMuxCtrElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+#if defined MUX_CAPABLE
         if (multiplexer_.isRunning())
         {
             jsonDat.set(ConnectedKey,multiplexer_.isConnectedCtr());
@@ -582,12 +634,17 @@ namespace ps
         {
             jsonDat.set(ConnectedKey,false);
         }
+#else
+        status.success = false;
+        status.message = String("multiplexer hardware not supported");
+#endif
         return status;
     }
 
     ReturnStatus SystemState::onCommandSetMuxWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+#if defined MUX_CAPABLE
         if (!jsonMsg.containsKey(ConnectedKey))
         {
             status.success = false;
@@ -643,13 +700,17 @@ namespace ps
             multiplexer_.connectWrkElect(electNum);
             jsonDat.set(ConnectedKey,multiplexer_.currentWrkElect());
         }
-
+#else
+        status.success = false;
+        status.message = String("multiplexer hardware not supported");
+#endif
         return status;
     }
 
     ReturnStatus SystemState::onCommandGetMuxWrkElectConn(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+#if defined MUX_CAPABLE
         if ((multiplexer_.isRunning()) && (multiplexer_.isConnectedWrk()))  
         {
             jsonDat.set(ConnectedKey,multiplexer_.currentWrkElect());
@@ -658,18 +719,27 @@ namespace ps
         {
             jsonDat.set(ConnectedKey, false);
         }
+#else
+        status.success = false;
+        status.message = String("multiplexer hardware not supported");
+#endif
         return status;
     }
 
     ReturnStatus SystemState::onCommandDisconnAllMuxElect(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+#if defined MUX_CAPABLE
         if (multiplexer_.isRunning())
         {
             multiplexer_.disconnectWrkElect();
             multiplexer_.disconnectRefElect();
             multiplexer_.disconnectCtrElect();
         }
+#else
+        status.success = false;
+        status.message = String("multiplexer hardware not supported");
+#endif
         return status;
     }
 
@@ -963,20 +1033,23 @@ namespace ps
 
         // Empty data buffer
         size_t buffer_size;
-        ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-        {
+        { // Begin atomic block
+            noInterrupts();
             buffer_size = dataBuffer_.size();
-        }
+            interrupts();
+            
+        } // End atomic block
 
         while (buffer_size > 0)
         {
             Sample sample;
-            ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-            {
+            { // Begin atomic block
+                noInterrupts();
                 sample = dataBuffer_.front();
                 dataBuffer_.pop_front();
                 buffer_size = dataBuffer_.size();
-            }
+                interrupts();
+            } // End atomic block
             messageSender_.sendSample(sample);
         }
 
@@ -1013,11 +1086,13 @@ namespace ps
             int electNum = 0; // Default value (0 is non mux channel)
             int electInd = 0; // Default value 
 
+#if defined MUX_CAPABLE
             if (multiplexer_.isRunning())
             {
                 electNum = multiplexer_.currentWrkElect();
                 electInd = multiplexer_.electNumToIndex(electNum);
             }
+#endif
 
             currLowPass_[electInd].update(curr,lowPassDtSec_);
 
@@ -1032,10 +1107,12 @@ namespace ps
                     {
                         Sample sample = {t, volt, currLowPass_[electInd].value(),uint8_t(electNum)};
                         dataBuffer_.push_back(sample);
+#if defined MUX_CAPABLE
                         if (multiplexer_.isRunning())
                         {
                             multiplexer_.connectNextEnabledWrkElect();   
                         }
+#endif
                     }
                 }
                 else
@@ -1048,10 +1125,12 @@ namespace ps
                     if (test_ -> updateSample(sampleRaw, sampleTest))
                     {
                         dataBuffer_.push_back(sampleTest);
+#if defined MUX_CAPABLE
                         if (multiplexer_.isRunning())
                         {
                             multiplexer_.connectNextEnabledWrkElect();   
                         }
+#endif
                     }
                 }
             }
@@ -1086,6 +1165,8 @@ namespace ps
                 electrodeSwitch_.setAllConnected(true);
             }
 #endif
+
+#if defined MUX_CAPABLE
             if (multiplexer_.isRunning())
             {
                 for (int i=0; i<NumMuxChan; i++)
@@ -1099,16 +1180,28 @@ namespace ps
                 currLowPass_[0].reset();
                 lowPassDtSec_ = 1.0e-6*TestTimerPeriod;    
             }
-
+#else
+            currLowPass_[0].reset();
+            lowPassDtSec_ = 1.0e-6*TestTimerPeriod;    
+#endif
             testInProgress_ = true;
+#if defined DEVBOARD_TEENSY
             testTimer_.begin(testTimerCallback_, TestTimerPeriod);
+#elif defined DEVBOARD_ITSY_BITSY
+            TC.startTimer(TestTimerPeriod, testTimerCallback_);
+#endif
+
         }
     }
 
 
     void SystemState::stopTest()
     {
+#if defined DEVBOARD_TEENSY
         testTimer_.end();
+#elif defined DEVBOARD_ITSY_BITSY
+        TC.stopTimer();
+#endif
         testInProgress_ = false;
         lastSampleFlag_ = true;
 
@@ -1118,13 +1211,14 @@ namespace ps
             electrodeSwitch_.setAllConnected(false);
         }
 #endif
+#if defined MUX_CAPABLE
         if (multiplexer_.isRunning())
         {
             multiplexer_.disconnectWrkElect();
             multiplexer_.disconnectRefElect();
             multiplexer_.disconnectCtrElect();
         }
-        //analogSubsystem_.setVolt(0.0);
+#endif
     }
 
 

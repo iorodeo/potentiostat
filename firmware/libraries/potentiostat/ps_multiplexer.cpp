@@ -1,5 +1,6 @@
 #include "ps_multiplexer.h"
 
+#if defined MUX_CAPABLE
 namespace ps
 {
     const int Multiplexer::MuxSwitchPin[NumMuxPin] = { 
@@ -341,3 +342,4 @@ namespace ps
     }
     
 }
+#endif

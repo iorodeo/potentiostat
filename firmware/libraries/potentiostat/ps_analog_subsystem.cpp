@@ -61,7 +61,9 @@ namespace ps
         // Initialize analog input/output subsystem
         analogWriteResolution(DefaultAnalogWriteResolution);
         analogReadResolution(DefaultAnalogReadResolution);
+#if defined DEVBOARD_TEENSY
         analogReadAveraging(DefaultAnalogReadAveraging);
+#endif
         analogReference(DefaultAnalogReference);
 
         // Set output voltage to zero

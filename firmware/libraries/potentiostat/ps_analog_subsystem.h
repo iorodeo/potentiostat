@@ -15,14 +15,22 @@ namespace ps
     {
         public:
 
+#if defined DEVBOARD_TEENSY
             static const uint16_t DefaultAnalogWriteResolution = 12;
             static const uint16_t DefaultAnalogReadResolution = 16;
             static const uint16_t DefaultAnalogReadAveraging = 16;
             static const uint8_t  DefaultAnalogReference = INTERNAL;
-
             static const uint16_t MaxValueAin = uint16_t((uint32_t(1) << DefaultAnalogReadResolution) -1);
             static const uint16_t MaxValueDac = uint16_t((uint32_t(1) << DefaultAnalogWriteResolution)-1);
             static const uint16_t MidValueDac = MaxValueDac/2;
+#elif defined DEVBOARD_ITSY_BITSY
+            static const uint16_t DefaultAnalogWriteResolution = 12;
+            static const uint16_t DefaultAnalogReadResolution = 12;
+            static const eAnalogReference DefaultAnalogReference = AR_INTERNAL1V2;
+            static const uint16_t MaxValueAin = uint16_t((uint32_t(1) << DefaultAnalogReadResolution) -1);
+            static const uint16_t MaxValueDac = uint16_t((uint32_t(1) << DefaultAnalogWriteResolution)-1);
+            static const uint16_t MidValueDac = MaxValueDac/2;
+#endif
 
             AnalogSubsystem();
             void initialize(); 
