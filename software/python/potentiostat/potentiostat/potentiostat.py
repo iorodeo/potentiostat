@@ -909,7 +909,12 @@ class Potentiostat(serial.Serial):
         mux_enabled = False
         channel_list = [0]
         if self.firmware_version >= MinimumFirmwareVersionForMux:
-            mux_enabled = self.get_mux_enabled()
+            # TODO maybe better not to make this call, but detect that 
+            # we don't support multiplexer earlier
+            try:
+                mux_enabled = self.get_mux_enabled()
+            except IOError:
+                mux_enabled = False
             if mux_enabled:
                 channel_list = self.get_enabled_mux_channels()
 

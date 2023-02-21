@@ -76,16 +76,16 @@ Text Label 7125 2825 2    60   ~ 0
 GND
 Text Label 7125 3125 2    60   ~ 0
 GND
-Text Label 8200 12000 2    60   ~ 0
-REF_0V6
+Text Label 9375 11400 2    60   ~ 0
+REF_1V65
 Text Notes 7125 3425 0    60   ~ 0
 GND test points 
 Text Notes 8750 9275 0    60   ~ 0
 DAC test points
 Text Notes 27500 5825 0    60   ~ 0
 bipolor/unipolar transimpedance \namplifier output test points
-Text Label 8200 11700 2    60   ~ 0
-REF_NEG_0V6
+Text Label 9375 11100 2    60   ~ 0
+REF_NEG_1V65
 Text Notes 25425 12375 0    60   ~ 0
 counter electrode test point
 Text Label 13050 15875 1    60   ~ 0
@@ -173,7 +173,7 @@ L Device:R R1
 U 1 1 60741FB7
 P 2150 7925
 F 0 "R1" V 2050 7925 50  0000 C CNN
-F 1 "12k" V 2150 7925 50  0000 C CNN
+F 1 "33k" V 2150 7925 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 2080 7925 50  0001 C CNN
 F 3 "~" H 2150 7925 50  0001 C CNN
 	1    2150 7925
@@ -195,7 +195,7 @@ L Device:R R2
 U 1 1 60870522
 P 2150 8125
 F 0 "R2" V 2250 8125 50  0000 C CNN
-F 1 "12k" V 2150 8125 50  0000 C CNN
+F 1 "33k" V 2150 8125 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 2080 8125 50  0001 C CNN
 F 3 "~" H 2150 8125 50  0001 C CNN
 	1    2150 8125
@@ -226,7 +226,7 @@ Wire Wire Line
 Text Label 2550 8825 3    60   ~ 0
 GND
 Text Label 1750 8125 2    60   ~ 0
-REF_0V6
+REF_1V65
 Text Label 1750 7925 2    60   ~ 0
 DAC_UNI
 Text Label 3900 7775 1    60   ~ 0
@@ -562,83 +562,6 @@ Wire Wire Line
 	3900 8025 4150 8025
 Text Notes 1800 7350 0    50   ~ 0
 OP07\nLCSC# C7433
-Text Label 1300 10600 1    60   ~ 0
-3V3
-Text Label 1300 11600 3    60   ~ 0
-GND
-$Comp
-L Device:C C1
-U 1 1 62166DD1
-P 1300 11100
-F 0 "C1" H 1415 11146 50  0000 L CNN
-F 1 "4.7uF" H 1415 11055 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 1338 10950 50  0001 C CNN
-F 3 "~" H 1300 11100 50  0001 C CNN
-F 4 "C19666" H 1300 11100 50  0001 C CNN "LCSC Part"
-	1    1300 11100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2250 11100 2500 11100
-$Comp
-L Device:C C5
-U 1 1 6230ECA5
-P 2500 11450
-F 0 "C5" H 2615 11496 50  0000 L CNN
-F 1 "4.7uF" H 2615 11405 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 2538 11300 50  0001 C CNN
-F 3 "~" H 2500 11450 50  0001 C CNN
-F 4 "C19666" H 2500 11450 50  0001 C CNN "LCSC Part"
-	1    2500 11450
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2500 11100 2500 11300
-Connection ~ 2500 11100
-Wire Wire Line
-	2500 11600 2500 11850
-Text Label 2500 11850 3    60   ~ 0
-GND
-Wire Wire Line
-	1550 10850 1300 10850
-Wire Wire Line
-	1300 10850 1300 10600
-Wire Wire Line
-	1300 11250 1300 11350
-Wire Wire Line
-	1300 11350 1550 11350
-Wire Wire Line
-	1300 10950 1300 10850
-Connection ~ 1300 10850
-Wire Wire Line
-	1300 11350 1300 11600
-Connection ~ 1300 11350
-Text Label 2500 10800 1    60   ~ 0
-REF_3V
-$Comp
-L Amplifier_Operational:OP07 U12
-U 1 1 626D3619
-P 3750 11200
-F 0 "U12" H 3900 11300 50  0000 L CNN
-F 1 "OP07" H 3900 11100 50  0000 L CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 3800 11250 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 3800 11350 50  0001 C CNN
-F 4 "" H 3750 11200 50  0001 C CNN "LCSC Part"
-	1    3750 11200
-	1    0    0    1   
-$EndComp
-NoConn ~ 3750 10900
-NoConn ~ 3850 10900
-Text Label 3650 11600 3    60   ~ 0
-+15V
-Wire Wire Line
-	3650 11500 3650 11600
-Text Label 3650 10800 1    60   ~ 0
--15V
-Wire Wire Line
-	3650 10900 3650 10800
-Wire Wire Line
-	2500 11100 2500 10800
 NoConn ~ 15150 8325
 NoConn ~ 15250 8325
 $Comp
@@ -1074,7 +997,7 @@ L Device:R R26
 U 1 1 6021D777
 P 17275 13525
 F 0 "R26" V 17175 13525 50  0000 C CNN
-F 1 "12k" V 17275 13525 50  0000 C CNN
+F 1 "33k" V 17275 13525 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 17205 13525 50  0001 C CNN
 F 3 "~" H 17275 13525 50  0001 C CNN
 	1    17275 13525
@@ -1085,7 +1008,7 @@ L Device:R R28
 U 1 1 60560330
 P 18425 12475
 F 0 "R28" V 18325 12475 50  0000 C CNN
-F 1 "12k" V 18425 12475 50  0000 C CNN
+F 1 "33k" V 18425 12475 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 18355 12475 50  0001 C CNN
 F 3 "~" H 18425 12475 50  0001 C CNN
 	1    18425 12475
@@ -1099,137 +1022,6 @@ Wire Wire Line
 	17875 13325 17875 13625
 Text Label 17875 13625 3    60   ~ 0
 GND
-$Comp
-L REF33XX:REF33XX U10
-U 1 1 602125CA
-P 1900 11100
-F 0 "U10" H 1900 11590 50  0000 C CNN
-F 1 "REF33XX" H 1900 11499 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 1900 11100 50  0001 C CNN
-F 3 "" H 1900 11100 50  0001 C CNN
-F 4 "C140329" H 1900 11100 50  0001 C CNN "LCSC Part"
-	1    1900 11100
-	1    0    0    -1  
-$EndComp
-Text Label 6750 11300 0    60   ~ 0
-REF_0V6
-Wire Wire Line
-	4650 10950 4650 11200
-Connection ~ 4650 11200
-Wire Wire Line
-	4300 11200 4650 11200
-$Comp
-L Device:R R4
-U 1 1 604DA93A
-P 2900 11100
-F 0 "R4" V 2800 11100 50  0000 C CNN
-F 1 "100k" V 2900 11100 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 2830 11100 50  0001 C CNN
-F 3 "~" H 2900 11100 50  0001 C CNN
-	1    2900 11100
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2500 11100 2750 11100
-Wire Wire Line
-	3050 11100 3250 11100
-$Comp
-L Device:R R6
-U 1 1 605FD375
-P 3800 10350
-F 0 "R6" V 3700 10350 50  0000 C CNN
-F 1 "20k" V 3800 10350 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 3730 10350 50  0001 C CNN
-F 3 "~" H 3800 10350 50  0001 C CNN
-	1    3800 10350
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	3250 10350 3250 11100
-Connection ~ 3250 11100
-Wire Wire Line
-	3250 11100 3450 11100
-Wire Wire Line
-	4300 10350 4300 11200
-Wire Wire Line
-	4300 11200 4050 11200
-Wire Wire Line
-	3250 10350 3650 10350
-Wire Wire Line
-	3950 10350 4300 10350
-Connection ~ 4300 11200
-Text Label 4650 10950 1    60   ~ 0
-REF_NEG_0V6
-$Comp
-L Device:R R8
-U 1 1 60C41289
-P 5050 11200
-F 0 "R8" V 4950 11200 50  0000 C CNN
-F 1 "20k" V 5050 11200 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 4980 11200 50  0001 C CNN
-F 3 "~" H 5050 11200 50  0001 C CNN
-	1    5050 11200
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	4650 11200 4900 11200
-Text Label 5450 11700 3    60   ~ 0
-GND
-Wire Wire Line
-	5450 11400 5450 11700
-Wire Wire Line
-	5650 11400 5450 11400
-$Comp
-L Amplifier_Operational:OP07 U14
-U 1 1 635E08BE
-P 5950 11300
-F 0 "U14" H 6050 11400 50  0000 L CNN
-F 1 "OP07" H 6100 11200 50  0000 L CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 6000 11350 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 6000 11450 50  0001 C CNN
-F 4 "" H 5950 11300 50  0001 C CNN "LCSC Part"
-	1    5950 11300
-	1    0    0    1   
-$EndComp
-NoConn ~ 5950 11000
-NoConn ~ 6050 11000
-Text Label 5850 10900 1    60   ~ 0
--15V
-Wire Wire Line
-	5850 11000 5850 10900
-Text Label 5850 11700 3    60   ~ 0
-+15V
-Wire Wire Line
-	5850 11600 5850 11700
-Wire Wire Line
-	5200 11200 5450 11200
-$Comp
-L Device:R R13
-U 1 1 60F15F02
-P 5950 10400
-F 0 "R13" V 5850 10400 50  0000 C CNN
-F 1 "20k" V 5950 10400 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 5880 10400 50  0001 C CNN
-F 3 "~" H 5950 10400 50  0001 C CNN
-	1    5950 10400
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	5450 11200 5450 10400
-Wire Wire Line
-	5450 10400 5800 10400
-Connection ~ 5450 11200
-Wire Wire Line
-	5450 11200 5650 11200
-Wire Wire Line
-	6100 10400 6450 10400
-Wire Wire Line
-	6450 10400 6450 11300
-Wire Wire Line
-	6450 11300 6250 11300
-Wire Wire Line
-	6450 11300 6750 11300
-Connection ~ 6450 11300
 Wire Wire Line
 	17625 13525 17625 13125
 Wire Wire Line
@@ -1237,7 +1029,7 @@ Wire Wire Line
 Wire Wire Line
 	17125 13525 16925 13525
 Text Label 16925 13525 2    60   ~ 0
-REF_NEG_0V6
+REF_NEG_1V65
 Connection ~ 17625 13125
 Wire Wire Line
 	17425 13125 17625 13125
@@ -1313,8 +1105,8 @@ Wire Wire Line
 Wire Wire Line
 	18975 13225 19475 13225
 Connection ~ 18975 13225
-Text Notes 7900 12250 0    60   ~ 0
-0.6V reference test points
+Text Notes 9125 12000 0    60   ~ 0
+1.65V reference test points
 $Comp
 L Amplifier_Operational:TL072 U9
 U 1 1 6022B446
@@ -1602,7 +1394,7 @@ L Device:R R14
 U 1 1 6241EB2D
 P 13175 1650
 F 0 "R14" V 13275 1625 50  0000 C CNN
-F 1 "300k" V 13175 1650 50  0000 C CNN
+F 1 "250k" V 13175 1650 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 13105 1650 50  0001 C CNN
 F 3 "~" H 13175 1650 50  0001 C CNN
 	1    13175 1650
@@ -1707,7 +1499,7 @@ L Device:R R17
 U 1 1 639B1B75
 P 13225 5000
 F 0 "R17" V 13325 4975 50  0000 C CNN
-F 1 "300" V 13225 4975 50  0000 C CNN
+F 1 "250" V 13225 4975 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 13155 5000 50  0001 C CNN
 F 3 "~" H 13225 5000 50  0001 C CNN
 	1    13225 5000
@@ -1741,7 +1533,7 @@ L Device:R R15
 U 1 1 63A69057
 P 13175 2800
 F 0 "R15" V 13275 2775 50  0000 C CNN
-F 1 "30k" V 13175 2775 50  0000 C CNN
+F 1 "25k" V 13175 2775 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 13105 2800 50  0001 C CNN
 F 3 "~" H 13175 2800 50  0001 C CNN
 	1    13175 2800
@@ -1778,7 +1570,7 @@ L Device:R R16
 U 1 1 63B29260
 P 13175 3950
 F 0 "R16" V 13275 3925 50  0000 C CNN
-F 1 "3k" V 13175 3925 50  0000 C CNN
+F 1 "2.5k" V 13175 3925 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 13105 3950 50  0001 C CNN
 F 3 "~" H 13175 3950 50  0001 C CNN
 	1    13175 3950
@@ -1922,7 +1714,7 @@ L Device:R R33
 U 1 1 64C04DC4
 P 20825 5600
 F 0 "R33" V 20725 5600 50  0000 C CNN
-F 1 "12k" V 20825 5600 50  0000 C CNN
+F 1 "10k" V 20825 5600 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 20755 5600 50  0001 C CNN
 F 3 "~" H 20825 5600 50  0001 C CNN
 	1    20825 5600
@@ -1933,7 +1725,7 @@ L Device:R R34
 U 1 1 64C04DCE
 P 20825 6000
 F 0 "R34" V 20725 6000 50  0000 C CNN
-F 1 "12k" V 20825 6000 50  0000 C CNN
+F 1 "10k" V 20825 6000 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 20755 6000 50  0001 C CNN
 F 3 "~" H 20825 6000 50  0001 C CNN
 	1    20825 6000
@@ -1944,7 +1736,7 @@ L Device:R R36
 U 1 1 64C04DD8
 P 21975 4950
 F 0 "R36" V 21875 4950 50  0000 C CNN
-F 1 "12k" V 21975 4950 50  0000 C CNN
+F 1 "10k" V 21975 4950 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 21905 4950 50  0001 C CNN
 F 3 "~" H 21975 4950 50  0001 C CNN
 	1    21975 4950
@@ -1965,7 +1757,7 @@ Wire Wire Line
 Wire Wire Line
 	20675 6000 20475 6000
 Text Label 20475 6000 2    60   ~ 0
-REF_NEG_0V6
+REF_NEG_1V65
 Connection ~ 21175 5600
 Wire Wire Line
 	20975 5600 21175 5600
@@ -2067,7 +1859,7 @@ L Device:R R27
 U 1 1 652B5D05
 P 18175 5500
 F 0 "R27" V 18075 5500 50  0000 C CNN
-F 1 "10k" V 18175 5500 50  0000 C CNN
+F 1 "5k" V 18175 5500 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 18105 5500 50  0001 C CNN
 F 3 "~" H 18175 5500 50  0001 C CNN
 	1    18175 5500
@@ -2078,7 +1870,7 @@ L Device:R R29
 U 1 1 652B5D19
 P 19150 4850
 F 0 "R29" V 19050 4850 50  0000 C CNN
-F 1 "20k" V 19150 4850 50  0000 C CNN
+F 1 "33k" V 19150 4850 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 19080 4850 50  0001 C CNN
 F 3 "~" H 19150 4850 50  0001 C CNN
 	1    19150 4850
@@ -2142,19 +1934,19 @@ Control Amplifier
 Text Notes 14750 14075 0    60   ~ 0
 scale buffered reference electrode voltage\n according to gain setting
 Text Notes 18900 6350 0    60   ~ 0
-scale TIA signal by 2x
+scale TIA signal by 6.6x
 Text Notes 21925 6350 0    60   ~ 0
-shift TIA signal to 0-1.2V range
+shift TIA signal to 0-3.3V range
 Text Notes 19075 3100 0    60   ~ 0
 switch power\nLCSC#: C17218
 Text Notes 22800 3200 0    60   ~ 0
 gain select demux\nLCSC#: C5602	
 Text Notes 1625 9400 0    60   ~ 0
-Shift and scales unipolar DAC (DAC_UNI) from [0V,1.2V] \nrange to bipolar DAC (DAC_BIP) in [-1V,1V]  range. \n 
+Shift and scale unipolar DAC (DAC_UNI) from [0V, 3.3V] \nrange to bipolar DAC (DAC_BIP) in [-1V, 1V]  range. \n 
 Text Notes 4600 9325 0    60   ~ 0
 Scale bipolar DAC (DAC_BIP) by gain N=1,2,5, or 10  to get DAC_BIP_NX. \nGain is selected using DAC_GAIN_A0 and DAC_GAIN_A1
 Text Notes 13650 6525 0    60   ~ 0
-transimpedance amplifier with selectable gain using kelvin switching\nsee http://www.analog.com/library/analogdialogue/archives/47-05/pgtia.html\n\nSet gains so that output voltage range is -0.6V to 0.6V. \nInput current ranges (+/-)  1uA, 10uA, 100uA, 1000uA \n
+transimpedance amplifier with selectable gain using kelvin switching\nsee http://www.analog.com/library/analogdialogue/archives/47-05/pgtia.html\n\nSet gains so that output voltage range is -0.25V to 0.25V. \nInput current ranges (+/-)  1uA, 10uA, 100uA, 1000uA \n
 $Comp
 L Analog_Switch:DG411xY U4
 U 1 1 673EBC01
@@ -2269,7 +2061,7 @@ U 1 1 602750A0
 P 8450 13450
 F 0 "P1" H 8530 13442 50  0000 L CNN
 F 1 "Conn_01x02" H 8530 13351 50  0000 L CNN
-F 2 "pin_array:PIN_ARRAY_2X1" H 8450 13450 50  0001 C CNN
+F 2 "ost_connblocks:CONNBLOCK2" H 8450 13450 50  0001 C CNN
 F 3 "~" H 8450 13450 50  0001 C CNN
 	1    8450 13450
 	1    0    0    -1  
@@ -2280,7 +2072,7 @@ U 1 1 602785EF
 P 8450 14400
 F 0 "P2" H 8530 14392 50  0000 L CNN
 F 1 "Conn_01x02" H 8530 14301 50  0000 L CNN
-F 2 "pin_array:PIN_ARRAY_2X1" H 8450 14400 50  0001 C CNN
+F 2 "ost_connblocks:CONNBLOCK2" H 8450 14400 50  0001 C CNN
 F 3 "~" H 8450 14400 50  0001 C CNN
 	1    8450 14400
 	1    0    0    -1  
@@ -2291,7 +2083,7 @@ U 1 1 6027A208
 P 8450 15400
 F 0 "P3" H 8530 15392 50  0000 L CNN
 F 1 "Conn_01x02" H 8530 15301 50  0000 L CNN
-F 2 "pin_array:PIN_ARRAY_2X1" H 8450 15400 50  0001 C CNN
+F 2 "ost_connblocks:CONNBLOCK2" H 8450 15400 50  0001 C CNN
 F 3 "~" H 8450 15400 50  0001 C CNN
 	1    8450 15400
 	1    0    0    -1  
@@ -2474,80 +2266,80 @@ op amp decoupling
 $Comp
 L Device:C C21
 U 1 1 61A9EADC
-P 9325 10700
-F 0 "C21" H 9440 10746 50  0000 L CNN
-F 1 "0.1uF" H 9440 10655 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 9363 10550 50  0001 C CNN
-F 3 "~" H 9325 10700 50  0001 C CNN
-	1    9325 10700
+P 7850 11050
+F 0 "C21" H 7965 11096 50  0000 L CNN
+F 1 "0.1uF" H 7965 11005 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 7888 10900 50  0001 C CNN
+F 3 "~" H 7850 11050 50  0001 C CNN
+	1    7850 11050
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C12
 U 1 1 61A9F54E
-P 7850 10700
-F 0 "C12" H 7965 10746 50  0000 L CNN
-F 1 "0.1uF" H 7965 10655 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 7888 10550 50  0001 C CNN
-F 3 "~" H 7850 10700 50  0001 C CNN
-	1    7850 10700
+P 6375 11050
+F 0 "C12" H 6490 11096 50  0000 L CNN
+F 1 "0.1uF" H 6490 11005 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 6413 10900 50  0001 C CNN
+F 3 "~" H 6375 11050 50  0001 C CNN
+	1    6375 11050
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C15
 U 1 1 61A9F558
-P 8350 10700
-F 0 "C15" H 8465 10746 50  0000 L CNN
-F 1 "0.1uF" H 8465 10655 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 8388 10550 50  0001 C CNN
-F 3 "~" H 8350 10700 50  0001 C CNN
-	1    8350 10700
+P 6875 11050
+F 0 "C15" H 6990 11096 50  0000 L CNN
+F 1 "0.1uF" H 6990 11005 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 6913 10900 50  0001 C CNN
+F 3 "~" H 6875 11050 50  0001 C CNN
+	1    6875 11050
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C18
 U 1 1 61A9F562
-P 8850 10700
-F 0 "C18" H 8965 10746 50  0000 L CNN
-F 1 "0.1uF" H 8965 10655 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 8888 10550 50  0001 C CNN
-F 3 "~" H 8850 10700 50  0001 C CNN
-	1    8850 10700
+P 7375 11050
+F 0 "C18" H 7490 11096 50  0000 L CNN
+F 1 "0.1uF" H 7490 11005 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 7413 10900 50  0001 C CNN
+F 3 "~" H 7375 11050 50  0001 C CNN
+	1    7375 11050
 	1    0    0    -1  
 $EndComp
-Text Label 8350 10400 1    60   ~ 0
+Text Label 6875 10750 1    60   ~ 0
 -15V
-Text Label 7850 10400 1    60   ~ 0
+Text Label 6375 10750 1    60   ~ 0
 -15V
 Wire Wire Line
-	8350 10850 8350 11050
-Text Label 8350 11050 3    60   ~ 0
+	6875 11200 6875 11400
+Text Label 6875 11400 3    60   ~ 0
 GND
 Wire Wire Line
-	7850 10850 7850 11050
-Text Label 7850 11050 3    60   ~ 0
+	6375 11200 6375 11400
+Text Label 6375 11400 3    60   ~ 0
 GND
 Wire Wire Line
-	9325 10850 9325 11050
-Text Label 9325 11050 3    60   ~ 0
+	7850 11200 7850 11400
+Text Label 7850 11400 3    60   ~ 0
 GND
 Wire Wire Line
-	8850 10850 8850 11050
-Text Label 8850 11050 3    60   ~ 0
+	7375 11200 7375 11400
+Text Label 7375 11400 3    60   ~ 0
 GND
 Wire Wire Line
-	7850 10400 7850 10550
+	6375 10750 6375 10900
 Wire Wire Line
-	8350 10400 8350 10550
-Text Label 9325 10400 1    60   ~ 0
+	6875 10750 6875 10900
+Text Label 7850 10750 1    60   ~ 0
 +15V
-Text Label 8850 10400 1    60   ~ 0
+Text Label 7375 10750 1    60   ~ 0
 +15V
 Wire Wire Line
-	8850 10400 8850 10550
+	7375 10750 7375 10900
 Wire Wire Line
-	9325 10400 9325 10550
-Text Notes 8050 11400 0    60   ~ 0
+	7850 10750 7850 10900
+Text Notes 6625 12025 0    60   ~ 0
 op amp decoupling 
 $Comp
 L Device:C C45
@@ -3205,23 +2997,23 @@ Text Label 15500 16525 2    60   ~ 0
 $Comp
 L Connector_Generic:Conn_01x02 P8
 U 1 1 62B30A4B
-P 8750 11650
-F 0 "P8" H 8830 11642 50  0000 L CNN
-F 1 "Conn_01x02" H 8830 11551 50  0000 L CNN
-F 2 "pin_array:PIN_ARRAY_2X1" H 8750 11650 50  0001 C CNN
-F 3 "~" H 8750 11650 50  0001 C CNN
-	1    8750 11650
+P 9925 11050
+F 0 "P8" H 10005 11042 50  0000 L CNN
+F 1 "Conn_01x02" H 10005 10951 50  0000 L CNN
+F 2 "pin_array:PIN_ARRAY_2X1" H 9925 11050 50  0001 C CNN
+F 3 "~" H 9925 11050 50  0001 C CNN
+	1    9925 11050
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x02 P10
 U 1 1 62B3249F
-P 8750 11950
-F 0 "P10" H 8830 11942 50  0000 L CNN
-F 1 "Conn_01x02" H 8830 11851 50  0000 L CNN
-F 2 "pin_array:PIN_ARRAY_2X1" H 8750 11950 50  0001 C CNN
-F 3 "~" H 8750 11950 50  0001 C CNN
-	1    8750 11950
+P 9925 11350
+F 0 "P10" H 10005 11342 50  0000 L CNN
+F 1 "Conn_01x02" H 10005 11251 50  0000 L CNN
+F 2 "pin_array:PIN_ARRAY_2X1" H 9925 11350 50  0001 C CNN
+F 3 "~" H 9925 11350 50  0001 C CNN
+	1    9925 11350
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -3297,27 +3089,27 @@ DAC_BIP_NX
 Wire Wire Line
 	9100 8975 9200 8975
 Wire Wire Line
-	8550 11750 8450 11750
+	9725 11150 9625 11150
 Wire Wire Line
-	8450 11750 8450 11700
+	9625 11150 9625 11100
 Wire Wire Line
-	8450 11650 8550 11650
+	9625 11050 9725 11050
 Wire Wire Line
-	8550 11950 8450 11950
+	9725 11350 9625 11350
 Wire Wire Line
-	8450 11950 8450 12000
+	9625 11350 9625 11400
 Wire Wire Line
-	8450 12050 8550 12050
+	9625 11450 9725 11450
 Wire Wire Line
-	8450 11700 8200 11700
-Connection ~ 8450 11700
+	9625 11100 9375 11100
+Connection ~ 9625 11100
 Wire Wire Line
-	8450 11700 8450 11650
+	9625 11100 9625 11050
 Wire Wire Line
-	8450 12000 8200 12000
-Connection ~ 8450 12000
+	9625 11400 9375 11400
+Connection ~ 9625 11400
 Wire Wire Line
-	8450 12000 8450 12050
+	9625 11400 9625 11450
 $Comp
 L Connector_Generic:Conn_01x02 P4
 U 1 1 65A7D907
@@ -3724,10 +3516,6 @@ F 3 "~" H 23275 16300 50  0001 C CNN
 $EndComp
 Text Notes 7600 6150 0    60   ~ 0
 Switch and demux decoupling
-Text Notes 3325 12225 0    60   ~ 0
-scales 3V reference to \ncreate -0.6V reference
-Text Notes 5425 12225 0    60   ~ 0
-inverts -0.6V reference to \ncreate 0.6V reference
 Text Notes 4350 16975 0    60   ~ 0
 switches for connecting/disconnecting electrodes
 Text Notes 1475 17075 0    60   ~ 0
@@ -3770,12 +3558,6 @@ Text Label 23375 2125 0    60   ~ 0
 TIA_GAIN_A0
 Text Label 23375 2225 0    60   ~ 0
 TIA_GAIN_A1
-Text Label 3250 11600 3    60   ~ 0
-GND
-Wire Wire Line
-	3250 11300 3250 11600
-Wire Wire Line
-	3450 11300 3250 11300
 $Comp
 L Device:C C55
 U 1 1 603A4E43
@@ -3914,4 +3696,198 @@ Wire Wire Line
 	20025 16925 20225 16925
 Wire Wire Line
 	20025 16825 20225 16825
+Text Notes 1075 7700 0    50   ~ 10
+5. Change R5 and R3 to 20k\nChange R1 and R2 to 33k\nDone
+Text Notes 17975 4750 0    50   ~ 10
+Replace R27 with 5K and R29 with 33k\nDONE
+Text Notes 17125 12175 0    50   ~ 10
+8. Replace R26 and R28 with 33k\nDONE
+Text Notes 675  -125 0    250  ~ 0
+Change Notes:\n------------------------\n\n1. (Done) Change R4 from 100k to 20k\n2. (Done) Change R6 from 20k to 10k \n3. (Done) Remove Reference voltage U10 and C1.  Only need 3.3V reference now. \n4. (Done) Change all instances of REF_1V65 to REF_1V65\n5. (Done) Change R5 and R3 to 20k and also Change R1 and R2 to 33k\n6. (Done) Change gain resistors  R14, R15, R16, R17 to 250k, 25k, 2.5k and 250\n7. (Done) Replace R27 with 5K and R29 with 33k\n8. (Done) Replace R26 and R28 with 33k\n9 Replace 12k resistors R33, R34, R36  with 10k??  \n\n-----------------------------------------------------------------------------\nExplaination\nItems 1,2 and 3 change reference voltages to +/- 1.65V\nItem 5 modifies amplifier so [0V, 3.3V]  is scaled and shifted to [-1V, 1V]\nItem 6 Changes gains of transimpedance amplifiers so that all current ranges maps to  goes to [-0.25V, 0.25V]\nItem 7 Changes gain of post transimpedace amplifier stage to 6.6 so that is scale [-0.25V, 0.25V] to [-1.65V, 1.65V]\nItem 8 modifies summing amplifier so that it maps [-1V, 1V] to [-1.65V, 1.65V]\n\n\n
+Text Notes 600  10400 0    50   ~ 10
+3. Remove U10 and C1.  \nOnly need 3.3V reference now. \nDONE
+Text Notes 1150 10750 0    50   ~ 10
+1. Replace w/ 20k\nDONE
+Wire Wire Line
+	2025 11100 1825 11100
+Wire Wire Line
+	1825 11100 1825 11400
+Text Label 1825 11400 3    60   ~ 0
+GND
+Text Notes 3825 12025 0    60   ~ 0
+invert to create +1.65V reference
+Text Notes 1625 12000 0    60   ~ 0
+Scale 3.3V to  create -1.65V reference
+Connection ~ 5025 11100
+Wire Wire Line
+	5025 11100 5325 11100
+Wire Wire Line
+	5025 11100 4825 11100
+Wire Wire Line
+	5025 10200 5025 11100
+Wire Wire Line
+	4675 10200 5025 10200
+Wire Wire Line
+	4025 11000 4225 11000
+Connection ~ 4025 11000
+Wire Wire Line
+	4025 10200 4375 10200
+Wire Wire Line
+	4025 11000 4025 10200
+$Comp
+L Device:R R13
+U 1 1 60F15F02
+P 4525 10200
+F 0 "R13" V 4425 10200 50  0000 C CNN
+F 1 "20k" V 4525 10200 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 4455 10200 50  0001 C CNN
+F 3 "~" H 4525 10200 50  0001 C CNN
+	1    4525 10200
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3775 11000 4025 11000
+Wire Wire Line
+	4425 11400 4425 11500
+Text Label 4425 11500 3    60   ~ 0
++15V
+Wire Wire Line
+	4425 10800 4425 10700
+Text Label 4425 10700 1    60   ~ 0
+-15V
+NoConn ~ 4625 10800
+NoConn ~ 4525 10800
+$Comp
+L Amplifier_Operational:OP07 U14
+U 1 1 635E08BE
+P 4525 11100
+F 0 "U14" H 4625 11200 50  0000 L CNN
+F 1 "OP07" H 4675 11000 50  0000 L CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 4575 11150 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 4575 11250 50  0001 C CNN
+F 4 "" H 4525 11100 50  0001 C CNN "LCSC Part"
+	1    4525 11100
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	4225 11200 4025 11200
+Wire Wire Line
+	4025 11200 4025 11500
+Text Label 4025 11500 3    60   ~ 0
+GND
+Wire Wire Line
+	3225 11000 3475 11000
+$Comp
+L Device:R R8
+U 1 1 60C41289
+P 3625 11000
+F 0 "R8" V 3525 11000 50  0000 C CNN
+F 1 "20k" V 3625 11000 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 3555 11000 50  0001 C CNN
+F 3 "~" H 3625 11000 50  0001 C CNN
+	1    3625 11000
+	0    1    1    0   
+$EndComp
+Text Label 3225 10750 1    60   ~ 0
+REF_NEG_1V65
+Connection ~ 2875 11000
+Wire Wire Line
+	2525 10150 2875 10150
+Wire Wire Line
+	1825 10150 2225 10150
+Wire Wire Line
+	2875 11000 2625 11000
+Wire Wire Line
+	2875 10150 2875 11000
+Wire Wire Line
+	1825 10900 2025 10900
+Connection ~ 1825 10900
+Wire Wire Line
+	1825 10150 1825 10900
+$Comp
+L Device:R R6
+U 1 1 605FD375
+P 2375 10150
+F 0 "R6" V 2275 10150 50  0000 C CNN
+F 1 "10k" V 2375 10150 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 2305 10150 50  0001 C CNN
+F 3 "~" H 2375 10150 50  0001 C CNN
+	1    2375 10150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1625 10900 1825 10900
+Wire Wire Line
+	1075 10900 1325 10900
+$Comp
+L Device:R R4
+U 1 1 604DA93A
+P 1475 10900
+F 0 "R4" V 1375 10900 50  0000 C CNN
+F 1 "20k" V 1475 10900 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1405 10900 50  0001 C CNN
+F 3 "~" H 1475 10900 50  0001 C CNN
+	1    1475 10900
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2875 11000 3225 11000
+Connection ~ 3225 11000
+Wire Wire Line
+	3225 10750 3225 11000
+Text Label 5325 11100 0    60   ~ 0
+REF_1V65
+Wire Wire Line
+	1075 10900 1075 10600
+Wire Wire Line
+	2225 10700 2225 10600
+Text Label 2225 10600 1    60   ~ 0
+-15V
+Wire Wire Line
+	2225 11300 2225 11400
+Text Label 2225 11400 3    60   ~ 0
++15V
+NoConn ~ 2425 10700
+NoConn ~ 2325 10700
+$Comp
+L Amplifier_Operational:OP07 U12
+U 1 1 626D3619
+P 2325 11000
+F 0 "U12" H 2475 11100 50  0000 L CNN
+F 1 "OP07" H 2475 10900 50  0000 L CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 2375 11050 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP07.pdf" H 2375 11150 50  0001 C CNN
+F 4 "" H 2325 11000 50  0001 C CNN "LCSC Part"
+	1    2325 11000
+	1    0    0    1   
+$EndComp
+Text Label 1075 10600 1    60   ~ 0
+3V3
+Text Label 1075 11650 3    60   ~ 0
+GND
+Wire Wire Line
+	1075 11400 1075 11650
+Connection ~ 1075 10900
+Wire Wire Line
+	1075 10900 1075 11100
+$Comp
+L Device:C C5
+U 1 1 6230ECA5
+P 1075 11250
+F 0 "C5" H 1190 11296 50  0000 L CNN
+F 1 "4.7uF" H 1190 11205 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 1113 11100 50  0001 C CNN
+F 3 "~" H 1075 11250 50  0001 C CNN
+F 4 "C19666" H 1075 11250 50  0001 C CNN "LCSC Part"
+	1    1075 11250
+	1    0    0    -1  
+$EndComp
+Text Notes 3250 9925 0    50   ~ 10
+4. Replace References REF_1V65 and REF_NEG_0V6 with\nREF_1V65 and REF_NEG_1V65\nDONE
+Text Notes 11275 2950 0    50   ~ 10
+Change gain resistors \nR14, R15, R16, R17 to \n250k, 25k, 2.5k and 250\nDONE
+Text Notes 2050 10025 0    50   ~ 10
+2. Replace w/ 10k\nDONE
+Text Notes 21300 4325 0    50   ~ 10
+Replace R33, R34, R36  with 10k resistors\nDONE
 $EndSCHEMATC

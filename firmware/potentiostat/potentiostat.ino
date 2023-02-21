@@ -13,6 +13,7 @@ void setup()
 
 void loop()
 {
+    systemState.updateMessageData();
     systemState.processMessages();
     systemState.serviceDataBuffer();
 }
@@ -22,7 +23,7 @@ void timerCallback()
     systemState.updateTestOnTimer(); 
 }
 
-void serialEvent()
-{
-    systemState.updateMessageData();
-}
+//void serialEvent()
+//{
+//    systemState.updateMessageData();
+//}

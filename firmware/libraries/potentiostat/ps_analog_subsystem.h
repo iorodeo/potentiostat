@@ -26,9 +26,15 @@ namespace ps
 #elif defined DEVBOARD_ITSY_BITSY
             static const uint16_t DefaultAnalogWriteResolution = 12;
             static const uint16_t DefaultAnalogReadResolution = 12;
-            static const eAnalogReference DefaultAnalogReference = AR_INTERNAL1V2;
-            static const uint16_t MaxValueAin = uint16_t((uint32_t(1) << DefaultAnalogReadResolution) -1);
-            static const uint16_t MaxValueDac = uint16_t((uint32_t(1) << DefaultAnalogWriteResolution)-1);
+            static const eAnalogReference DefaultAnalogReference = AR_DEFAULT;
+            // ----------------------------------------------------------------------------------------------
+            // Temporary  - to check system prior to changing resistor values
+            // ----------------------------------------------------------------------------------------------
+            //static const uint16_t MaxValueAin = uint16_t((uint32_t(1) << DefaultAnalogReadResolution) -1);
+            //static const uint16_t MaxValueDac = uint16_t((uint32_t(1) << DefaultAnalogWriteResolution)-1);
+            static const uint16_t MaxValueAin = 1489; 
+            static const uint16_t MaxValueDac = 1489; 
+            // ----------------------------------------------------------------------------------------------
             static const uint16_t MidValueDac = MaxValueDac/2;
 #endif
 
