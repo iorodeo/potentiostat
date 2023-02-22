@@ -1473,7 +1473,7 @@ L Device:C C25
 U 1 1 6329CA09
 P 13175 1350
 F 0 "C25" V 13075 1200 50  0000 C CNN
-F 1 "68nF" V 13075 1500 50  0000 C CNN
+F 1 "56nF" V 13075 1500 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric" H 13213 1200 50  0001 C CNN
 F 3 "~" H 13175 1350 50  0001 C CNN
 	1    13175 1350
@@ -1510,7 +1510,7 @@ L Device:C C28
 U 1 1 639B2540
 P 13225 4700
 F 0 "C28" V 13125 4550 50  0000 C CNN
-F 1 "68nF" V 13125 4850 50  0000 C CNN
+F 1 "56nF" V 13125 4850 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric" H 13263 4550 50  0001 C CNN
 F 3 "~" H 13225 4700 50  0001 C CNN
 	1    13225 4700
@@ -1544,7 +1544,7 @@ L Device:C C26
 U 1 1 63A69731
 P 13175 2500
 F 0 "C26" V 13075 2350 50  0000 C CNN
-F 1 "68nF" V 13075 2650 50  0000 C CNN
+F 1 "56nF" V 13075 2650 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric" H 13213 2350 50  0001 C CNN
 F 3 "~" H 13175 2500 50  0001 C CNN
 	1    13175 2500
@@ -1581,7 +1581,7 @@ L Device:C C27
 U 1 1 63B29C1A
 P 13175 3650
 F 0 "C27" V 13075 3500 50  0000 C CNN
-F 1 "68nF" V 13075 3800 50  0000 C CNN
+F 1 "56nF" V 13075 3800 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric" H 13213 3500 50  0001 C CNN
 F 3 "~" H 13175 3650 50  0001 C CNN
 	1    13175 3650
@@ -3699,11 +3699,11 @@ Wire Wire Line
 Text Notes 1075 7700 0    50   ~ 10
 5. Change R5 and R3 to 20k\nChange R1 and R2 to 33k\nDone
 Text Notes 17975 4750 0    50   ~ 10
-Replace R27 with 5K and R29 with 33k\nDONE
+7. Replace R27 with 5K and R29 with 33k\nDONE
 Text Notes 17125 12175 0    50   ~ 10
 8. Replace R26 and R28 with 33k\nDONE
 Text Notes 675  -125 0    250  ~ 0
-Change Notes:\n------------------------\n\n1. (Done) Change R4 from 100k to 20k\n2. (Done) Change R6 from 20k to 10k \n3. (Done) Remove Reference voltage U10 and C1.  Only need 3.3V reference now. \n4. (Done) Change all instances of REF_1V65 to REF_1V65\n5. (Done) Change R5 and R3 to 20k and also Change R1 and R2 to 33k\n6. (Done) Change gain resistors  R14, R15, R16, R17 to 250k, 25k, 2.5k and 250\n7. (Done) Replace R27 with 5K and R29 with 33k\n8. (Done) Replace R26 and R28 with 33k\n9 Replace 12k resistors R33, R34, R36  with 10k??  \n\n-----------------------------------------------------------------------------\nExplaination\nItems 1,2 and 3 change reference voltages to +/- 1.65V\nItem 5 modifies amplifier so [0V, 3.3V]  is scaled and shifted to [-1V, 1V]\nItem 6 Changes gains of transimpedance amplifiers so that all current ranges maps to  goes to [-0.25V, 0.25V]\nItem 7 Changes gain of post transimpedace amplifier stage to 6.6 so that is scale [-0.25V, 0.25V] to [-1.65V, 1.65V]\nItem 8 modifies summing amplifier so that it maps [-1V, 1V] to [-1.65V, 1.65V]\n\n\n
+Change Notes:\n------------------------\n\n1. (Done) Change R4 from 100k to 20k\n2. (Done) Change R6 from 20k to 10k \n3. (Done) Remove Reference voltage U10 and C1.  Only need 3.3V reference now. \n4. (Done) Change all instances of REF_1V65 to REF_1V65\n5. (Done) Change R5 and R3 to 20k and also Change R1 and R2 to 33k\n6. (Done) Change gain resistors  R14, R15, R16, R17 to 250k, 25k, 2.5k and 250\n7. (Done) Replace R27 with 5K and R29 with 33k\n8. (Done) Replace R26 and R28 with 33k\n9. (Done) Replace R33, R34, R36  with 10k resistors\n\n-----------------------------------------------------------------------------\nExplaination\nItems 1,2 and 3 change reference voltages to +/- 1.65V\nItem 5 modifies amplifier so [0V, 3.3V]  is scaled and shifted to [-1V, 1V]\nItem 6 Changes gains of transimpedance amplifiers so that all current ranges maps to  goes to [-0.25V, 0.25V]\nItem 7 Changes gain of post transimpedace amplifier stage to 6.6 so that is scale [-0.25V, 0.25V] to [-1.65V, 1.65V]\nItem 8 modifies summing amplifier so that it maps [-1V, 1V] to [-1.65V, 1.65V]\nItem 9 doesn't change anything .. just reduces number of resistor types used. \n\n\n
 Text Notes 600  10400 0    50   ~ 10
 3. Remove U10 and C1.  \nOnly need 3.3V reference now. \nDONE
 Text Notes 1150 10750 0    50   ~ 10
@@ -3883,11 +3883,11 @@ F 4 "C19666" H 1075 11250 50  0001 C CNN "LCSC Part"
 	1    0    0    -1  
 $EndComp
 Text Notes 3250 9925 0    50   ~ 10
-4. Replace References REF_1V65 and REF_NEG_0V6 with\nREF_1V65 and REF_NEG_1V65\nDONE
+4. Replace References REF_0V6 and REF_NEG_0V6 with\nREF_1V65 and REF_NEG_1V65\nDONE
 Text Notes 11275 2950 0    50   ~ 10
-Change gain resistors \nR14, R15, R16, R17 to \n250k, 25k, 2.5k and 250\nDONE
+6. Change gain resistors \nR14, R15, R16, R17 to \n250k, 25k, 2.5k and 250\nDONE
 Text Notes 2050 10025 0    50   ~ 10
 2. Replace w/ 10k\nDONE
 Text Notes 21300 4325 0    50   ~ 10
-Replace R33, R34, R36  with 10k resistors\nDONE
+9. Replace R33, R34, R36  with 10k resistors\nDONE
 $EndSCHEMATC
