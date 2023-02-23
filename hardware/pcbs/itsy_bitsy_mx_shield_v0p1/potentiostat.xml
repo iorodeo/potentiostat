@@ -2,7 +2,7 @@
 <export version="D">
   <design>
     <source>/home/wbd/work/products/potentiostat-development/hardware/pcbs/itsy_bitsy_mx_shield_v0p1/potentiostat.sch</source>
-    <date>Tue 21 Feb 2023 08:25:14 PM PST</date>
+    <date>Wed 22 Feb 2023 04:18:36 PM PST</date>
     <tool>Eeschema 5.1.7-a382d34a8~87~ubuntu18.04.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -358,7 +358,7 @@
       <tstamp>60CF6B58</tstamp>
     </comp>
     <comp ref="R14">
-      <value>250k</value>
+      <value>300k</value>
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <datasheet>~</datasheet>
       <libsource lib="Device" part="R" description="Resistor"/>
@@ -366,7 +366,7 @@
       <tstamp>6241EB2D</tstamp>
     </comp>
     <comp ref="C25">
-      <value>68nF</value>
+      <value>56nF</value>
       <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
       <datasheet>~</datasheet>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
@@ -374,7 +374,7 @@
       <tstamp>6329CA09</tstamp>
     </comp>
     <comp ref="R17">
-      <value>250</value>
+      <value>300</value>
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <datasheet>~</datasheet>
       <libsource lib="Device" part="R" description="Resistor"/>
@@ -382,7 +382,7 @@
       <tstamp>639B1B75</tstamp>
     </comp>
     <comp ref="C28">
-      <value>68nF</value>
+      <value>56nF</value>
       <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
       <datasheet>~</datasheet>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
@@ -390,7 +390,7 @@
       <tstamp>639B2540</tstamp>
     </comp>
     <comp ref="R15">
-      <value>25k</value>
+      <value>30k</value>
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <datasheet>~</datasheet>
       <libsource lib="Device" part="R" description="Resistor"/>
@@ -398,7 +398,7 @@
       <tstamp>63A69057</tstamp>
     </comp>
     <comp ref="C26">
-      <value>68nF</value>
+      <value>56nF</value>
       <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
       <datasheet>~</datasheet>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
@@ -406,7 +406,7 @@
       <tstamp>63A69731</tstamp>
     </comp>
     <comp ref="R16">
-      <value>2.5k</value>
+      <value>3k</value>
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <datasheet>~</datasheet>
       <libsource lib="Device" part="R" description="Resistor"/>
@@ -414,7 +414,7 @@
       <tstamp>63B29260</tstamp>
     </comp>
     <comp ref="C27">
-      <value>68nF</value>
+      <value>56nF</value>
       <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
       <datasheet>~</datasheet>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
@@ -495,7 +495,7 @@
       <tstamp>652B528B</tstamp>
     </comp>
     <comp ref="R27">
-      <value>5k</value>
+      <value>2k</value>
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <datasheet>~</datasheet>
       <libsource lib="Device" part="R" description="Resistor"/>
@@ -503,7 +503,7 @@
       <tstamp>652B5D05</tstamp>
     </comp>
     <comp ref="R29">
-      <value>33k</value>
+      <value>11k</value>
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <datasheet>~</datasheet>
       <libsource lib="Device" part="R" description="Resistor"/>

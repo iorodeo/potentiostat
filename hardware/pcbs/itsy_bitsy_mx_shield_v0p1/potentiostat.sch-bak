@@ -1394,7 +1394,7 @@ L Device:R R14
 U 1 1 6241EB2D
 P 13175 1650
 F 0 "R14" V 13275 1625 50  0000 C CNN
-F 1 "250k" V 13175 1650 50  0000 C CNN
+F 1 "300k" V 13175 1650 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 13105 1650 50  0001 C CNN
 F 3 "~" H 13175 1650 50  0001 C CNN
 	1    13175 1650
@@ -1499,7 +1499,7 @@ L Device:R R17
 U 1 1 639B1B75
 P 13225 5000
 F 0 "R17" V 13325 4975 50  0000 C CNN
-F 1 "250" V 13225 4975 50  0000 C CNN
+F 1 "300" V 13225 4975 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 13155 5000 50  0001 C CNN
 F 3 "~" H 13225 5000 50  0001 C CNN
 	1    13225 5000
@@ -1533,7 +1533,7 @@ L Device:R R15
 U 1 1 63A69057
 P 13175 2800
 F 0 "R15" V 13275 2775 50  0000 C CNN
-F 1 "25k" V 13175 2775 50  0000 C CNN
+F 1 "30k" V 13175 2775 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 13105 2800 50  0001 C CNN
 F 3 "~" H 13175 2800 50  0001 C CNN
 	1    13175 2800
@@ -1570,7 +1570,7 @@ L Device:R R16
 U 1 1 63B29260
 P 13175 3950
 F 0 "R16" V 13275 3925 50  0000 C CNN
-F 1 "2.5k" V 13175 3925 50  0000 C CNN
+F 1 "3k" V 13175 3925 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 13105 3950 50  0001 C CNN
 F 3 "~" H 13175 3950 50  0001 C CNN
 	1    13175 3950
@@ -1859,7 +1859,7 @@ L Device:R R27
 U 1 1 652B5D05
 P 18175 5500
 F 0 "R27" V 18075 5500 50  0000 C CNN
-F 1 "5k" V 18175 5500 50  0000 C CNN
+F 1 "2k" V 18175 5500 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 18105 5500 50  0001 C CNN
 F 3 "~" H 18175 5500 50  0001 C CNN
 	1    18175 5500
@@ -1870,7 +1870,7 @@ L Device:R R29
 U 1 1 652B5D19
 P 19150 4850
 F 0 "R29" V 19050 4850 50  0000 C CNN
-F 1 "33k" V 19150 4850 50  0000 C CNN
+F 1 "11k" V 19150 4850 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 19080 4850 50  0001 C CNN
 F 3 "~" H 19150 4850 50  0001 C CNN
 	1    19150 4850
@@ -1934,7 +1934,7 @@ Control Amplifier
 Text Notes 14750 14075 0    60   ~ 0
 scale buffered reference electrode voltage\n according to gain setting
 Text Notes 18900 6350 0    60   ~ 0
-scale TIA signal by 6.6x
+scale TIA signal by 5.5x
 Text Notes 21925 6350 0    60   ~ 0
 shift TIA signal to 0-3.3V range
 Text Notes 19075 3100 0    60   ~ 0
@@ -1946,7 +1946,7 @@ Shift and scale unipolar DAC (DAC_UNI) from [0V, 3.3V] \nrange to bipolar DAC (D
 Text Notes 4600 9325 0    60   ~ 0
 Scale bipolar DAC (DAC_BIP) by gain N=1,2,5, or 10  to get DAC_BIP_NX. \nGain is selected using DAC_GAIN_A0 and DAC_GAIN_A1
 Text Notes 13650 6525 0    60   ~ 0
-transimpedance amplifier with selectable gain using kelvin switching\nsee http://www.analog.com/library/analogdialogue/archives/47-05/pgtia.html\n\nSet gains so that output voltage range is -0.25V to 0.25V. \nInput current ranges (+/-)  1uA, 10uA, 100uA, 1000uA \n
+transimpedance amplifier with selectable gain using kelvin switching\nsee http://www.analog.com/library/analogdialogue/archives/47-05/pgtia.html\n\nSet gains so that output voltage range is -0.3V to 0.3V. \nInput current ranges (+/-)  1uA, 10uA, 100uA, 1000uA \n
 $Comp
 L Analog_Switch:DG411xY U4
 U 1 1 673EBC01
@@ -3699,11 +3699,11 @@ Wire Wire Line
 Text Notes 1075 7700 0    50   ~ 10
 5. Change R5 and R3 to 20k\nChange R1 and R2 to 33k\nDone
 Text Notes 17975 4750 0    50   ~ 10
-7. Replace R27 with 5K and R29 with 33k\nDONE
+7. Replace R27 with 2k and R29 with 11k\nDONE\n
 Text Notes 17125 12175 0    50   ~ 10
 8. Replace R26 and R28 with 33k\nDONE
 Text Notes 675  -125 0    250  ~ 0
-Change Notes:\n------------------------\n\n1. (Done) Change R4 from 100k to 20k\n2. (Done) Change R6 from 20k to 10k \n3. (Done) Remove Reference voltage U10 and C1.  Only need 3.3V reference now. \n4. (Done) Change all instances of REF_1V65 to REF_1V65\n5. (Done) Change R5 and R3 to 20k and also Change R1 and R2 to 33k\n6. (Done) Change gain resistors  R14, R15, R16, R17 to 250k, 25k, 2.5k and 250\n7. (Done) Replace R27 with 5K and R29 with 33k\n8. (Done) Replace R26 and R28 with 33k\n9. (Done) Replace R33, R34, R36  with 10k resistors\n\n-----------------------------------------------------------------------------\nExplaination\nItems 1,2 and 3 change reference voltages to +/- 1.65V\nItem 5 modifies amplifier so [0V, 3.3V]  is scaled and shifted to [-1V, 1V]\nItem 6 Changes gains of transimpedance amplifiers so that all current ranges maps to  goes to [-0.25V, 0.25V]\nItem 7 Changes gain of post transimpedace amplifier stage to 6.6 so that is scale [-0.25V, 0.25V] to [-1.65V, 1.65V]\nItem 8 modifies summing amplifier so that it maps [-1V, 1V] to [-1.65V, 1.65V]\nItem 9 doesn't change anything .. just reduces number of resistor types used. \n\n\n
+Change Notes:\n------------------------\n\n1. (Done) Change R4 from 100k to 20k\n2. (Done) Change R6 from 20k to 10k \n3. (Done) Remove Reference voltage U10 and C1.  Only need 3.3V reference now. \n4. (Done) Change all instances of REF_1V65 to REF_1V65\n5. (Done) Change R5 and R3 to 20k and also Change R1 and R2 to 33k\n6. (Done) Replace R27 with 5K and R29 with 33k\n7. (Done) Replace R26 and R28 with 33k\n8. (Done) Replace R33, R34, R36  with 10k resistors\n\n-----------------------------------------------------------------------------\nExplaination\nItems 1,2 and 3 change reference voltages to +/- 1.65V\nItem 5 modifies amplifier so [0V, 3.3V]  is scaled and shifted to [-1V, 1V]\nItem 6 Changes gain of post transimpedace amplifier stage to 6.6 so that is scale [-0.25V, 0.25V] to [-1.65V, 1.65V]\nItem 7 modifies summing amplifier so that it maps [-1V, 1V] to [-1.65V, 1.65V]\nItem 8 doesn't change anything .. just reduces number of resistor types used. \n\n\n
 Text Notes 600  10400 0    50   ~ 10
 3. Remove U10 and C1.  \nOnly need 3.3V reference now. \nDONE
 Text Notes 1150 10750 0    50   ~ 10
@@ -3885,7 +3885,7 @@ $EndComp
 Text Notes 3250 9925 0    50   ~ 10
 4. Replace References REF_0V6 and REF_NEG_0V6 with\nREF_1V65 and REF_NEG_1V65\nDONE
 Text Notes 11275 2950 0    50   ~ 10
-6. Change gain resistors \nR14, R15, R16, R17 to \n250k, 25k, 2.5k and 250\nDONE
+6. Change gain resistors \nR14, R15, R16, R17 to \n250k, 25k, 2.5k and 250\nDONE  (or keep the old values)\n
 Text Notes 2050 10025 0    50   ~ 10
 2. Replace w/ 10k\nDONE
 Text Notes 21300 4325 0    50   ~ 10
