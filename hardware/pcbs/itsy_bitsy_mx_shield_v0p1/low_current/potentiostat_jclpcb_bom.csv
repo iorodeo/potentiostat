@@ -1,0 +1,35 @@
+Comment,Designator,Footprint,LCSC Part #
+0.1uF Unpolarized capacitor,"C2,C3,C4,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C24,C31,C32,C33,C34,C35,C36,C37,C38,C39,C40,C41,C42,C43,C44,C45,C46,C47,C48,C50,C52,C53,C54,C55",C_0603_1608Metric,
+4.7uF Unpolarized capacitor,C5,C_0603_1608Metric,C19666
+3.3nF Unpolarized capacitor,C6,C_0603_1608Metric,
+2.2uF Unpolarized capacitor,"C7,C8,C9",C_0603_1608Metric,
+1uF Unpolarized capacitor,"C22,C23",C_0603_1608Metric,
+56nF Unpolarized capacitor,"C25,C26,C27,C28",C_0603_1608Metric,
+10nF Unpolarized capacitor,C29,C_0603_1608Metric,
+12nF Unpolarized capacitor,C30,C_0603_1608Metric,
+BAS07-04 ,"D1,D2",SOT-23,C609810 
+"Conn_01x03 Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)",K1,PIN_ARRAY_3X1,
+"Conn_01x02 Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)","P1,P2,P3",CONNBLOCK2,
+"Conn_01x02 Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)","P4,P5,P6,P7,P8,P9,P10,P11,P12,P17,P18,P19,P20,P21,P22",PIN_ARRAY_2X1,
+"Conn_02x05_Odd_Even Generic connector, double row, 02x05, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)","P13,P14",5X2_SHRD_HEADER,
+"Conn_02x02_Odd_Even Generic connector, double row, 02x02, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)","P15,P16",PIN_ARRAY_2X2,
+33k Resistor,"R1,R2,R26,R28",R_0603_1608Metric,
+20k Resistor,"R3,R4,R5,R8,R10,R13,R23,R25",R_0603_1608Metric,
+10k Resistor,"R6,R7,R9,R18,R19,R24,R33,R34,R36",R_0603_1608Metric,
+50k Resistor,"R11,R22",R_0603_1608Metric,
+100k Resistor,"R12,R20,R21",R_0603_1608Metric,
+300k Resistor,R14,R_0603_1608Metric,
+30k Resistor,R15,R_0603_1608Metric,
+3k Resistor,R16,R_0603_1608Metric,
+300 Resistor,R17,R_0603_1608Metric,
+2k Resistor,R27,R_0603_1608Metric,
+11k Resistor,R29,R_0603_1608Metric,
+1k Resistor,"R30,R37",R_0603_1608Metric,
+100 Resistor,"R31,R38",R_0603_1608Metric,
+4.7k Resistor,"R32,R35",R_0603_1608Metric,
+"74HC138 3-to-8 line decoder/demultiplexer; inverting, DIP-16/SOIC-16/SSOP-16","U1,U19,U21",SOIC-16_3.9x9.9mm_P1.27mm,C5602
+ITSY_BITSY_M4 ,U2,ITSY_BITSY_M4,
+"DG411xY Quad SPST Monolithic CMOS Analog Switches, normally ON, 17Ohm Ron, SOIC-16","U3,U4,U5,U7,U8",SOIC-16_3.9x9.9mm_P1.27mm,C17218
+MEA1D05XXSC ,U6,MEA1,
+"TL072 Dual Low-Noise JFET-Input Operational Amplifiers, DIP-8/SOIC-8",U9,SOIC-8_3.9x4.9mm_P1.27mm,C6961
+"OP07 Single Ultra-Low Offset Voltage Operational Amplifier, DIP-8/SOIC-8","U11,U12,U13,U14,U15,U16,U17,U18,U20",SOIC-8_3.9x4.9mm_P1.27mm,C7433
