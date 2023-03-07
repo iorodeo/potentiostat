@@ -134,26 +134,30 @@ CurrRange1uA = '1uA'
 CurrRange10uA = '10uA'
 CurrRange100uA = '100uA'
 CurrRange1000uA = '1000uA'
+CurrRange10000uA = '10000uA'
 CurrRange12000uA = '12000uA'
 CurrRange24000uA = '24000uA'
 
 CurrRangeListNanoAmp = [CurrRange1uA, CurrRange10uA, CurrRange100nA, CurrRange60nA]
 CurrRangeListMicroAmp = [CurrRange1uA, CurrRange10uA, CurrRange100uA, CurrRange1000uA]
-CurrRangeListMilliAmp = [CurrRange100uA, CurrRange1000uA, CurrRange12000uA, CurrRange24000uA]
+CurrRangeList10MilliAmp = [CurrRange10uA, CurrRange100uA, CurrRange1000uA, CurrRange10000uA]
+CurrRangeList24MilliAmp = [CurrRange100uA, CurrRange1000uA, CurrRange12000uA, CurrRange24000uA]
 
 HwVariantToCurrRangesDict = {
         'nanoAmpV0.1'         :  CurrRangeListNanoAmp,
         'microAmpV0.1'        :  CurrRangeListMicroAmp, 
-        'milliAmpV0.1'        :  CurrRangeListMilliAmp,
+        'milliAmpV0.1'        :  CurrRangeList24MilliAmp,
         'AD8250_nanoAmpV0.1'  :  CurrRangeListNanoAmp,
         'AD8250_microAmpV0.1' :  CurrRangeListMicroAmp, 
-        'AD8250_milliAmpV0.1' :  CurrRangeListMilliAmp,
+        'AD8250_milliAmpV0.1' :  CurrRangeList24MilliAmp,
         'AD8251_nanoAmpV0.1'  :  CurrRangeListNanoAmp,
         'AD8251_microAmpV0.1' :  CurrRangeListMicroAmp, 
-        'AD8251_milliAmpV0.1' :  CurrRangeListMilliAmp,
+        'AD8251_milliAmpV0.1' :  CurrRangeList24MilliAmp,
         '10V_nanoAmpV0.2'     :  CurrRangeListNanoAmp,
         '10V_microAmpV0.2'    :  CurrRangeListMicroAmp, 
-        '10V_milliAmpV0.2'    :  CurrRangeListMilliAmp,
+        '10V_milliAmpV0.2'    :  CurrRangeList24MilliAmp,
+        '10V_10MilliAmpV0.2'  :  CurrRangeList10MilliAmp,
+        '10V_24MilliAmpV0.2'  :  CurrRangeList24MilliAmp,
         }
 
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}

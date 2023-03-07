@@ -30,10 +30,10 @@ namespace ps
             // ----------------------------------------------------------------------------------------------
             // Temporary  - to check system prior to changing resistor values
             // ----------------------------------------------------------------------------------------------
-            //static const uint16_t MaxValueAin = uint16_t((uint32_t(1) << DefaultAnalogReadResolution) -1);
-            //static const uint16_t MaxValueDac = uint16_t((uint32_t(1) << DefaultAnalogWriteResolution)-1);
-            static const uint16_t MaxValueAin = 1489; 
-            static const uint16_t MaxValueDac = 1489; 
+            static const uint16_t MaxValueAin = uint16_t((uint32_t(1) << DefaultAnalogReadResolution) -1);
+            static const uint16_t MaxValueDac = uint16_t((uint32_t(1) << DefaultAnalogWriteResolution)-1);
+            //static const uint16_t MaxValueAin = 1489; 
+            //static const uint16_t MaxValueDac = 1489; 
             // ----------------------------------------------------------------------------------------------
             static const uint16_t MidValueDac = MaxValueDac/2;
 #endif

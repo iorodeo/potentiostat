@@ -49,11 +49,13 @@ namespace ps
 #   error "HARDWARE_VERSION must be specified"
 #endif
 
-#if defined CURRENT_VARIANT_MICRO_AMP
+#if defined CURRENT_VARIANT_NANO_AMP
         setCurrRange(CurrRange10uA);
-#elif defined CURRENT_VARIANT_NANO_AMP
+#elif defined CURRENT_VARIANT_MICRO_AMP
         setCurrRange(CurrRange10uA);
-#elif defined CURRENT_VARIANT_MILL_AMP
+#elif defined CURRENT_VARIANT_MILL10_AMP
+        setCurrRange(CurrRange100uA);
+#elif defined CURRENT_VARIANT_MILL24_AMP
         setCurrRange(CurrRange1000uA);
 #else
 #   error "CURRENT_VARIANT must be specified"

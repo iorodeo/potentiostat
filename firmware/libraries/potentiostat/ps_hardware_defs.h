@@ -6,15 +6,16 @@
         // ------------------------------------------------------------------------
         #define HARDWARE_VERSION_0P2
         #define VOLTAGE_VARIANT_10V       
-        #define CURRENT_VARIANT_MICRO_AMP   // select from (NANO, MICRO or MILL)
-        //#define DEVBOARD_TEENSY             // select from (TEENSY or ITSY_BITSY)
-        #define DEVBOARD_ITSY_BITSY            // select from (TEENSY or ITSY_BITSY)
+        //#define CURRENT_VARIANT_MICRO_AMP  // select from (NANO, MICRO, MILL10, MILL24)
+        #define CURRENT_VARIANT_MILL10_AMP   // select from (NANO, MICRO, MILL10, MILL24)
+        //#define DEVBOARD_TEENSY            // select from (TEENSY or ITSY_BITSY)
+        #define DEVBOARD_ITSY_BITSY          // select from (TEENSY or ITSY_BITSY)
     #else
         // Hardware version 0.1
         // ------------------------------------------------------------------------ 
         #define HARDWARE_VERSION_0P1
         #define VOLTAGE_VARIANT_AD8250      // select from (AD8250 or AD8251)
-        #define CURRENT_VARIANT_MICRO_AMP   // select from (NANO, MICRO or MILL)
+        #define CURRENT_VARIANT_MICRO_AMP   // select from (NANO, MICRO, MILL10 or MILL24)
         #define DEVBOARD_TEENSY             // select from (TEENSY)
     #endif
 
