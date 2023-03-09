@@ -421,8 +421,7 @@ namespace ps
 #if defined MUX_CAPABLE
         jsonDat.set(MuxEnabledKey,multiplexer_.isRunning());
 #else
-        status.success = false;
-        status.message = String("multiplexer hardware not supported");
+        jsonDat.set(MuxEnabledKey, false);
 #endif
         return status;
     }
