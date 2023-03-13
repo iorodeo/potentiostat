@@ -4,7 +4,7 @@
 
 namespace ps
 { 
-    const String FirmwareVersion = String("FW0.0.8");
+    const String FirmwareVersion = String("FW0.0.9");
 #if defined HARDWARE_VERSION_0P1
     const String HardwareVersion = String("V0.1");
 #elif defined HARDWARE_VERSION_0P2
@@ -16,8 +16,12 @@ namespace ps
     // Serial parameters
     const uint32_t UsbSerialBaudrate = 115200;
 
+#if defined DEVBOARD_TEENSY
     // Device ID EEPROM address
-    extern const uint32_t EEPROM_DeviceIdAddress = 0;
+    const uint32_t EEPROM_DeviceIdAddress = 0;
+#elif defined DEVBOARD_ITSY_BITSY
+    const uint32_t DeviceId = 0;
+#endif
 
     // Json message keys 
     const String CommandKey = String("command");

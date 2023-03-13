@@ -25,8 +25,12 @@ namespace ps
     const uint32_t JsonMessageBufferSize = 4000;
     const uint32_t JsonTestDataBufferSize = 4000;
 
+#if defined DEVBOARD_TEENSY
     // Device ID EEPROM address
     extern const uint32_t EEPROM_DeviceIdAddress;
+#elif defined DEVBOARD_ITSY_BITSY
+    extern const uint32_t DeviceId;
+#endif
 
     // Serial parameters
     extern const uint32_t UsbSerialBaudrate;

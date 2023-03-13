@@ -291,8 +291,7 @@ namespace ps
         DeviceId_EEPROM deviceIdMem;
         deviceIdMem.get(jsonDat);
 #else
-        status.success = false;
-        status.message = String("device does not support nonvolatile memory");
+        jsonDat.set(DeviceIdKey,DeviceId);
 #endif
         return status;
     }
