@@ -5,8 +5,7 @@
 #include "ps_constants.h"
 #include "ps_sample.h"
 #include "ps_return_status.h"
-
-#include "third-party/ArduinoJson/ArduinoJson.h"
+#include "ArduinoJson.h"
 
 namespace ps
 {

@@ -5,9 +5,8 @@
 #include "ps_return_status.h"
 #include "ps_keyvalue_command.h"
 #include "ps_constants.h"
-
-#include "third-party/ArduinoJson/ArduinoJson.h"
-#include "third-party/Array/Array.h"
+#include "ArduinoJson.h"
+#include "Array.h"
 
 namespace ps
 {

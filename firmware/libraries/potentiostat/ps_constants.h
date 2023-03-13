@@ -5,7 +5,7 @@
 #include "ps_volt_range.h"
 #include "ps_curr_range.h"
 #include "ps_filter.h"
-#include "third-party/Array/Array.h"
+#include "Array.h"
 
 
 namespace ps

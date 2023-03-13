@@ -3,8 +3,7 @@
 
 #include <Arduino.h>
 #include "ps_constants.h"
-
-#include "third-party/ArduinoJson/ArduinoJson.h"
+#include "ArduinoJson.h"
 
 namespace ps
 {

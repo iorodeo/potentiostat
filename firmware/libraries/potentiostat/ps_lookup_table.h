@@ -1,7 +1,6 @@
 #ifndef PS_LOOKUP_TABLE_H
 #define PS_LOOKUP_TABLE_H
-
-#include "third-party/Array/Array.h"
+#include "Array.h"
 
 namespace ps
 {

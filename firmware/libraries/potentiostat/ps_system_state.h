@@ -18,9 +18,9 @@
 #if defined MUX_CAPABLE 
 #include "ps_multiplexer.h"
 #endif
-#include "third-party/Array/Array.h"
+#include "Array.h"
 #define ARDUINOJSON_USE_DOUBLE 0
-#include "third-party/ArduinoJson/ArduinoJson.h"
+#include "ArduinoJson.h"
 
 namespace ps
 {

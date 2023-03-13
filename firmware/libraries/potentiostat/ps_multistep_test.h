@@ -3,8 +3,8 @@
 #include "ps_base_test.h"
 #include "ps_constants.h"
 #include "ps_time_utils.h"
-#include "third-party/Array/Array.h"
-#include "third-party/ArduinoJson/ArduinoJson.h"
+#include "Array.h"
+#include "ArduinoJson.h"
 
 namespace ps
 {

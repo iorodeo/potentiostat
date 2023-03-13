@@ -4,7 +4,7 @@
 #include "ps_pin_map.h"
 #include "ps_constants.h"
 #include "ps_return_status.h"
-#include "third-party/Array/Array.h"
+#include "Array.h"
 
 #if defined MUX_CAPABLE
 namespace ps
