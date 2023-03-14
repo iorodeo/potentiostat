@@ -16,11 +16,14 @@ param = {
         'quietTime'  : 1000,
         'amplitude'  : 2.0,
         'offset'     : 0.0,
-        'period'     : 1000,
+        'period'     : 2000,
         'numCycles'  : 5,
         'shift'      : 0.0,
         }
 
 dev.set_param(name,param)
 
-t,volt,curr = dev.run_test(name, display='pbar')
+def on_data_callback(chan, tval, volt, curr):
+    print(f'chan: {chan}, tval: {tval}, volt: {volt}, curr: {curr}')
+
+t,volt,curr = dev.run_test(name, on_data=on_data_callback, display=None)

@@ -875,7 +875,8 @@ class Potentiostat(serial.Serial):
         msg_dict = self.send_cmd(cmd_dict)
 
 
-    def run_test(self, testname, param=None, filename=None, display='pbar', timeunit='s'):
+    def run_test(self, testname, 
+            param=None, filename=None, on_data=None, display='pbar', timeunit='s'):
         """Runs the test with specified test name and returns the time, voltage
         and current data.
 
@@ -888,6 +889,9 @@ class Potentiostat(serial.Serial):
                 which case the current values are used.
 
             filename (str): name of output file for saving data
+
+            on_data (function): callback function called on arrival of new data from 
+                the device. This function takes four arguments: chan, t, volt, and curr. 
 
             display  (str): output display mode, display=='pbar' show a progressbar,  
                 display=='data' shows a text stream and display=='' shows nothing 
@@ -988,9 +992,12 @@ class Potentiostat(serial.Serial):
                         print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tval,volt,curr))
                     else:
                         print('ch{0}: {1:1.3f}, {2:1.4f}, {3:1.4f}'.format(chan,tval,volt,curr))
-
                 elif display == 'pbar':
                     pbar.update(tval)
+
+                # Pass data to callback function if present
+                if on_data is not None:
+                    on_data(chan, tval, volt, curr)
             else:
                 done = True
 
