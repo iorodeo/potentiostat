@@ -1,12 +1,13 @@
 #include "ps_system_state.h"
-#if defined DEVBOARD_TEENSY
-#include "ps_device_id_eeprom.h"
-#endif
-#if defined DEVBOARD_ITSY_BITSY
-//#include "third-party/SAMD51_InterruptTimer/SAMD51_InterruptTimer.h"
-#include "SAMD51_InterruptTimer.h"
-#endif
+#include "ps_device_id_nvmem.h"
 
+//#if defined DEVBOARD_TEENSY
+//    #include "ps_device_id_eeprom.h"
+//#endif
+#if defined DEVBOARD_ITSY_BITSY
+    #include "SAMD51_InterruptTimer.h"
+    //#include "ps_device_id_flash.h"
+#endif
 
 namespace ps
 {
@@ -273,13 +274,13 @@ namespace ps
     ReturnStatus SystemState::onCommandSetDeviceId(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-#if defined DEVBOARD_TEENSY
-        DeviceId_EEPROM deviceIdMem;
+        DeviceId_NVMEM deviceIdMem;
+//#if defined DEVBOARD_TEENSY
+//        DeviceId_EEPROM deviceIdMem;
+//#else
+//        DeviceId_Flash deviceIdMem;
+//#endif
         status = deviceIdMem.set(jsonMsg,jsonDat);
-#else
-        status.success = false;
-        status.message = String("device does not support nonvolatile memory");
-#endif
         return status;
     }
 
@@ -287,12 +288,13 @@ namespace ps
     ReturnStatus SystemState::onCommandGetDeviceId(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-#if defined DEVBOARD_TEENSY
-        DeviceId_EEPROM deviceIdMem;
+        DeviceId_NVMEM deviceIdMem;
+//#if defined DEVBOARD_TEENSY
+//        DeviceId_EEPROM deviceIdMem;
+//#else
+//        DeviceId_Flash deviceIdMem;
+//#endif
         deviceIdMem.get(jsonDat);
-#else
-        jsonDat.set(DeviceIdKey,DeviceId);
-#endif
         return status;
     }
 

@@ -11,8 +11,10 @@
     // Options based on hardware version 
     #if defined HARDWARE_VERSION_0P2 
         #define VOLTAGE_VARIANT_10V          // select from (10V)   
-        #define CURRENT_VARIANT_MILL10_AMP   // select from (MICRO, MILL10, MILL24)
+        //#define CURRENT_VARIANT_MILL10_AMP   // select from (MICRO, MILL10, MILL24)
+        #define CURRENT_VARIANT_MICRO_AMP    // select from (MICRO, MILL10, MILL24)
         #define DEVBOARD_ITSY_BITSY          // select from (TEENSY or ITSY_BITSY)
+        //#define DEVBOARD_TEENSY             // select from (TEENSY)
     #elif defined HARDWARE_VERIONS_0P1 
         #define VOLTAGE_VARIANT_AD8250      // select from (AD8250 or AD8251)
         #define CURRENT_VARIANT_MICRO_AMP   // select from (NANO, MICRO or MILL24)

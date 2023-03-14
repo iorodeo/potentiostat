@@ -1,6 +1,5 @@
 #ifndef PS_SYSTEM_STATE_H
 #define PS_SYSTEM_STATE_H
-
 #include <Arduino.h>
 #include "ps_hardware_defs.h"
 #include "ps_constants.h"
@@ -16,7 +15,7 @@
 #include "ps_sample.h"
 #include "ps_filter.h"
 #if defined MUX_CAPABLE 
-#include "ps_multiplexer.h"
+    #include "ps_multiplexer.h"
 #endif
 #include "Array.h"
 #define ARDUINOJSON_USE_DOUBLE 0
@@ -92,7 +91,6 @@ namespace ps
 
             void setTestTimerCallback(void(*func)());
             void updateTestOnTimer();
-
 
         protected:
 

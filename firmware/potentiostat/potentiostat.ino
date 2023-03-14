@@ -23,7 +23,3 @@ void timerCallback()
     systemState.updateTestOnTimer(); 
 }
 
-//void serialEvent()
-//{
-//    systemState.updateMessageData();
-//}

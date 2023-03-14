@@ -6,6 +6,9 @@
 #include "ps_curr_range.h"
 #include "ps_filter.h"
 #include "Array.h"
+//#if defined DEVBOARD_ITSY_BITSY
+//    #include "FlashStorage.h"
+//#endif
 
 
 namespace ps
@@ -28,8 +31,6 @@ namespace ps
 #if defined DEVBOARD_TEENSY
     // Device ID EEPROM address
     extern const uint32_t EEPROM_DeviceIdAddress;
-#elif defined DEVBOARD_ITSY_BITSY
-    extern const uint32_t DeviceId;
 #endif
 
     // Serial parameters

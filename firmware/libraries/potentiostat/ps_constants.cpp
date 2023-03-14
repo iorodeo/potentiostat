@@ -19,8 +19,6 @@ namespace ps
 #if defined DEVBOARD_TEENSY
     // Device ID EEPROM address
     const uint32_t EEPROM_DeviceIdAddress = 0;
-#elif defined DEVBOARD_ITSY_BITSY
-    const uint32_t DeviceId = 0;
 #endif
 
     // Json message keys 
