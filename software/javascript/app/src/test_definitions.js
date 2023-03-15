@@ -14,6 +14,7 @@ const CURRENT_RANGE_PARAM_DEF = {
     '10uA': 10,
     '100uA': 100,
     '1000uA': 1000,
+    '10000uA': 10000,
   },
   converter: converters.identity,
 };

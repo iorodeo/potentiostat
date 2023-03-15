@@ -1,0 +1,56 @@
+"use strict";
+
+const CURR_RANGE_60nA    = '60nA';
+const CURR_RANGE_100nA   = '100nA';
+const CURR_RANGE_1uA     = '1uA';
+const CURR_RANGE_10uA    = '10uA';
+const CURR_RANGE_100uA   = '100uA';
+const CURR_RANGE_1000uA  = '1000uA';
+const CURR_RANGE_10000uA = '10000uA';
+const CURR_RANGE_12000uA = '12000uA';
+const CURR_RANGE_24000uA = '24000uA';
+
+const CURR_RANGE_LIST_nA = [
+  CURR_RANGE_1uA, 
+  CURR_RANGE_10uA, 
+  CURR_RANGE_100nA, 
+  CURR_RANGE_60nA
+];
+
+const CURR_RANGE_LIST_uA = [
+  CURR_RANGE_1uA, 
+  CURR_RANGE_10uA, 
+  CURR_RANGE_100uA, 
+  CURR_RANGE_1000uA
+];
+
+const CURR_RANGE_LIST_10mA = [
+  CURR_RANGE_10uA, 
+  CURR_RANGE_100uA, 
+  CURR_RANGE_1000uA, 
+  CURR_RANGE_10000uA
+];
+
+const CURR_RANGE_LIST_24mA = [
+  CURR_RANGE_100uA, 
+  CURR_RANGE_1000uA, 
+  CURR_RANGE_12000uA, 
+  CURR_RANGE_24000uA
+];
+
+export const HW_TO_CURR_RANGES = { 
+  'nanoAmpV0.1'         :  CURR_RANGE_LIST_nA,
+  'microAmpV0.1'        :  CURR_RANGE_LIST_uA, 
+  'milliAmpV0.1'        :  CURR_RANGE_LIST_24mA,
+  'AD8250_nanoAmpV0.1'  :  CURR_RANGE_LIST_nA,
+  'AD8250_microAmpV0.1' :  CURR_RANGE_LIST_uA, 
+  'AD8250_milliAmpV0.1' :  CURR_RANGE_LIST_24mA,
+  'AD8251_nanoAmpV0.1'  :  CURR_RANGE_LIST_nA,
+  'AD8251_microAmpV0.1' :  CURR_RANGE_LIST_uA, 
+  'AD8251_milliAmpV0.1' :  CURR_RANGE_LIST_24mA,
+  '10V_nanoAmpV0.2'     :  CURR_RANGE_LIST_nA,
+  '10V_microAmpV0.2'    :  CURR_RANGE_LIST_uA, 
+  '10V_milliAmpV0.2'    :  CURR_RANGE_LIST_24mA,
+  '10V_10MilliAmpV0.2'  :  CURR_RANGE_LIST_10mA,
+  '10V_24MilliAmpV0.2'  :  CURR_RANGE_LIST_24mA, 
+};

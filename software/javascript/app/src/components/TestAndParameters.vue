@@ -35,7 +35,7 @@
             <label> current range {{currentTestParamDefs[paramName].unit}} </label>
             <md-select v-bind:value="currentTestParamVals[paramName]" @change="onListChange(paramName,$event)">
               <md-option
-                v-for="(value,key) in currentTestParamDefs[paramName].options"
+                v-for="(value,key) in allowedCurrentRanges"
                 v-bind:value="key" 
                 v-bind:key="value.id" 
                 >
@@ -125,6 +125,7 @@ export default {
       'testParamErrs', 
     ]),
     ...mapGetters([
+      'allowedCurrentRanges',
       'currentTestParamVals',
       'currentTestParamDefs',
       'convertedTestParamVals',

@@ -125,6 +125,8 @@ HwVariantToVoltRangesDict = {
         '10V_nanoAmpV0.2'     : VoltRangeList_10V, 
         '10V_microAmpV0.2'    : VoltRangeList_10V, 
         '10V_milliAmpV0.2'    : VoltRangeList_10V, 
+        '10V_10MilliAmpV0.2'  : VoltRangeList_10V,
+        '10V_24MilliAmpV0.2'  : VoltRangeList_10V,
         }
 
 # Current Ranges

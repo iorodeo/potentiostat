@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {TEST_DEFS} from './test_definitions';
+import {HW_TO_CURR_RANGES} from './hardware_defs';
 import {initParamValsFromDefs, initParamErrsFromDefs} from './test_utils';
 import _ from 'lodash';
 
@@ -14,6 +15,7 @@ export const store = new Vuex.Store({
     testParamDefs: TEST_DEFS,
     testParamVals: initParamValsFromDefs(TEST_DEFS), 
     testParamErrs: initParamErrsFromDefs(TEST_DEFS),
+    hwToCurrRanges: HW_TO_CURR_RANGES,
     serialBridgeAddress: 'http://localhost:5000',
     serialBridgeConnected: false,
     serialBridge: null,
@@ -150,6 +152,10 @@ export const store = new Vuex.Store({
       }
     },
 
+    hwCurrRanges: (state, getters) => {
+      return state.hwToCurrRanges[state.deviceHardwareVariant];
+    },
+
     testDisplayName: (state, getters) => (test) => {
       return getters.testParamDefsByTest(test).name;
     },
@@ -164,6 +170,12 @@ export const store = new Vuex.Store({
 
     currentTestParamVals: (state, getters) => {
       return getters.testParamValsByTest(state.currentTest);
+    },
+
+    allowedCurrentRanges: (state, getters) => {
+      let allowed = getters.hwCurrRanges;
+      let options = getters.currentTestParamDefs.currRange.options;
+      return _.pick(options, allowed);
     },
 
     convertedTestParamVals: (state,getters) => {
