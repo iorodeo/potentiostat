@@ -42,7 +42,7 @@ Install
 Links
 -----
 
-* Documentation http://stuff.iorodeo.com/docs/potentiostat
+* Documentation https://iorodeo.github.io/iorodeo-potentiostat-docs-build/  
 * Download https://github.com/iorodeo/potentiostat
 
 """
@@ -53,8 +53,8 @@ here = path.abspath(path.dirname(__file__))
 
 setup(
     name='iorodeo-potentiostat',
-    version='0.0.4',
-    description='Serial interface to IO Rodeo Potentiostat',
+    version='0.0.6',
+    description='Serial interface for the Rodeostat Potentiostat',
     long_description=__doc__,
     url='https://github.com/iorodeo/potentiostat',
     author='Will Dickson',
@@ -78,6 +78,8 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
         'Operating System :: POSIX', 
         'Operating System :: Microsoft :: Windows', 
         'Operating System :: MacOS :: MacOS X',

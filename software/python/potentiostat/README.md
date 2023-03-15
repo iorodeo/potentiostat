@@ -46,7 +46,7 @@ $ pip install iorodeo-potentiostat
 Links
 -----
 
-* Documentation https://potentiostat.iorodeo.com
+* Documentation https://iorodeo.github.io/iorodeo-potentiostat-docs-build/  
 * Download https://github.com/iorodeo/potentiostat
 
 
