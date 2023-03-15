@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 port = '/dev/ttyACM0'    # Serial port for potentiostat device
 datafile = 'data.txt'    # Name of output data file
 
-test_name = 'constant'   # Name of test to run - constant volate voltammetery
+test_name = 'constant'   # Name of test to run - constant voltage voltammetery
 curr_range = '100uA'     # Name of current range for test [-10uA, +10uA]
 sample_rate = 100.0      # Rate (samples/sec) at which to collect samples 
 
