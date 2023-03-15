@@ -6,7 +6,7 @@
       <md-button class="md-icon-button" @click="toggleSideNav">
         <md-icon>menu</md-icon>
       </md-button>
-      <h1 class="md-title" style="flex: 1"> Rodeostat Web App V1.1.0</h1> 
+      <h1 class="md-title" style="flex: 1"> Rodeostat Web App V1.2.0</h1> 
       <!-- <md-button> IO Rodeo </md-button> --> 
       <h1 class="md-subheading" style="width:70px"> IO Rodeo </h1> 
     </md-toolbar>
