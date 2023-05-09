@@ -3,8 +3,8 @@
     
     // Select your hardware version
     // ---------------------------------------------------------------
-    //#define HW0P2_ITSY_BITSY_10V_MICR0
-     #define HW0P2_ITSY_BITSY_10V_MILL10
+    #define HW0P2_ITSY_BITSY_10V_MICR0
+    //#define HW0P2_ITSY_BITSY_10V_MILL10
     // #define HW0P2_TEENSY_10V_MICRO
     // #define HW0P1_TEENSY_10V_MICRO
     // #define HW0P1_TEENSY_10V_MILL24
