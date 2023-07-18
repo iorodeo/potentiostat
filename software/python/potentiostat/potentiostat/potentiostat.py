@@ -1152,8 +1152,10 @@ class Potentiostat(serial.Serial):
         :meta private:
         """
         if self.isOpen() and self.test_running:
-            self.stop_test()
-
+            try:
+                self.stop_test()
+            except IOError as err:
+                pass
 
 
 
