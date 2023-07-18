@@ -877,8 +877,8 @@ class Potentiostat(serial.Serial):
         msg_dict = self.send_cmd(cmd_dict)
 
 
-    def run_test(self, testname, 
-            param=None, filename=None, on_data=None, display='pbar', timeunit='s'):
+    def run_test(self, testname, param=None, filename=None, on_data=None, display='pbar', 
+            timeunit='s', max_decode_err=None):
         """Runs the test with specified test name and returns the time, voltage
         and current data.
 
@@ -901,6 +901,10 @@ class Potentiostat(serial.Serial):
             timeunit (str): units for time values, if timeunit=='s' then time
                 values are in seconds otherwise if timeunit=='ms' then time values
                 are is milliseconds.
+
+            max_decode_err (int): maximum number of allowed json decode errors during 
+                streaming before an exception is triggered. If max_decode_err=None (default) 
+                then exceptions will not be triggered and decode errors will pass silently.  
 
         Returns:
             tuple/dict: data acquired during test. 
@@ -962,12 +966,22 @@ class Potentiostat(serial.Serial):
         self.test_running = True
 
         done = False
+        num_decode_err = 0
+
         while not done:
 
             # Get data from device
             sample_json = self.readline()
             sample_json = sample_json.strip()
-            sample_dict = json.loads(sample_json.decode())
+            try:
+                sample_dict = json.loads(sample_json.decode())
+            except json.decoder.JSONDecodeError as err:
+                num_decode_err += 1
+                if (max_decode_err is not None) and (num_decode_err > max_decode_err):
+                    err_msg = f'num_decode_err({num_decode_err}) > max_decode_err({max_decode_err})'
+                    raise DataDecodeException(err_msg)
+                else:
+                    continue
 
             if len(sample_dict) > 0:
                 tval = sample_dict[TimeKey]*TimeUnitToScale[timeunit]
@@ -1143,6 +1157,11 @@ class Potentiostat(serial.Serial):
 
 
 
+# Custom Exceptions
+# ----------------------------------------------------------------------------------
+
+class DataDecodeException(Exception):
+    pass
 
 
 
