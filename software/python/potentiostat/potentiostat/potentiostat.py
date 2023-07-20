@@ -210,10 +210,10 @@ class Potentiostat(serial.Serial):
         return msg_dict[ResponseKey][VariantKey]
 
 
-    def stop_test(self):
+    def stop_test(self,rsp=True):
         """Stops (any) currently running tests. """
         cmd_dict = {CommandKey: StopTestCmd}
-        msg_dict = self.send_cmd(cmd_dict)
+        msg_dict = self.send_cmd(cmd_dict, rsp=rsp)
 
 
     def get_volt(self):
@@ -983,7 +983,7 @@ class Potentiostat(serial.Serial):
                 else:
                     continue
 
-            if len(sample_dict) > 0:
+            if (len(sample_dict) > 0) and ('t' in sample_dict):
                 tval = sample_dict[TimeKey]*TimeUnitToScale[timeunit]
                 volt = sample_dict[VoltKey]
                 curr = sample_dict[CurrKey]
@@ -1039,7 +1039,7 @@ class Potentiostat(serial.Serial):
             return data_dict[0][TimeKey], data_dict[0][VoltKey], data_dict[0][CurrKey]
 
 
-    def send_cmd(self,cmd_dict):
+    def send_cmd(self, cmd_dict, rsp=True):
         """Sends a command to the device.  Low-level method - command is specified 
         using command dictionary.
 
@@ -1055,12 +1055,12 @@ class Potentiostat(serial.Serial):
         """
         cmd_json = json.dumps(cmd_dict) + '\n'
         self.write(cmd_json.encode())
-        msg_json = self.readline()
-        #print(msg_json)
-        msg_json = msg_json.strip()
-        msg_dict = json.loads(msg_json.decode())
-        self.check_cmd_msg(cmd_dict,msg_dict)
-        return msg_dict
+        if rsp:
+            msg_json = self.readline()
+            msg_json = msg_json.strip()
+            msg_dict = json.loads(msg_json.decode())
+            self.check_cmd_msg(cmd_dict,msg_dict)
+            return msg_dict
 
 
     def check_cmd_msg(self,cmd_dict,msg_dict):
@@ -1147,15 +1147,24 @@ class Potentiostat(serial.Serial):
             raise RuntimeError('requires hardware version >= {}'.format(HardwareVersion0p2))
 
 
-    def atexit_cleanup(self):
+    def __del__(self):
         """
         :meta private:
         """
         if self.isOpen() and self.test_running:
             try:
-                self.stop_test()
-            except IOError as err:
+                self.stop_test(rsp=False)
+            except json.decoder.JSONDecodeError:
                 pass
+        self.close()
+
+
+    def atexit_cleanup(self):
+        """
+        :meta private:
+        """
+        self.__del__()
+
 
 
 
