@@ -973,6 +973,7 @@ class Potentiostat(serial.Serial):
             # Get data from device
             sample_json = self.readline()
             sample_json = sample_json.strip()
+
             try:
                 sample_dict = json.loads(sample_json.decode())
             except json.decoder.JSONDecodeError as err:
@@ -982,40 +983,40 @@ class Potentiostat(serial.Serial):
                     raise DataDecodeException(err_msg)
                 else:
                     continue
-
-            if (len(sample_dict) > 0) and ('t' in sample_dict):
+            try:
                 tval = sample_dict[TimeKey]*TimeUnitToScale[timeunit]
                 volt = sample_dict[VoltKey]
                 curr = sample_dict[CurrKey]
-                chan = 0  # Dummy channel used when mux isn't running
-
-                if mux_enabled:
-                    chan = sample_dict[ChanKey]
-
-                for k,v in [(TimeKey,tval),(VoltKey,volt),(CurrKey,curr)]:
-                    data_dict[chan][k].append(v)
-
-                # Write data to file
-                if (filename is not None) and (output_filetype == TxtOutputFileType):
-                    if chan == 0:
-                        fid.write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tval,volt,curr))
-                    else:
-                        fid.write('{0}, {1:1.3f}, {2:1.4f}, {3:1.4f}\n'.format(chan,tval,volt,curr))
-
-                # Handle diplay options
-                if display == 'data':
-                    if chan == 0:
-                        print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tval,volt,curr))
-                    else:
-                        print('ch{0}: {1:1.3f}, {2:1.4f}, {3:1.4f}'.format(chan,tval,volt,curr))
-                elif display == 'pbar':
-                    pbar.update(tval)
-
-                # Pass data to callback function if present
-                if on_data is not None:
-                    on_data(chan, tval, volt, curr)
-            else:
+            except KeyError:
                 done = True
+                break
+
+            chan = 0  # Dummy channel used when mux isn't running
+            if mux_enabled:
+                chan = sample_dict[ChanKey]
+
+            for k,v in [(TimeKey,tval),(VoltKey,volt),(CurrKey,curr)]:
+                data_dict[chan][k].append(v)
+
+            # Write data to file
+            if (filename is not None) and (output_filetype == TxtOutputFileType):
+                if chan == 0:
+                    fid.write('{0:1.3f}, {1:1.4f}, {2:1.4f}\n'.format(tval,volt,curr))
+                else:
+                    fid.write('{0}, {1:1.3f}, {2:1.4f}, {3:1.4f}\n'.format(chan,tval,volt,curr))
+
+            # Handle diplay options
+            if display == 'data':
+                if chan == 0:
+                    print('{0:1.3f}, {1:1.4f}, {2:1.4f}'.format(tval,volt,curr))
+                else:
+                    print('ch{0}: {1:1.3f}, {2:1.4f}, {3:1.4f}'.format(chan,tval,volt,curr))
+            elif display == 'pbar':
+                pbar.update(tval)
+
+            # Pass data to callback function if present
+            if on_data is not None:
+                on_data(chan, tval, volt, curr)
 
         self.test_running = False
 
@@ -1166,15 +1167,11 @@ class Potentiostat(serial.Serial):
         self.__del__()
 
 
-
-
 # Custom Exceptions
 # ----------------------------------------------------------------------------------
 
 class DataDecodeException(Exception):
     pass
-
-
 
 
 
