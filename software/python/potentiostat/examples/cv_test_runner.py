@@ -91,7 +91,12 @@ class CVTestRunner:
             print(f'datafile: {datafile}')
             
             # Run the CV and save files to the current cwd
-            t, volt, curr = self.dev.run_test(test_name, display=self.param['display'] , filename=datafile)
+            t, volt, curr = self.dev.run_test(
+                    test_name, 
+                    filename=datafile,
+                    display=self.param['progress'], 
+                    max_decode_err=self.param['max_decode_err'],
+                    )
 
             # Convert output lists to numpy arrays
             t = np.array(t)
@@ -121,22 +126,23 @@ class CVTestRunner:
 # ------------------------------------------------------------------------------------
 if __name__ == '__main__':
 
-    #port = '/dev/ttyACM0'
-    port = 'COM5'
+    port = '/dev/ttyACM0'
+    #port = 'COM5'
 
     param = {
-        'test_name'   : 'cyclic',    # Name of voltammetric test
-        'curr_range'  : '100uA',     # Potentiostat current range 
-        'numsets'     : 3,           # Number of times to repeat the tests
-        'scanrates'   : [0.15, 0.2], # List of output voltage scan rates (V/s)
-        'sample_rate' : 1000,        # Rate at which to acquire samples (Hz)
-        'quiet_time'  : 1000,        # Pretrial quiet time  (ms)
-        'quiet_value' :-0.1,         # Output voltage during pre-test quiet time (V)
-        'volt_min'    :-0.2,         # Minimum voltage of the waveform (V)
-        'volt_max'    : 0.6,         # Maximum voltage of the waveform (V)
-        'num_cycles'  : 1,           # Number of waveform cycles in a test
-        'shift'       : 0.0,         # Waveform phase shift - dimensionless number [0,1]
-        'display'     : None,        # run_test display style - None or 'pbar' 
+        'test_name'       : 'cyclic',    # Name of voltammetric test
+        'curr_range'      : '100uA',     # Potentiostat current range 
+        'numsets'         : 3,           # Number of times to repeat the tests
+        'scanrates'       : [0.15, 0.2], # List of output voltage scan rates (V/s)
+        'sample_rate'     : 1000,        # Rate at which to acquire samples (Hz)
+        'quiet_time'      : 1000,        # Pretrial quiet time  (ms)
+        'quiet_value'     :-0.1,         # Output voltage during pre-test quiet time (V)
+        'volt_min'        :-0.2,         # Minimum voltage of the waveform (V)
+        'volt_max'        : 0.6,         # Maximum voltage of the waveform (V)
+        'num_cycles'      : 1,           # Number of waveform cycles in a test
+        'shift'           : 0.0,         # Waveform phase shift - dimensionless number [0,1]
+        'progress'        : 'pbar',      # run_test progress display style - None or 'pbar' 
+        'max_decode_err'  : 0,           # Maximum number of allowed decode errors 
         }
 
     test_runner = CVTestRunner(port, param)

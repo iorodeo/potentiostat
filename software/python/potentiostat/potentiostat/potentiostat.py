@@ -184,8 +184,9 @@ class Potentiostat(serial.Serial):
     
     ResetSleepDt = 0.0
     Baudrate = 115200
+    DefaultTimeout = 2.0
 
-    def __init__(self, port, timeout=10.0):
+    def __init__(self, port, timeout=DefaultTimeout):
         params = {'baudrate': self.Baudrate, 'timeout': timeout}
         super(Potentiostat,self).__init__(port,**params)
         time.sleep(self.ResetSleepDt)
@@ -878,7 +879,7 @@ class Potentiostat(serial.Serial):
 
 
     def run_test(self, testname, param=None, filename=None, on_data=None, display='pbar', 
-            timeunit='s', max_decode_err=None):
+            timeunit='s', max_decode_err=0):
         """Runs the test with specified test name and returns the time, voltage
         and current data.
 
@@ -903,8 +904,10 @@ class Potentiostat(serial.Serial):
                 are is milliseconds.
 
             max_decode_err (int): maximum number of allowed json decode errors during 
-                streaming before an exception is triggered. If max_decode_err=None (default) 
-                then exceptions will not be triggered and decode errors will pass silently.  
+                streaming before an exception (DataDecodeException) is rasied. 
+                If max_decode_err=0 (default) then no decode errors are allowed. 
+                If max_decode_err=None (default) then exceptions will not be triggered 
+                and decode errors will pass silently.  
 
         Returns:
             tuple/dict: data acquired during test. 
