@@ -12,6 +12,7 @@ data.txt
 data.pkl
 __pycache__
 software/python/potentiostat/build
+software/python/potentiostat/dist
 software/python/potentiostat/docs/build
 software/javascript/app/dist
 _build
