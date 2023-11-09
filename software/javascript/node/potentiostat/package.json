@@ -20,6 +20,6 @@
   "dependencies": {
     "is-empty": "^1.2.0",
     "progress": "^2.0.0",
-    "serialport": "^4.0.7"
+    "serialport": "^10.5.0"
   }
 }
