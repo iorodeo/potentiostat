@@ -19,6 +19,7 @@ num_cycle = 10     # number of cycles
 ocp_settle_dt = 1.0    # settling time prior to sampling (s)
 ocp_sample_dt = 0.02   # time between samples (s)
 num_ocp_samp = 100     # number of samples to average
+ocp_volt_rng = '1V'    # Voltage range setting for ocp measurement
 
 # Set up device
 dev = Potentiostat(port)
@@ -35,6 +36,7 @@ print()
 print(f'measuring OCP ... ', end='')
 sys.stdout.flush()
 time.sleep(ocp_settle_dt)
+dev.set_ref_elect_volt_range(ocp_volt_rng)
 ocp_samp = np.zeros((num_ocp_samp,))
 for i in range(num_ocp_samp):
     ocp_samp[i] = dev.get_ref_volt()
