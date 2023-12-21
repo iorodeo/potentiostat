@@ -1,4 +1,4 @@
-update=Mon 08 Feb 2021 09:07:37 AM PST
+update=Wed 20 Dec 2023 02:50:50 PM PST
 version=1
 last_client=kicad
 [cvpcb]
@@ -230,7 +230,7 @@ Enabled=1
 [pcbnew/Layer.B.Fab]
 Enabled=0
 [pcbnew/Layer.F.Fab]
-Enabled=0
+Enabled=1
 [pcbnew/Layer.Rescue]
 Enabled=0
 [pcbnew/Netclasses]

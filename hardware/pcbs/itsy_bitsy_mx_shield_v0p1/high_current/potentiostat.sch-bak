@@ -72,13 +72,13 @@ Text Notes 22550 15425 0    60   ~ 0
 Expansion header power selection
 Text Notes 7675 16950 0    60   ~ 0
 electrode connections
-Text Label 7125 2825 2    60   ~ 0
+Text Label 6250 2775 2    60   ~ 0
 GND
-Text Label 7125 3125 2    60   ~ 0
+Text Label 6250 3075 2    60   ~ 0
 GND
 Text Label 9375 11400 2    60   ~ 0
 REF_1V65
-Text Notes 7125 3425 0    60   ~ 0
+Text Notes 6250 3375 0    60   ~ 0
 GND test points 
 Text Notes 8750 9275 0    60   ~ 0
 DAC test points
@@ -1394,7 +1394,7 @@ L Device:R R14
 U 1 1 6241EB2D
 P 13175 1650
 F 0 "R14" V 13275 1625 50  0000 C CNN
-F 1 "300k" V 13175 1650 50  0000 C CNN
+F 1 "30k" V 13175 1650 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 13105 1650 50  0001 C CNN
 F 3 "~" H 13175 1650 50  0001 C CNN
 	1    13175 1650
@@ -1499,7 +1499,7 @@ L Device:R R17
 U 1 1 639B1B75
 P 13225 5000
 F 0 "R17" V 13325 4975 50  0000 C CNN
-F 1 "300" V 13225 4975 50  0000 C CNN
+F 1 "30" V 13225 4975 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 13155 5000 50  0001 C CNN
 F 3 "~" H 13225 5000 50  0001 C CNN
 	1    13225 5000
@@ -1533,7 +1533,7 @@ L Device:R R15
 U 1 1 63A69057
 P 13175 2800
 F 0 "R15" V 13275 2775 50  0000 C CNN
-F 1 "30k" V 13175 2775 50  0000 C CNN
+F 1 "3k" V 13175 2775 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 13105 2800 50  0001 C CNN
 F 3 "~" H 13175 2800 50  0001 C CNN
 	1    13175 2800
@@ -1570,7 +1570,7 @@ L Device:R R16
 U 1 1 63B29260
 P 13175 3950
 F 0 "R16" V 13275 3925 50  0000 C CNN
-F 1 "3k" V 13175 3925 50  0000 C CNN
+F 1 "300" V 13175 3925 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric" V 13105 3950 50  0001 C CNN
 F 3 "~" H 13175 3950 50  0001 C CNN
 	1    13175 3950
@@ -1946,7 +1946,7 @@ Shift and scale unipolar DAC (DAC_UNI) from [0V, 3.3V] \nrange to bipolar DAC (D
 Text Notes 4600 9325 0    60   ~ 0
 Scale bipolar DAC (DAC_BIP) by gain N=1,2,5, or 10  to get DAC_BIP_NX. \nGain is selected using DAC_GAIN_A0 and DAC_GAIN_A1
 Text Notes 13650 6525 0    60   ~ 0
-transimpedance amplifier with selectable gain using kelvin switching\nsee http://www.analog.com/library/analogdialogue/archives/47-05/pgtia.html\n\nSet gains so that output voltage range is -0.3V to 0.3V. \nInput current ranges (+/-)  1uA, 10uA, 100uA, 1000uA \n
+transimpedance amplifier with selectable gain using kelvin switching\nsee http://www.analog.com/library/analogdialogue/archives/47-05/pgtia.html\n\nSet gains so that output voltage range is -0.3V to 0.3V. \nInput current ranges (+/-)  10uA, 100uA, 1000uA, 10000uA \n
 $Comp
 L Analog_Switch:DG411xY U4
 U 1 1 673EBC01
@@ -2869,41 +2869,41 @@ switch decoupling
 $Comp
 L Device:C C9
 U 1 1 61C14C4B
-P 8050 1400
-F 0 "C9" H 8165 1446 50  0000 L CNN
-F 1 "2.2uF" H 8165 1355 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 8088 1250 50  0001 C CNN
-F 3 "~" H 8050 1400 50  0001 C CNN
-	1    8050 1400
+P 7175 1350
+F 0 "C9" H 7290 1396 50  0000 L CNN
+F 1 "2.2uF" H 7290 1305 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 7213 1200 50  0001 C CNN
+F 3 "~" H 7175 1350 50  0001 C CNN
+	1    7175 1350
 	1    0    0    -1  
 $EndComp
-Text Label 8050 1100 1    60   ~ 0
+Text Label 7175 1050 1    60   ~ 0
 3V3
 Wire Wire Line
-	8050 1550 8050 1750
-Text Label 8050 1750 3    60   ~ 0
+	7175 1500 7175 1700
+Text Label 7175 1700 3    60   ~ 0
 GND
 Wire Wire Line
-	8050 1100 8050 1250
+	7175 1050 7175 1200
 $Comp
 L Device:C C8
 U 1 1 61D1D9C4
-P 7500 1400
-F 0 "C8" H 7615 1446 50  0000 L CNN
-F 1 "2.2uF" H 7615 1355 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 7538 1250 50  0001 C CNN
-F 3 "~" H 7500 1400 50  0001 C CNN
-	1    7500 1400
+P 6625 1350
+F 0 "C8" H 6740 1396 50  0000 L CNN
+F 1 "2.2uF" H 6740 1305 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 6663 1200 50  0001 C CNN
+F 3 "~" H 6625 1350 50  0001 C CNN
+	1    6625 1350
 	1    0    0    -1  
 $EndComp
-Text Label 7500 1100 1    60   ~ 0
+Text Label 6625 1050 1    60   ~ 0
 3V3
 Wire Wire Line
-	7500 1550 7500 1750
-Text Label 7500 1750 3    60   ~ 0
+	6625 1500 6625 1700
+Text Label 6625 1700 3    60   ~ 0
 GND
 Wire Wire Line
-	7500 1100 7500 1250
+	6625 1050 6625 1200
 $Comp
 L Device:C C22
 U 1 1 61F4F7EA
@@ -3113,47 +3113,47 @@ Wire Wire Line
 $Comp
 L Connector_Generic:Conn_01x02 P4
 U 1 1 65A7D907
-P 7675 2775
-F 0 "P4" H 7755 2767 50  0000 L CNN
-F 1 "Conn_01x02" H 7755 2676 50  0000 L CNN
-F 2 "pin_array:PIN_ARRAY_2X1" H 7675 2775 50  0001 C CNN
-F 3 "~" H 7675 2775 50  0001 C CNN
-	1    7675 2775
+P 6800 2725
+F 0 "P4" H 6880 2717 50  0000 L CNN
+F 1 "Conn_01x02" H 6880 2626 50  0000 L CNN
+F 2 "pin_array:PIN_ARRAY_2X1" H 6800 2725 50  0001 C CNN
+F 3 "~" H 6800 2725 50  0001 C CNN
+	1    6800 2725
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x02 P5
 U 1 1 65A7EAED
-P 7675 3075
-F 0 "P5" H 7755 3067 50  0000 L CNN
-F 1 "Conn_01x02" H 7755 2976 50  0000 L CNN
-F 2 "pin_array:PIN_ARRAY_2X1" H 7675 3075 50  0001 C CNN
-F 3 "~" H 7675 3075 50  0001 C CNN
-	1    7675 3075
+P 6800 3025
+F 0 "P5" H 6880 3017 50  0000 L CNN
+F 1 "Conn_01x02" H 6880 2926 50  0000 L CNN
+F 2 "pin_array:PIN_ARRAY_2X1" H 6800 3025 50  0001 C CNN
+F 3 "~" H 6800 3025 50  0001 C CNN
+	1    6800 3025
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7475 2775 7375 2775
+	6600 2725 6500 2725
 Wire Wire Line
-	7375 2775 7375 2825
+	6500 2725 6500 2775
 Wire Wire Line
-	7375 2875 7475 2875
+	6500 2825 6600 2825
 Wire Wire Line
-	7475 3075 7375 3075
+	6600 3025 6500 3025
 Wire Wire Line
-	7375 3075 7375 3125
+	6500 3025 6500 3075
 Wire Wire Line
-	7375 3175 7475 3175
+	6500 3125 6600 3125
 Wire Wire Line
-	7375 2825 7125 2825
-Connection ~ 7375 2825
+	6500 2775 6250 2775
+Connection ~ 6500 2775
 Wire Wire Line
-	7375 2825 7375 2875
+	6500 2775 6500 2825
 Wire Wire Line
-	7375 3125 7125 3125
-Connection ~ 7375 3125
+	6500 3075 6250 3075
+Connection ~ 6500 3075
 Wire Wire Line
-	7375 3125 7375 3175
+	6500 3075 6500 3125
 Text Label 2150 1450 2    60   ~ 0
 DAC_UNI
 Text Label 3050 2900 3    60   ~ 0
@@ -3225,22 +3225,22 @@ SW_REF_ELECT
 $Comp
 L Device:C C7
 U 1 1 668AE80C
-P 6950 1400
-F 0 "C7" H 7065 1446 50  0000 L CNN
-F 1 "2.2uF" H 7065 1355 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 6988 1250 50  0001 C CNN
-F 3 "~" H 6950 1400 50  0001 C CNN
-	1    6950 1400
+P 6075 1350
+F 0 "C7" H 6190 1396 50  0000 L CNN
+F 1 "2.2uF" H 6190 1305 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 6113 1200 50  0001 C CNN
+F 3 "~" H 6075 1350 50  0001 C CNN
+	1    6075 1350
 	1    0    0    -1  
 $EndComp
-Text Label 6950 1100 1    60   ~ 0
+Text Label 6075 1050 1    60   ~ 0
 5V
 Wire Wire Line
-	6950 1550 6950 1750
-Text Label 6950 1750 3    60   ~ 0
+	6075 1500 6075 1700
+Text Label 6075 1700 3    60   ~ 0
 GND
 Wire Wire Line
-	6950 1100 6950 1250
+	6075 1050 6075 1200
 $Comp
 L Connector_Generic:Conn_01x02 P17
 U 1 1 67FDB608
@@ -3529,8 +3529,6 @@ Wire Notes Line
 Wire Notes Line
 	500  9600 10700 9600
 Wire Notes Line
-	10700 500  10700 17500
-Wire Notes Line
 	10700 7000 29500 7000
 Wire Notes Line
 	10700 14500 29500 14500
@@ -3538,7 +3536,7 @@ Wire Notes Line
 	18300 14500 18300 17500
 Wire Notes Line
 	500  12500 10700 12500
-Text Notes 7075 2125 0    60   ~ 0
+Text Notes 6200 2075 0    60   ~ 0
 power decoupling
 Text Notes 600  4200 0    100  ~ 0
 Analog Ouput Subsystem
@@ -3546,8 +3544,6 @@ Text Notes 600  9800 0    100  ~ 0
 Reference voltages
 Text Notes 600  12700 0    100  ~ 0
 Electrode Connection Subsystem
-Text Notes 10800 700  0    100  ~ 0
-Transimpedance Subsystem
 Text Notes 10800 7200 0    100  ~ 0
 Control & Reference Subsystem
 Text Notes 10800 14700 0    100  ~ 0
@@ -3888,4 +3884,45 @@ Text Notes 2050 10025 0    50   ~ 10
 2. Replace w/ 10k\nDONE
 Text Notes 21300 4325 0    50   ~ 10
 8. Replace R33, R34, R36  with 10k resistors\nDONE
+Wire Notes Line
+	8600 500  8600 4000
+Text Notes 10800 700  0    100  ~ 0
+Transimpedance Subsystem
+Wire Notes Line
+	10700 500  10700 17500
+Text Notes 9125 950  0    100  ~ 0
+Dummy headers \nfor auto assembly
+$Comp
+L dummy:header_14_pos UA2
+U 1 1 66C1CFA4
+P 9675 1650
+F 0 "UA2" H 9675 1840 50  0000 C CNN
+F 1 "header_14_pos" H 9675 1749 50  0000 C CNN
+F 2 "" H 9675 1575 50  0001 C CNN
+F 3 "" H 9675 1575 50  0001 C CNN
+	1    9675 1650
+	1    0    0    -1  
+$EndComp
+$Comp
+L dummy:header_14_pos UB2
+U 1 1 66C1E55B
+P 9675 2050
+F 0 "UB2" H 9675 2240 50  0000 C CNN
+F 1 "header_14_pos" H 9675 2149 50  0000 C CNN
+F 2 "" H 9675 1975 50  0001 C CNN
+F 3 "" H 9675 1975 50  0001 C CNN
+	1    9675 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L dummy:header_5_pos UC2
+U 1 1 66C1F9DF
+P 9675 2450
+F 0 "UC2" H 9675 2640 50  0000 C CNN
+F 1 "header_5_pos" H 9675 2549 50  0000 C CNN
+F 2 "" H 9675 2375 50  0001 C CNN
+F 3 "" H 9675 2375 50  0001 C CNN
+	1    9675 2450
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

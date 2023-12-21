@@ -5,4 +5,5 @@
   (lib (name teensy3)(type Legacy)(uri ${KIPRJMOD}/teensy3.lib)(options "")(descr ""))
   (lib (name mea1d05xxsc)(type Legacy)(uri ${KIPRJMOD}/mea1d05xxsc.lib)(options "")(descr ""))
   (lib (name itsy_bitsy_m4)(type Legacy)(uri ${KIPRJMOD}/itsy_bitsy_m4.lib)(options "")(descr ""))
+  (lib (name dummy)(type Legacy)(uri ${KIPRJMOD}/dummy.lib)(options "")(descr ""))
 )

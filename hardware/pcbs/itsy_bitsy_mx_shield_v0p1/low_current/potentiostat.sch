@@ -72,13 +72,13 @@ Text Notes 22550 15425 0    60   ~ 0
 Expansion header power selection
 Text Notes 7675 16950 0    60   ~ 0
 electrode connections
-Text Label 7125 2825 2    60   ~ 0
+Text Label 5925 2800 2    60   ~ 0
 GND
-Text Label 7125 3125 2    60   ~ 0
+Text Label 5925 3100 2    60   ~ 0
 GND
 Text Label 9375 11400 2    60   ~ 0
 REF_1V65
-Text Notes 7125 3425 0    60   ~ 0
+Text Notes 5925 3400 0    60   ~ 0
 GND test points 
 Text Notes 8750 9275 0    60   ~ 0
 DAC test points
@@ -2869,41 +2869,41 @@ switch decoupling
 $Comp
 L Device:C C9
 U 1 1 61C14C4B
-P 8050 1400
-F 0 "C9" H 8165 1446 50  0000 L CNN
-F 1 "2.2uF" H 8165 1355 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 8088 1250 50  0001 C CNN
-F 3 "~" H 8050 1400 50  0001 C CNN
-	1    8050 1400
+P 6850 1375
+F 0 "C9" H 6965 1421 50  0000 L CNN
+F 1 "2.2uF" H 6965 1330 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 6888 1225 50  0001 C CNN
+F 3 "~" H 6850 1375 50  0001 C CNN
+	1    6850 1375
 	1    0    0    -1  
 $EndComp
-Text Label 8050 1100 1    60   ~ 0
+Text Label 6850 1075 1    60   ~ 0
 3V3
 Wire Wire Line
-	8050 1550 8050 1750
-Text Label 8050 1750 3    60   ~ 0
+	6850 1525 6850 1725
+Text Label 6850 1725 3    60   ~ 0
 GND
 Wire Wire Line
-	8050 1100 8050 1250
+	6850 1075 6850 1225
 $Comp
 L Device:C C8
 U 1 1 61D1D9C4
-P 7500 1400
-F 0 "C8" H 7615 1446 50  0000 L CNN
-F 1 "2.2uF" H 7615 1355 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 7538 1250 50  0001 C CNN
-F 3 "~" H 7500 1400 50  0001 C CNN
-	1    7500 1400
+P 6300 1375
+F 0 "C8" H 6415 1421 50  0000 L CNN
+F 1 "2.2uF" H 6415 1330 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 6338 1225 50  0001 C CNN
+F 3 "~" H 6300 1375 50  0001 C CNN
+	1    6300 1375
 	1    0    0    -1  
 $EndComp
-Text Label 7500 1100 1    60   ~ 0
+Text Label 6300 1075 1    60   ~ 0
 3V3
 Wire Wire Line
-	7500 1550 7500 1750
-Text Label 7500 1750 3    60   ~ 0
+	6300 1525 6300 1725
+Text Label 6300 1725 3    60   ~ 0
 GND
 Wire Wire Line
-	7500 1100 7500 1250
+	6300 1075 6300 1225
 $Comp
 L Device:C C22
 U 1 1 61F4F7EA
@@ -3113,47 +3113,47 @@ Wire Wire Line
 $Comp
 L Connector_Generic:Conn_01x02 P4
 U 1 1 65A7D907
-P 7675 2775
-F 0 "P4" H 7755 2767 50  0000 L CNN
-F 1 "Conn_01x02" H 7755 2676 50  0000 L CNN
-F 2 "pin_array:PIN_ARRAY_2X1" H 7675 2775 50  0001 C CNN
-F 3 "~" H 7675 2775 50  0001 C CNN
-	1    7675 2775
+P 6475 2750
+F 0 "P4" H 6555 2742 50  0000 L CNN
+F 1 "Conn_01x02" H 6555 2651 50  0000 L CNN
+F 2 "pin_array:PIN_ARRAY_2X1" H 6475 2750 50  0001 C CNN
+F 3 "~" H 6475 2750 50  0001 C CNN
+	1    6475 2750
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x02 P5
 U 1 1 65A7EAED
-P 7675 3075
-F 0 "P5" H 7755 3067 50  0000 L CNN
-F 1 "Conn_01x02" H 7755 2976 50  0000 L CNN
-F 2 "pin_array:PIN_ARRAY_2X1" H 7675 3075 50  0001 C CNN
-F 3 "~" H 7675 3075 50  0001 C CNN
-	1    7675 3075
+P 6475 3050
+F 0 "P5" H 6555 3042 50  0000 L CNN
+F 1 "Conn_01x02" H 6555 2951 50  0000 L CNN
+F 2 "pin_array:PIN_ARRAY_2X1" H 6475 3050 50  0001 C CNN
+F 3 "~" H 6475 3050 50  0001 C CNN
+	1    6475 3050
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7475 2775 7375 2775
+	6275 2750 6175 2750
 Wire Wire Line
-	7375 2775 7375 2825
+	6175 2750 6175 2800
 Wire Wire Line
-	7375 2875 7475 2875
+	6175 2850 6275 2850
 Wire Wire Line
-	7475 3075 7375 3075
+	6275 3050 6175 3050
 Wire Wire Line
-	7375 3075 7375 3125
+	6175 3050 6175 3100
 Wire Wire Line
-	7375 3175 7475 3175
+	6175 3150 6275 3150
 Wire Wire Line
-	7375 2825 7125 2825
-Connection ~ 7375 2825
+	6175 2800 5925 2800
+Connection ~ 6175 2800
 Wire Wire Line
-	7375 2825 7375 2875
+	6175 2800 6175 2850
 Wire Wire Line
-	7375 3125 7125 3125
-Connection ~ 7375 3125
+	6175 3100 5925 3100
+Connection ~ 6175 3100
 Wire Wire Line
-	7375 3125 7375 3175
+	6175 3100 6175 3150
 Text Label 2150 1450 2    60   ~ 0
 DAC_UNI
 Text Label 3050 2900 3    60   ~ 0
@@ -3225,22 +3225,22 @@ SW_REF_ELECT
 $Comp
 L Device:C C7
 U 1 1 668AE80C
-P 6950 1400
-F 0 "C7" H 7065 1446 50  0000 L CNN
-F 1 "2.2uF" H 7065 1355 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric" H 6988 1250 50  0001 C CNN
-F 3 "~" H 6950 1400 50  0001 C CNN
-	1    6950 1400
+P 5750 1375
+F 0 "C7" H 5865 1421 50  0000 L CNN
+F 1 "2.2uF" H 5865 1330 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5788 1225 50  0001 C CNN
+F 3 "~" H 5750 1375 50  0001 C CNN
+	1    5750 1375
 	1    0    0    -1  
 $EndComp
-Text Label 6950 1100 1    60   ~ 0
+Text Label 5750 1075 1    60   ~ 0
 5V
 Wire Wire Line
-	6950 1550 6950 1750
-Text Label 6950 1750 3    60   ~ 0
+	5750 1525 5750 1725
+Text Label 5750 1725 3    60   ~ 0
 GND
 Wire Wire Line
-	6950 1100 6950 1250
+	5750 1075 5750 1225
 $Comp
 L Connector_Generic:Conn_01x02 P17
 U 1 1 67FDB608
@@ -3538,7 +3538,7 @@ Wire Notes Line
 	18300 14500 18300 17500
 Wire Notes Line
 	500  12500 10700 12500
-Text Notes 7075 2125 0    60   ~ 0
+Text Notes 5875 2100 0    60   ~ 0
 power decoupling
 Text Notes 600  4200 0    100  ~ 0
 Analog Ouput Subsystem
@@ -3888,4 +3888,41 @@ Text Notes 2050 10025 0    50   ~ 10
 2. Replace w/ 10k\nDONE
 Text Notes 21300 4325 0    50   ~ 10
 8. Replace R33, R34, R36  with 10k resistors\nDONE
+$Comp
+L dummy:header_14_pos UA2
+U 1 1 65922923
+P 9500 1750
+F 0 "UA2" H 9500 1940 50  0000 C CNN
+F 1 "header_14_pos" H 9500 1849 50  0000 C CNN
+F 2 "dummy:header_14_pos" H 9500 1675 50  0001 C CNN
+F 3 "" H 9500 1675 50  0001 C CNN
+	1    9500 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L dummy:header_14_pos UB2
+U 1 1 65923492
+P 9500 2125
+F 0 "UB2" H 9500 2315 50  0000 C CNN
+F 1 "header_14_pos" H 9500 2224 50  0000 C CNN
+F 2 "dummy:header_14_pos" H 9500 2050 50  0001 C CNN
+F 3 "" H 9500 2050 50  0001 C CNN
+	1    9500 2125
+	1    0    0    -1  
+$EndComp
+$Comp
+L dummy:header_5_pos UC2
+U 1 1 65923F0E
+P 9500 2525
+F 0 "UC2" H 9500 2715 50  0000 C CNN
+F 1 "header_5_pos" H 9500 2624 50  0000 C CNN
+F 2 "dummy:header_5_pos" H 9500 2450 50  0001 C CNN
+F 3 "" H 9500 2450 50  0001 C CNN
+	1    9500 2525
+	1    0    0    -1  
+$EndComp
+Text Notes 8925 1175 0    100  ~ 0
+Dummy headers\nfor auto assembly
+Wire Notes Line
+	8350 475  8350 4000
 $EndSCHEMATC

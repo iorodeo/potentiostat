@@ -6,4 +6,5 @@
   (lib (name ost_connblocks)(type KiCad)(uri ${KIPRJMOD}/ost_connblocks.pretty)(options "")(descr ""))
   (lib (name pin_array)(type KiCad)(uri ${KIPRJMOD}/pin_array.pretty)(options "")(descr ""))
   (lib (name itsy_bitsy_m4)(type KiCad)(uri ${KIPRJMOD}/itsy_bitsy_m4.pretty)(options "")(descr ""))
+  (lib (name dummy)(type KiCad)(uri ${KIPRJMOD}/dummy.pretty)(options "")(descr ""))
 )

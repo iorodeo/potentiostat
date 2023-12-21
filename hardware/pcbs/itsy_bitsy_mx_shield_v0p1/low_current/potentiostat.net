@@ -1,7 +1,7 @@
 (export (version D)
   (design
-    (source /home/wbd/work/products/potentiostat-development/hardware/pcbs/itsy_bitsy_mx_shield_v0p1/potentiostat.sch)
-    (date "Wed 22 Feb 2023 04:17:35 PM PST")
+    (source /home/wbd/work/products/potentiostat/hardware/pcbs/itsy_bitsy_mx_shield_v0p1/low_current/potentiostat.sch)
+    (date "Wed 20 Dec 2023 02:50:25 PM PST")
     (tool "Eeschema 5.1.7-a382d34a8~87~ubuntu18.04.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -996,7 +996,25 @@
         (field (name "LCSC Part") C19666))
       (libsource (lib Device) (part C) (description "Unpolarized capacitor"))
       (sheetpath (names /) (tstamps /))
-      (tstamp 6230ECA5)))
+      (tstamp 6230ECA5))
+    (comp (ref UA2)
+      (value header_14_pos)
+      (footprint dummy:header_14_pos)
+      (libsource (lib dummy) (part header_14_pos) (description ""))
+      (sheetpath (names /) (tstamps /))
+      (tstamp 65922923))
+    (comp (ref UB2)
+      (value header_14_pos)
+      (footprint dummy:header_14_pos)
+      (libsource (lib dummy) (part header_14_pos) (description ""))
+      (sheetpath (names /) (tstamps /))
+      (tstamp 65923492))
+    (comp (ref UC2)
+      (value header_5_pos)
+      (footprint dummy:header_5_pos)
+      (libsource (lib dummy) (part header_5_pos) (description ""))
+      (sheetpath (names /) (tstamps /))
+      (tstamp 65923F0E)))
   (libparts
     (libpart (lib 74HC138) (part 74HC138)
       (aliases
@@ -1245,6 +1263,14 @@
       (pins
         (pin (num 1) (name ~) (type passive))
         (pin (num 2) (name ~) (type passive))))
+    (libpart (lib dummy) (part header_14_pos)
+      (fields
+        (field (name Reference) U)
+        (field (name Value) header_14_pos)))
+    (libpart (lib dummy) (part header_5_pos)
+      (fields
+        (field (name Reference) U)
+        (field (name Value) header_5_pos)))
     (libpart (lib itsy_bitsy_m4) (part ITSY_BITSY_M4)
       (fields
         (field (name Reference) U)
@@ -1303,7 +1329,7 @@
         (pin (num 3) (name AK) (type passive)))))
   (libraries
     (library (logical 74HC138)
-      (uri /home/wbd/work/products/potentiostat-development/hardware/pcbs/itsy_bitsy_mx_shield_v0p1/74HC138.lib))
+      (uri /home/wbd/work/products/potentiostat/hardware/pcbs/itsy_bitsy_mx_shield_v0p1/low_current/74HC138.lib))
     (library (logical Amplifier_Operational)
       (uri /usr/share/kicad/library/Amplifier_Operational.lib))
     (library (logical Analog_Switch)
@@ -1312,12 +1338,14 @@
       (uri /usr/share/kicad/library/Connector_Generic.lib))
     (library (logical Device)
       (uri /usr/share/kicad/library/Device.lib))
+    (library (logical dummy)
+      (uri /home/wbd/work/products/potentiostat/hardware/pcbs/itsy_bitsy_mx_shield_v0p1/low_current/dummy.lib))
     (library (logical itsy_bitsy_m4)
-      (uri /home/wbd/work/products/potentiostat-development/hardware/pcbs/itsy_bitsy_mx_shield_v0p1/itsy_bitsy_m4.lib))
+      (uri /home/wbd/work/products/potentiostat/hardware/pcbs/itsy_bitsy_mx_shield_v0p1/low_current/itsy_bitsy_m4.lib))
     (library (logical mea1d05xxsc)
-      (uri /home/wbd/work/products/potentiostat-development/hardware/pcbs/itsy_bitsy_mx_shield_v0p1/mea1d05xxsc.lib))
+      (uri /home/wbd/work/products/potentiostat/hardware/pcbs/itsy_bitsy_mx_shield_v0p1/low_current/mea1d05xxsc.lib))
     (library (logical potentiostat-rescue)
-      (uri /home/wbd/work/products/potentiostat-development/hardware/pcbs/itsy_bitsy_mx_shield_v0p1/potentiostat-rescue.lib)))
+      (uri /home/wbd/work/products/potentiostat/hardware/pcbs/itsy_bitsy_mx_shield_v0p1/low_current/potentiostat-rescue.lib)))
   (nets
     (net (code 1) (name /-15V)
       (node (ref C36) (pin 1))
