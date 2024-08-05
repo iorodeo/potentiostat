@@ -44,6 +44,7 @@ Contents:
     tests 
     api_reference
     hardware
+    json
 
 
 ******************
