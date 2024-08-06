@@ -5,8 +5,16 @@ JSON Serial Commands
 ############################
 
 All messages sent between the Rodeostat and the host PC are sent as serialzed
-JSON.  This section provides a brief introduction to to these commands and
-their reponses. 
+JSON.  This section provides a brief introduction to to these commands and the
+associated reponses to the commmand returned by the device. 
+
+.. note::
+
+    The Potentiostat class provides a high level interface implementing this
+    protocol - so in general you don't need to know the details of the JSON
+    serial commands in order to use the Rodeostat potentionstat from Python. We
+    provide the details here for completeness and for those who wish to
+    implement their own interface. 
 
 
 getVariant
@@ -61,19 +69,19 @@ getVolt
 
     Form: 
     
-    
+    .. code-block:: 
     
         {CommandKey: GetVoltCmd}
 
     Example command:
 
-
+    .. code-block:: json
 
         {"command":"getVolt"}
 
     Response:
 
-
+    .. code-block:: json
 
         {"success":true,"response":{"command":"getVolt","v":-0.000244}}
 
@@ -83,433 +91,753 @@ setVolt
 
     Form: 
     
-    
+    .. code-block:: 
     
         {CommandKey: SetVoltCmd, VoltKey: volt}
 
     Example command:
 
-
+    .. code-block:: json
 
         {"command":"setVolt", "v": 0.5}
 
     Example response:
 
-
+    .. code-block:: json
 
         {"success":true,"response":{"command":"setVolt","v":0.499878}}
 
 getCurr
-
     Gets an immediate measurement of the working electrode current. 
 
-    form: {CommandKey: GetCurrCmd}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: GetCurrCmd}
 
-    example command:
-    {"command": "getCurr"}
+    Example command:
 
-    example response:
-    {"success":true,"response":{"command":"getCurr","i":-0.095238}}
+    .. code-block:: json
+
+        {"command": "getCurr"}
+
+    Example response:
+
+    .. code-block:: json
+
+        {"success":true,"response":{"command":"getCurr","i":-0.095238}}
 
 
 getRefVolt
-
     Gets an immediate measurement of the potential between the working and
     reference electrode. 
 
-    form: {CommandKey: GetRefVoltCmd}
+    Form: 
+    .. code-block:: 
+        
+        {CommandKey: GetRefVoltCmd}
 
-    example command:
-    {"command": "getRefVolt"}
+    Example command:
+    
+    .. code-block:: json
 
-    example response:
-    {"success":true,"response":{"command":"getRefVolt","r":0.761661}}
+        {"command": "getRefVolt"}
+
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"getRefVolt","r":0.761661}}
 
 
 getParam
-
     Returns the current values of the parameters for the specified
     voltammetric test. 
 
-    form: {CommandKey: GetParamCmd, TestKey: testname} 
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: GetParamCmd, TestKey: testname} 
 
-    example command:
-    {"command": "getParam", "test": "cyclic"}
+    Example command:
 
-    example response:
-    {"success":true,"response":{"command":"getParam","test":"cyclic","param":{"quietValue":0,"quietTime":0,"amplitude":1,"offset":0,"period":1000,"numCycles":10,"shift":0}}}
+    .. code-block:: json
+    
+        {"command": "getParam", "test": "cyclic"}
+
+    Example response:
+    
+    .. code-block:: json
+    
+        { 
+            "success":true,
+            "response": {
+                "command":"getParam",
+                "test":"cyclic",
+                "param":{
+                    "quietValue":0,
+                    "quietTime":0,
+                    "amplitude":1,
+                    "offset":0,
+                    "period":1000,
+                    "numCycles":10,
+                    "shift":0 
+                }
+            }
+        }
 
 setParam
-
     Sets the parameters for the specified voltammetric test.
 
-    form: {CommandKey: SetParamCmd, TestKey: testname, ParamKey: param}
+    Form: 
+    
+    .. code-block:: 
 
-    example command: 
-    {"command": "setParam",  "test":"cyclic",  "param": {"quietValue":-0.1,"quietTime":1000,"amplitude":1.5,"offset":0,"period":1000,"numCycles":10,"shift":0}}
+        {CommandKey: SetParamCmd, TestKey: testname, ParamKey: param}
 
-    example response:
-    {"success":true,"response":{"command":"setParam","test":"cyclic","param":{"quietValue":-0.1,"quietTime":1000,"amplitude":1.5,"offset":0,"period":1000,"numCycles":10,"shift":0}}}
+    Example command: 
+    
+    .. code-block:: json
+    
+        {
+            "command": "setParam",  
+            "test": "cyclic",  
+            "param": {
+                "quietValue": -0.1,
+                "quietTime": 1000,
+                "amplitude": 1.5,
+                "offset": 0,
+                "period": 1000,
+                "numCycles": 10,
+                "shift": 0
+            }
+        }
+
+    Example response:
+    
+    .. code-block:: json
+    
+        {
+            "success": true,
+            "response": {
+                "command": "setParam",
+                "test": "cyclic",
+                "param": {
+                    "quietValue": -0.1,
+                    "quietTime": 1000,
+                    "amplitude": 1.5,
+                    "offset": 0,
+                    "period": 1000,
+                    "numCycles": 10, 
+                    "shift": 0
+                }
+            }
+        }
 
 
 setVoltRange
-
     Sets the output voltage range (V)- used when setting output voltage
     manually.
 
-    form: {CommandKey: SetVoltRangeCmd, VoltRangeKey: volt_range} 
+    Form: 
 
-    example command:
-    {"command":"setVoltRange", "voltRange": "2V"}
+    .. code-block:: 
 
-    example response:
-    {"success":true,"response":{"command":"setVoltRange","voltRange":"2V"}}
+        {CommandKey: SetVoltRangeCmd, VoltRangeKey: volt_range} 
+
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command":"setVoltRange", "voltRange": "2V"}
+
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"setVoltRange","voltRange":"2V"}}
 
 
 getVoltRange
-
     Gets the current value for the output voltage range (V).
 
-    form: {CommandKey: GetVoltRangeCmd}
+    Form: 
+    
+    .. code-block:: 
+        
+        {CommandKey: GetVoltRangeCmd}
 
-    example command:
-    {"command":"getVoltRange"}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command":"getVoltRange"}
 
-    example response:
-    {"success":true,"response":{"command":"getVoltRange","voltRange":"2V"}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"getVoltRange","voltRange":"2V"}}
 
 
 setCurrRange
-
     Sets the range setting for measuring working electrode (uA).
 
-    form: {CommandKey: SetCurrRangeCmd, CurrRangeKey: curr_range}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: SetCurrRangeCmd, CurrRangeKey: curr_range}
 
-    example command:
-    {"command":"setCurrRange", "currRange": "100uA"}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command":"setCurrRange", "currRange": "100uA"}
 
-    example response:
-    {"success":true,"response":{"command":"setCurrRange","currRange":"100uA"}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"setCurrRange","currRange":"100uA"}}
 
 
 getCurrRange:
-
     Gets the device's range setting for measuring working electrode current (uA).
 
-    form: {CommandKey: GetCurrRangeCmd}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: GetCurrRangeCmd}
 
-    example command:
-    {"command":"getCurrRange"}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command":"getCurrRange"}
 
-    example response:
-    {"success":true,"response":{"command":"getCurrRange","currRange":"100uA"}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"getCurrRange","currRange":"100uA"}}
 
 
 getDeviceId
-
     Gets the current value of the device identification number
 
-    form: {CommandKey: SetDeviceIdCmd, DeviceIdKey: device_id}
+    Form: 
+    
+    .. code-block:: 
 
-    example command:
-    {"command":"getDeviceId"}
+        {CommandKey: SetDeviceIdCmd, DeviceIdKey: device_id}
 
-    example response:
-    {"success":true,"response":{"command":"getDeviceId","deviceId":0}}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command":"getDeviceId"}
+
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"getDeviceId","deviceId":0}}
 
 
 setDeviceId
-
     Sets the current value of the device identification number.
 
-    form: {CommandKey: SetDeviceIdCmd, DeviceIdKey: device_id}
+    Form: 
+    
+    .. code-block:: 
 
-    example command:
-    {"command":"setDeviceId", "deviceId": 1}
+        {CommandKey: SetDeviceIdCmd, DeviceIdKey: device_id}
 
-    example response:
-    {"success":true,"response":{"command":"setDeviceId","deviceId":1}}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command":"setDeviceId", "deviceId": 1}
+
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"setDeviceId","deviceId":1}}
 
 
 setSamplePeriod
-
     Sets the sample period (ms) used for measurements. The sample period is
     the time between samples. 
 
-    form: {CommandKey: SetSamplePeriodCmd, SamplePeriodKey: sample_period}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: SetSamplePeriodCmd, SamplePeriodKey: sample_period}
 
-    example command:
-    {"command":"setSamplePeriod", "samplePeriod": 20}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command":"setSamplePeriod", "samplePeriod": 20}
 
-    example response:
-    {"success":true,"response":{"command":"setSamplePeriod","samplePeriod":20}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"setSamplePeriod","samplePeriod":20}}
 
 
 getSamplePeriod
-
     Gets the current value for the sample period (ms). The sample period is
     the time between samples.
 
-    form: {CommandKey: GetSamplePeriodCmd}
+    Form: 
+    
+    .. code-block:: 
 
-    example command:
-    {"command":"getSamplePeriod"}
+        {CommandKey: GetSamplePeriodCmd}
 
-    example response:
-    {"success":true,"response":{"command":"getSamplePeriod","samplePeriod":20}}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command":"getSamplePeriod"}
+
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"getSamplePeriod","samplePeriod":20}}
 
 
 getTestDoneTime
-
     Gets the time in milliseonds required to complete the specified test including
     any quietTime, etc. 
 
-    form: {CommandKey: GetTestDoneTimeCmd, TestKey: test}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: GetTestDoneTimeCmd, TestKey: test}
 
-    example command:
-    {"command": "getTestDoneTime", "test": "cyclic"}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "getTestDoneTime", "test": "cyclic"}
 
-    example response:
-    {"success":true,"response":{"command":"getTestDoneTime","test":"cyclic","testDoneTime":11000}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {
+            "success": true,
+            "response": {
+                "command": "getTestDoneTime",
+                "test": "cyclic",
+                "testDoneTime": 11000
+            }
+        }
 
 
 getTestNames
-
     Gets the list of the names of all tests which can be performed by the
     device with the current firmware. 
 
-    form: {CommandKey: GetTestNamesCmd}
+    Form: 
+    
+    .. code-block:: 
 
-    example command:
-    {"command": "getTestNames"}
+        {CommandKey: GetTestNamesCmd}
 
-    example response:
-    {"success":true,"response":{"command":"getTestNames","testNames":["cyclic","sinusoid","constant","squareWave","linearSweep","chronoamp","multiStep"]}}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "getTestNames"}
+
+    Example response:
+    
+    .. code-block:: json
+    
+        {
+            "success": true,
+            "response": {
+                "command": "getTestNames",
+                "testNames": ["cyclic","sinusoid","constant","squareWave","linearSweep","chronoamp","multiStep"]
+            }
+        }
 
 
 getVersion
-
     Gets the version string for the firmware on the device.
 
-    form: {CommandKey: GetVersionCmd}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: GetVersionCmd}
 
-    example command:
-    {"command": "getVersion"}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "getVersion"}
 
-    example response:
-    {"success":true,"response":{"command":"getVersion","version":"FW0.0.9"}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"getVersion","version":"FW0.0.9"}}
 
 
-getHardwareVersion
+getHardwareVersion 
+    Returns string representing the hardware version.
 
-     Returns string representing the hardware version.
+    Form: 
+     
+    .. code-block:: 
+     
+        {CommandKey: GetHardwareVersionCmd}
 
-     form: {CommandKey: GetHardwareVersionCmd}
+    Example command:
+     
+    .. code-block:: json
+     
+        {"command": "getHardwareVersion"}
 
-     example command:
-     {"command": "getHardwareVersion"}
-
-     example response:
-     {"success":true,"response":{"command":"getHardwareVersion","version":"V0.2"}}
+    Example response:
+     
+    .. code-block:: json
+     
+        {"success":true,"response":{"command":"getHardwareVersion","version":"V0.2"}}
 
 
 setRefElectConnected
-
     Sets the connected state (True/False) of the reference electrode.  This
     feature requires hardware version >= HW0.2
 
-    form: {CommandKey: SetRefElectConnCmd, ConnectedKey: value}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: SetRefElectConnCmd, ConnectedKey: value}
 
-    example command:
-    {"command": "setRefElectConnected", "connected": true}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "setRefElectConnected", "connected": true}
 
-    example response:
-    {"success":true,"response":{"command":"setRefElectConnected","connected":true}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"setRefElectConnected","connected":true}}
 
 
 getRefElectConnected
-
     Gets the connected state (True/False) of the reference electrode.  This
     feature requires hardware version >= HW0.2
 
-    form: {CommandKey: GetRefElectConnCmd}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: GetRefElectConnCmd}
 
-    example command:
-    {"command": "getRefElectConnected"}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "getRefElectConnected"}
 
-    example response:
-    {"success":true,"response":{"command":"getRefElectConnected","connected":true}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"getRefElectConnected","connected":true}}
 
 
 
 setCtrElectConnected
-
     Sets the connected state (True/False) of the counter electrode.  This
     feature requires hardware version >= HW0.2
 
-    form: {CommandKey: SetCtrElectConnCmd, ConnectedKey: value}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: SetCtrElectConnCmd, ConnectedKey: value}
 
-    example command:
-    {"command": "setCtrElectConnected", "connected": true}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "setCtrElectConnected", "connected": true}
 
-    example response:
-    {"success":true,"response":{"command":"setCtrElectConnected","connected":true}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"setCtrElectConnected","connected":true}}
 
 
 getCtrElectConnected
-
     Gets the connected state (True/False) of the counter electrode.  This
     feature requires hardware version >= HW0.2
 
-    form:  {CommandKey: GetCtrElectConnCmd}
+    Form:  
+    
+    .. code-block:: 
+    
+        {CommandKey: GetCtrElectConnCmd}
 
-    example command:
-    {"command": "getCtrElectConnected"}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "getCtrElectConnected"}
 
-    example response:
-    {"success":true,"response":{"command":"getCtrElectConnected","connected":true}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"getCtrElectConnected","connected":true}}
 
 
 setWrkElectConnected
-
     Sets the connected state (True/False) of the working electrode.  This
     feature requires hardware version >= HW0.2
 
-    form:  {CommandKey: SetWrkElectConnCmd, ConnectedKey: value}
+    Form:  
+    
+    .. code-block:: 
+    
+        {CommandKey: SetWrkElectConnCmd, ConnectedKey: value}
 
-    example command:
-    {"command": "setWrkElectConnected", "connected": true}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "setWrkElectConnected", "connected": true}
 
-    example response:
-    {"success":true,"response":{"command":"setWrkElectConnected","connected":true}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"setWrkElectConnected","connected":true}}
 
 
 getWrkElectConnected
-
     Gets the connected state (True/False) of the working electrode.  This
     feature requires hardware version >= HW0.2
 
-    form: {CommandKey: GetWrkElectConnCmd}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: GetWrkElectConnCmd}
 
-    example command:
-    {"command": "getWrkElectConnected"}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "getWrkElectConnected"}
 
-    example resposnse:
-    {"command": "getWrkElectConnected"}
+    Example resposnse:
+    
+    .. code-block:: json
+    
+        {"command": "getWrkElectConnected"}
 
 
 setAllElectConneced
-
     Sets the connected state (True/False) of all the electrodes (referene,
     counter and working). This feature requires hardware version >= HW0.2 
 
-    form: {CommandKey: SetAllElectConnCmd, ConnectedKey: value}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: SetAllElectConnCmd, ConnectedKey: value}
 
-    example command:
-    {"command": "setAllElectConnected", "connected": true}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "setAllElectConnected", "connected": true}
 
-    example response:
-    {"success":true,"response":{"command":"setAllElectConnected","connected":true}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"setAllElectConnected","connected":true}}
 
 
 getAllElectConnected
-
     Gets the connected state (True/False) of all the electrodes (referene,
     counter and working). Only True if all are connected. This feature
     requires hardware version >= HW0.2
 
-    form: {CommandKey: GetAllElectConnCmd}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: GetAllElectConnCmd}
 
-    example command:
-    {"command": "getAllElectConnected"}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "getAllElectConnected"}
 
-    example response:
-    {"success":true,"response":{"command":"getAllElectConnected","connected":true}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"getAllElectConnected","connected":true}}
 
 
 setElectAutoConnect
-
     Set auto-connect/auto-disconnect feature. If auto-connect is set to True
     then the  ref, ctr and wrk electrodes will be automatically connected at
     the beginning of each test and automatically disconnected at the end of
     each test.
 
-    form: {CommandKey: SetElectAutoConnCmd, AutoConnectKey: value}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: SetElectAutoConnCmd, AutoConnectKey: value}
 
-    example command:
-    {"command": "setElectAutoConnect", "autoConnect": true}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "setElectAutoConnect", "autoConnect": true}
 
-    example response:
-    {"success":true,"response":{"command":"setElectAutoConnect","autoConnect":true}}
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"setElectAutoConnect","autoConnect":true}}
 
 
 getElectAutoConnect
-
     Gets the value of the device's auto-connect/auto-disconnect setting.
 
-    form: {CommandKey: GetElectAutoConnCmd}
+    Form: 
 
-    example command:
-    {"command": "getElectAutoConnect"}
+    .. code-block:: 
+    
+        {CommandKey: GetElectAutoConnCmd}
 
-    example response:
-    {"success":true,"response":{"command":"getElectAutoConnect","autoConnect":true}}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "getElectAutoConnect"}
+
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"getElectAutoConnect","autoConnect":true}}
 
 
 setRefElectVoltRange
-
     Sets the voltage range for the reference electrode analog input.
 
-    form: {CommandKey: SetRefElectVoltRangeCmd, VoltRangeKey: volt_range}
+    Form: 
 
-    example command:
-    {"command": "setRefElectVoltRange", "voltRange": "2V"}
+    .. code-block:: 
+    
+        {CommandKey: SetRefElectVoltRangeCmd, VoltRangeKey: volt_range}
 
-    example response:
-    {"success":true,"response":{"command":"setRefElectVoltRange","voltRange":"2V"}}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "setRefElectVoltRange", "voltRange": "2V"}
+
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"setRefElectVoltRange","voltRange":"2V"}}
 
 getRefElectVoltRange
-
     Gets the  device's voltage range setting for the reference electrode
     analog input.  
 
-    form: {CommandKey: GetRefElectVoltRangeCmd}
+    Form: 
+    
+    .. code-block:: 
 
-    example command:
-    {"command": "getRefElectVoltRange"}
+        {CommandKey: GetRefElectVoltRangeCmd}
 
-    example response:
-    {"success":true,"response":{"command":"getRefElectVoltRange","voltRange":"5V"}}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "getRefElectVoltRange"}
+
+    Example response:
+    
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"getRefElectVoltRange","voltRange":"5V"}}
 
 
 runTest
-
     Runs the test with specified test name and returns the time, voltage and
     current data.
 
-    form: {CommandKey: RunTestCmd, TestKey: testname}
+    Form: 
+    
+    .. code-block:: 
+    
+        {CommandKey: RunTestCmd, TestKey: testname}
 
-    example command:
-    {"command": "runTest", "test": "cyclic"}
+    Example command:
+    
+    .. code-block:: json
+    
+        {"command": "runTest", "test": "cyclic"}
 
-    example response:
-    {"success":true,"response":{"command":"runTest","test":"cyclic"}}
+    Example response:
+
+    .. code-block:: json
+    
+        {"success":true,"response":{"command":"runTest","test":"cyclic"}}
 
     followed by streaming data 
 
-    {"t":20,"v":-0.1,"i":-2.799983}
-    {"t":40,"v":-0.1,"i":-2.8295}
-    {"t":60,"v":-0.1,"i":-2.936976}
-    {"t":80,"v":-0.1,"i":-2.782137}
+    .. code-block:: json
+
+        {"t":20,"v":-0.1,"i":-2.799983}
+        {"t":40,"v":-0.1,"i":-2.8295}
+        {"t":60,"v":-0.1,"i":-2.936976}
+        {"t":80,"v":-0.1,"i":-2.782137}
+
     ... etc
-    {"t":10980,"v":-1.38,"i":-28.1935}
-    {"t":11000,"v":-1.5,"i":-30.62896}
-    {}
 
-    empty object marks end of stream
+    .. code-block:: json
 
-# ------------------------
-# TO DO ... MUX commands
-# ------------------------
+        {"t":10980,"v":-1.38,"i":-28.1935}
+        {"t":11000,"v":-1.5,"i":-30.62896}
+        {}
+
+    An empty object marks the end of the stream
+
+
+**TO DO ... MUX commands**
     
 
