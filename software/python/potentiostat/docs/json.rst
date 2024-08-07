@@ -4,18 +4,55 @@
 JSON Serial Commands
 ############################
 
-All messages sent between the Rodeostat and the host PC are sent as serialzed
+All messages sent between the Rodeostat and the host PC are sent as serialized
 JSON.  This section provides a brief introduction to to these commands and the
-associated reponses to the commmand returned by the device. 
+associated responses to the command returned by the device. 
 
 .. note::
 
     The Potentiostat class provides a high level interface implementing this
-    protocol - so in general you don't need to know the details of the JSON
-    serial commands in order to use the Rodeostat potentionstat from Python. We
-    provide the details here for completeness and for those who wish to
-    implement their own interface. 
+    protocol - so you don't need to know the details of the JSON serial
+    commands in order to use the Rodeostat with Python. We provide the details
+    here in order ot enable a more complete understand of how the device
+    functions and to assist those who wishing to develop their own custom
+    programming interfaces with the Rodeostat. 
 
+The basic form of the commands sent from the host PC to the Rodeostat are JSON
+objects with the key "command" who's value specifies the name of the command.
+Additional arguments, which are specific to the command, are given as key/value
+pairs. The names and number of the required additional arguments are specific 
+to each command. 
+
+
+.. code-block:: json
+
+    {"command": "command name", "arg1": "val1", "arg2": "val2"}
+
+The response from the device, in turn, is a JSON object containing a key named
+"success" who's value is a boolean specifying whether or not the command was
+successful. If the command was successful the boolean value will be true and
+the object will contain a key named "response" who's value contains the response
+from the device.
+
+.. code-block:: json
+
+    {"success": true, "response", {"val1": "arg2", "val2": "arg2"}}
+
+
+On the other hand if the command was unsuccessful the boolean value will be
+false and the object will contain the key "message" who's value contains an
+error message from the device. 
+
+.. code-block:: json
+
+    {"success": false, "message": "error message from device", "response": {}}
+
+
+
+
+
+List of commands
+################
 
 getVariant
     Returns a string representing the hardware variant
@@ -839,5 +876,5 @@ runTest
 
 
 **TO DO ... MUX commands**
-    
+
 
