@@ -18,7 +18,7 @@ associated responses to the command returned by the device.
     programming interfaces with the Rodeostat. 
 
 The basic form of the commands sent from the host PC to the Rodeostat are JSON
-objects with the key "command" who's value specifies the name of the command.
+objects with the key "command" whose value specifies the name of the command.
 Additional arguments, which are specific to the command, are given as key/value
 pairs. The names and number of the required additional arguments are specific 
 to each command. 
@@ -29,18 +29,21 @@ to each command.
     {"command": "command name", "arg1": "val1", "arg2": "val2"}
 
 The response from the device, in turn, is a JSON object containing a key named
-"success" who's value is a boolean specifying whether or not the command was
+"success" whose value is a boolean specifying whether or not the command was
 successful. If the command was successful the boolean value will be true and
-the object will contain a key named "response" who's value contains the response
-from the device.
+the object will contain a key named "response" whose value contains the
+response from the device. The response itself consists of a number of key/value
+pairs which are specific to the command. However, reposonse will always contain
+the key "command" whose value specifies the name of the command generating the
+response. 
 
 .. code-block:: json
 
-    {"success": true, "response", {"val1": "arg2", "val2": "arg2"}}
+    {"success": true, "response", {"command": "command name", "key1": "val1", "key2": "val2"}}
 
 
 On the other hand if the command was unsuccessful the boolean value will be
-false and the object will contain the key "message" who's value contains an
+false and the object will contain the key "message" whose value contains an
 error message from the device. 
 
 .. code-block:: json
