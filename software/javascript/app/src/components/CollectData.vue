@@ -232,20 +232,13 @@ export default {
 
 
     onRunClick() {
-      //console.log('onRunClick');
-      //console.log('currentTest = ' + this.currentTest);
-      //console.log(JSON.stringify(this.currentTestParamVals))
-
       this.progressValue = 0;
       this.clearPlots();
-
       this.$store.commit('clearData');
-
       let command = JSON.stringify({
         command: 'setCurrRange', 
         currRange: this.convertedTestParamVals.currRange
       });
-
       this.serialBridge.writeReadLine('setCurrRange',command);
       this.$store.commit('setTestDoneCallback', this.testDoneCallback);
       this.$store.commit('startProgressTimer', this.updateProgressBar); 

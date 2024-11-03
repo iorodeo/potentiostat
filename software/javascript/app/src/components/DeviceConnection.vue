@@ -23,6 +23,7 @@
         <md-switch 
           class="md-primary" 
           v-on:change="onSerialBridgeConnectChange"
+          v-bind:disabled="serialPortOpen"
           > 
           connect to serialport-bridge
         </md-switch> 
@@ -120,7 +121,7 @@ export default {
     },
 
     serialPortSwitchDisabled() {
-      return ((!this.serialBridgeConnected) || (!this.serialPortName));
+      return !this.serialBridgeConnected
     },
 
     showDeviceInfo() {
@@ -205,7 +206,6 @@ export default {
       this.serialBridge.on('openRsp', (rsp) => {
         if (rsp.success) {
           this.$store.commit('setSerialPortOpen', true);
-          this.$store.commit('setSerialPortName', rsp.serialPortInfo.portName);
           let command = JSON.stringify({command: 'getVersion'});
           this.serialBridge.writeReadLine('getVersion',command)
         }
@@ -268,7 +268,7 @@ export default {
 
           default:
             // Incoming data
-            console.log('unknown tag: ' + rsp.tag); 
+            //console.log('unknown tag: ' + rsp.tag); 
         }
       });
       
@@ -300,7 +300,7 @@ export default {
       let samplePeriod = 1000.0/this.convertedTestParamVals.sampleRate;
       let command = JSON.stringify({
         command: 'setSamplePeriod', 
-        samplePeriod: samplePeriod,
+        samplePeriod: Math.round(samplePeriod),
       });
       this.serialBridge.writeReadLine('setSamplePeriod', command);
     },

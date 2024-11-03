@@ -20,7 +20,7 @@ export class SerialBridge {
   }
 
   listPorts() {
-    console.log('listPorts');
+    //console.log('listPorts');
     this.socket.emit('listPorts');
   }
 
