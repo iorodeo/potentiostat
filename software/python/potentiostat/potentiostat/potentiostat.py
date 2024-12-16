@@ -1057,8 +1057,8 @@ class Potentiostat(serial.Serial):
             {'success': True, 'response': {'command': 'getVersion', 'version': 'FW0.0.8'}}
 
         """
-        cmd_json = json.dumps(cmd_dict) + '\n'
-        self.write(cmd_json.encode())
+        cmd_json = json.dumps(cmd_dict,separators=(',',':')) + '\n'
+        self.write(cmd_json)
         if rsp:
             msg_json = self.readline()
             msg_json = msg_json.strip()
@@ -1066,6 +1066,24 @@ class Potentiostat(serial.Serial):
             self.check_cmd_msg(cmd_dict,msg_dict)
             return msg_dict
 
+    def write(self, data):
+        """
+        This is a bit of a hack. There is currently a bug in Adafruit's
+        ArduinoCore-samd which effects USB Serial. In particular the bug causes
+        the Serial.available method to return 0 when receiving messages with
+        length an integer multiple of 64. All other messages sizes seem to work
+        fine. However if, for example, you send messages of length 64 (included
+        line terminator) Serial.available will return 0 until 4 such messages
+        have been received and then, after receiving the 4th 64 byte message it
+        will return 256 bytes.  This overloaded write  method avoids the issue
+        by adding a byte to message whenever the length is an integer multiple
+        of 64.  Hopefully, at some point we can remove this when the issues
+        have been fixed.  
+        """
+        if len(data)%64 == 0:
+            data = f' {data}'
+        super().write(data.encode())
+       
 
     def check_cmd_msg(self,cmd_dict,msg_dict):
         """
