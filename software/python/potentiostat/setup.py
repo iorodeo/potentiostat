@@ -2,8 +2,8 @@
 iorodeo-potentiostat
 ---------------------
 
-Python interface to IO Rodeo's Potentiostat Shield for the teensy 3.2 development 
-board.
+Python interface to IO Rodeo's Potentiostat Shield for the Itsty Bitsy M4
+Express and teensy 3.2 development boards.
 
 Example
 --------

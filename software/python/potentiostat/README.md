@@ -1,5 +1,5 @@
-Python interface to IO Rodeo's Potentiostat Shield for the teensy 3.2 development board.
------------------------------------------------------------------------------------------
+Python interface for IO Rodeo's Potentiostat.
+---------------------------------------------
 
 Example
 --------
