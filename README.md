@@ -1,6 +1,6 @@
 # IO Rodeo Rodeostat 
 
-![alt text](/images/rstat_v0p2_cutout_scaled.png)
+![alt text](/images/rstat_itsy_bitsy_v0p1_r2.png)
 
 Hardware design, firmware and software for IO Rodeo's Rodeostat Potentiostat. 
 
