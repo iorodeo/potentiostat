@@ -19,8 +19,8 @@ namespace ps
             void setStepValue(float value);
             float getStepValue();
 
-            void setAmplitude(float value);
-            float getAmplitude();
+            void setPulseValue(float value);
+            float getPulseValue();
 
             void setWindow(float value);
             float getWindow();
@@ -48,7 +48,7 @@ namespace ps
             float startValue_ = -0.5;
             float finalValue_ = 0.5;
             float stepValue_ = 0.005;
-            float amplitude_ = 0.025;
+            float pulseValue_ = 0.025;
             float window_ = 0.2;
 
             float maxValue_ = 0.0;
@@ -77,7 +77,7 @@ namespace ps
             void setStartValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
             void setFinalValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
             void setStepValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
-            void setAmplitudeFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
+            void setPulseValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
             void setWindowFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status);
     };
 

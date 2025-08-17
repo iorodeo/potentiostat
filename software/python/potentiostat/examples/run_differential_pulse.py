@@ -5,18 +5,18 @@ from potentiostat import Potentiostat
 port = '/dev/ttyACM0'            # Serial port for potentiostat device
 datafile = 'data.txt'            # Output file for time, curr, volt data
 test_name = 'differentialPulse'  # The name of the test to run
-curr_range = '10uA'              # The name of the current range [-100uA, +100uA]
+curr_range = '100uA'             # The name of the current range [-100uA, +100uA]
 sample_rate = 5.0                # The number of samples/second to collect
 
 
 # Create dictionary of waveform parameters squarewave annodic stripping
 test_param = {
-        'quietValue' : -0.4,
+        'quietValue' : -0.2,
         'quietTime'  :  500,
-        'amplitude'  :  0.2,
+        'pulseValue' :  0.2,
         'startValue' : -0.2,
-        'finalValue' :  0.2,
-        'stepValue'  :  0.005,
+        'finalValue' :  0.5,
+        'stepValue'  :  0.02,
         'window'     :  0.2,
         }
 
@@ -29,8 +29,19 @@ dev.set_param(test_name,test_param)
 t_done = dev.get_test_done_time(test_name)
 
 # Run cyclic voltammetry test
-t,volt,curr = dev.run_test(test_name,display='pbar',filename=datafile)
+t, volt, curr, limit_err = dev.run_test(
+        test_name,display='pbar',
+        filename=datafile, 
+        include_limit_err=True,
+        )
 
+
+if limit_err:
+    print()
+    print(f'------------------------------')
+    print(f'WARNING! limit_err={limit_err}')
+    print(f'------------------------------')
+    print()
 
 # Convert values to np arrays
 print(t_done)

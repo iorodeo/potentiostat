@@ -60,15 +60,15 @@ namespace ps
     }
 
 
-    void DifferentialPulseTest::setAmplitude(float value)
+    void DifferentialPulseTest::setPulseValue(float value)
     {
-        amplitude_ = fabs(value);
+        pulseValue_ = fabs(value);
     }
 
 
-    float DifferentialPulseTest::getAmplitude()
+    float DifferentialPulseTest::getPulseValue()
     {
-        return amplitude_;
+        return pulseValue_;
     }
 
 
@@ -92,7 +92,7 @@ namespace ps
         float maxOutputValue = 0.0;
         if (stepSign_ > 0) 
         {
-            maxOutputValue = maxValue_ + amplitude_;
+            maxOutputValue = maxValue_ + pulseValue_;
         }
         else 
         {
@@ -107,7 +107,7 @@ namespace ps
         float minOutputValue = 0.0;
         if (stepSign_ < 0) 
         {
-            minOutputValue = minValue_ - amplitude_;
+            minOutputValue = minValue_ - pulseValue_;
         }
         else 
         {
@@ -175,7 +175,7 @@ namespace ps
             else {
                 if (stepModPos < halfSamplePeriod_)
                 {
-                    value = stairValue + amplitude_;
+                    value = stairValue + pulseValue_;
                 }
                 else
                 {
@@ -300,7 +300,7 @@ namespace ps
             jsonDatPrm.set(StartValueKey, startValue_);
             jsonDatPrm.set(FinalValueKey, finalValue_);
             jsonDatPrm.set(StepValueKey, stepValue_);
-            jsonDatPrm.set(AmplitudeKey, amplitude_);
+            jsonDatPrm.set(PulseValueKey, pulseValue_);
             jsonDatPrm.set(WindowKey, window_);
         }
     }
@@ -328,7 +328,7 @@ namespace ps
         setStartValueFromJson(jsonMsgPrm,jsonDatPrm,status);
         setFinalValueFromJson(jsonMsgPrm,jsonDatPrm,status);
         setStepValueFromJson(jsonMsgPrm,jsonDatPrm,status);
-        setAmplitudeFromJson(jsonMsgPrm,jsonDatPrm,status);
+        setPulseValueFromJson(jsonMsgPrm,jsonDatPrm,status);
         setWindowFromJson(jsonMsgPrm,jsonDatPrm,status);
         return status;
     }
@@ -443,24 +443,24 @@ namespace ps
     }
 
 
-    void DifferentialPulseTest::setAmplitudeFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
+    void DifferentialPulseTest::setPulseValueFromJson(JsonObject &jsonMsgPrm, JsonObject &jsonDatPrm, ReturnStatus &status)
     {
-        if (jsonMsgPrm.containsKey(AmplitudeKey))
+        if (jsonMsgPrm.containsKey(PulseValueKey))
         {
-            if (jsonMsgPrm[AmplitudeKey].is<float>())
+            if (jsonMsgPrm[PulseValueKey].is<float>())
             {
-                setAmplitude(jsonMsgPrm.get<float>(AmplitudeKey));
-                jsonDatPrm.set(AmplitudeKey,getAmplitude());
+                setPulseValue(jsonMsgPrm.get<float>(PulseValueKey));
+                jsonDatPrm.set(PulseValueKey,getPulseValue());
             }
-            else if (jsonMsgPrm[AmplitudeKey].is<long>()) 
+            else if (jsonMsgPrm[PulseValueKey].is<long>()) 
             {
-                setAmplitude(float(jsonMsgPrm.get<long>(AmplitudeKey)));
-                jsonDatPrm.set(AmplitudeKey,getAmplitude());
+                setPulseValue(float(jsonMsgPrm.get<long>(PulseValueKey)));
+                jsonDatPrm.set(PulseValueKey,getPulseValue());
             }
             else
             {
                 status.success = false;
-                String errorMsg = AmplitudeKey + String(" not a float");
+                String errorMsg = PulseValueKey + String(" not a float");
                 status.appendToMessage(errorMsg);
             }
         }

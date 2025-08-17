@@ -880,7 +880,7 @@ class Potentiostat(serial.Serial):
 
 
     def run_test(self, testname, param=None, filename=None, on_data=None, display='pbar', 
-            timeunit='s', max_decode_err=0):
+            timeunit='s', max_decode_err=0, include_limit_err=False):
         """Runs the test with specified test name and returns the time, voltage
         and current data.
 
@@ -909,6 +909,9 @@ class Potentiostat(serial.Serial):
                 If max_decode_err=0 (default) then no decode errors are allowed. 
                 If max_decode_err=None (default) then exceptions will not be triggered 
                 and decode errors will pass silently.  
+
+            include_limit_err (bool): flag indicating whether or not to include 
+                limit error information in output. 
 
         Returns:
             tuple/dict: data acquired during test. 
@@ -970,6 +973,7 @@ class Potentiostat(serial.Serial):
         self.test_running = True
 
         done = False
+        limit_err = False
         num_decode_err = 0
 
         while not done:
@@ -996,15 +1000,8 @@ class Potentiostat(serial.Serial):
                 done = True
                 break
 
-            try:
-                limit_err = sample_dict[LimitErrKey]
-            except KeyError:
-                pass
-            else:
-                # DEVEL (temporary)
-                # -----------------------------------
-                print('limit error!')
-                # -----------------------------------
+            if LimitErrKey in sample_dict:
+                limit_err = True
 
             chan = 0  # Dummy channel used when mux isn't running
             if mux_enabled:
@@ -1049,10 +1046,19 @@ class Potentiostat(serial.Serial):
             else:
                 fid.close()
 
+
+        rval = None
         if mux_enabled:
-            return data_dict 
+            if include_limit_err:
+                data_dict['limit_err'] = limit_err
+            rval = data_dict
+
         else:
-            return data_dict[0][TimeKey], data_dict[0][VoltKey], data_dict[0][CurrKey]
+            rval = data_dict[0][TimeKey], data_dict[0][VoltKey], data_dict[0][CurrKey]
+            if include_limit_err:
+                rval = *rval, limit_err
+        return rval
+
 
 
     def send_cmd(self, cmd_dict, rsp=True):
