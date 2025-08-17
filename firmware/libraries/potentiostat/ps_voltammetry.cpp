@@ -18,6 +18,7 @@ namespace ps
         availableTests_.push_back(&linearSweepTest);
         availableTests_.push_back(&chronoampTest);
         availableTests_.push_back(&multiStepTest);
+        availableTests_.push_back(&differentialPulseTest);
     }
             
 

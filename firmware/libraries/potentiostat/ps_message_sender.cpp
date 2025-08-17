@@ -32,6 +32,9 @@ namespace ps
         {
             jsonSample.set(ChanKey, sample.chan);
         }
+        if (sample.limitErr) {
+            jsonSample.set(LimitErrKey, sample.limitErr);
+        }
         jsonSample.printTo(Serial);
         Serial.println();
     }

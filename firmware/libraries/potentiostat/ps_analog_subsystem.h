@@ -44,7 +44,7 @@ namespace ps
             void setVolt(float value); 
             float getVolt() const;     
             
-            float getCurr() const;           
+            float getCurr(bool &limit_err) const;           
             float getRefElectVolt() const;   
 
             void setVoltRange(VoltRangeDac range);  
@@ -87,7 +87,7 @@ namespace ps
             void setValueDac(uint16_t value); 
             uint16_t getValueDac() const;     
 
-            uint16_t getTransAmpAin() const;  
+            uint16_t getTransAmpAin(bool &limit_err) const;  
             uint16_t getRefElectAin() const;  
 
             VoltRangeAdc refElectVoltRange_;

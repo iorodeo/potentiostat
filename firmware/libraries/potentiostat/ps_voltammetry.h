@@ -10,6 +10,7 @@
 #include "ps_linearsweep_test.h"
 #include "ps_multistep_test.h"
 #include "ps_squarewave_test.h"
+#include "ps_differential_pulse_test.h"
 #include "ArduinoJson.h"
 #include "Array.h"
 
@@ -41,6 +42,7 @@ namespace ps
             LinearSweepTest linearSweepTest;
             MultiStepTest<2> chronoampTest;
             MultiStepTest<MultiStepMaxSize> multiStepTest;
+            DifferentialPulseTest differentialPulseTest;
 
             static const String TestKey;
 

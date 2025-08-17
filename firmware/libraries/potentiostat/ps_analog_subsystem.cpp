@@ -87,10 +87,10 @@ namespace ps
     }
 
 
-    float AnalogSubsystem::getCurr() const           
+    float AnalogSubsystem::getCurr(bool &limit_err) const           
     {
         // Get current measurement from working electrode
-        return SignCurr*currRange_.intToValue(getTransAmpAin());
+        return SignCurr*currRange_.intToValue(getTransAmpAin(limit_err));
     }
 
 
@@ -622,10 +622,18 @@ namespace ps
     }
 
 
-    uint16_t AnalogSubsystem::getTransAmpAin() const  
+    uint16_t AnalogSubsystem::getTransAmpAin(bool &limit_err) const  
     {
         // Read analog input associated with the transimpedance amplifier 
-       return analogRead(TIA_OUT_UNI_PIN);
+       uint16_t ivalue = analogRead(TIA_OUT_UNI_PIN);
+       if ((ivalue ==0) || (ivalue==MaxValueAin)) {
+           limit_err = true;
+       }
+       else
+       {
+           limit_err = false;
+       }
+       return ivalue;
     }
 
 

@@ -33,6 +33,7 @@ TimeKey = 't'
 VoltKey = 'v'
 CurrKey = 'i'
 ChanKey = 'n'
+LimitErrKey = 'le'
 RefVoltKey = 'r'
 VoltRangeKey = 'voltRange'
 CurrRangeKey = 'currRange'
@@ -986,6 +987,7 @@ class Potentiostat(serial.Serial):
                     raise DataDecodeException(err_msg)
                 else:
                     continue
+
             try:
                 tval = sample_dict[TimeKey]*TimeUnitToScale[timeunit]
                 volt = sample_dict[VoltKey]
@@ -993,6 +995,16 @@ class Potentiostat(serial.Serial):
             except KeyError:
                 done = True
                 break
+
+            try:
+                limit_err = sample_dict[LimitErrKey]
+            except KeyError:
+                pass
+            else:
+                # DEVEL (temporary)
+                # -----------------------------------
+                print('limit error!')
+                # -----------------------------------
 
             chan = 0  # Dummy channel used when mux isn't running
             if mux_enabled:

@@ -46,6 +46,7 @@ namespace ps
     extern const String CurrKey;
     extern const String ChanKey;
     extern const String RefVoltKey;
+    extern const String LimitErrKey;
     extern const String ParamKey;
     extern const String VoltRangeKey;
     extern const String CurrRangeKey;

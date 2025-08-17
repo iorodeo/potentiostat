@@ -31,6 +31,7 @@ namespace ps
     const String CurrKey = String("i");
     const String ChanKey = String("n");
     const String RefVoltKey = String("r");
+    const String LimitErrKey = String("le");
     const String ParamKey = String("param");
     const String VoltRangeKey = String("voltRange");
     const String CurrRangeKey = String("currRange");

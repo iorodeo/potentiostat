@@ -2,19 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 from potentiostat import Potentiostat
 
-port = '/dev/ttyACM0'       # Serial port for potentiostat device
-datafile = 'data.txt'       # Output file for time, curr, volt data
-test_name = 'squareWave'    # The name of the test to run
-curr_range = '10uA'         # The name of the current range [-100uA, +100uA]
-sample_rate = 10.0          # The number of samples/second to collect
+port = '/dev/ttyACM0'            # Serial port for potentiostat device
+datafile = 'data.txt'            # Output file for time, curr, volt data
+test_name = 'differentialPulse'  # The name of the test to run
+curr_range = '10uA'              # The name of the current range [-100uA, +100uA]
+sample_rate = 5.0                # The number of samples/second to collect
 
 
 # Create dictionary of waveform parameters squarewave annodic stripping
 test_param = {
-        'quietValue' : 0.4,
+        'quietValue' : -0.4,
         'quietTime'  :  500,
-        'amplitude'  :  0.1,
-        'startValue' : -0.4,
+        'amplitude'  :  0.2,
+        'startValue' : -0.2,
         'finalValue' :  0.2,
         'stepValue'  :  0.005,
         'window'     :  0.2,
@@ -26,13 +26,21 @@ dev.set_curr_range(curr_range)
 dev.set_sample_rate(sample_rate)
 dev.set_param(test_name,test_param)
 
+t_done = dev.get_test_done_time(test_name)
+
 # Run cyclic voltammetry test
 t,volt,curr = dev.run_test(test_name,display='pbar',filename=datafile)
 
+
 # Convert values to np arrays
+print(t_done)
 t = np.array(t)
 volt = np.array(volt)
 curr = np.array(curr)
+
+print(t)
+print(volt)
+print(curr)
 
 # Remove values during quiet time
 ind = t > test_param['quietTime']*1.0e-3

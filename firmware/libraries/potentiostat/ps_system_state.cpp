@@ -190,7 +190,8 @@ namespace ps
     ReturnStatus SystemState::onCommandGetCurr(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
-        float curr = analogSubsystem_.getCurr();
+        bool limit_err = false;
+        float curr = analogSubsystem_.getCurr(limit_err);
         jsonDat.set(CurrKey,curr);
         return status;
     }
@@ -1081,7 +1082,8 @@ namespace ps
             uint64_t t = uint64_t(TestTimerPeriod)*timerCnt_;
             float volt = test_ -> getValue(t);
             analogSubsystem_.setVolt(volt);
-            float curr = analogSubsystem_.getCurr();
+            bool limit_err = false;
+            float curr = analogSubsystem_.getCurr(limit_err);
 
             int electNum = 0; // Default value (0 is non mux channel)
             int electInd = 0; // Default value 
@@ -1105,7 +1107,7 @@ namespace ps
                     // ------------------------------------------------------------------
                     if (timerCnt_%sampleModulus_ == 0)
                     {
-                        Sample sample = {t, volt, currLowPass_[electInd].value(),uint8_t(electNum)};
+                        Sample sample = {t, volt, currLowPass_[electInd].value(),uint8_t(electNum), limit_err};
                         dataBuffer_.push_back(sample);
 #if defined MUX_CAPABLE
                         if (multiplexer_.isRunning())
@@ -1120,8 +1122,8 @@ namespace ps
                     // ------------------------------------------------------------------
                     // Send sample for tests which use custom sampling methods
                     // ------------------------------------------------------------------
-                    Sample sampleRaw  = {t, volt, currLowPass_[0].value(),uint8_t(electNum)}; // Raw sample data
-                    Sample sampleTest = {0, 0.0, 0.0, uint8_t(electNum)}; // Custom sample data (set in updateSample)
+                    Sample sampleRaw  = {t, volt, currLowPass_[0].value(),uint8_t(electNum), limit_err}; // Raw sample data
+                    Sample sampleTest = {0, 0.0, 0.0, uint8_t(electNum), limit_err}; // Custom sample data (set in updateSample)
                     if (test_ -> updateSample(sampleRaw, sampleTest))
                     {
                         dataBuffer_.push_back(sampleTest);

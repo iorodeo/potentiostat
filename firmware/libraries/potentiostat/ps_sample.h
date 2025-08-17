@@ -12,6 +12,7 @@ namespace ps
             float volt;
             float curr;
             uint8_t chan;
+            bool limitErr;
     };
 
 }
