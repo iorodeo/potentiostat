@@ -4,7 +4,7 @@
 
 namespace ps
 { 
-    const String FirmwareVersion = String("FW0.0.9");
+    const String FirmwareVersion = String("FW0.1.0");
 #if defined HARDWARE_VERSION_0P1
     const String HardwareVersion = String("V0.1");
 #elif defined HARDWARE_VERSION_0P2
