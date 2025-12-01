@@ -4,7 +4,7 @@
 
 namespace ps
 { 
-    const String FirmwareVersion = String("FW0.1.0");
+    const String FirmwareVersion = String("FW0.1.1");
 #if defined HARDWARE_VERSION_0P1
     const String HardwareVersion = String("V0.1");
 #elif defined HARDWARE_VERSION_0P2
@@ -61,6 +61,9 @@ namespace ps
     const String ConnectedKey = String("connected");
 #if defined HARDWARE_VERSION_0P2
     const String ElectAutoConnectKey = String("autoConnect");
+    const String ExpDioPinModeKey = String("dioPinMode");
+    const String ExpDioPinKey = String("dioPin");
+    const String ExpDioValueKey = String("dioValue");
 #endif
 
     // Json command strings
@@ -110,6 +113,10 @@ namespace ps
     const String SetRefElectVoltRangeCmd = String("setRefElectVoltRange");
     const String GetRefElectVoltRangeCmd = String("getRefElectVoltRange");
     const String GetHardwareVersionCmd = String("getHardwareVersion");
+    const String SetExpDioPinModeCmd = String("setExpDioPinModeCmd");
+    const String GetExpDioPinModeCmd = String("getExpDioPinModeCmd");
+    const String SetExpDioPinValueCmd = String("setExpDioValueCmd");
+    const String GetExpDioPinValueCmd = String("getExpDioValueCmd");
 #endif
 
 

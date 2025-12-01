@@ -82,6 +82,14 @@ namespace ps
             ReturnStatus onCommandSetRefElectVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetRefElectVoltRange(JsonObject &jsonMsg, JsonObject &jsonDat);
             ReturnStatus onCommandGetHardwareVersion(JsonObject &jsonMsg, JsonObject &jsonDat); 
+
+            // New DIO commands
+            // -----------------------------
+            ReturnStatus onCommandSetExpDioPinMode(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetExpDioPinMode(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandSetExpDioPinValue(JsonObject &jsonMsg, JsonObject &jsonDat);
+            ReturnStatus onCommandGetExpDioPinValue(JsonObject &jsonMsg, JsonObject &jsonDat);
+            // -----------------------------
 #endif
             void startTest();
             void stopTest();

@@ -18,3 +18,4 @@ software/javascript/app/dist
 _build
 node_modules
 rescue-backup
+potentiostat-backups

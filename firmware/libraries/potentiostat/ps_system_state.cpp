@@ -77,6 +77,15 @@ namespace ps
         commandTable_.registerMethod(CommandKey,   SetRefElectVoltRangeCmd, &SystemState::onCommandSetRefElectVoltRange);
         commandTable_.registerMethod(CommandKey,   GetRefElectVoltRangeCmd, &SystemState::onCommandGetRefElectVoltRange);
         commandTable_.registerMethod(CommandKey,   GetHardwareVersionCmd,   &SystemState::onCommandGetHardwareVersion);
+
+        // New DIO commands
+        // -----------------------------
+        commandTable_.registerMethod(CommandKey,   SetExpDioPinModeCmd,     &SystemState::onCommandSetExpDioPinMode);
+        commandTable_.registerMethod(CommandKey,   GetExpDioPinModeCmd,     &SystemState::onCommandGetExpDioPinMode);
+        commandTable_.registerMethod(CommandKey,   SetExpDioPinValueCmd,    &SystemState::onCommandSetExpDioPinValue);
+        commandTable_.registerMethod(CommandKey,   GetExpDioPinValueCmd,    &SystemState::onCommandGetExpDioPinValue);
+        // -----------------------------
+
 #endif
 
         analogSubsystem_.initialize();
@@ -983,6 +992,40 @@ namespace ps
     {
         ReturnStatus status;
         jsonDat.set(VersionKey,HardwareVersion);
+        return status;
+    }
+#endif
+
+    // New DIO commands
+    // -----------------------------------------------------------------------------------------
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandSetExpDioPinMode(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandGetExpDioPinMode(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandSetExpDioPinValue(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
+        return status;
+    }
+#endif
+
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::onCommandGetExpDioPinValue(JsonObject &jsonMsg, JsonObject &jsonDat)
+    {
+        ReturnStatus status;
         return status;
     }
 #endif

@@ -6,6 +6,7 @@
 #include "ps_curr_range.h"
 #include "ps_filter.h"
 #include "Array.h"
+
 //#if defined DEVBOARD_ITSY_BITSY
 //    #include "FlashStorage.h"
 //#endif
@@ -20,13 +21,13 @@ namespace ps
 #endif
 
     // Command tabe parameters
-    const uint32_t CommandTableMaxSize = 50;
+    constexpr uint32_t CommandTableMaxSize = 52;
     
     // Buffer parameters
-    const uint32_t DataBufferSize = 1000;
-    const uint32_t SerialBufferSize = 2000; 
-    const uint32_t JsonMessageBufferSize = 4000;
-    const uint32_t JsonTestDataBufferSize = 4000;
+    constexpr uint32_t DataBufferSize = 1000;
+    constexpr uint32_t SerialBufferSize = 2000; 
+    constexpr uint32_t JsonMessageBufferSize = 4000;
+    constexpr uint32_t JsonTestDataBufferSize = 4000;
 
 #if defined DEVBOARD_TEENSY
     // Device ID EEPROM address
@@ -76,6 +77,9 @@ namespace ps
     extern const String ConnectedKey;
 #if defined HARDWARE_VERSION_0P2
     extern const String ElectAutoConnectKey;
+    extern const String ExpDioPinModeKey;
+    extern const String ExpDioPinKey;
+    extern const String ExpDioValueKey;
 #endif
 
 
@@ -126,6 +130,10 @@ namespace ps
     extern const String SetRefElectVoltRangeCmd;
     extern const String GetRefElectVoltRangeCmd;
     extern const String GetHardwareVersionCmd; 
+    extern const String SetExpDioPinModeCmd;
+    extern const String GetExpDioPinModeCmd;
+    extern const String SetExpDioPinValueCmd;
+    extern const String GetExpDioPinValueCmd;
 #endif
 
     // Ranges for output voltage
@@ -168,19 +176,32 @@ namespace ps
     extern const LowPassParam CurrLowPassParam;
 
     // Test parameters
-    const uint32_t AvailableTestsMaxSize = 20;
-    const uint32_t MultiStepMaxSize = 50;
+    constexpr uint32_t AvailableTestsMaxSize = 20;
+    constexpr uint32_t MultiStepMaxSize = 50;
 
     enum SampleMethod {SampleGeneric, SampleCustom};
 
     // Multiplexer Parameters
 #if defined MUX_CAPABLE
-    const uint8_t NumMuxChan = 7;
-    const uint8_t NumMuxPin = 16;
+    constexpr uint8_t NumMuxChan = 7;
+    constexpr uint8_t NumMuxPin = 16;
 #else
-    const uint8_t NumMuxChan = 1;
-    const uint8_t NumMuxPin = 1;
+    constexpr uint8_t NumMuxChan = 1;
+    constexpr uint8_t NumMuxPin = 1;
 #endif
+
+    // Expansion parameters
+    enum class ExpDioPinMode: uint8_t { 
+        Output=OUTPUT,
+        Input=INPUT,
+        InputPullup=INPUT_PULLUP,
+    };
+
+    enum class ExpDioValue: uint8_t {
+        Low=LOW,
+        High=HIGH,
+    };
+
 
 } // namespace ps
 
