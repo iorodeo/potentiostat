@@ -47,7 +47,10 @@ VariantKey = 'variant'
 MuxEnabledKey = 'muxEnabled'
 MuxChannelKey = 'muxChannel'
 ConnectedKey = 'connected'
-AutoConnectKey = "autoConnect"
+AutoConnectKey = 'autoConnect'
+ExpDioPinModeKey = 'dioPinMode'
+ExpDioPinKey = 'dioPin'
+ExpDioValueKey = 'dioValue'
 
 # Commands
 RunTestCmd  = 'runTest'
@@ -97,6 +100,11 @@ GetElectAutoConnCmd = "getElectAutoConnect"
 SetRefElectVoltRangeCmd = "setRefElectVoltRange"
 GetRefElectVoltRangeCmd = "getRefElectVoltRange"
 GetHardwareVersionCmd = "getHardwareVersion"        
+
+SetExpDioPinModeCmd = "setExpDioPinModeCmd"
+GetExpDioPinModeCmd = "getExpDioPinModeCmd"
+SetExpDioPinValueCmd = "setExpDioValueCmd"
+GetExpDioPinValueCmd = "getExpDioValueCmd"
 
 # Hardware version strings
 HardwareVersionDefault = "HW0.1 (default)"
@@ -162,6 +170,13 @@ HwVariantToCurrRangesDict = {
         '10V_10MilliAmpV0.2'  :  CurrRangeList10MilliAmp,
         '10V_24MilliAmpV0.2'  :  CurrRangeList24MilliAmp,
         }
+
+DioLow = 0
+DioHigh = 1
+
+#DioPinModeOutput = 
+#DioPinModeInput = 
+#DioPinModeInputPullup = 
 
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
 

@@ -209,4 +209,38 @@ namespace ps
     // Low pass filter params for current samples
     const LowPassParam CurrLowPassParam = {200.0, 0.0, 2}; // cutoff freq (Hz), initial value, order
 
+    // IO Expansion parameters
+    const uint32_t PinModeInput = 0;
+    const uint32_t PinModeOutput = 1;
+    const uint32_t PinModeInputPullup = 2;
+    std::map<uint32_t, uint32_t> PinModeToArduinoMap {
+        {PinModeInput, INPUT},
+        {PinModeOutput, OUTPUT},
+        {PinModeInputPullup, INPUT_PULLUP}
+    };
+
+    const uint32_t PinValueLow = 0;
+    const uint32_t PinValueHigh = 1;
+    const std::map<uint32_t, uint32_t> PinValueToArduinoMap {
+        {PinValueLow, LOW},
+        {PinValueHigh, HIGH}
+    };
+    const std::map<uint32_t, uint32_t> ArduinoToPinValueMap {
+        {LOW, PinValueLow},
+        {HIGH, PinValueHigh}
+    };
+
+    std::set<uint32_t> AllowedExpDioPinModes  {PinModeInput, PinModeOutput, PinModeInputPullup};
+    std::set<uint32_t> AllowedExpDioValues {PinValueLow, PinValueHigh};
+    std::set<uint8_t>  AllowedExpDioPins {
+        ExpDioPin3, 
+        ExpDioPin4, 
+        ExpDioPin5, 
+        ExpDioPin6, 
+        ExpDioPin7, 
+        ExpDioPin8, 
+        ExpDioPin9, 
+        ExpDioPin10
+    };
+
 } // namespace ps

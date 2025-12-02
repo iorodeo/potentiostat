@@ -19,12 +19,12 @@ namespace ps
         timerCnt_ = 0;
         test_ = nullptr;
 
-        //currLowPass_.setParam(CurrLowPassParam);
         for (int i=0; i<NumMuxChan; i++)
         {
             currLowPass_.push_back(LowPass(CurrLowPassParam));
         }
         setSamplePeriod(DefaultSamplePeriod);
+
     }
 
 
@@ -96,6 +96,12 @@ namespace ps
         electrodeAutoConnect_ = true;
         electrodeSwitch_.initialize();
         electrodeSwitch_.setAllConnected(false);
+
+        uint32_t defaultPinModeValue = PinModeInput;
+        for (auto pin : AllowedExpDioPins) {
+            pinMode(pin, PinModeToArduinoMap[defaultPinModeValue]);
+            expDioPinModeTable_.insert({pin, defaultPinModeValue});
+        }
 #endif
 
     }
@@ -998,10 +1004,42 @@ namespace ps
 
     // New DIO commands
     // -----------------------------------------------------------------------------------------
+
 #if defined HARDWARE_VERSION_0P2 
     ReturnStatus SystemState::onCommandSetExpDioPinMode(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+
+        // Extract pin
+        uint8_t pin = 0;
+        status = getExpDioPin(jsonMsg, pin);
+        if (!status.success) {
+            return status;
+        }
+
+        // Extract pin mode
+        if (!jsonMsg.containsKey(ExpDioPinModeKey)) 
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ExpDioPinModeKey;
+            return status;
+        }
+        if (!jsonMsg[ExpDioPinModeKey].is<uint32_t>()) 
+        {
+            status.success = false;
+            status.message = String("unable to convert '") + ExpDioPinModeKey + String("' to uint32_t");
+            return status;
+        }
+        uint32_t pinModeValue = jsonMsg.get<uint32_t>(ExpDioPinModeKey);
+        if (AllowedExpDioPinModes.find(pinModeValue) == AllowedExpDioPinModes.end()) 
+        {
+            status.success = false;
+            status.message = String("invalid DIO pinMode = ") + String(pinModeValue);
+            return status;
+        }
+
+        pinMode(pin, PinModeToArduinoMap[pinModeValue]);
+        expDioPinModeTable_[pin] = pinModeValue;
         return status;
     }
 #endif
@@ -1010,6 +1048,15 @@ namespace ps
     ReturnStatus SystemState::onCommandGetExpDioPinMode(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+
+        // Extract pin
+        uint8_t pin = 0;
+        status = getExpDioPin(jsonMsg, pin);
+        if (!status.success) {
+            return status;
+        }
+        jsonDat.set(ExpDioPinKey, pin);
+        jsonDat.set(ExpDioPinModeKey, expDioPinModeTable_[pin]);
         return status;
     }
 #endif
@@ -1018,6 +1065,34 @@ namespace ps
     ReturnStatus SystemState::onCommandSetExpDioPinValue(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+        // Extract pin
+        uint8_t pin = 0;
+        status = getExpDioPin(jsonMsg, pin);
+        if (!status.success) {
+            return status;
+        }
+        // Extract value
+        if (!jsonMsg.containsKey(ExpDioValueKey)) 
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ExpDioValueKey;
+            return status;
+        }
+        if (!jsonMsg.is<uint32_t>(ExpDioValueKey)) 
+        {
+            status.success = false;
+            status.message = String("unable to convert '") + ExpDioValueKey + String("' to uin32_t");
+            return status;
+        }
+        uint32_t value = jsonMsg.get<uint32_t>(ExpDioValueKey);
+        if (AllowedExpDioValues.find(value) == AllowedExpDioValues.end()) 
+        {
+            status.success = false;
+            status.message = String("invalid DIO pin value = ") + String(value);
+            return status;
+        }
+        // Problem here ... 
+        //digitalWrite(pin, PinValueToArduinoMap[value]);
         return status;
     }
 #endif
@@ -1026,12 +1101,51 @@ namespace ps
     ReturnStatus SystemState::onCommandGetExpDioPinValue(JsonObject &jsonMsg, JsonObject &jsonDat)
     {
         ReturnStatus status;
+        // Extract pin
+        uint8_t pin = 0;
+        status = getExpDioPin(jsonMsg, pin);
+        if (!status.success) {
+            return status;
+        }
+
+        uint32_t value = digitalRead(pin);
+        // Problem here ...  
+        //jsonDat.set(ExpDioPinKey, pin);
+        //jsonDat.set(ExpDioValueKey, ArduinoToPinValueMap[value]);
         return status;
     }
 #endif
 
     // ------------------------------------------------------------------------------------------
 
+#if defined HARDWARE_VERSION_0P2 
+    ReturnStatus SystemState::getExpDioPin(JsonObject &jsonMsg, uint8_t &pin)
+    {
+        ReturnStatus status;
+
+        // Extract Pin number
+        if (!jsonMsg.containsKey(ExpDioPinKey)) 
+        {
+            status.success = false;
+            status.message = String("json does not contain key: ") + ExpDioPinKey;
+            return status;
+        }
+        if (!(jsonMsg[ExpDioPinKey].is<uint8_t>())) 
+        {
+            status.success = false;
+            status.message = String("unable to convert '") + ExpDioPinKey + String("' to uint8_t");
+            return status;
+        }
+        pin = jsonMsg.get<uint8_t>(ExpDioPinKey);
+        if (AllowedExpDioPins.find(pin) == AllowedExpDioPins.end()) 
+        {
+            status.success = false;
+            status.message = String("invalid DIO pin = ") + String(pin);
+            return status;
+        }
+        return status;
+    }
+#endif
 
     void SystemState::updateMessageData()
     {

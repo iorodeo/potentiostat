@@ -1,6 +1,9 @@
 #ifndef PS_CONSTANTS_H
 #define PS_CONSTANTS_H
 
+#include <set>
+#include <map>
+#include <type_traits>
 #include "ps_hardware_defs.h"
 #include "ps_volt_range.h"
 #include "ps_curr_range.h"
@@ -142,7 +145,7 @@ namespace ps
     extern const VoltRangeDac VoltRangeDac5V; 
     extern const VoltRangeDac VoltRangeDac10V; 
 
-    const uint8_t NumVoltRangeDac = 4;
+    constexpr uint8_t NumVoltRangeDac = 4;
     extern Array<VoltRangeDac,NumVoltRangeDac> VoltRangeDacArray;
     extern const float SignDac; 
 
@@ -152,7 +155,7 @@ namespace ps
     extern const VoltRangeAdc VoltRangeAdc5V;
     extern const VoltRangeAdc VoltRangeAdc10V;
 
-    const uint8_t NumVoltRangeAdc = 4;
+    constexpr uint8_t NumVoltRangeAdc = 4;
     extern Array<VoltRangeAdc,NumVoltRangeAdc> VoltRangeAdcArray;
     extern const float SignAdc; 
 
@@ -162,7 +165,7 @@ namespace ps
     extern const CurrRange CurrRange100uA; 
     extern const CurrRange CurrRange1000uA; 
 
-    const uint8_t NumCurrRange = 4;
+    constexpr uint8_t NumCurrRange = 4;
     extern Array<CurrRange,NumCurrRange> CurrRangeArray;
     extern const float SignCurr;
 
@@ -190,18 +193,20 @@ namespace ps
     constexpr uint8_t NumMuxPin = 1;
 #endif
 
-    // Expansion parameters
-    enum class ExpDioPinMode: uint8_t { 
-        Output=OUTPUT,
-        Input=INPUT,
-        InputPullup=INPUT_PULLUP,
-    };
+    // IO Expansion parameters
+    extern const uint32_t PinModeInput;
+    extern const uint32_t PinModeOutput;
+    extern const uint32_t PinModeInputPullup;
+    extern std::map<uint32_t, uint32_t> PinModeToArduinoMap;
 
-    enum class ExpDioValue: uint8_t {
-        Low=LOW,
-        High=HIGH,
-    };
+    extern const uint32_t PinValueLow;
+    extern const uint32_t PinValueHigh;
+    extern const std::map<uint32_t, uint32_t> PinValueToArduinoMap;
+    extern const std::map<uint32_t, uint32_t> ArduinoToPinValueMap;
 
+    extern std::set<uint32_t> AllowedExpDioPinModes;
+    extern std::set<uint32_t> AllowedExpDioValues;
+    extern std::set<uint8_t>  AllowedExpDioPins;
 
 } // namespace ps
 

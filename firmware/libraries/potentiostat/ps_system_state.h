@@ -1,6 +1,7 @@
 #ifndef PS_SYSTEM_STATE_H
 #define PS_SYSTEM_STATE_H
 #include <Arduino.h>
+#include <map>
 #include "ps_hardware_defs.h"
 #include "ps_constants.h"
 #include "ps_return_status.h"
@@ -113,6 +114,8 @@ namespace ps
 #if defined HARDWARE_VERSION_0P2
             ElectrodeSwitch electrodeSwitch_;
             bool electrodeAutoConnect_;
+            std::map<uint8_t, uint32_t> expDioPinModeTable_;
+            ReturnStatus getExpDioPin(JsonObject &jsonMsg, uint8_t &pin);
 #endif
             MessageReceiver messageReceiver_;
             MessageParser messageParser_;
@@ -137,6 +140,7 @@ namespace ps
 
             static void dummyTimerCallback() {};
             void updateSampleModulus();
+
     };
 
 
