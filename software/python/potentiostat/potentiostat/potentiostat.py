@@ -174,9 +174,9 @@ HwVariantToCurrRangesDict = {
 DioLow = 0
 DioHigh = 1
 
-#DioPinModeOutput = 
-#DioPinModeInput = 
-#DioPinModeInputPullup = 
+DioPinModeInput = 0 
+DioPinModeOutput = 1 
+DioPinModeInputPullup = 2 
 
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
 
@@ -892,6 +892,18 @@ class Potentiostat(serial.Serial):
         """
         cmd_dict = {CommandKey: DisconnAllMuxElectCmd}
         msg_dict = self.send_cmd(cmd_dict)
+
+
+    def exp_dio_set_pin_mode(self, pin, pin_mode):
+        """Set the 'pin mode' for the given pin in the expansion header DIO. 
+
+        Args:
+            pin (int)
+
+        Returns:
+
+        """  
+        pass
 
 
     def run_test(self, testname, param=None, filename=None, on_data=None, display='pbar', 

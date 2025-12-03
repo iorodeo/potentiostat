@@ -197,16 +197,16 @@ namespace ps
     extern const uint32_t PinModeInput;
     extern const uint32_t PinModeOutput;
     extern const uint32_t PinModeInputPullup;
-    extern std::map<uint32_t, uint32_t> PinModeToArduinoMap;
+    extern const std::map<uint32_t, uint32_t> PinModeToArduinoMap;
 
     extern const uint32_t PinValueLow;
     extern const uint32_t PinValueHigh;
     extern const std::map<uint32_t, uint32_t> PinValueToArduinoMap;
     extern const std::map<uint32_t, uint32_t> ArduinoToPinValueMap;
 
-    extern std::set<uint32_t> AllowedExpDioPinModes;
-    extern std::set<uint32_t> AllowedExpDioValues;
-    extern std::set<uint8_t>  AllowedExpDioPins;
+    extern const std::set<uint32_t> AllowedExpDioPinModes;
+    extern const std::set<uint32_t> AllowedExpDioValues;
+    extern const std::set<uint8_t>  AllowedExpDioPins;
 
 } // namespace ps
 

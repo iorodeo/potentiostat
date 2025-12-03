@@ -213,7 +213,7 @@ namespace ps
     const uint32_t PinModeInput = 0;
     const uint32_t PinModeOutput = 1;
     const uint32_t PinModeInputPullup = 2;
-    std::map<uint32_t, uint32_t> PinModeToArduinoMap {
+    const std::map<uint32_t, uint32_t> PinModeToArduinoMap {
         {PinModeInput, INPUT},
         {PinModeOutput, OUTPUT},
         {PinModeInputPullup, INPUT_PULLUP}
@@ -230,9 +230,9 @@ namespace ps
         {HIGH, PinValueHigh}
     };
 
-    std::set<uint32_t> AllowedExpDioPinModes  {PinModeInput, PinModeOutput, PinModeInputPullup};
-    std::set<uint32_t> AllowedExpDioValues {PinValueLow, PinValueHigh};
-    std::set<uint8_t>  AllowedExpDioPins {
+    const std::set<uint32_t> AllowedExpDioPinModes  {PinModeInput, PinModeOutput, PinModeInputPullup};
+    const std::set<uint32_t> AllowedExpDioValues {PinValueLow, PinValueHigh};
+    const std::set<uint8_t>  AllowedExpDioPins {
         ExpDioPin3, 
         ExpDioPin4, 
         ExpDioPin5, 

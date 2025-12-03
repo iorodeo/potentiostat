@@ -99,7 +99,7 @@ namespace ps
 
         uint32_t defaultPinModeValue = PinModeInput;
         for (auto pin : AllowedExpDioPins) {
-            pinMode(pin, PinModeToArduinoMap[defaultPinModeValue]);
+            pinMode(pin, PinModeToArduinoMap.at(defaultPinModeValue));
             expDioPinModeTable_.insert({pin, defaultPinModeValue});
         }
 #endif
@@ -1038,7 +1038,7 @@ namespace ps
             return status;
         }
 
-        pinMode(pin, PinModeToArduinoMap[pinModeValue]);
+        pinMode(pin, PinModeToArduinoMap.at(pinModeValue));
         expDioPinModeTable_[pin] = pinModeValue;
         return status;
     }
@@ -1091,8 +1091,7 @@ namespace ps
             status.message = String("invalid DIO pin value = ") + String(value);
             return status;
         }
-        // Problem here ... 
-        //digitalWrite(pin, PinValueToArduinoMap[value]);
+        digitalWrite(pin, PinValueToArduinoMap.at(value));
         return status;
     }
 #endif
@@ -1109,9 +1108,8 @@ namespace ps
         }
 
         uint32_t value = digitalRead(pin);
-        // Problem here ...  
-        //jsonDat.set(ExpDioPinKey, pin);
-        //jsonDat.set(ExpDioValueKey, ArduinoToPinValueMap[value]);
+        jsonDat.set(ExpDioPinKey, pin);
+        jsonDat.set(ExpDioValueKey, ArduinoToPinValueMap.at(value));
         return status;
     }
 #endif
