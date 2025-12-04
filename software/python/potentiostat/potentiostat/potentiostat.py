@@ -173,11 +173,40 @@ HwVariantToCurrRangesDict = {
 
 DioLow = 0
 DioHigh = 1
+AllowedDioValues = [DioLow, DioHigh]
 
 DioPinModeInput = 0 
 DioPinModeOutput = 1 
 DioPinModeInputPullup = 2 
+DioPinModeDict = {
+        'Input'       : DioPinModeInput, 
+        'Output'      : DioPinModeOutput, 
+        'InputPullup' : DioPinModeInputPullup,
+        }
+DioPinModeIntToStr = {v:k for k,v in DioPinModeDict.items()}
 
+
+ExpDioPin3 = 7
+ExpDioPin4 = 17
+ExpDioPin5 = 22
+ExpDioPin6 = 21
+ExpDioPin7 = 23
+ExpDioPin8 = 25
+ExpDioPin9 = 24
+ExpDioPin10 = 2
+
+DioPinDict = { 
+        'ExpDioPin3'  :  ExpDioPin3,
+        'ExpDioPin4'  :  ExpDioPin4,
+        'ExpDioPin5'  :  ExpDioPin5,
+        'ExpDioPin6'  :  ExpDioPin6,
+        'ExpDioPin7'  :  ExpDioPin7,
+        'ExpDioPin8'  :  ExpDioPin8,
+        'ExpDioPin9'  :  ExpDioPin9,
+        'ExpDioPin10' :  ExpDioPin10, 
+        }
+DioPinIntToStr = {v:k for k,v in DioPinDict.items()}
+        
 TimeUnitToScale = {'s': 1.e-3, 'ms': 1}
 
 MinimumFirmwareVersionForMux = '0.0.5'
@@ -894,16 +923,99 @@ class Potentiostat(serial.Serial):
         msg_dict = self.send_cmd(cmd_dict)
 
 
-    def exp_dio_set_pin_mode(self, pin, pin_mode):
+    def allowed_dio_pins(self):
+        """Convenience function which gets the list the string representations for
+        all allowed DIO pins.
+
+        Returns:
+            allowed_dio_pis: (list) the list of all allowed DIO pins as strings.
+        """
+        return [k for k in DioPinDict]
+
+
+    def allowed_dio_pin_modes(self):
+        """Convenience function which gets the list of the string representation for
+        all allowed DIO pin modes.
+        
+        Retruns:
+            allowed_dio_pin_modes: (list) the list of all allowed DIO pin_modes
+                as strings.
+        """
+        return [k for k in DioPinModeDict]
+
+
+    def set_dio_pin_mode(self, pin, pin_mode):
         """Set the 'pin mode' for the given pin in the expansion header DIO. 
 
         Args:
-            pin (int)
+            pin (str/int): the string or integer representing the desired dio pin, e.g. 
+                'ExpDioPin3', 'ExpDioPin4', etc.   
+
+            pin_mode: (str/int): the string or integer representing the desired dio 
+                pin_mode, e.g. 'DioPinModeInput', 'DioPinModeOutput  or 
+                'DioPinModeInputPullup'.  
 
         Returns:
+            pin_mode (str): the string respresentation of the current pins pin mode.
 
         """  
-        pass
+        if type(pin) == str:
+            pin_num = DioPinDict[pin]
+        else:
+            pin_num = pin
+            pin = DioPinIntToStr[pin_num]
+        if type(pin_mode) == str:
+            pin_mode_num = DioPinModeDict[pin_mode]
+        else:
+            pin_mode_num = pin_mode
+            pin_mode = DioPinModeIntToStr[pin_mode_num]
+
+        cmd_dict = {
+                CommandKey       : SetExpDioPinModeCmd, 
+                ExpDioPinKey     : pin_num,
+                ExpDioPinModeKey : pin_mode_num, 
+                }
+        msg_dict = self.send_cmd(cmd_dict)
+        rsp_dict = dict(msg_dict[ResponseKey])
+        response = DioPinModeIntToStr[rsp_dict[ExpDioPinModeKey]]
+        return response 
+
+    
+    def get_dio_pin_mode(self, pin):
+        """Get the 'pin mode' for the given pin in the expansion header DIO. 
+
+        Args:
+            pin (str/int): the string or integer representing the desired dio pin, e.g. 
+                'ExpDioPin3', 'ExpDioPin4', etc.   
+
+        Returns:
+            pin_mode (str): the string respresentation of the current pins pin mode.
+
+        """  
+        if type(pin) == str:
+            pin_num = DioPinDict[pin]
+        else:
+            pin_num = pin
+            pin = DioPinIntToStr[pin_num]
+        cmd_dict = {
+                CommandKey       : GetExpDioPinModeCmd, 
+                ExpDioPinKey     : pin_num,
+                }
+        msg_dict = self.send_cmd(cmd_dict)
+        rsp_dict = dict(msg_dict[ResponseKey])
+        response = DioPinModeIntToStr[rsp_dict[ExpDioPinModeKey]]
+        return response 
+
+
+#SetExpDioPinModeCmd = "setExpDioPinModeCmd"
+#GetExpDioPinModeCmd = "getExpDioPinModeCmd"
+#SetExpDioPinValueCmd = "setExpDioValueCmd"
+#GetExpDioPinValueCmd = "getExpDioValueCmd"
+
+#ExpDioPinModeKey = 'dioPinMode'
+#ExpDioPinKey = 'dioPin'
+#ExpDioValueKey = 'dioValue'
+
 
 
     def run_test(self, testname, param=None, filename=None, on_data=None, display='pbar', 

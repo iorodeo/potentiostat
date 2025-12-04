@@ -1040,6 +1040,9 @@ namespace ps
 
         pinMode(pin, PinModeToArduinoMap.at(pinModeValue));
         expDioPinModeTable_[pin] = pinModeValue;
+
+        jsonDat.set(ExpDioPinKey, pin);
+        jsonDat.set(ExpDioPinModeKey, expDioPinModeTable_[pin]);
         return status;
     }
 #endif
@@ -1092,6 +1095,8 @@ namespace ps
             return status;
         }
         digitalWrite(pin, PinValueToArduinoMap.at(value));
+        jsonDat.set(ExpDioPinKey, pin);
+        jsonDat.set(ExpDioValueKey, ArduinoToPinValueMap.at(value));
         return status;
     }
 #endif
