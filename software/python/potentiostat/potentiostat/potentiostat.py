@@ -926,7 +926,9 @@ class Potentiostat(serial.Serial):
 
     def allowed_dio_pins(self):
         """Convenience function which gets the list the string representations for
-        all allowed DIO pins.
+        all allowed DIO pins. This feature requires hardware version >= HW0.2 and 
+        firmware version >= FW0.1.1. 
+
 
         Returns:
             allowed_dio_pis: (list) the list of all allowed DIO pins as strings.
@@ -936,7 +938,9 @@ class Potentiostat(serial.Serial):
 
     def allowed_dio_pin_modes(self):
         """Convenience function which gets the list of the string representation for
-        all allowed DIO pin modes.
+        all allowed DIO pin modes. This feature requires hardware version >= HW0.2 and 
+        firmware version >= FW0.1.1. 
+
         
         Retruns:
             allowed_dio_pin_modes: (list) the list of all allowed DIO pin_modes
@@ -946,7 +950,10 @@ class Potentiostat(serial.Serial):
 
 
     def set_dio_pin_mode(self, pin, pin_mode):
-        """Set the pin mode for the given DIO pin on the expansion header. 
+        """Set the pin mode for the given DIO pin on the expansion header. This
+        feature requires hardware version >= HW0.2 and firmware version >=
+        FW0.1.1. 
+
 
         Args:
             pin (str/int): the string or integer representing the desired dio pin, e.g. 
@@ -983,7 +990,10 @@ class Potentiostat(serial.Serial):
 
     
     def get_dio_pin_mode(self, pin):
-        """Gets the pin mode for the given DIO pin on the expansion header. 
+        """Gets the pin mode for the given DIO pin on the expansion header.
+        This feature requires hardware version >= HW0.2 and firmware version >=
+        FW0.1.1. 
+ 
 
         Args:
             pin (str/int): the string or integer representing the desired dio pin, e.g., 
@@ -1008,7 +1018,9 @@ class Potentiostat(serial.Serial):
 
 
     def set_dio_value(self, pin, value):
-        """Sets the value for the DIO pin on the expansion header.
+        """Sets the value for the DIO pin on the expansion header. This feature
+        requires hardware version >= HW0.2 and firmware version >= FW0.1.1. 
+
 
         Args: 
             pin (str/int): the string or integer representing the desired dio pin, e.g.,
@@ -1042,7 +1054,9 @@ class Potentiostat(serial.Serial):
 
 
     def get_dio_value(self, pin):
-        """Sets the value for the DIO pin on the expansion header.
+        """Sets the value for the DIO pin on the expansion header. This feature
+        requires hardware version >= HW0.2 and firmware version >= FW0.1.1. 
+
 
         Args: 
             pin (str/int): the string or integer representing the desired dio pin, e.g.,
