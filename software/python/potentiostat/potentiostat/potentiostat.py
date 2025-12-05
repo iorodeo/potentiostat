@@ -103,8 +103,8 @@ GetHardwareVersionCmd = "getHardwareVersion"
 
 SetExpDioPinModeCmd = "setExpDioPinModeCmd"
 GetExpDioPinModeCmd = "getExpDioPinModeCmd"
-SetExpDioPinValueCmd = "setExpDioValueCmd"
-GetExpDioPinValueCmd = "getExpDioValueCmd"
+SetExpDioValueCmd = "setExpDioValueCmd"
+GetExpDioValueCmd = "getExpDioValueCmd"
 
 # Hardware version strings
 HardwareVersionDefault = "HW0.1 (default)"
@@ -173,7 +173,8 @@ HwVariantToCurrRangesDict = {
 
 DioLow = 0
 DioHigh = 1
-AllowedDioValues = [DioLow, DioHigh]
+DioValueDict = {'Low': DioLow, 'High': DioHigh}
+DioValueIntToStr = {v:k for k,v in DioValueDict.items()}
 
 DioPinModeInput = 0 
 DioPinModeOutput = 1 
@@ -945,7 +946,7 @@ class Potentiostat(serial.Serial):
 
 
     def set_dio_pin_mode(self, pin, pin_mode):
-        """Set the 'pin mode' for the given pin in the expansion header DIO. 
+        """Set the pin mode for the given DIO pin on the expansion header. 
 
         Args:
             pin (str/int): the string or integer representing the desired dio pin, e.g. 
@@ -982,15 +983,14 @@ class Potentiostat(serial.Serial):
 
     
     def get_dio_pin_mode(self, pin):
-        """Get the 'pin mode' for the given pin in the expansion header DIO. 
+        """Gets the pin mode for the given DIO pin on the expansion header. 
 
         Args:
-            pin (str/int): the string or integer representing the desired dio pin, e.g. 
+            pin (str/int): the string or integer representing the desired dio pin, e.g., 
                 'ExpDioPin3', 'ExpDioPin4', etc.   
 
         Returns:
             pin_mode (str): the string respresentation of the current pins pin mode.
-
         """  
         if type(pin) == str:
             pin_num = DioPinDict[pin]
@@ -1007,15 +1007,64 @@ class Potentiostat(serial.Serial):
         return response 
 
 
-#SetExpDioPinModeCmd = "setExpDioPinModeCmd"
-#GetExpDioPinModeCmd = "getExpDioPinModeCmd"
-#SetExpDioPinValueCmd = "setExpDioValueCmd"
-#GetExpDioPinValueCmd = "getExpDioValueCmd"
+    def set_dio_value(self, pin, value):
+        """Sets the value for the DIO pin on the expansion header.
 
-#ExpDioPinModeKey = 'dioPinMode'
-#ExpDioPinKey = 'dioPin'
-#ExpDioValueKey = 'dioValue'
+        Args: 
+            pin (str/int): the string or integer representing the desired dio pin, e.g.,
+                'ExpDioPin3', 'ExpDioPin4', etc.   
 
+            value: (str/int): the string or interger representing the desired value, e.g., 
+                'Low' or 'High'
+
+        Returns:
+            value (str): the string representation of the value.
+        """
+        if type(pin) == str:
+            pin_num = DioPinDict[pin]
+        else:
+            pin_num = pin
+            pin = DioPinIntToStr[pin_num]
+        if type(value) == str:
+            value_num = DioValueDict[value]
+        else:
+            value_num = value
+            value = DioValueIntToStr[value_num]
+        cmd_dict = {
+                CommandKey       : SetExpDioValueCmd, 
+                ExpDioPinKey     : pin_num,
+                ExpDioValueKey   : value_num,
+                }
+        msg_dict = self.send_cmd(cmd_dict)
+        rsp_dict = dict(msg_dict[ResponseKey])
+        response = DioValueIntToStr[rsp_dict[ExpDioValueKey]]
+        return response
+
+
+    def get_dio_value(self, pin):
+        """Sets the value for the DIO pin on the expansion header.
+
+        Args: 
+            pin (str/int): the string or integer representing the desired dio pin, e.g.,
+                'ExpDioPin3', 'ExpDioPin4', etc.   
+
+        Returns:
+            value (str): the string representation of the value.
+        """
+
+        if type(pin) == str:
+            pin_num = DioPinDict[pin]
+        else:
+            pin_num = pin
+            pin = DioPinIntToStr[pin_num]
+        cmd_dict = {
+                CommandKey       : GetExpDioValueCmd, 
+                ExpDioPinKey     : pin_num,
+                }
+        msg_dict = self.send_cmd(cmd_dict)
+        rsp_dict = dict(msg_dict[ResponseKey])
+        response = DioValueIntToStr[rsp_dict[ExpDioValueKey]]
+        return response
 
 
     def run_test(self, testname, param=None, filename=None, on_data=None, display='pbar', 
