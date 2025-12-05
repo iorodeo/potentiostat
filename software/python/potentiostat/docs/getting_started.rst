@@ -202,9 +202,9 @@ current sample rate to 50 samples/sec you would do the following.
 
 
 As an alternative you can also set/get the time between samples or sample
-period.  The sample period will alwasy be equal to 1/sample_rate.  The
-:meth:`~potentiostat.Potentiostat.get_sample_period` method returns the
-sample_period in seconds.
+period.  The sample period (in seconds) will alwasy be equal to 1/sample_rate.
+The :meth:`~potentiostat.Potentiostat.get_sample_period` method returns the
+sample_period in milliseconds (ms).
 
 .. code-block:: python
 
@@ -212,11 +212,11 @@ sample_period in seconds.
 
 
 Similarly, the :meth:`~potentiostat.Potentiostat.set_sample_period` method sets
-the sample period (given in seconds). 
+the sample period (given in milliseconds). 
 
 .. code-block:: python
 
-   pstat.set_sample_period(0.02)
+   pstat.set_sample_period(20)
 
 
 ***************************
