@@ -4015,7 +4015,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "00ef96a7-89d9-4944-8c5c-4e75f5ee89f7")
 		(property "Reference" "J6"
@@ -4133,6 +4133,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part #" "C95841"
+			(at 49.53 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "469a6e9c-86bc-4d4b-acc1-e1402d829f3b")
 		)
@@ -4203,6 +4212,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part #" "C25744"
+			(at 181.61 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "0e480fc8-c910-44f4-9fa4-389a0585a421")
 		)
@@ -4225,7 +4243,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "1fda3238-78ec-49b1-adbe-6352f3f42fe3")
 		(property "Reference" "JP1"
@@ -4297,7 +4315,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "206d55e8-e058-4bc7-a3e1-e877b94be1ae")
 		(property "Reference" "H2"
@@ -4465,6 +4483,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 77.47 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C95841"
 			(at 77.47 120.65 0)
 			(effects
 				(font
@@ -4740,6 +4767,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part #" "C160404"
+			(at 71.12 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "47aa60bf-5d71-456b-b599-ec66341be29c")
 		)
@@ -4963,7 +4999,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "50a43e27-bce9-4786-a9ab-70f307d189fc")
 		(property "Reference" "J4"
@@ -5164,7 +5200,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "5ea032a1-0a69-4df2-90d5-f925a854b7a6")
 		(property "Reference" "J7"
@@ -5347,6 +5383,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part #" "C5665"
+			(at 60.96 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "7"
 			(uuid "0c8b5444-1c93-462a-950f-26f1cec7f8cf")
 		)
@@ -5404,7 +5449,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "100nF"
 			(at 142.494 30.48 0)
 			(effects
 				(font
@@ -5440,6 +5485,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part #" "C1525"
+			(at 139.7 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "4c4398a5-14c8-4458-812c-c91dfed73ae7")
 		)
@@ -5462,7 +5516,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "772e246c-19ba-4c56-8858-de820f1b2bf6")
 		(property "Reference" "J8"
@@ -5663,7 +5717,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "8d8772c9-c728-4954-9cd0-7107d560dd8c")
 		(property "Reference" "J5"
@@ -5774,6 +5828,15 @@
 			)
 		)
 		(property "Description" "8-Bit Bidirectional Voltage-Level Translator, Auto Direction Sensing and ±15-kV ESD Protection, 1.2 - 3.6V APort, 1.65 - 5.5V BPort, TSSOP-20"
+			(at 163.83 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C53406"
 			(at 163.83 54.61 0)
 			(effects
 				(font
@@ -5923,7 +5986,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "9ebdfe3c-dc14-489b-adba-a061949f3261")
 		(property "Reference" "H1"
@@ -6090,6 +6153,15 @@
 			)
 		)
 		(property "Description" "600mA low dropout linear regulator, with enable pin, 3.8V-6V input voltage range, 3.3V fixed positive output, SOT-23-5"
+			(at 64.77 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C51118"
 			(at 64.77 114.3 0)
 			(effects
 				(font
@@ -6567,6 +6639,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part #" "C25744"
+			(at 144.78 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "60050ac4-d8db-4323-891d-79d8703943e1")
 		)
@@ -6654,7 +6735,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "db88ab88-7fc8-4c3e-920d-4cda1823ac64")
 		(property "Reference" "J3"
@@ -6931,7 +7012,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "100nF"
 			(at 179.324 30.48 0)
 			(effects
 				(font
@@ -6959,6 +7040,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 176.53 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C1525"
 			(at 176.53 29.21 0)
 			(effects
 				(font

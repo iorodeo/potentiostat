@@ -114,3 +114,48 @@ Caused by: java.lang.ClassNotFoundException: java.net.http.HttpClient
 2026-01-14 21:53:49.990 [Thread-22] INFO  Starting route optimization on 1 thread...
 2026-01-14 21:53:51.709 [Thread-22] INFO  Route optimization was completed in 1.72 seconds and it improved the design by ~49.31%.
 2026-01-14 21:54:03.846 [AWT-EventQueue-0] INFO  Saving 'level_shift_dio_breakout.ses'...
+2026-01-15 11:48:07.341 [main] INFO  Freerouting v1.9.0 (build-date: 2023-10-30)
+2026-01-15 11:48:07.374 [main] INFO  Settings were loaded from freerouting.json
+2026-01-15 11:48:08.390 [main] INFO  Opening 'level_shift_dio_breakout.dsn'...
+2026-01-15 11:48:08.388 [Thread-3] ERROR java/net/http/HttpClient
+java.lang.NoClassDefFoundError: java/net/http/HttpClient
+	at app.freerouting.management.VersionChecker.run(VersionChecker.java:23) ~[freerouting-executable.jar:unspecified]
+	at java.lang.Thread.run(Unknown Source) [?:?]
+Caused by: java.lang.ClassNotFoundException: java.net.http.HttpClient
+	at jdk.internal.loader.BuiltinClassLoader.loadClass(Unknown Source) ~[?:?]
+	at jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(Unknown Source) ~[?:?]
+	at java.lang.ClassLoader.loadClass(Unknown Source) ~[?:?]
+	... 2 more
+2026-01-15 11:48:13.775 [Thread-23] INFO  Starting auto-routing...
+2026-01-15 11:48:14.549 [Thread-23] WARN  There were only 4.35 changes in the last 20 passes, so it's very likely that autorouter can't improve the result much further. It is recommended to stop it and finish the board manually.
+2026-01-15 11:48:14.808 [Thread-23] WARN  There were only 4.00 changes in the last 40 passes, so it's very likely that autorouter can't improve the result much further. It is recommended to stop it and finish the board manually.
+2026-01-15 11:48:15.060 [Thread-23] WARN  There were only 4.00 changes in the last 60 passes, so it's very likely that autorouter can't improve the result much further. It is recommended to stop it and finish the board manually.
+2026-01-15 11:48:15.285 [Thread-23] WARN  There were only 4.00 changes in the last 80 passes, so it's very likely that autorouter can't improve the result much further. It is recommended to stop it and finish the board manually.
+2026-01-15 11:48:15.502 [Thread-23] WARN  There were only 4.00 changes in the last 100 passes, so it's very likely that autorouter can't improve the result much further. It is recommended to stop it and finish the board manually.
+2026-01-15 11:48:15.724 [Thread-23] WARN  There were only 4.00 changes in the last 120 passes, so it's very likely that autorouter can't improve the result much further. It is recommended to stop it and finish the board manually.
+2026-01-15 11:48:15.943 [Thread-23] WARN  There were only 4.00 changes in the last 140 passes, so it's very likely that autorouter can't improve the result much further. It is recommended to stop it and finish the board manually.
+2026-01-15 11:48:16.147 [Thread-23] WARN  There were only 4.00 changes in the last 160 passes, so it's very likely that autorouter can't improve the result much further. It is recommended to stop it and finish the board manually.
+2026-01-15 11:48:16.355 [Thread-23] WARN  There were only 4.00 changes in the last 180 passes, so it's very likely that autorouter can't improve the result much further. It is recommended to stop it and finish the board manually.
+2026-01-15 11:48:16.554 [Thread-23] WARN  There were only 4.00 changes in the last 200 passes, so it's very likely that autorouter can't improve the result much further. It is recommended to stop it and finish the board manually.
+2026-01-15 11:48:16.554 [Thread-23] WARN  There was so little change during the recent passes that autorouter will be stopped now.
+2026-01-15 11:48:16.555 [Thread-23] INFO  Auto-routing was completed in 2.78 seconds.
+2026-01-15 11:48:16.655 [Thread-23] INFO  Starting route optimization on 1 thread...
+2026-01-15 11:48:21.280 [Thread-23] INFO  Route optimization was completed in 4.62 seconds and it improved the design by ~47.30%.
+2026-01-15 11:48:36.849 [AWT-EventQueue-0] INFO  Saving 'level_shift_dio_breakout.ses'...
+2026-01-15 11:57:58.808 [main] INFO  Freerouting v1.9.0 (build-date: 2023-10-30)
+2026-01-15 11:57:58.842 [main] INFO  Settings were loaded from freerouting.json
+2026-01-15 11:57:59.871 [main] INFO  Opening 'level_shift_dio_breakout.dsn'...
+2026-01-15 11:57:59.864 [Thread-3] ERROR java/net/http/HttpClient
+java.lang.NoClassDefFoundError: java/net/http/HttpClient
+	at app.freerouting.management.VersionChecker.run(VersionChecker.java:23) ~[freerouting-executable.jar:unspecified]
+	at java.lang.Thread.run(Unknown Source) [?:?]
+Caused by: java.lang.ClassNotFoundException: java.net.http.HttpClient
+	at jdk.internal.loader.BuiltinClassLoader.loadClass(Unknown Source) ~[?:?]
+	at jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(Unknown Source) ~[?:?]
+	at java.lang.ClassLoader.loadClass(Unknown Source) ~[?:?]
+	... 2 more
+2026-01-15 11:58:04.630 [Thread-22] INFO  Starting auto-routing...
+2026-01-15 11:58:05.337 [Thread-22] INFO  Auto-routing was completed in 0.71 seconds.
+2026-01-15 11:58:05.438 [Thread-22] INFO  Starting route optimization on 1 thread...
+2026-01-15 11:58:07.509 [Thread-22] INFO  Route optimization was completed in 2.07 seconds and it improved the design by ~49.92%.
+2026-01-15 11:58:17.525 [AWT-EventQueue-0] INFO  Saving 'level_shift_dio_breakout.ses'...

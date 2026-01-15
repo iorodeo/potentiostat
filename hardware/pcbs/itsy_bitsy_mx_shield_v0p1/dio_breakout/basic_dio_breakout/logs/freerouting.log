@@ -97,3 +97,20 @@ Caused by: java.lang.ClassNotFoundException: java.net.http.HttpClient
 2026-01-14 19:39:57.397 [Thread-32] INFO  Starting route optimization on 1 thread...
 2026-01-14 19:39:57.737 [Thread-32] INFO  Route optimization was completed in 0.34 seconds and it improved the design by ~50.14%.
 2026-01-14 19:43:03.043 [AWT-EventQueue-0] INFO  Saving 'basic_dio_breakout.ses'...
+2026-01-15 10:20:33.635 [main] INFO  Freerouting v1.9.0 (build-date: 2023-10-30)
+2026-01-15 10:20:33.669 [main] INFO  Settings were loaded from freerouting.json
+2026-01-15 10:20:34.691 [main] INFO  Opening 'basic_dio_breakout.dsn'...
+2026-01-15 10:20:34.685 [Thread-3] ERROR java/net/http/HttpClient
+java.lang.NoClassDefFoundError: java/net/http/HttpClient
+	at app.freerouting.management.VersionChecker.run(VersionChecker.java:23) ~[freerouting-executable.jar:unspecified]
+	at java.lang.Thread.run(Unknown Source) [?:?]
+Caused by: java.lang.ClassNotFoundException: java.net.http.HttpClient
+	at jdk.internal.loader.BuiltinClassLoader.loadClass(Unknown Source) ~[?:?]
+	at jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(Unknown Source) ~[?:?]
+	at java.lang.ClassLoader.loadClass(Unknown Source) ~[?:?]
+	... 2 more
+2026-01-15 10:20:40.688 [Thread-23] INFO  Starting auto-routing...
+2026-01-15 10:20:41.221 [Thread-23] INFO  Auto-routing was completed in 0.53 seconds.
+2026-01-15 10:20:41.321 [Thread-23] INFO  Starting route optimization on 1 thread...
+2026-01-15 10:20:41.866 [Thread-23] INFO  Route optimization was completed in 0.54 seconds and it improved the design by ~51.13%.
+2026-01-15 10:20:50.068 [AWT-EventQueue-0] INFO  Saving 'basic_dio_breakout.ses'...
