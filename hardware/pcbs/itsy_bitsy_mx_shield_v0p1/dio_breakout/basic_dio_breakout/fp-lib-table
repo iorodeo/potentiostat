@@ -1,0 +1,6 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "5x2_shrd_header")(type "KiCad")(uri "${KIPRJMOD}/5x2_shrd_header.pretty")(options "")(descr ""))
+  (lib (name "ost_connblocks")(type "KiCad")(uri "${KIPRJMOD}/ost_connblocks.pretty")(options "")(descr ""))
+  (lib (name "JST_SH_SM04B_custom")(type "KiCad")(uri "${KIPRJMOD}/JST_SH_SM04B_custom.pretty")(options "")(descr ""))
+)

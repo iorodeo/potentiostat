@@ -1,0 +1,122 @@
+(footprint "CONNBLOCK2"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(property "Reference" "CONNBLOCK2"
+		(at 0.508 4.826 0)
+		(layer "F.SilkS")
+		(uuid "bef1227b-01df-4766-8074-9cf520e17add")
+		(effects
+			(font
+				(size 1.524 1.524)
+				(thickness 0.3048)
+			)
+		)
+	)
+	(property "Value" "VAL**"
+		(at 0.508 -5.588 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "6679d9bb-51b6-48e0-93d0-ce0dd7ae0c35")
+		(effects
+			(font
+				(size 1.524 1.524)
+				(thickness 0.3048)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "0548d3cd-4590-4fd5-901e-c66d7c948cd1")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "313a1d54-096e-473a-8df0-35b63a9d3a48")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_line
+		(start -4.064 -3.429)
+		(end -4.064 3.429)
+		(stroke
+			(width 0.381)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "2c49a29d-3f85-46cc-8042-6453201036fe")
+	)
+	(fp_line
+		(start -4.064 3.429)
+		(end 4.064 3.429)
+		(stroke
+			(width 0.381)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "b24ef695-d44d-47a3-88a1-d91f929ca0be")
+	)
+	(fp_line
+		(start 4.064 -3.429)
+		(end -4.064 -3.429)
+		(stroke
+			(width 0.381)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "db6fa8dd-c172-4db7-91f9-16166874e31d")
+	)
+	(fp_line
+		(start 4.064 3.429)
+		(end 4.064 -3.429)
+		(stroke
+			(width 0.381)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "6c00b3d8-5907-4625-adf9-e2f5324889b9")
+	)
+	(pad "1" thru_hole rect
+		(at -1.75006 0)
+		(size 1.8542 1.8542)
+		(drill 1.1938)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "f4d3123c-1c8e-4a6e-9691-d73db3b8d582")
+	)
+	(pad "2" thru_hole circle
+		(at 1.75006 0)
+		(size 1.8542 1.8542)
+		(drill 1.1938)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "cb5aade8-a346-4f9a-919a-e9cffbca23f7")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE020104--3DModel-STEP-56544.STEP"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 -0 -180)
+		)
+	)
+)

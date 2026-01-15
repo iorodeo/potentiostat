@@ -1,0 +1,368 @@
+(session basic_dio_breakout.ses
+  (base_design basic_dio_breakout.dsn)
+  (placement
+    (resolution um 10)
+    (component ost_connblocks:CONNBLOCK2
+      (place J4 1100000 -655000 front 180)
+      (place J3 1000000 -655000 front 180)
+      (place J8 1500000 -655000 front 180)
+      (place J6 1300000 -655000 front 180)
+      (place J7 1400000 -655000 front 180)
+      (place J5 1200000 -655000 front 180)
+    )
+    (component "JST_SH_SM04B_custom:JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal"
+      (place J2 880000 -667000 front 0)
+    )
+    (component 5x2_shrd_header:5X2_SHRD_HEADER
+      (place J1 700000 -600000 front 0)
+    )
+    (component MountingHole:MountingHole_3.2mm_M3
+      (place H2 1610000 -600000 front 0)
+      (place H1 540000 -600000 front 0)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version "9.0.4-9.0.4-0~ubuntu22.04.1")
+    )
+    (library_out 
+      (padstack "Via[0-1]_600:300_um"
+        (shape
+          (circle F.Cu 6000 0 0)
+        )
+        (shape
+          (circle B.Cu 6000 0 0)
+        )
+        (attach off)
+      )
+      (padstack "Via[0-1]_600:300_um"
+        (shape
+          (circle F.Cu 6000 0 0)
+        )
+        (shape
+          (circle B.Cu 6000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net /DIO_PIN_4
+        (wire
+          (path B.Cu 3000
+            674600 -587300
+            687300 -600000
+            704434 -600000
+            713383 -608949
+            713383 -618332
+            732232 -637181
+            1086894 -637181
+            1104713 -655000
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1117501 -655000
+            1104713 -655000
+          )
+        )
+      )
+      (net /DIO_PIN_6
+        (wire
+          (path F.Cu 3000
+            700000 -587300
+            712199 -599499
+            844195 -599499
+            885000 -640304
+            885000 -647000
+          )
+        )
+      )
+      (net /DIO_PIN_9
+        (wire
+          (path B.Cu 3000
+            1417501 -655000
+            1404713 -655000
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            750800 -612700
+            1362413 -612700
+            1404713 -655000
+          )
+        )
+      )
+      (net /DIO_PIN_10
+        (wire
+          (path B.Cu 3000
+            1517501 -655000
+            1504713 -655000
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            750800 -587300
+            1437013 -587300
+            1504713 -655000
+          )
+        )
+      )
+      (net /DIO_PIN_5
+        (wire
+          (path F.Cu 3000
+            700000 -612700
+            687315 -600015
+            687315 -582238
+            694380 -575173
+            828529 -575173
+            895000 -641644
+            895000 -647000
+          )
+        )
+      )
+      (net /VEXP
+        (wire
+          (path F.Cu 3000
+            875000 -647000
+            875000 -637500
+            870000 -632500
+            655000 -632500
+            649200 -626700
+            649200 -612700
+          )
+          (type protect)
+        )
+      )
+      (net GND
+        (wire
+          (path B.Cu 3000
+            1382500 -663749
+            1382499 -663748
+            1382499 -655000
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1382500 -663749
+            1382500 -672499
+            1385000 -675000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            1382500 -655000
+            1382500 -663749
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            1082500 -665000
+            1082499 -664999
+            1082499 -655000
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1082500 -665000
+            1082500 -675000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            1082500 -655000
+            1082500 -665000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            1482500 -660000
+            1482499 -659999
+            1482499 -655000
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1482500 -660000
+            1482500 -655000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            1385000 -675000
+            1472500 -675000
+            1482500 -665001
+            1482500 -660000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            1282500 -665000
+            1282499 -664999
+            1282499 -655000
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1282500 -665000
+            1282500 -675000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            1282500 -655000
+            1282500 -665000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            1182500 -665000
+            1182499 -664999
+            1182499 -655000
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1182500 -665000
+            1182500 -675000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            1182500 -655000
+            1182500 -665000
+          )
+          (type protect)
+        )
+        (via "Via[0-1]_600:300_um" 865000 -662500
+          (type protect)
+        )
+        (wire
+          (path F.Cu 3000
+            865000 -662500
+            865000 -647000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            649200 -587300
+            642700 -587300
+            635000 -595000
+            635000 -640000
+            657500 -662500
+            865000 -662500
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            865000 -662500
+            925000 -662500
+            937500 -675000
+            982500 -675000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            982499 -655000
+            982499 -674999
+            982500 -675000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            982500 -675000
+            1082500 -675000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            1082500 -675000
+            1182500 -675000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            1182500 -675000
+            1282500 -675000
+          )
+          (type protect)
+        )
+        (wire
+          (path B.Cu 3000
+            1282500 -675000
+            1385000 -675000
+          )
+          (type protect)
+        )
+      )
+      (net /DIO_PIN_7
+        (wire
+          (path B.Cu 3000
+            725400 -612700
+            744863 -632163
+            1181876 -632163
+            1204713 -655000
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1217501 -655000
+            1204713 -655000
+          )
+        )
+      )
+      (net /DIO_PIN_8
+        (wire
+          (path B.Cu 3000
+            1317501 -655000
+            1304713 -655000
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            725400 -587300
+            738783 -600683
+            738783 -618332
+            745168 -624717
+            1274430 -624717
+            1304713 -655000
+          )
+        )
+      )
+      (net /DIO_PIN_3
+        (wire
+          (path B.Cu 3000
+            1004713 -655000
+            991925 -642212
+            704112 -642212
+            674600 -612700
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1017501 -655000
+            1004713 -655000
+          )
+        )
+      )
+    )
+  )
+)
