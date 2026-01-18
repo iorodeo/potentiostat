@@ -1,15 +1,130 @@
-(module CONNBLOCK3 (layer F.Cu) (tedit 601F311D)
-  (fp_text reference CONNBLOCK3 (at 0.8001 5.19938) (layer F.SilkS)
-    (effects (font (size 1.524 1.524) (thickness 0.3048)))
-  )
-  (fp_text value VAL** (at -0.20066 -5.40004) (layer F.SilkS) hide
-    (effects (font (size 1.524 1.524) (thickness 0.3048)))
-  )
-  (fp_line (start 5.79882 -3.40106) (end -5.79882 -3.40106) (layer F.SilkS) (width 0.381))
-  (fp_line (start 5.79882 3.40106) (end 5.79882 -3.40106) (layer F.SilkS) (width 0.381))
-  (fp_line (start -5.79882 3.40106) (end 5.79882 3.40106) (layer F.SilkS) (width 0.381))
-  (fp_line (start -5.79882 -3.40106) (end -5.79882 3.40106) (layer F.SilkS) (width 0.381))
-  (pad 2 thru_hole circle (at 0 0) (size 1.80086 1.80086) (drill 1.19888) (layers *.Cu *.Mask))
-  (pad 1 thru_hole rect (at -3.50012 0) (size 1.80086 1.80086) (drill 1.19888) (layers *.Cu *.Mask))
-  (pad 3 thru_hole circle (at 3.50012 0) (size 1.80086 1.80086) (drill 1.19888) (layers *.Cu *.Mask))
+(footprint "CONNBLOCK3"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(property "Reference" "CONNBLOCK3"
+		(at 0.8001 5.19938 0)
+		(layer "F.SilkS")
+		(uuid "020bf3b0-0a97-44a0-99a9-751ab5c05a94")
+		(effects
+			(font
+				(size 1.524 1.524)
+				(thickness 0.3048)
+			)
+		)
+	)
+	(property "Value" "VAL**"
+		(at -0.20066 -5.40004 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "6ef5499f-a2e0-411e-9e59-e5aeb4f92e19")
+		(effects
+			(font
+				(size 1.524 1.524)
+				(thickness 0.3048)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6b78534a-8b07-472a-a4c7-1e78aab2a3b6")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "410b5961-42a2-4a30-8b4e-ae5f89cd166f")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_line
+		(start -5.79882 -3.40106)
+		(end -5.79882 3.40106)
+		(stroke
+			(width 0.381)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "3bc7ccfc-4bd0-4050-b6b5-c3d00d68c0b4")
+	)
+	(fp_line
+		(start -5.79882 3.40106)
+		(end 5.79882 3.40106)
+		(stroke
+			(width 0.381)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "e4580485-8d6b-41c2-9d25-6a5896e62a8e")
+	)
+	(fp_line
+		(start 5.79882 -3.40106)
+		(end -5.79882 -3.40106)
+		(stroke
+			(width 0.381)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "16548c1d-7133-4eff-80a7-7d9c98f60d22")
+	)
+	(fp_line
+		(start 5.79882 3.40106)
+		(end 5.79882 -3.40106)
+		(stroke
+			(width 0.381)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "37d7f08b-bf47-4fa3-b61a-bf3f8b969745")
+	)
+	(pad "1" thru_hole rect
+		(at -3.50012 0)
+		(size 1.80086 1.80086)
+		(drill 1.19888)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "9c3e0b0b-5c24-495a-abd2-4a18eb801384")
+	)
+	(pad "2" thru_hole circle
+		(at 0 0)
+		(size 1.80086 1.80086)
+		(drill 1.19888)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "734b41a0-f986-4a54-9017-52c6b34167e7")
+	)
+	(pad "3" thru_hole circle
+		(at 3.50012 0)
+		(size 1.80086 1.80086)
+		(drill 1.19888)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "4d3de4a3-9700-4f36-9908-8a671e43fd30")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE030104.step"
+		(offset
+			(xyz 1.75 0.1 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 -0 -180)
+		)
+	)
 )

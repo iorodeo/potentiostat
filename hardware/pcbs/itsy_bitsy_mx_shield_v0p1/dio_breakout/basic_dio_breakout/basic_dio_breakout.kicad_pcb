@@ -182,7 +182,7 @@
 		(path "/772e246c-19ba-4c56-8858-de820f1b2bf6")
 		(sheetname "/")
 		(sheetfile "basic_dio_breakout.kicad_sch")
-		(attr through_hole dnp)
+		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start 4.064 3.429)
 			(end 4.064 -3.429)
@@ -191,7 +191,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "c0c7be58-3cd0-425b-8933-25e1eae4bb57")
+			(uuid "aceff105-fd71-45e7-bba8-3bcc8d7d6f53")
 		)
 		(fp_line
 			(start 4.064 -3.429)
@@ -201,7 +201,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "75e369b4-6bac-4259-a656-a1989808ba13")
+			(uuid "d3eef389-403b-476f-a022-872d32c1d947")
 		)
 		(fp_line
 			(start -4.064 3.429)
@@ -211,7 +211,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "7d62275e-de70-4ae9-b8b5-20e80415b0d3")
+			(uuid "02f43c14-68ad-4b93-a1a8-fb8590b297a8")
 		)
 		(fp_line
 			(start -4.064 -3.429)
@@ -221,7 +221,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "4428bfe7-c9a6-42ad-a1dc-bf0995b4306e")
+			(uuid "3c537435-9f32-45b6-9503-e48c81314331")
 		)
 		(pad "1" thru_hole rect
 			(at -1.75006 0 180)
@@ -246,7 +246,7 @@
 			(uuid "619f9ce2-c5f8-4dee-aef9-21b8da203ff7")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE020104--3DModel-STEP-56544.STEP"
+		(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE020104.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -415,7 +415,7 @@
 		(path "/c2d929e3-c88b-4a84-96e3-dcc189ed9ac2")
 		(sheetname "/")
 		(sheetfile "basic_dio_breakout.kicad_sch")
-		(attr through_hole dnp)
+		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start 5.79882 3.40106)
 			(end 5.79882 -3.40106)
@@ -424,7 +424,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "c2ca7247-5838-4472-88ec-08edeb572ff3")
+			(uuid "182d591d-3bc0-4292-b65e-37ac041242c8")
 		)
 		(fp_line
 			(start 5.79882 -3.40106)
@@ -434,7 +434,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "38b5682b-044d-4f86-af2f-845d3c4c127e")
+			(uuid "eecfb2fc-949d-4c3d-89dc-7914c966980b")
 		)
 		(fp_line
 			(start -5.79882 3.40106)
@@ -444,7 +444,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "4d548109-90ca-4fea-a109-5b5ba863232d")
+			(uuid "a6615a85-c3f7-4bc9-9f46-c34b8f98272b")
 		)
 		(fp_line
 			(start -5.79882 -3.40106)
@@ -454,7 +454,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "00d36829-358b-4bca-aa25-0e0d56259dbf")
+			(uuid "9842fbfc-66e7-4375-807a-62009f68407f")
 		)
 		(pad "1" thru_hole rect
 			(at -3.50012 0 180)
@@ -490,6 +490,17 @@
 			(uuid "b28a8b40-e5e4-4381-a5ad-ee641a096024")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE030104.step"
+			(offset
+				(xyz 1.75 0.1 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 -0 -180)
+			)
+		)
 	)
 	(footprint "ost_connblocks:CONNBLOCK2"
 		(layer "F.Cu")
@@ -546,7 +557,7 @@
 		(path "/8d8772c9-c728-4954-9cd0-7107d560dd8c")
 		(sheetname "/")
 		(sheetfile "basic_dio_breakout.kicad_sch")
-		(attr through_hole dnp)
+		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start 4.064 3.429)
 			(end 4.064 -3.429)
@@ -555,7 +566,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "e132161c-a248-45cb-85cd-c529fec4a449")
+			(uuid "be8dfa44-9103-44fa-bde6-13ac216fdc6a")
 		)
 		(fp_line
 			(start 4.064 -3.429)
@@ -565,7 +576,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "02e32a24-efe6-4cc0-9df7-33a07b34e8d7")
+			(uuid "ba4b5cef-66a9-4dc1-92dc-324560b7811c")
 		)
 		(fp_line
 			(start -4.064 3.429)
@@ -575,7 +586,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "0c583825-9497-4753-a4a7-7f5f7d4b94c5")
+			(uuid "7302c666-a2d5-4ae3-8d39-46c1c40c2200")
 		)
 		(fp_line
 			(start -4.064 -3.429)
@@ -585,7 +596,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "919f19e4-2927-4372-9cd7-bd1537f87f33")
+			(uuid "6b892af5-ae99-4a97-87b4-63223513ae1d")
 		)
 		(pad "1" thru_hole rect
 			(at -1.75006 0 180)
@@ -610,7 +621,7 @@
 			(uuid "ef429f3d-1e0b-4609-91be-16ea2f98df98")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE020104--3DModel-STEP-56544.STEP"
+		(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE020104.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -677,7 +688,7 @@
 		(path "/5ea032a1-0a69-4df2-90d5-f925a854b7a6")
 		(sheetname "/")
 		(sheetfile "basic_dio_breakout.kicad_sch")
-		(attr through_hole dnp)
+		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start 4.064 3.429)
 			(end 4.064 -3.429)
@@ -686,7 +697,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "2d918dae-6fcc-4a87-b9b7-d7c69d987815")
+			(uuid "5f25b2a7-23d2-4bd0-9160-e9638686eae5")
 		)
 		(fp_line
 			(start 4.064 -3.429)
@@ -696,7 +707,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "c8704de2-dc27-4181-9086-fede7a85cea2")
+			(uuid "665d992c-467d-4140-98f6-e008c6ecb4e9")
 		)
 		(fp_line
 			(start -4.064 3.429)
@@ -706,7 +717,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "7f737e6c-4274-46dd-ac2f-fd6977c84b50")
+			(uuid "5ebd74df-4a58-4481-89b9-efd48a649f98")
 		)
 		(fp_line
 			(start -4.064 -3.429)
@@ -716,7 +727,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "9e44d04e-86b4-4cb9-a21b-7b407575a01c")
+			(uuid "169e85f4-690b-4e07-b7ec-0ac204200adb")
 		)
 		(pad "1" thru_hole rect
 			(at -1.75006 0 180)
@@ -741,7 +752,7 @@
 			(uuid "f7aa005b-b4fa-4b7e-82a3-c02e3553ab90")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE020104--3DModel-STEP-56544.STEP"
+		(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE020104.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -1103,7 +1114,7 @@
 		(path "/50a43e27-bce9-4786-a9ab-70f307d189fc")
 		(sheetname "/")
 		(sheetfile "basic_dio_breakout.kicad_sch")
-		(attr through_hole dnp)
+		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start 4.064 3.429)
 			(end 4.064 -3.429)
@@ -1112,7 +1123,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "9e8f1d18-f51c-4025-8196-7ebe15742453")
+			(uuid "8dd36801-7a48-485e-af82-98fd30d51e20")
 		)
 		(fp_line
 			(start 4.064 -3.429)
@@ -1122,7 +1133,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "ed1ef54c-ba11-467d-b894-58815d6131fd")
+			(uuid "8d118cad-0aa2-4b12-898b-4099c06c2164")
 		)
 		(fp_line
 			(start -4.064 3.429)
@@ -1132,7 +1143,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "b7188606-77a4-4f92-9aef-27a4bde01dc9")
+			(uuid "055440b2-d818-4bd1-a4c3-a4b8eb9f7aa8")
 		)
 		(fp_line
 			(start -4.064 -3.429)
@@ -1142,7 +1153,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "225e61da-1a61-45bb-855e-adf15e903cc1")
+			(uuid "cf9b6e77-df86-44e9-9057-36140534712c")
 		)
 		(pad "1" thru_hole rect
 			(at -1.75006 0 180)
@@ -1167,7 +1178,7 @@
 			(uuid "f00e882f-95e2-46a3-9920-a04b506821f8")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE020104--3DModel-STEP-56544.STEP"
+		(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE020104.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -1335,7 +1346,7 @@
 		(path "/00ef96a7-89d9-4944-8c5c-4e75f5ee89f7")
 		(sheetname "/")
 		(sheetfile "basic_dio_breakout.kicad_sch")
-		(attr through_hole dnp)
+		(attr through_hole exclude_from_bom dnp)
 		(fp_line
 			(start 4.064 3.429)
 			(end 4.064 -3.429)
@@ -1344,7 +1355,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "0b77b9cc-d9eb-4105-897f-011404247c5c")
+			(uuid "da865108-dcd7-4c5f-8918-9c9da4e5fd70")
 		)
 		(fp_line
 			(start 4.064 -3.429)
@@ -1354,7 +1365,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "e847c2ab-7803-4034-b56f-65d9cdee884e")
+			(uuid "01dc829d-c02a-45e2-ac34-3e5fe26b5789")
 		)
 		(fp_line
 			(start -4.064 3.429)
@@ -1364,7 +1375,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "ce91a3b6-3446-4ccd-8e2b-8ed2a106321a")
+			(uuid "02969115-7fdf-4b48-993e-4627f6edd0c9")
 		)
 		(fp_line
 			(start -4.064 -3.429)
@@ -1374,7 +1385,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "a0ab059c-34be-4420-a63e-7cce98635f9f")
+			(uuid "d1cb25ac-1010-4175-bd63-ea8351843baa")
 		)
 		(pad "1" thru_hole rect
 			(at -1.75006 0 180)
@@ -1399,7 +1410,7 @@
 			(uuid "45da9e75-593e-4003-b7d8-8a9a33322ab0")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE020104--3DModel-STEP-56544.STEP"
+		(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE020104.step"
 			(offset
 				(xyz 0 0 0)
 			)

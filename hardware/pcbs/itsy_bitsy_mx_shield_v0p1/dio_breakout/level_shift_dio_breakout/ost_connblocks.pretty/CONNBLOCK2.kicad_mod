@@ -108,7 +108,7 @@
 		(uuid "cb5aade8-a346-4f9a-919a-e9cffbca23f7")
 	)
 	(embedded_fonts no)
-	(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE020104--3DModel-STEP-56544.STEP"
+	(model "${KIPRJMOD}/ost_connblocks.pretty/OSTTE020104.step"
 		(offset
 			(xyz 0 0 0)
 		)
