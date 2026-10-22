@@ -1,0 +1,24 @@
+
++/- 12mA range:
+----------------
+    
+    R8 -> 50 Ohm, Digikey P49.9DACT-ND
+
+    Works great over full range
+
+
++/- 40mA range:
+----------------
+
+    Not used - only works from -20mA to +20mA
+
+    R7 -> 15 Ohm, Digikey A103157CT-ND
+    
+    OK between about -20mA and 20mA.  Fails outside of this range.  Issues
+    seems to be with transimpedance amplifier - unable to source/sink enough
+    current.
+
++/- 24mA  range:
+-----------------
+
+    R7 -> 24 Ohm,  2x 50 Ohm Digikey P49.9DACT-ND in parallel.

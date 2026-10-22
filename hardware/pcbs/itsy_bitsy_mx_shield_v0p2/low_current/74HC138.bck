@@ -1,0 +1,21 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 74HC138
+D 3-to-8 line decoder/demultiplexer; inverting, DIP-16/SOIC-16/SSOP-16
+K demux
+F http://www.ti.com/lit/ds/symlink/cd74hc238.pdf
+$ENDCMP
+#
+$CMP 74HCT137
+D 3-to-8 line decoder/multiplexer with address latches, DIP-16/SOIC-16/SSOP-16
+K demux
+F http://www.ti.com/lit/ds/symlink/cd74hc237.pdf
+$ENDCMP
+#
+$CMP 74HCT138
+D 3-to-8 line decoder/multiplexer with address latches, DIP-16/SOIC-16/SSOP-16
+K demux
+F http://www.ti.com/lit/ds/symlink/cd74hc238.pdf
+$ENDCMP
+#
+#End Doc Library

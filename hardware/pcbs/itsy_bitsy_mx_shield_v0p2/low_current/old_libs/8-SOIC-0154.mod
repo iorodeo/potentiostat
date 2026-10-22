@@ -1,0 +1,77 @@
+PCBNEW-LibModule-V1  Tue 15 Nov 2016 06:13:38 PM PST
+# encoding utf-8
+Units mm
+$INDEX
+8-SOIC-0154
+$EndINDEX
+$MODULE 8-SOIC-0154
+Po 0 0 0 15 582BC004 00000000 ~~
+Li 8-SOIC-0154
+Sc 0
+AR 
+Op 0 0 0
+T0 -3.8 0 1 1 900 0.15 N V 21 N "8-SOIC-0154"
+T1 3.9 0 1 1 900 0.15 N V 21 N "VAL**"
+DC -1.9 0.9 -1.5 1.2 0.2 21
+DS -2.75 -1.75 -2.75 1.75 0.2 21
+DS -2.75 1.75 2.75 1.75 0.2 21
+DS 2.75 1.75 2.75 -1.75 0.2 21
+DS 2.75 -1.75 -2.75 -1.75 0.2 21
+$PAD
+Sh "1" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -1.905 2.7
+$EndPAD
+$PAD
+Sh "2" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -0.635 2.7
+$EndPAD
+$PAD
+Sh "3" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 0.635 2.7
+$EndPAD
+$PAD
+Sh "4" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 1.905 2.7
+$EndPAD
+$PAD
+Sh "5" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 1.905 -2.7
+$EndPAD
+$PAD
+Sh "6" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 0.635 -2.7
+$EndPAD
+$PAD
+Sh "7" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -0.635 -2.7
+$EndPAD
+$PAD
+Sh "8" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -1.905 -2.7
+$EndPAD
+$EndMODULE 8-SOIC-0154
+$EndLIBRARY
