@@ -4944,17 +4944,6 @@
 		)
 		(uuid "9006d51d-4f78-44e8-8c8c-a2812f7597c7")
 	)
-	(text "Change Notes:\n------------------------\n\n1. (Done) Change R4 from 100k to 20k\n2. (Done) Change R6 from 20k to 10k \n3. (Done) Remove Reference voltage U10 and C1.  Only need 3.3V reference now. \n4. (Done) Change all instances of REF_1V65 to REF_1V65\n5. (Done) Change R5 and R3 to 20k and also Change R1 and R2 to 33k\n6. (Done) Replace R27 with 5K and R29 with 33k\n7. (Done) Replace R26 and R28 with 33k\n8. (Done) Replace R33, R34, R36  with 10k resistors\n\n-----------------------------------------------------------------------------\nExplaination\nItems 1,2 and 3 change reference voltages to +/- 1.65V\nItem 5 modifies amplifier so [0V, 3.3V]  is scaled and shifted to [-1V, 1V]\nItem 6 Changes gain of post transimpedace amplifier stage to 6.6 so that is scale [-0.25V, 0.25V] to [-1.65V, 1.65V]\nItem 7 modifies summing amplifier so that it maps [-1V, 1V] to [-1.65V, 1.65V]\nItem 8 doesn't change anything .. just reduces number of resistor types used. \n\n\n"
-		(exclude_from_sim no)
-		(at 17.145 -3.175 0)
-		(effects
-			(font
-				(size 6.35 6.35)
-			)
-			(justify left bottom)
-		)
-		(uuid "93844ec4-a1fb-4601-ba53-d0a24fa7583e")
-	)
 	(text "switch decoupling "
 		(exclude_from_sim no)
 		(at 633.73 277.495 0)
@@ -5467,12 +5456,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5c7f6870-9a02-46fa-835c-4c77dbf1dcd6")
-	)
-	(junction
-		(at 162.56 71.12)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "621b0471-9cd4-4ef3-ba78-d0a645cf25e9")
 	)
 	(junction
 		(at 327.66 96.52)
@@ -6300,16 +6283,6 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 69.85) (xy 162.56 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0e7dcec6-bc3e-4bdd-a595-f8893e2bea70")
-	)
-	(wire
-		(pts
 			(xy 389.89 55.88) (xy 406.4 55.88)
 		)
 		(stroke
@@ -6917,16 +6890,6 @@
 			(type default)
 		)
 		(uuid "26ca3ae6-ef36-4a3f-8d49-f45670533766")
-	)
-	(wire
-		(pts
-			(xy 165.1 69.85) (xy 162.56 69.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "26d498f3-4634-4165-82f0-c4f3f9467328")
 	)
 	(wire
 		(pts
@@ -9050,16 +9013,6 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 71.12) (xy 162.56 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7a677b1e-67a2-4d87-9719-620565f4ac0b")
-	)
-	(wire
-		(pts
 			(xy 458.47 229.87) (xy 458.47 236.22)
 		)
 		(stroke
@@ -10910,16 +10863,6 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 71.12) (xy 156.21 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bd87c3c8-5fb3-471c-9f1b-6cd3256c9b64")
-	)
-	(wire
-		(pts
 			(xy 427.99 119.38) (xy 430.53 119.38)
 		)
 		(stroke
@@ -11347,16 +11290,6 @@
 			(type default)
 		)
 		(uuid "cc42c899-d2e9-4220-8eae-216099302054")
-	)
-	(wire
-		(pts
-			(xy 162.56 72.39) (xy 165.1 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cc51cc95-57c1-4596-ab6c-8967396ba684")
 	)
 	(wire
 		(pts
@@ -12707,6 +12640,16 @@
 			(justify right bottom)
 		)
 		(uuid "0d93c8ac-acfc-405b-be17-3cf4010d125f")
+	)
+	(label "+VIN"
+		(at 320.04 393.7 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0f87e656-c624-4bbe-be04-1d2fc44cc757")
 	)
 	(label "-15V"
 		(at 464.82 326.39 90)
@@ -15067,16 +15010,6 @@
 			(justify right bottom)
 		)
 		(uuid "dd37e393-9e4f-4886-aed3-0eb4c804d8cc")
-	)
-	(label "GND"
-		(at 156.21 71.12 180)
-		(effects
-			(font
-				(size 1.524 1.524)
-			)
-			(justify right bottom)
-		)
-		(uuid "df952608-0e53-40b7-9606-c3ad773e1656")
 	)
 	(label "GND"
 		(at 215.9 146.05 270)
@@ -27701,86 +27634,6 @@
 			(project "potentiostat"
 				(path "/bfb7c0ca-bbb5-4092-ac8b-3abd49190e1e"
 					(reference "R29")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x02")
-		(at 170.18 69.85 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-000065a7d907")
-		(property "Reference" "P4"
-			(at 172.212 70.0532 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Conn_01x02"
-			(at 172.212 72.3646 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "pin_array:PIN_ARRAY_2X1"
-			(at 170.18 69.85 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 170.18 69.85 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 170.18 69.85 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "af2dcdc1-d587-421c-b4b0-83a0b5742692")
-		)
-		(pin "2"
-			(uuid "2843dc94-0488-4dc4-8c48-a5ada2d92585")
-		)
-		(instances
-			(project "potentiostat"
-				(path "/bfb7c0ca-bbb5-4092-ac8b-3abd49190e1e"
-					(reference "P4")
 					(unit 1)
 				)
 			)
