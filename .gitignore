@@ -12,6 +12,7 @@ data.txt
 data.pkl
 __pycache__
 *-backups
+logs
 backups
 software/python/potentiostat/build
 software/python/potentiostat/dist
