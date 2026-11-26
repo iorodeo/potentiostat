@@ -1,0 +1,28 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# header_14_pos
+#
+DEF header_14_pos U 0 40 Y Y 1 F N
+F0 "U" 0 -75 50 H V C CNN
+F1 "header_14_pos" 0 75 50 H V C CNN
+F2 "" 0 -75 50 H I C CNN
+F3 "" 0 -75 50 H I C CNN
+DRAW
+S -275 25 275 -25 0 1 0 N
+ENDDRAW
+ENDDEF
+#
+# header_5_pos
+#
+DEF header_5_pos U 0 40 Y Y 1 F N
+F0 "U" 0 -75 50 H V C CNN
+F1 "header_5_pos" 0 75 50 H V C CNN
+F2 "" 0 -75 50 H I C CNN
+F3 "" 0 -75 50 H I C CNN
+DRAW
+S -250 25 250 -25 0 1 0 N
+ENDDRAW
+ENDDEF
+#
+#End Library

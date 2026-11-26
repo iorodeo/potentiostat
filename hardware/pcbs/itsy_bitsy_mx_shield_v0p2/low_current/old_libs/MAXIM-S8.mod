@@ -1,0 +1,77 @@
+PCBNEW-LibModule-V1  Tue 05 Apr 2016 08:29:19 AM PDT
+# encoding utf-8
+Units mm
+$INDEX
+MAXIM-S8
+$EndINDEX
+$MODULE MAXIM-S8
+Po 0 0 0 15 5703D9C3 00000000 ~~
+Li MAXIM-S8
+Sc 0
+AR 
+Op 0 0 0
+T0 0 -4.5 1 1 0 0.15 N V 21 N "MAXIM-S8"
+T1 0 5 1 1 0 0.15 N V 21 N "VAL**"
+DC -1.9 0.5 -1.6 0.7 0.15 21
+DS -2.5 -1.25 -2.5 1.25 0.2 21
+DS -2.5 1.25 2.5 1.25 0.2 21
+DS 2.5 1.25 2.5 -1.25 0.2 21
+DS 2.5 -1.25 -2.5 -1.25 0.2 21
+$PAD
+Sh "1" R 0.53 1.98 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -1.905 2.465
+$EndPAD
+$PAD
+Sh "2" R 0.53 1.98 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -0.635 2.465
+$EndPAD
+$PAD
+Sh "3" R 0.53 1.98 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 0.635 2.465
+$EndPAD
+$PAD
+Sh "4" R 0.53 1.98 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 1.905 2.465
+$EndPAD
+$PAD
+Sh "5" R 0.53 1.98 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 1.905 -2.465
+$EndPAD
+$PAD
+Sh "6" R 0.53 1.98 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 0.635 -2.465
+$EndPAD
+$PAD
+Sh "7" R 0.53 1.98 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -0.635 -2.465
+$EndPAD
+$PAD
+Sh "8" R 0.53 1.98 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -1.905 -2.465
+$EndPAD
+$EndMODULE MAXIM-S8
+$EndLIBRARY

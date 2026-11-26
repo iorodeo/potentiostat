@@ -1,0 +1,23 @@
+PCBNEW-LibModule-V1  Tue 28 Apr 2015 12:17:36 AM PDT
+# encoding utf-8
+Units mm
+$INDEX
+4-40
+$EndINDEX
+$MODULE 4-40
+Po 0 0 0 15 553F33C9 00000000 ~~
+Li 4-40
+Sc 0
+AR 
+Op 0 0 0
+T0 0 -3.1 1 1 0 0.15 N I 21 N "4-40"
+T1 0 3.4 1 1 0 0.15 N I 21 N "VAL**"
+$PAD
+Sh "" C 3.81 3.81 0 0 0
+Dr 2.9464 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 0
+$EndPAD
+$EndMODULE 4-40
+$EndLIBRARY

@@ -1,0 +1,133 @@
+PCBNEW-LibModule-V1  Tue 15 Nov 2016 06:32:48 PM PST
+# encoding utf-8
+Units mm
+$INDEX
+16-SOIC-0154
+$EndINDEX
+$MODULE 16-SOIC-0154
+Po 0 0 0 15 582BC52F 00000000 ~~
+Li 16-SOIC-0154
+Sc 0
+AR 
+Op 0 0 0
+T0 -6.3627 0.0381 1 1 900 0.15 N V 21 N "16-SOIC-0154"
+T1 6.4643 -0.1397 1 1 900 0.15 N V 21 N "VAL**"
+DS -5.4991 1.778 5.5118 1.778 0.15 21
+DS -5.4991 -1.778 5.5118 -1.778 0.15 21
+DC -4.567 0.9 -4.167 1.2 0.2 21
+DS -5.5 -1.75 -5.5 1.75 0.2 21
+DS 5.5 1.75 5.5 -1.75 0.2 21
+$PAD
+Sh "1" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -4.445 2.7
+$EndPAD
+$PAD
+Sh "2" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -3.175 2.7
+$EndPAD
+$PAD
+Sh "3" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -1.905 2.7
+$EndPAD
+$PAD
+Sh "4" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -0.635 2.7
+$EndPAD
+$PAD
+Sh "13" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -0.635 -2.7
+$EndPAD
+$PAD
+Sh "14" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -1.905 -2.7
+$EndPAD
+$PAD
+Sh "15" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -3.175 -2.7
+$EndPAD
+$PAD
+Sh "16" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -4.445 -2.7
+$EndPAD
+$PAD
+Sh "5" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 0.635 2.7
+$EndPAD
+$PAD
+Sh "6" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 1.905 2.7
+$EndPAD
+$PAD
+Sh "7" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 3.175 2.7
+$EndPAD
+$PAD
+Sh "8" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 4.445 2.7
+$EndPAD
+$PAD
+Sh "11" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 1.905 -2.7
+$EndPAD
+$PAD
+Sh "10" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 3.175 -2.7
+$EndPAD
+$PAD
+Sh "9" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 4.445 -2.7
+$EndPAD
+$PAD
+Sh "12" R 0.6 1.55 0 0 0
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 0.635 -2.7
+$EndPAD
+$EndMODULE 16-SOIC-0154
+$EndLIBRARY
