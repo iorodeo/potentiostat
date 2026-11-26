@@ -213,6 +213,19 @@
 				)
 			)
 		)
+		(property "FT Rotation Offset" "180"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "5c8e066a-1d67-4bcb-8bc5-0e74774bab32")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/00000000-0000-0000-0000-000060aef633")
 		(sheetname "/")
@@ -3091,7 +3104,7 @@
 				)
 			)
 		)
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(duplicate_pad_numbers_are_jumpers no)
 		(pad "" thru_hole circle
 			(at 0 0)
@@ -3153,7 +3166,7 @@
 				)
 			)
 		)
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(duplicate_pad_numbers_are_jumpers no)
 		(pad "" thru_hole circle
 			(at 0 0)
@@ -3215,7 +3228,7 @@
 				)
 			)
 		)
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(duplicate_pad_numbers_are_jumpers no)
 		(pad "" thru_hole circle
 			(at 0 0)
@@ -3277,7 +3290,7 @@
 				)
 			)
 		)
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(duplicate_pad_numbers_are_jumpers no)
 		(pad "" thru_hole circle
 			(at 0 0)
@@ -7650,7 +7663,7 @@
 				)
 			)
 		)
-		(property "Value" "56nF"
+		(property "Value" "68nF"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "a5926373-9abb-4870-b18d-a3bc8e155108")
@@ -7867,7 +7880,7 @@
 				)
 			)
 		)
-		(property "Value" "56nF"
+		(property "Value" "68nF"
 			(at 0 1.43 90)
 			(layer "F.Fab")
 			(uuid "0149c85c-e24b-48c2-84ee-d3e591810b0f")
@@ -8084,7 +8097,7 @@
 				)
 			)
 		)
-		(property "Value" "56nF"
+		(property "Value" "68nF"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "6bf01be7-7339-4b30-b53d-3f47a9224eae")
@@ -8301,7 +8314,7 @@
 				)
 			)
 		)
-		(property "Value" "56nF"
+		(property "Value" "68nF"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "1e0a6133-8af4-4f35-b668-3a3b69a188ef")
@@ -13338,6 +13351,19 @@
 				)
 			)
 		)
+		(property "FT Rotation Offset" "90"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "3aab1b76-4a2d-4c06-9db4-37e49614ccd9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/00000000-0000-0000-0000-000060f4b60b")
 		(sheetname "/")
 		(sheetfile "potentiostat.kicad_sch")
@@ -13587,6 +13613,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "3b7efeb0-38ce-461c-aff2-8430cd2e0fc3")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "FT Rotation Offset" "90"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "270bdf68-aa9c-4de8-ad7d-8a3a9171fe65")
 			(effects
 				(font
 					(size 1 1)
@@ -22193,7 +22232,7 @@
 			)
 		)
 		(property ki_fp_filters "SOIC*3.9x9.9mm*P1.27mm*")
-		(path "/00000000-0000-0000-0000-000060cb6a1b")
+		(path "/00000000-0000-0000-0000-000060cb7e20")
 		(sheetname "/")
 		(sheetfile "potentiostat.kicad_sch")
 		(units
@@ -22586,7 +22625,7 @@
 			)
 		)
 		(property ki_fp_filters "SOIC*3.9x9.9mm*P1.27mm*")
-		(path "/00000000-0000-0000-0000-0000673f02f3")
+		(path "/00000000-0000-0000-0000-0000673f1894")
 		(sheetname "/")
 		(sheetfile "potentiostat.kicad_sch")
 		(units
@@ -23765,7 +23804,7 @@
 			)
 		)
 		(property ki_fp_filters "SOIC*3.9x9.9mm*P1.27mm*")
-		(path "/00000000-0000-0000-0000-0000603d8eb8")
+		(path "/00000000-0000-0000-0000-0000603d8ecc")
 		(sheetname "/")
 		(sheetfile "potentiostat.kicad_sch")
 		(units
@@ -24158,7 +24197,7 @@
 			)
 		)
 		(property ki_fp_filters "SOIC*3.9x4.9mm*P1.27mm* DIP*W7.62mm* TO*99* OnSemi*Micro8* TSSOP*3x3mm*P0.65mm* TSSOP*4.4x3mm*P0.65mm* MSOP*3x3mm*P0.65mm* SSOP*3.9x4.9mm*P0.635mm* LFCSP*2x2mm*P0.5mm* *SIP* SOIC*5.3x6.2mm*P1.27mm*")
-		(path "/00000000-0000-0000-0000-000060234c0c")
+		(path "/00000000-0000-0000-0000-00006023185b")
 		(sheetname "/")
 		(sheetfile "potentiostat.kicad_sch")
 		(units
@@ -24459,7 +24498,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C7433"
+		(property "LCSC Part" " C7433"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -24767,7 +24806,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" ""
+		(property "LCSC Part" " C7433"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -25075,7 +25114,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C7433"
+		(property "LCSC Part" " C7433"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -25383,7 +25422,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" ""
+		(property "LCSC Part" " C7433"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -25691,7 +25730,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C7433"
+		(property "LCSC Part" " C7433"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -25999,7 +26038,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C7433"
+		(property "LCSC Part" " C7433"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -26307,7 +26346,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C7433"
+		(property "LCSC Part" " C7433"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -26615,7 +26654,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C7433"
+		(property "LCSC Part" " C7433"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -27314,7 +27353,7 @@
 				)
 			)
 		)
-		(property "LCSC Part" "C7433"
+		(property "LCSC Part" " C7433"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -29129,6 +29168,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" "C5842333"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2167c0d2-2fdb-46ad-9789-6ce801275fca")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/00000000-0000-0000-0000-0000573678c5")
 		(sheetname "/")
 		(sheetfile "potentiostat.kicad_sch")
@@ -29359,6 +29411,19 @@
 				)
 			)
 		)
+		(property "FT Rotation Offset" "180"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "4b512d33-0270-42dd-8521-69de499296a1")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/00000000-0000-0000-0000-0000602750a0")
 		(sheetname "/")
@@ -29490,6 +29555,19 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0c461c01-8242-4096-a22e-115c7efe466d")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "FT Rotation Offset" "180"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "0c053ef0-eceb-46f2-ab14-1b59473a0f65")
 			(effects
 				(font
 					(size 1 1)
@@ -29635,6 +29713,19 @@
 				)
 			)
 		)
+		(property "FT Rotation Offset" "180"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "93af5068-845c-40be-8ea8-9930fdafb978")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/00000000-0000-0000-0000-00006027a208")
 		(sheetname "/")
@@ -29757,6 +29848,19 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part" "C2897377"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f348c0c2-57e7-41b0-aaa3-b3fa772e1198")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -29976,6 +30080,19 @@
 				)
 			)
 		)
+		(property "LCSC Part" "C2897377"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "1470add1-99ee-4e5b-9b44-be5101c29ed9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/00000000-0000-0000-0000-000066c1e55b")
 		(sheetname "/")
 		(sheetfile "potentiostat.kicad_sch")
@@ -30189,6 +30306,19 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part" "C50950"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d4a41de5-aa4c-44b6-96f3-26f2525f0f22")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -31629,6 +31759,17 @@
 				(xyz 0 0 0)
 			)
 		)
+	)
+	(gr_rect
+		(start 52.74 119.54)
+		(end 60.74 127.54)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill yes)
+		(layer "B.SilkS")
+		(uuid "121cfce4-29d9-459e-b7cb-832804204b1a")
 	)
 	(gr_line
 		(start 51.3 77.95)
@@ -39957,70 +40098,6 @@
 		(uuid "f916c4b2-c470-4142-b64c-0ddba1696cf4")
 	)
 	(segment
-		(start 62.68 60.04)
-		(end 64.24 60.04)
-		(width 0.4)
-		(layer "F.Cu")
-		(net "/+VIN")
-		(uuid "44cefd4e-fc4d-4157-b80b-ed00357a8ab1")
-	)
-	(segment
-		(start 64.26 60.23)
-		(end 64.29 60.26)
-		(width 0.4)
-		(layer "F.Cu")
-		(net "/+VIN")
-		(uuid "b048b344-68b5-45b3-89e6-4e1712b633a8")
-	)
-	(segment
-		(start 64.008 56.418)
-		(end 64.008 54.102)
-		(width 0.6)
-		(layer "F.Cu")
-		(net "/+VIN")
-		(uuid "bd72b9d6-766d-4ae6-a89c-5e30d354dca6")
-	)
-	(segment
-		(start 64.29 63.1225)
-		(end 64.29 60.26)
-		(width 0.6)
-		(layer "F.Cu")
-		(net "/+VIN")
-		(uuid "be5760c3-ee41-4652-8bb9-34a21ec83b04")
-	)
-	(segment
-		(start 64.24 60.04)
-		(end 64.29 59.99)
-		(width 0.4)
-		(layer "F.Cu")
-		(net "/+VIN")
-		(uuid "c25d9741-f98f-49be-b31f-91c0c7816512")
-	)
-	(segment
-		(start 64.29 56.7)
-		(end 64.008 56.418)
-		(width 0.6)
-		(layer "F.Cu")
-		(net "/+VIN")
-		(uuid "cf896679-ac70-4b36-9c8b-70e3fba47a9e")
-	)
-	(segment
-		(start 64.29 59.99)
-		(end 64.29 56.7)
-		(width 0.6)
-		(layer "F.Cu")
-		(net "/+VIN")
-		(uuid "e5a5b45f-3a6a-416f-a122-ed037528c160")
-	)
-	(segment
-		(start 64.29 60.26)
-		(end 64.29 59.99)
-		(width 0.6)
-		(layer "F.Cu")
-		(net "/+VIN")
-		(uuid "e88f8563-6957-4692-9f37-df46c0346309")
-	)
-	(segment
 		(start 145.732 117.221)
 		(end 148.274 117.221)
 		(width 0.25)
@@ -44059,6 +44136,70 @@
 		(layer "B.Cu")
 		(net "/TIA_GAIN_A1")
 		(uuid "f50ccd56-3e9c-4cfb-98ca-218f0345d079")
+	)
+	(segment
+		(start 62.68 60.04)
+		(end 64.24 60.04)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/+VIN")
+		(uuid "44cefd4e-fc4d-4157-b80b-ed00357a8ab1")
+	)
+	(segment
+		(start 64.26 60.23)
+		(end 64.29 60.26)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/+VIN")
+		(uuid "b048b344-68b5-45b3-89e6-4e1712b633a8")
+	)
+	(segment
+		(start 64.008 56.418)
+		(end 64.008 54.102)
+		(width 0.6)
+		(layer "F.Cu")
+		(net "/+VIN")
+		(uuid "bd72b9d6-766d-4ae6-a89c-5e30d354dca6")
+	)
+	(segment
+		(start 64.29 63.1225)
+		(end 64.29 60.26)
+		(width 0.6)
+		(layer "F.Cu")
+		(net "/+VIN")
+		(uuid "be5760c3-ee41-4652-8bb9-34a21ec83b04")
+	)
+	(segment
+		(start 64.24 60.04)
+		(end 64.29 59.99)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/+VIN")
+		(uuid "c25d9741-f98f-49be-b31f-91c0c7816512")
+	)
+	(segment
+		(start 64.29 56.7)
+		(end 64.008 56.418)
+		(width 0.6)
+		(layer "F.Cu")
+		(net "/+VIN")
+		(uuid "cf896679-ac70-4b36-9c8b-70e3fba47a9e")
+	)
+	(segment
+		(start 64.29 59.99)
+		(end 64.29 56.7)
+		(width 0.6)
+		(layer "F.Cu")
+		(net "/+VIN")
+		(uuid "e5a5b45f-3a6a-416f-a122-ed037528c160")
+	)
+	(segment
+		(start 64.29 60.26)
+		(end 64.29 59.99)
+		(width 0.6)
+		(layer "F.Cu")
+		(net "/+VIN")
+		(uuid "e88f8563-6957-4692-9f37-df46c0346309")
 	)
 	(zone
 		(net "/GND")

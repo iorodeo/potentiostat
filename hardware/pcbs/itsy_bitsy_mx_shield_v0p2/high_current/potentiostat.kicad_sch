@@ -4549,6 +4549,121 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "power:PWR_FLAG"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#FLG"
+				(at 0 1.905 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "PWR_FLAG"
+				(at 0 3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Special symbol for telling ERC where power comes from"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "flag power"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_0_0"
+				(pin power_out line
+					(at 0 0 90)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(text "Reference electrode test points"
 		(exclude_from_sim no)
@@ -5698,6 +5813,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ebd84fe8-79ce-4235-9d3b-f4fb36628b13")
+	)
+	(junction
+		(at 320.04 393.7)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "eee502a2-2c6a-4328-b480-7f43552033af")
 	)
 	(junction
 		(at 439.42 411.48)
@@ -8576,6 +8697,16 @@
 			(type default)
 		)
 		(uuid "6b467709-f683-472c-a12b-bcfa75b36488")
+	)
+	(wire
+		(pts
+			(xy 320.04 392.43) (xy 320.04 393.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6b51e1c2-b5f7-4a43-a054-ad20220963f9")
 	)
 	(wire
 		(pts
@@ -12578,7 +12709,7 @@
 		(uuid "0d93c8ac-acfc-405b-be17-3cf4010d125f")
 	)
 	(label "+VIN"
-		(at 320.04 393.7 0)
+		(at 321.31 393.7 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15349,6 +15480,17 @@
 				)
 			)
 		)
+		(property "LCSC Part" "C5842333"
+			(at 307.34 414.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "130160bd-fa91-4fac-8bcc-367da672d52b")
 		)
@@ -16521,6 +16663,17 @@
 				)
 			)
 		)
+		(property "FT Rotation Offset" "180"
+			(at 214.63 341.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "6996c353-be90-434d-9c7f-15560b8742fb")
 		)
@@ -16612,6 +16765,17 @@
 				)
 			)
 		)
+		(property "FT Rotation Offset" "180"
+			(at 214.63 365.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "6176e4b7-eb04-4238-90b3-7c5344bc702c")
 		)
@@ -16693,6 +16857,17 @@
 			)
 		)
 		(property "LCSC Part" "C5704759"
+			(at 214.63 391.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FT Rotation Offset" "180"
 			(at 214.63 391.16 0)
 			(hide yes)
 			(show_name no)
@@ -19610,6 +19785,17 @@
 				)
 			)
 		)
+		(property "FT Rotation Offset" "180"
+			(at 214.63 415.29 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "a64cc807-9f73-40a0-9843-ac0fb551d3f8")
 		)
@@ -21293,6 +21479,17 @@
 			)
 		)
 		(property "LCSC Part" "C7502687"
+			(at 508 326.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FT Rotation Offset" "90"
 			(at 508 326.39 0)
 			(hide yes)
 			(show_name no)
@@ -24997,7 +25194,7 @@
 				)
 			)
 		)
-		(property "Value" "56nF"
+		(property "Value" "68nF"
 			(at 339.09 31.75 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -25456,7 +25653,7 @@
 				)
 			)
 		)
-		(property "Value" "56nF"
+		(property "Value" "68nF"
 			(at 340.36 116.84 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -25634,7 +25831,7 @@
 				)
 			)
 		)
-		(property "Value" "56nF"
+		(property "Value" "68nF"
 			(at 339.09 60.96 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -25922,7 +26119,7 @@
 				)
 			)
 		)
-		(property "Value" "56nF"
+		(property "Value" "68nF"
 			(at 339.09 90.17 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -28048,6 +28245,17 @@
 			)
 		)
 		(property "LCSC Part" "C7502687"
+			(at 598.17 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FT Rotation Offset" "90"
 			(at 598.17 134.62 0)
 			(hide yes)
 			(show_name no)
@@ -31072,6 +31280,84 @@
 			(project "potentiostat"
 				(path "/bfb7c0ca-bbb5-4092-ac8b-3abd49190e1e"
 					(reference "R40")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 320.04 392.43 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9849f34e-c9d5-4a4e-8d35-e640e2394413")
+		(property "Reference" "#FLG01"
+			(at 320.04 390.525 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 320.04 387.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 320.04 392.43 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 320.04 392.43 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 320.04 392.43 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "8462ba1b-baa8-4a81-bd49-827f93e02b20")
+		)
+		(instances
+			(project "potentiostat"
+				(path "/bfb7c0ca-bbb5-4092-ac8b-3abd49190e1e"
+					(reference "#FLG01")
 					(unit 1)
 				)
 			)
